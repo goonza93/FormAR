@@ -1,5 +1,0 @@
-com\ungs\formar\persistencia\ODB.class
-com\ungs\formar\persistencia\entidades\Usuario.class
-com\ungs\formar\persistencia\FactoryODB.class
-com\ungs\formar\persistencia\interfacesOBD\UsuarioODB.class
-com\ungs\formar\persistencia\mysqlOBD\UsuarioODBMySQL.class
