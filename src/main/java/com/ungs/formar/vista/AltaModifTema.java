@@ -33,6 +33,7 @@ public class AltaModifTema extends JFrame {
 
 	/**
 	 * Comentario de prueba
+	 * segundo coemntario de prueba
 	 */
 	public AltaModifTema() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
