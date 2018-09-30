@@ -92,10 +92,10 @@ public class SeleccionarSala extends JFrame {
 		comboFiltrar.setBounds(151, 9, 178, 20);
 		contentPane.add(comboFiltrar);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboBox.setBounds(151, 65, 178, 20);
-		contentPane.add(comboBox);
+		JComboBox comboOrdenarPor = new JComboBox();
+		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
+		comboOrdenarPor.setBounds(151, 65, 178, 20);
+		contentPane.add(comboOrdenarPor);
 		
 		JLabel lblOrdenarPor = new JLabel("ORDENAR POR:");
 		lblOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));

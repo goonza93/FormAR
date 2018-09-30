@@ -18,12 +18,12 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class SeleccionarInstructor extends JFrame {
+public class SeleccionarResponsable extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultTableModel modelTemas;
 	private  String[] nombreColumnas = {"Nombre", "Apellido", "DNI"};
-	private JTable tablaInstructores;
+	private JTable tablaAdministrativos;
 	private JTextField txtFiltro;
 
 	
@@ -34,7 +34,7 @@ public class SeleccionarInstructor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SeleccionarInstructor frame = new SeleccionarInstructor();
+					SeleccionarResponsable frame = new SeleccionarResponsable();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class SeleccionarInstructor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SeleccionarInstructor() {
+	public SeleccionarResponsable() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 518, 432);
 		contentPane = new JPanel();
@@ -54,19 +54,19 @@ public class SeleccionarInstructor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollPane spInstructores = new JScrollPane();
-		spInstructores.setBounds(10, 141, 482, 206);
-		contentPane.add(spInstructores);
+		JScrollPane spAdministrativos = new JScrollPane();
+		spAdministrativos.setBounds(10, 141, 482, 206);
+		contentPane.add(spAdministrativos);
 		
 		modelTemas = new DefaultTableModel(null,nombreColumnas);
-		tablaInstructores = new JTable(modelTemas);
-		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
+		tablaAdministrativos = new JTable(modelTemas);
+		tablaAdministrativos.setFont(new Font("Arial", Font.PLAIN, 12));
 		/*
 		tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
 		*/
 		
-		spInstructores.setViewportView(tablaInstructores);
+		spAdministrativos.setViewportView(tablaAdministrativos);
 		
 		JButton btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -113,10 +113,10 @@ public class SeleccionarInstructor extends JFrame {
 		lblOrdenarPor.setBounds(10, 68, 131, 14);
 		contentPane.add(lblOrdenarPor);
 		
-		JLabel lblInstructores = new JLabel("INSTRUCTORES");
-		lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblInstructores.setBounds(10, 106, 482, 14);
-		contentPane.add(lblInstructores);
+		JLabel lblAdministrativos = new JLabel("EMPLEADOS ADMINISTRATIVOS");
+		lblAdministrativos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAdministrativos.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblAdministrativos.setBounds(10, 106, 482, 14);
+		contentPane.add(lblAdministrativos);
 	}
 }
