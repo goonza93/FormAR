@@ -1,6 +1,5 @@
 package com.ungs.formar.test;
 
-import java.sql.Date;
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -24,7 +23,7 @@ public class CursoODBTest {
 	}
 	
 	public static void main(String[] args) {
-		Curso curso = new Curso(-1, 10, 40, 50, 1, 1, 1, "Matematicas", "nada", new Date(011111), new Date(011111));
+		Curso curso = new Curso(-1, 10, 40, 50, 1, 1, 1, "Crso definitivo de supervivencia", "nada", null, null);
 		insertTest(curso);
 		selectTest();
 	}

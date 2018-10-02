@@ -1,16 +1,13 @@
 package com.ungs.formar.persistencia.mysqlOBD;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
-import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 
 public class ProgramaODBMySQL extends ODB implements ProgramaODB{
@@ -36,7 +33,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 			while (resultados.next()) {
 				programas.add(new Programa(
 						resultados.getInt("programa_ID"),
-						resultados.getInt("area"),
+						resultados.getInt("area_ID"),
 						resultados.getString("nombre"),
 						resultados.getString("descripcion"),
 						resultados.getDate("fecha_aprobacion")
