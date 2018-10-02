@@ -25,27 +25,12 @@ public class SeleccionarResponsable extends JFrame {
 	private  String[] nombreColumnas = {"Nombre", "Apellido", "DNI"};
 	private JTable tablaAdministrativos;
 	private JTextField txtFiltro;
-
+	JComboBox<String> comboOrdenarPor;
+	JComboBox<String> comboFiltrar;
+	JButton btnCancelar;
+	JButton btnSeleccionar;
+	private JButton btnFiltrar;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionarResponsable frame = new SeleccionarResponsable();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SeleccionarResponsable() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 518, 432);
@@ -68,16 +53,12 @@ public class SeleccionarResponsable extends JFrame {
 		
 		spAdministrativos.setViewportView(tablaAdministrativos);
 		
-		JButton btnSeleccionar = new JButton("SELECCIONAR");
+		btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnSeleccionar.setBounds(10, 358, 199, 23);
 		contentPane.add(btnSeleccionar);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(293, 359, 199, 23);
 		contentPane.add(btnCancelar);
@@ -87,7 +68,7 @@ public class SeleccionarResponsable extends JFrame {
 		lblFiltrarPor.setBounds(10, 15, 131, 14);
 		contentPane.add(lblFiltrarPor);
 		
-		JComboBox comboFiltrar = new JComboBox();
+		comboFiltrar = new JComboBox<String>();
 		comboFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboFiltrar.setBounds(151, 9, 178, 20);
 		contentPane.add(comboFiltrar);
@@ -103,7 +84,7 @@ public class SeleccionarResponsable extends JFrame {
 		contentPane.add(txtFiltro);
 		txtFiltro.setColumns(10);
 		
-		JComboBox comboOrdenarPor = new JComboBox();
+		comboOrdenarPor = new JComboBox<String>();
 		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboOrdenarPor.setBounds(151, 65, 178, 20);
 		contentPane.add(comboOrdenarPor);
@@ -118,5 +99,34 @@ public class SeleccionarResponsable extends JFrame {
 		lblAdministrativos.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblAdministrativos.setBounds(10, 106, 482, 14);
 		contentPane.add(lblAdministrativos);
+		
+		btnFiltrar = new JButton("FILTRAR");
+		btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnFiltrar.setBounds(339, 64, 153, 23);
+		contentPane.add(btnFiltrar);
+	}
+
+	public JTextField getTxtFiltro() {
+		return txtFiltro;
+	}
+
+	public JComboBox<String> getComboOrdenarPor() {
+		return comboOrdenarPor;
+	}
+
+	public JComboBox<String> getComboFiltrar() {
+		return comboFiltrar;
+	}
+
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+
+	public JButton getBtnSeleccionar() {
+		return btnSeleccionar;
+	}
+	
+	public JButton getBtnFiltrar() {
+		return btnFiltrar;
 	}
 }
