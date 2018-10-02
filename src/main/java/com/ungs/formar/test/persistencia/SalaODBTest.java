@@ -1,4 +1,4 @@
-package com.ungs.formar.test;
+package com.ungs.formar.test.persistencia;
 
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
