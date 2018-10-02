@@ -1,0 +1,58 @@
+-- SI YA EXISTE LA BD, LA ELIMINO Y LA CREO DE NUEVO
+DROP DATABASE IF EXISTS formar;
+CREATE DATABASE formar;
+USE formar;
+
+
+-- ESQUEMA DE EMPLEADOS
+CREATE TABLE for_empleados (
+	empleado_ID int(11) AUTO_INCREMENT,
+	legajo int(11) NOT NULL,
+	nombre varchar(50) NOT NULL DEFAULT 'NOMBRE',
+	apellido varchar(50) NOT NULL DEFAULT 'APELLIDO',
+	telefono varchar(11) NOT NULL DEFAULT '1234-1234',
+	email varchar(50) NOT NULL DEFAULT 'SIN EMAIL',
+	fecha_ingreso DATE NOT NULL,
+	fecha_egreso DATE,
+	PRIMARY KEY (empleado_ID)
+);
+
+
+-- ESQUEMA DE PROGRAMAS
+CREATE TABLE for_programas (
+	programa_ID int(11) AUTO_INCREMENT,
+	area_ID int(11),
+	nombre varchar(50) DEFAULT NULL,
+	fecha_aprobacion date DEFAULT NULL,
+	descripcion varchar(50) DEFAULT NULL,
+	PRIMARY KEY (programa_ID)
+);
+
+
+-- ESQUEMA SALAS
+CREATE TABLE for_salas (
+	sala_ID int(11) AUTO_INCREMENT,
+	nombre varchar(50) DEFAULT NULL,
+	numero int(11) DEFAULT 1,
+	capacidad int(11) DEFAULT 1,
+	PRIMARY KEY (sala_ID)
+);
+
+
+-- ESQUEMA CURSOS
+CREATE TABLE for_cursos (
+	curso_ID int(11) AUTO_INCREMENT,
+	nombre varchar(50) DEFAULT NULL,
+	cupo_minimo int(3) DEFAULT 1,
+	cupo_maximo int(3) DEFAULT 1000,
+	fecha_inicio date DEFAULT NULL,
+	fecha_fin date DEFAULT NULL,
+	contenido_especifico varchar(50) DEFAULT NULL,
+	clases int(11) DEFAULT NULL,  
+	horas int(5) DEFAULT NULL,
+	instructor int(11) DEFAULT NULL,
+	responsable int(11) DEFAULT NULL,
+	sala int(11) DEFAULT NULL,
+	programa int(11) DEFAULT NULL,
+	PRIMARY KEY (curso_ID)
+);
