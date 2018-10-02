@@ -60,7 +60,6 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		} else if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnCancelar()) {
 			this.ventanaSeleccionarResponsable.dispose();
 			this.controladorCrearCurso.inicializar();
-			System.out.println("HOLA");
 		}
 		else if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnFiltrar()) {
 			
