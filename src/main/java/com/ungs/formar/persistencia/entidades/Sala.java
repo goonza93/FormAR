@@ -42,5 +42,5 @@ public class Sala {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
 }
