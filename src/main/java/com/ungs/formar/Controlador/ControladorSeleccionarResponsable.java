@@ -19,9 +19,6 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 			ControladorCrearCurso controladorCrearCurso) {
 		this.ventanaSeleccionarResponsable = ventanaSeleccionarResponsable;
 		this.controladorCrearCurso = controladorCrearCurso;
-		this.ventanaSeleccionarResponsable.getBtnCancelar().addActionListener(this);
-		this.ventanaSeleccionarResponsable.getBtnFiltrar().addActionListener(this);
-		this.ventanaSeleccionarResponsable.getBtnSeleccionar().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -55,14 +52,13 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnSeleccionar()) {
+		if (e.getSource() == ventanaSeleccionarResponsable.getBtnSeleccionar()) {
 
-		} else if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnCancelar()) {
+		} else if (e.getSource() == ventanaSeleccionarResponsable.getBtnCancelar()) {
 			this.ventanaSeleccionarResponsable.dispose();
 			this.controladorCrearCurso.inicializar();
-			System.out.println("HOLA");
 		}
-		else if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnFiltrar()) {
+		else if (e.getSource() == ventanaSeleccionarResponsable.getBtnFiltrar()) {
 			
 		}
 
