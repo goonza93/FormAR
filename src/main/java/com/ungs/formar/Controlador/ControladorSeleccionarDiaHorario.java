@@ -19,6 +19,10 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 			ControladorCrearCurso controladorCrearCurso) {
 		this.ventanaSeleccionarDiaHorario = ventanaSeleccionarDiaHorario;
 		this.controladorCrearCurso = controladorCrearCurso;
+		this.ventanaSeleccionarDiaHorario.getBtnAgregar().addActionListener(this);
+		this.ventanaSeleccionarDiaHorario.getBtnCancelar().addActionListener(this);
+		this.ventanaSeleccionarDiaHorario.getBtnFiltrar().addActionListener(this);
+		this.ventanaSeleccionarDiaHorario.getBtnSeleccionar().addActionListener(this);
 	}
 
 	public void inicializar() {
