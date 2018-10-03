@@ -114,4 +114,10 @@ public class SeleccionarSala extends JFrame {
 		return btnFiltrar;
 	}
 
+	public JTable getTablaSalas() {
+		return tablaSalas;
+	}
+
+	
+
 }

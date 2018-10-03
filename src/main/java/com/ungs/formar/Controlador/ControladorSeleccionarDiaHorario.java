@@ -76,20 +76,21 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 			this.controladorCrearCurso.inicializar();
 		} else if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnFiltrar()) {
 			if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() != 0) {
-				List<Horario> horario;
+				List<Horario> horario = null;
 				if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 1) {
-					// horario = obtenerHorarioPorDia LUNES;
+					// this.horarios_en_tabla = obtenerHorarioPorDia LUNES;
 				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 2) {
-					// horario = obtenerHorarioPorDia MARTES;
+					// this.horarios_en_tabla = obtenerHorarioPorDia MARTES;
 				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 3) {
-					// horario = obtenerHorarioPorDia MIERCOLES;
+					// this.horarios_en_tabla = obtenerHorarioPorDia MIERCOLES;
 				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 4) {
-					// horario = obtenerHorarioPorDia JUEVES;
+					// this.horarios_en_tabla = obtenerHorarioPorDia JUEVES;
 				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 5) {
-					// horario = obtenerHorarioPorDia VIERNES;
+					// this.horarios_en_tabla = obtenerHorarioPorDia VIERNES;
 				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 6) {
-					// horario = obtenerHorarioPorDia SABADO;
+					// this.horarios_en_tabla = obtenerHorarioPorDia SABADO;
 				}
+				
 			}
 			if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() != 0) {
 				if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() == 1) {
@@ -113,6 +114,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 					// Ordenar los Dias Horarios por hora Fin descendente
 
 				}
+				this.llenarTablaDiaHorario();
 			}
 		} else if (e.getSource() == ventanaSeleccionarDiaHorario.getBtnAgregar()) {
 			this.ventanaSeleccionarDiaHorario.setVisible(false);

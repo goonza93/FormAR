@@ -2,9 +2,9 @@ package com.ungs.formar.persistencia.entidades;
 
 public class Sala {
 	private int salaID;
-	private int numero;
+	private Integer numero;
 	private String nombre;
-	private int capacidad;
+	private Integer capacidad;
 	
 	public Sala(int salaID, int numero, String nombre, int capacidad) {
 		this.salaID = salaID;
@@ -21,7 +21,7 @@ public class Sala {
 		this.salaID = salaID;
 	}
 
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 
@@ -37,7 +37,7 @@ public class Sala {
 		this.nombre = nombre;
 	}
 
-	public int getCapacidad() {
+	public Integer getCapacidad() {
 		return capacidad;
 	}
 

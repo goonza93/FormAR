@@ -32,7 +32,7 @@ public class ControladorCrearCurso implements ActionListener {
 	private Empleado responsable;
 	private Sala sala;
 	private Programa programa;
-	private List<HorarioCursada> horariosCursada; 
+	private List<HorarioCursada> horariosCursada;
 
 	public ControladorCrearCurso(CrearCurso ventanaCrearCurso, ControladorGestionarCurso controladorGestionarCurso) {
 		this.ventanaCrearCurso = ventanaCrearCurso;
@@ -83,9 +83,9 @@ public class ControladorCrearCurso implements ActionListener {
 		}
 		return true;
 	}
-	
-	private void llenarTablaDiasHorarios(){
-		
+
+	private void llenarTablaDiasHorarios() {
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -109,7 +109,8 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
 			} else if (this.ventanaCrearCurso.getDateFechaFin().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de fin valida");
-			} else if (!clasesTotal.matches() || this.ventanaCrearCurso.getTxtCantidadTotalClases().getText().isEmpty()) {
+			} else if (!clasesTotal.matches()
+					|| this.ventanaCrearCurso.getTxtCantidadTotalClases().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de clases valida");
 			} else if (!horasTotal.matches() || this.ventanaCrearCurso.getTxtHorasTotalesClases().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
@@ -139,7 +140,8 @@ public class ControladorCrearCurso implements ActionListener {
 
 			} else if (!estaDisponibleInstructor()) {
 
-			} else if (Integer.parseInt(this.ventanaCrearCurso.getTxtCupoMaximo().getText()) > this.sala.getCapacidad()) {
+			} else if (Integer.parseInt(this.ventanaCrearCurso.getTxtCupoMaximo().getText()) > this.sala
+					.getCapacidad()) {
 				JOptionPane.showMessageDialog(null,
 						"La capacidad maxima establecida es mayor a la capacidad de la sala seleccionada");
 			}
@@ -173,10 +175,8 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarDiaHorario(this.ventanaSeleccionarDiaHorario, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
-			int[] filas_seleccionadas = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRows();
-			for (int fila : filas_seleccionadas) {
-				// this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
-			}
+			int filas_seleccionadas = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRow();
+			// this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
 			// this.llenarTablaDiasHorarios();
 		}
 	}
@@ -187,7 +187,8 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void setInstructor(Empleado instructor) {
 		this.instructor = instructor;
-		this.ventanaCrearCurso.getTxtInstructor().setText(this.instructor.getNombre() + " " + this.instructor.getApellido());
+		this.ventanaCrearCurso.getTxtInstructor()
+				.setText(this.instructor.getNombre() + " " + this.instructor.getApellido());
 	}
 
 	public Empleado getResponsable() {
@@ -196,7 +197,8 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void setResponsable(Empleado responsable) {
 		this.responsable = responsable;
-		this.ventanaCrearCurso.getTxtResponsable().setText(this.responsable.getNombre()+ " "+ this.responsable.getApellido());
+		this.ventanaCrearCurso.getTxtResponsable()
+				.setText(this.responsable.getNombre() + " " + this.responsable.getApellido());
 	}
 
 	public Sala getSala() {
@@ -225,6 +227,5 @@ public class ControladorCrearCurso implements ActionListener {
 		this.horariosCursada.add(horarioCursada);
 		llenarTablaDiasHorarios();
 	}
-	
-	
+
 }

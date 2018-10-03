@@ -130,4 +130,9 @@ public class SeleccionarInstructor extends JFrame {
 		return comboOrdenarPor;
 	}
 
+	public JTable getTablaInstructores() {
+		return tablaInstructores;
+	}
+
+	
 }

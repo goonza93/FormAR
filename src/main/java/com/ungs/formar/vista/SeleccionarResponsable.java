@@ -129,4 +129,10 @@ public class SeleccionarResponsable extends JFrame {
 	public JButton getBtnFiltrar() {
 		return btnFiltrar;
 	}
+
+	public JTable getTablaResponsables() {
+		return tablaAdministrativos;
+	}
+
+	
 }

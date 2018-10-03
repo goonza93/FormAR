@@ -130,4 +130,9 @@ public class SeleccionarPrograma extends JFrame {
 		return comboOrdenarPor;
 	}
 
+	public JTable getTablaProgramas() {
+		return tablaProgramas;
+	}
+
+	
 }
