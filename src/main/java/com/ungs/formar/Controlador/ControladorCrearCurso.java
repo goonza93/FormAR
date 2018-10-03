@@ -52,31 +52,27 @@ public class ControladorCrearCurso implements ActionListener {
 			Matcher clasesTotal = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCantidadTotalClases().getText());
 			Matcher horasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getTxtHorasTotalesClases().getText());
 
-			if (!cupoMinimo.find()) {
+			if (!cupoMinimo.find() || this.ventanaCrearCurso.getTxtCupoMinimo() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo minimo valido");
-			} else if (!cupoMaximo.find()) {
+			} else if (!cupoMaximo.find() || this.ventanaCrearCurso.getTxtCupoMaximo() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo maximo valido");
 			} else if (this.ventanaCrearCurso.getDateFechaInicio().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
 			} else if (this.ventanaCrearCurso.getDateFechaFin().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de fin valida");
-			} else if (!clasesTotal.find()) {
+			} else if (!clasesTotal.find() || this.ventanaCrearCurso.getTxtCantidadTotalClases() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de clases valida");
-			} else if (!horasTotal.find()) {
+			} else if (!horasTotal.find() || this.ventanaCrearCurso.getTxtHorasTotalesClases() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
 			} else if (this.ventanaCrearCurso.getInstructor() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un instructor");
-			}
-			else if (this.ventanaCrearCurso.getSala() == null){
+			} else if (this.ventanaCrearCurso.getSala() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione una sala");
-			}
-			else if (this.ventanaCrearCurso.getPrograma() == null){
+			} else if (this.ventanaCrearCurso.getPrograma() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
-			}
-			else if (this.ventanaCrearCurso.getResponsable() == null){
+			} else if (this.ventanaCrearCurso.getResponsable() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
-			}
-			else if (this.ventanaCrearCurso.getHorariosCursada().length == 0){
+			} else if (this.ventanaCrearCurso.getHorariosCursada().length == 0) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un horario de cursada");
 			}
 
