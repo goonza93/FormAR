@@ -15,6 +15,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.Controlador.ControladorCrearCurso;
+import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.persistencia.entidades.Sala;
 
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -50,7 +54,12 @@ public class CrearCurso extends JFrame {
 	private DefaultTableModel modelDiasHorarios;
 	private  String[] nombreColumnas = {"Dia", "Hora Inicio", "Hora Fin"};
 	private JButton btnBorrarDia;
-
+	private Empleado instructor;
+	private Empleado responsable;
+	private Sala sala;
+	private Programa programa;
+	private HorarioCursada[] horariosCursada; 
+	
 	public CrearCurso() {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -314,6 +323,50 @@ public class CrearCurso extends JFrame {
 
 	public JButton getBtnBorrarDia() {
 		return btnBorrarDia;
+	}
+
+	public JTable getTablaDiasHorarios() {
+		return tablaDiasHorarios;
+	}
+
+	public Empleado getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Empleado instructor) {
+		this.instructor = instructor;
+	}
+
+	public Empleado getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(Empleado responsable) {
+		this.responsable = responsable;
+	}
+
+	public Sala getSala() {
+		return sala;
+	}
+
+	public void setSala(Sala sala) {
+		this.sala = sala;
+	}
+
+	public Programa getPrograma() {
+		return programa;
+	}
+
+	public void setPrograma(Programa programa) {
+		this.programa = programa;
+	}
+
+	public HorarioCursada[] getHorariosCursada() {
+		return horariosCursada;
+	}
+
+	public void setHorariosCursada(HorarioCursada[] horariosCursada) {
+		this.horariosCursada = horariosCursada;
 	}
 	
 	

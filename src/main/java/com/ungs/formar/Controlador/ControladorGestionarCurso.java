@@ -26,6 +26,9 @@ public class ControladorGestionarCurso implements ActionListener{
 			this.ventanaGestionarCursos.show();
 		}
 
+		private void llenarTablaCursos(){
+			
+		}
 		
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == this.ventanaGestionarCursos.getBtnAgregar()){
@@ -34,16 +37,16 @@ public class ControladorGestionarCurso implements ActionListener{
 				this.ventanaGestionarCursos.ocultar();
 				new ControladorCrearCurso(this.ventanaCrearCurso, this);
 				}
-			/*else if(e.getSource() == this.vista.getBtnBorrar())
+			else if(e.getSource() == this.ventanaGestionarCursos.getBtnBorrar())
 			{
-				int[] filas_seleccionadas = this.vista.getTablaPersonas().getSelectedRows();
+				int[] filas_seleccionadas = this.ventanaGestionarCursos.getTablaCursos().getSelectedRows();
 				for (int fila:filas_seleccionadas)
 				{
-					this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
+					//this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
 				}				
-				this.llenarTablaPersonas();		
+				//this.llenarTablaCursos();		
 			}
-			else if(e.getSource() == this.ventanaGestionarCursos.getBtnEditar()){
+			/*else if(e.getSource() == this.ventanaGestionarCursos.getBtnEditar()){
 				
 			}*/
 		}

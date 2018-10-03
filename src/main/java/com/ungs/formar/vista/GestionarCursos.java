@@ -19,6 +19,7 @@ public class GestionarCursos {
 	private DefaultTableModel modelPersonas;
 	private String[] nombreColumnas = { "Nombre", "Apellido", "Telefono", "Email", "Cumpleaños", "Calle", "Altura",
 			"Piso", "Depto", "Localidad", "Tipo de contacto" };
+	private JTable tablaCursos;
 
 	public GestionarCursos() {
 		super();
@@ -36,6 +37,7 @@ public class GestionarCursos {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
+		tablaCursos = new JTable(modelPersonas);
 		modelPersonas = new DefaultTableModel(null, nombreColumnas);
 
 		btnAgregar = new JButton("Agregar");
@@ -89,4 +91,10 @@ public class GestionarCursos {
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
+
+	public JTable getTablaCursos() {
+		return tablaCursos;
+	}
+	
+	
 }
