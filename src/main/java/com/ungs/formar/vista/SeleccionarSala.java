@@ -7,12 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -43,7 +50,9 @@ public class SeleccionarSala extends JFrame {
 
 		modelTemas = new DefaultTableModel(null, nombreColumnas);
 		tablaSalas = new JTable(modelTemas);
-		tablaSalas.setAutoCreateRowSorter(true);
+		//tablaSalas.setAutoCreateRowSorter(true); al filtrar es mejor darselo.
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelTemas);
+	    tablaSalas.setRowSorter(sorter);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -81,6 +90,25 @@ public class SeleccionarSala extends JFrame {
 		txtFiltro.setColumns(10);
 		txtFiltro.setBounds(137, 9, 199, 20);
 		contentPane.add(txtFiltro);
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+        });
 	}
 
 	public JButton getBtnSeleccionar() {
