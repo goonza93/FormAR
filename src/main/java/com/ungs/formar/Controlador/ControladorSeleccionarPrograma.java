@@ -30,21 +30,11 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarPrograma.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarPrograma.getBtnSeleccionar().addActionListener(this);
-		this.ventanaSeleccionarPrograma.getBtnFiltrar().addActionListener(this);
-
 	}
 
 	public void inicializar() {
 		this.ventanaSeleccionarPrograma.setVisible(true);
-		llenarComboFiltrarPor();
 		llenarTablaInstructores();
-	}
-
-	private void llenarComboFiltrarPor() {
-		JComboBox<String> filtrarPor = this.ventanaSeleccionarPrograma.getComboFiltrar();
-		filtrarPor.addItem("Seleccionar");
-		filtrarPor.addItem("Nombre");
-		filtrarPor.addItem("Area de interes");
 	}
 
 	private void llenarTablaInstructores() {
@@ -61,20 +51,6 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 		} else if (e.getSource() == ventanaSeleccionarPrograma.getBtnCancelar()) {
 			this.ventanaSeleccionarPrograma.dispose();
 			this.controladorCrearCurso.inicializar();
-		} else if (e.getSource() == ventanaSeleccionarPrograma.getBtnFiltrar()) {
-			if (this.ventanaSeleccionarPrograma.getComboFiltrar().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarPrograma.getComboFiltrar().getSelectedIndex() == 1) {
-					// this.programas_en_tabla = obtener por nombre
-					// de lo ingresasdo en
-					// this.ventanaSeleccionarPrograma.getTxtFiltro().getText();
-				} else if (this.ventanaSeleccionarPrograma.getComboFiltrar().getSelectedIndex() == 2) {
-					// this.programas_en_tabla = obtener por nombre
-					// de lo ingresasdo en
-					// this.ventanaSeleccionarPrograma.getTxtFiltro().getText();
-				}
-				this.llenarTablaInstructores();
-			}
 		}
-
 	}
 }

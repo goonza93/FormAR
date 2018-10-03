@@ -27,9 +27,8 @@ public class SeleccionarDiaHorario extends JFrame {
 	private JLabel lblDiasHorarios;
 	private JButton btnAgregar;
 	private JButton btnSeleccionar;
-	private JButton btnFiltrar;
 	private JButton btnCancelar;
-	private JComboBox<String> comboDia;
+	private JTextField txtFiltro;
 
 	public SeleccionarDiaHorario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,15 +62,10 @@ public class SeleccionarDiaHorario extends JFrame {
 		btnCancelar.setBounds(358, 285, 134, 23);
 		contentPane.add(btnCancelar);
 
-		JLabel lblDia = new JLabel("DIA:");
+		JLabel lblDia = new JLabel("FILTRAR:");
 		lblDia.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblDia.setBounds(21, 11, 106, 14);
 		contentPane.add(lblDia);
-
-		comboDia = new JComboBox<String>();
-		comboDia.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboDia.setBounds(137, 9, 228, 20);
-		contentPane.add(comboDia);
 
 		lblDiasHorarios = new JLabel("DIAS Y HORARIOS:");
 		lblDiasHorarios.setHorizontalAlignment(SwingConstants.CENTER);
@@ -83,11 +77,12 @@ public class SeleccionarDiaHorario extends JFrame {
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAgregar.setBounds(183, 285, 143, 23);
 		contentPane.add(btnAgregar);
-
-		btnFiltrar = new JButton("FILTRAR");
-		btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnFiltrar.setBounds(375, 7, 117, 23);
-		contentPane.add(btnFiltrar);
+		
+		txtFiltro = new JTextField();
+		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFiltro.setColumns(10);
+		txtFiltro.setBounds(137, 8, 189, 20);
+		contentPane.add(txtFiltro);
 	}
 
 	public JButton getBtnAgregar() {
@@ -98,16 +93,12 @@ public class SeleccionarDiaHorario extends JFrame {
 		return btnSeleccionar;
 	}
 
-	public JButton getBtnFiltrar() {
-		return btnFiltrar;
+	public JTextField getTxtFiltrar() {
+		return txtFiltro;
 	}
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
-	}
-
-	public JComboBox<String> getComboDia() {
-		return comboDia;
 	}
 
 	public JTable getTablaDiasHorarios() {

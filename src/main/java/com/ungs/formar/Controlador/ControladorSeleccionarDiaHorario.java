@@ -28,7 +28,6 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 		this.ventanaSeleccionarDiaHorario = ventanaSeleccionarDiaHorario;
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarDiaHorario.getBtnAgregar().addActionListener(this);
-		this.ventanaSeleccionarDiaHorario.getBtnFiltrar().addActionListener(this);
 		this.ventanaSeleccionarDiaHorario.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarDiaHorario.getBtnSeleccionar().addActionListener(this);
 
@@ -36,20 +35,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 
 	public void inicializar() {
 		this.ventanaSeleccionarDiaHorario.setVisible(true);
-		llenarComboDia();
 		llenarTablaDiaHorario();
-	}
-
-
-	private void llenarComboDia() {
-		JComboBox<String> dia = this.ventanaSeleccionarDiaHorario.getComboDia();
-		dia.addItem("Seleccionar");
-		dia.addItem("Lunes");
-		dia.addItem("Martes");
-		dia.addItem("Miercoles");
-		dia.addItem("Jueves");
-		dia.addItem("Viernes");
-		dia.addItem("Sabado");
 	}
 
 	private void llenarTablaDiaHorario() {
@@ -66,24 +52,6 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 		} else if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnCancelar()) {
 			this.ventanaSeleccionarDiaHorario.dispose();
 			this.controladorCrearCurso.inicializar();
-		} else if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnFiltrar()) {
-			if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() != 0) {
-				List<Horario> horario = null;
-				if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 1) {
-					// this.horarios_en_tabla = obtenerHorarioPorDia LUNES;
-				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 2) {
-					// this.horarios_en_tabla = obtenerHorarioPorDia MARTES;
-				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 3) {
-					// this.horarios_en_tabla = obtenerHorarioPorDia MIERCOLES;
-				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 4) {
-					// this.horarios_en_tabla = obtenerHorarioPorDia JUEVES;
-				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 5) {
-					// this.horarios_en_tabla = obtenerHorarioPorDia VIERNES;
-				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 6) {
-					// this.horarios_en_tabla = obtenerHorarioPorDia SABADO;
-				}
-				this.llenarTablaDiaHorario();
-			}
 		} else if (e.getSource() == ventanaSeleccionarDiaHorario.getBtnAgregar()) {
 			this.ventanaSeleccionarDiaHorario.setVisible(false);
 			this.ventanaAltaModifDiaHorario = new AltaModifDiaHorario();

@@ -25,10 +25,9 @@ public class SeleccionarSala extends JFrame {
 	private String[] nombreColumnas = { "Numero", "Nombre", "Capacidad" };
 	private JTable tablaSalas;
 	private JLabel lblSalas;
-	private JComboBox<String> comboFiltrar;
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
-	private JButton btnFiltrar;
+	private JTextField txtFiltro;
 
 	public SeleccionarSala() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,30 +65,22 @@ public class SeleccionarSala extends JFrame {
 		btnCancelar.setBounds(293, 278, 199, 23);
 		contentPane.add(btnCancelar);
 
-		JLabel lblCapacidad = new JLabel("CAPACIDAD:");
-		lblCapacidad.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblCapacidad.setBounds(21, 11, 106, 14);
-		contentPane.add(lblCapacidad);
-
-		comboFiltrar = new JComboBox<String>();
-		comboFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboFiltrar.setBounds(137, 9, 228, 20);
-		contentPane.add(comboFiltrar);
+		JLabel lblFiltro = new JLabel("FILTRAR:");
+		lblFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblFiltro.setBounds(21, 11, 106, 14);
+		contentPane.add(lblFiltro);
 
 		lblSalas = new JLabel("SALAS");
 		lblSalas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblSalas.setBounds(10, 36, 481, 14);
 		contentPane.add(lblSalas);
-
-		btnFiltrar = new JButton("FILTRAR");
-		btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnFiltrar.setBounds(375, 7, 117, 23);
-		contentPane.add(btnFiltrar);
-	}
-
-	public JComboBox<String> getComboFiltrar() {
-		return comboFiltrar;
+		
+		txtFiltro = new JTextField();
+		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFiltro.setColumns(10);
+		txtFiltro.setBounds(137, 9, 199, 20);
+		contentPane.add(txtFiltro);
 	}
 
 	public JButton getBtnSeleccionar() {
@@ -100,14 +91,13 @@ public class SeleccionarSala extends JFrame {
 		return btnCancelar;
 	}
 
-	public JButton getBtnFiltrar() {
-		return btnFiltrar;
-	}
-
 	public JTable getTablaSalas() {
 		return tablaSalas;
 	}
-
+	
+	public JTextField getTxtFiltrar(){
+		return txtFiltro;
+	}
 	
 
 }

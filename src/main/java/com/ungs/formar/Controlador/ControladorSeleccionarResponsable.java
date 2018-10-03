@@ -26,22 +26,12 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		this.ventanaSeleccionarResponsable = ventanaSeleccionarResponsable;
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarResponsable.getBtnCancelar().addActionListener(this);
-		this.ventanaSeleccionarResponsable.getBtnFiltrar().addActionListener(this);
 		this.ventanaSeleccionarResponsable.getBtnSeleccionar().addActionListener(this);
 	}
 
 	public void inicializar() {
 		this.ventanaSeleccionarResponsable.setVisible(true);
-		llenarComboFiltrarPor();
 		llenarTablaResponsables();
-	}
-
-	private void llenarComboFiltrarPor() {
-		JComboBox<String> filtrarPor = this.ventanaSeleccionarResponsable.getComboFiltrar();
-		filtrarPor.addItem("Seleccionar");
-		filtrarPor.addItem("Nombre");
-		filtrarPor.addItem("Apellido");
-		filtrarPor.addItem("DNI");
 	}
 
 	private void llenarTablaResponsables() {
@@ -59,24 +49,6 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		} else if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnCancelar()) {
 			this.ventanaSeleccionarResponsable.dispose();
 			this.controladorCrearCurso.inicializar();
-		} else if (e.getSource() == ventanaSeleccionarResponsable.getBtnFiltrar()) {
-			if (this.ventanaSeleccionarResponsable.getComboFiltrar().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarResponsable.getComboFiltrar().getSelectedIndex() == 1) {
-					// this.responsables_en_tabla = obtener por nombre
-					// de lo ingresasdo en
-					// this.ventanaSeleccionarResponsable.getTxtFiltro().getText();
-				} else if (this.ventanaSeleccionarResponsable.getComboFiltrar().getSelectedIndex() == 2) {
-					// this.responsables_en_tabla = obtener por apellido
-					// de lo ingresasdo en
-					// this.ventanaSeleccionarResponsable.getTxtFiltro().getText();
-				} else if (this.ventanaSeleccionarResponsable.getComboFiltrar().getSelectedIndex() == 3) {
-					// this.responsables_en_tabla = obtener por DNI
-					// de lo ingresasdo en
-					// this.ventanaSeleccionarResponsable.getTxtFiltro().getText();
-				}
-				this.llenarTablaResponsables();
-			}
-		}
-
+		} 
 	}
 }

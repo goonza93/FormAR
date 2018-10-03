@@ -27,19 +27,17 @@ public class SeleccionarInstructor extends JFrame {
 	private JTextField txtFiltro;
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
-	private JComboBox<String> comboFiltrar;
-	private JButton btnFiltrar;
 
 	public SeleccionarInstructor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 518, 390);
+		setBounds(100, 100, 518, 362);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JScrollPane spInstructores = new JScrollPane();
-		spInstructores.setBounds(10, 100, 482, 206);
+		spInstructores.setBounds(10, 74, 482, 206);
 		contentPane.add(spInstructores);
 
 		modelTemas = new DefaultTableModel(null, nombreColumnas);
@@ -55,45 +53,30 @@ public class SeleccionarInstructor extends JFrame {
 
 		btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionar.setBounds(10, 317, 199, 23);
+		btnSeleccionar.setBounds(10, 291, 199, 23);
 		contentPane.add(btnSeleccionar);
 
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(293, 318, 199, 23);
+		btnCancelar.setBounds(293, 292, 199, 23);
 		contentPane.add(btnCancelar);
 
-		JLabel lblFiltrarPor = new JLabel("FILTRAR POR:");
-		lblFiltrarPor.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltrarPor.setBounds(10, 15, 131, 14);
-		contentPane.add(lblFiltrarPor);
-
-		comboFiltrar = new JComboBox<String>();
-		comboFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboFiltrar.setBounds(151, 9, 178, 20);
-		contentPane.add(comboFiltrar);
-
-		JLabel lblFiltro = new JLabel("FILTRO: ");
+		JLabel lblFiltro = new JLabel("FILTRAR: ");
 		lblFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltro.setBounds(10, 40, 131, 14);
+		lblFiltro.setBounds(10, 14, 131, 14);
 		contentPane.add(lblFiltro);
 
 		txtFiltro = new JTextField();
 		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFiltro.setBounds(151, 37, 178, 20);
+		txtFiltro.setBounds(151, 11, 199, 20);
 		contentPane.add(txtFiltro);
 		txtFiltro.setColumns(10);
 
 		JLabel lblInstructores = new JLabel("INSTRUCTORES");
 		lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblInstructores.setBounds(10, 65, 482, 14);
+		lblInstructores.setBounds(10, 39, 482, 14);
 		contentPane.add(lblInstructores);
-		
-		btnFiltrar = new JButton("FILTRAR");
-		btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnFiltrar.setBounds(339, 36, 153, 23);
-		contentPane.add(btnFiltrar);
 	}
 
 	public JTextField getTxtFiltro() {
@@ -106,14 +89,6 @@ public class SeleccionarInstructor extends JFrame {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
-	}
-	
-	public JButton getBtnFiltrar() {
-		return btnFiltrar;
-	}
-
-	public JComboBox<String> getComboFiltrar() {
-		return comboFiltrar;
 	}
 
 	public JTable getTablaInstructores() {

@@ -27,23 +27,11 @@ public class ControladorSeleccionarSala implements ActionListener {
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarSala.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarSala.getBtnSeleccionar().addActionListener(this);
-		this.ventanaSeleccionarSala.getBtnFiltrar().addActionListener(this);
 	}
 
 	public void inicializar() {
 		this.ventanaSeleccionarSala.setVisible(true);
-		llenarComboFiltrarPor();
 		llenarTablaSalas();
-	}
-
-	private void llenarComboFiltrarPor() {
-		JComboBox<String> filtrarPor = this.ventanaSeleccionarSala.getComboFiltrar();
-		filtrarPor.addItem("Seleccionar");
-		filtrarPor.addItem("Hasta 20");
-		filtrarPor.addItem("21 - 40");
-		filtrarPor.addItem("41 - 60");
-		filtrarPor.addItem("61 - 80");
-		filtrarPor.addItem("Mas de 80");
 	}
 
 	private void llenarTablaSalas() {
@@ -61,22 +49,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 		} else if (e.getSource() == ventanaSeleccionarSala.getBtnCancelar()) {
 			this.ventanaSeleccionarSala.dispose();
 			this.controladorCrearCurso.inicializar();
-		} else if (e.getSource() == ventanaSeleccionarSala.getBtnFiltrar()) {
-			if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() == 1) {
-					// this.salas_en_tabla = obtener hasta 20
-				} else if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() == 2) {
-					// this.salas_en_tabla = obtener 21 - 40
-				} else if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() == 3) {
-					// this.salas_en_tabla = obtener 41-60
-				} else if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() == 4) {
-					// this.salas_en_tabla = obtener 61-80
-				} else if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() == 5) {
-					// this.salas_en_tabla = obtener mas de 80
-				}
-				this.llenarTablaSalas();
-			}
-		}
+		} 
 
 	}
 }

@@ -25,21 +25,19 @@ public class SeleccionarResponsable extends JFrame {
 	private  String[] nombreColumnas = {"Nombre", "Apellido", "DNI"};
 	private JTable tablaAdministrativos;
 	private JTextField txtFiltro;
-	JComboBox<String> comboFiltrar;
 	JButton btnCancelar;
 	JButton btnSeleccionar;
-	private JButton btnFiltrar;
 	
 	public SeleccionarResponsable() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 518, 380);
+		setBounds(100, 100, 518, 354);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane spAdministrativos = new JScrollPane();
-		spAdministrativos.setBounds(10, 90, 482, 206);
+		spAdministrativos.setBounds(10, 64, 482, 206);
 		contentPane.add(spAdministrativos);
 		
 		modelTemas = new DefaultTableModel(null,nombreColumnas);
@@ -55,53 +53,34 @@ public class SeleccionarResponsable extends JFrame {
 		
 		btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionar.setBounds(10, 307, 199, 23);
+		btnSeleccionar.setBounds(10, 281, 199, 23);
 		contentPane.add(btnSeleccionar);
 		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(293, 308, 199, 23);
+		btnCancelar.setBounds(293, 282, 199, 23);
 		contentPane.add(btnCancelar);
 		
-		JLabel lblFiltrarPor = new JLabel("FILTRAR POR:");
-		lblFiltrarPor.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltrarPor.setBounds(10, 15, 131, 14);
-		contentPane.add(lblFiltrarPor);
-		
-		comboFiltrar = new JComboBox<String>();
-		comboFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboFiltrar.setBounds(151, 9, 178, 20);
-		contentPane.add(comboFiltrar);
-		
-		JLabel lblFiltro = new JLabel("FILTRO: ");
+		JLabel lblFiltro = new JLabel("FILTRAR: ");
 		lblFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltro.setBounds(10, 40, 131, 14);
+		lblFiltro.setBounds(10, 14, 131, 14);
 		contentPane.add(lblFiltro);
 		
 		txtFiltro = new JTextField();
 		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFiltro.setBounds(151, 37, 178, 20);
+		txtFiltro.setBounds(151, 11, 178, 20);
 		contentPane.add(txtFiltro);
 		txtFiltro.setColumns(10);
 		
 		JLabel lblAdministrativos = new JLabel("EMPLEADOS ADMINISTRATIVOS");
 		lblAdministrativos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAdministrativos.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblAdministrativos.setBounds(10, 65, 482, 14);
+		lblAdministrativos.setBounds(10, 39, 482, 14);
 		contentPane.add(lblAdministrativos);
-		
-		btnFiltrar = new JButton("FILTRAR");
-		btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnFiltrar.setBounds(339, 36, 153, 23);
-		contentPane.add(btnFiltrar);
 	}
 
 	public JTextField getTxtFiltro() {
 		return txtFiltro;
-	}
-
-	public JComboBox<String> getComboFiltrar() {
-		return comboFiltrar;
 	}
 
 	public JButton getBtnCancelar() {
@@ -110,10 +89,6 @@ public class SeleccionarResponsable extends JFrame {
 
 	public JButton getBtnSeleccionar() {
 		return btnSeleccionar;
-	}
-	
-	public JButton getBtnFiltrar() {
-		return btnFiltrar;
 	}
 
 	public JTable getTablaResponsables() {
