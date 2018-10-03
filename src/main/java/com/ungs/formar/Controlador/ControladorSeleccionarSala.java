@@ -33,19 +33,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 	public void inicializar() {
 		this.ventanaSeleccionarSala.setVisible(true);
 		llenarComboFiltrarPor();
-		llenarComboOrdenarPor();
 		llenarTablaSalas();
-	}
-
-	private void llenarComboOrdenarPor() {
-		JComboBox<String> ordenarPor = this.ventanaSeleccionarSala.getComboOrdenar();
-		ordenarPor.addItem("Seleccionar");
-		ordenarPor.addItem("Numero ascendente");
-		ordenarPor.addItem("Numero descendente");
-		ordenarPor.addItem("Nombre a-z");
-		ordenarPor.addItem("Nombre z-a");
-		ordenarPor.addItem("Capacidad ascendente");
-		ordenarPor.addItem("Capacidad descendente");
 	}
 
 	private void llenarComboFiltrarPor() {
@@ -86,38 +74,8 @@ public class ControladorSeleccionarSala implements ActionListener {
 				} else if (this.ventanaSeleccionarSala.getComboFiltrar().getSelectedIndex() == 5) {
 					// this.salas_en_tabla = obtener mas de 80
 				}
+				this.llenarTablaSalas();
 			}
-			if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() == 1) {
-					// Ordenar los SALAS por Numero ascendente
-					Collections.sort(this.salas_en_tabla, new Comparator<Sala>() {
-						public int compare(Sala obj1, Sala obj2) {
-							return obj1.getNumero().compareTo(obj2.getNumero());
-						}
-					});
-				} else if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() == 2) {
-					// Ordenar los SALAS por NUmero descendente
-				}if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() == 3) {
-					// Ordenar los SALAS por Nombre ascendente
-					Collections.sort(this.salas_en_tabla, new Comparator<Sala>() {
-						public int compare(Sala obj1, Sala obj2) {
-							return obj1.getNombre().compareTo(obj2.getNombre());
-						}
-					});
-				} else if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() == 4) {
-					// Ordenar los SALAS por Nombre descendente
-				}if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() == 5) {
-					// Ordenar los SALAS por Capacidad ascendente
-					Collections.sort(this.salas_en_tabla, new Comparator<Sala>() {
-						public int compare(Sala obj1, Sala obj2) {
-							return obj1.getCapacidad().compareTo(obj2.getCapacidad());
-						}
-					});
-				} else if (this.ventanaSeleccionarSala.getComboOrdenar().getSelectedIndex() == 6) {
-					// Ordenar los SALAS por Capacidad descendente
-				}
-			}
-			this.llenarTablaSalas();
 		}
 
 	}

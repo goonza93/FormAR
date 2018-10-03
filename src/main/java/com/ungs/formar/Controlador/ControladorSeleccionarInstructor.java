@@ -34,19 +34,7 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 	public void inicializar() {
 		this.ventanaSeleccionarInstructor.setVisible(true);
 		llenarComboFiltrarPor();
-		llenarComboOrdenarPor();
 		llenarTablaInstructores();
-	}
-
-	private void llenarComboOrdenarPor() {
-		JComboBox<String> ordenarPor = this.ventanaSeleccionarInstructor.getComboOrdenarPor();
-		ordenarPor.addItem("Seleccionar");
-		ordenarPor.addItem("Nombre a-z");
-		ordenarPor.addItem("Nombre z-a");
-		ordenarPor.addItem("Apellido a-z");
-		ordenarPor.addItem("Apellido z-a");
-		ordenarPor.addItem("DNI ascendente");
-		ordenarPor.addItem("DNI descendente");
 	}
 
 	private void llenarComboFiltrarPor() {
@@ -88,38 +76,8 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 					// de lo ingresasdo en
 					// this.ventanaSeleccionarInstructor.getTxtFiltro().getText();
 				}
+				this.llenarTablaInstructores();
 			}
-			if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() == 1) {
-					// Ordenar los INSTRUCTORES por Nombre ascendente
-					Collections.sort(this.instructores_en_tabla, new Comparator<Empleado>() {
-						public int compare(Empleado obj1, Empleado obj2) {
-							return obj1.getNombre().compareTo(obj2.getNombre());
-						}
-					});
-				} else if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() == 2) {
-					// Ordenar los INSTRUCTORES por Nombre Descendente
-				} else if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() == 3) {
-					// Ordenar los INSTRUCTORES por Apellido ascendente
-					Collections.sort(this.instructores_en_tabla, new Comparator<Empleado>() {
-						public int compare(Empleado obj1, Empleado obj2) {
-							return obj1.getApellido().compareTo(obj2.getApellido());
-						}
-					});
-				} else if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() == 4) {
-					// Ordenar los INSTRUCTORES por Apellido Descendente
-				} else if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() == 5) {
-					// Ordenar los INSTRUCTORES por DNI ascendente
-					Collections.sort(this.instructores_en_tabla, new Comparator<Empleado>() {
-						public int compare(Empleado obj1, Empleado obj2) {
-							return obj1.getDNI().compareTo(obj2.getDNI());
-						}
-					});
-				} else if (this.ventanaSeleccionarInstructor.getComboOrdenarPor().getSelectedIndex() == 6) {
-					// Ordenar los INSTRUCTORES por DNI Descendente
-				}
-			}
-			this.llenarTablaInstructores();
 		}
 
 	}

@@ -33,19 +33,7 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 	public void inicializar() {
 		this.ventanaSeleccionarResponsable.setVisible(true);
 		llenarComboFiltrarPor();
-		llenarComboOrdenarPor();
 		llenarTablaResponsables();
-	}
-
-	private void llenarComboOrdenarPor() {
-		JComboBox<String> ordenarPor = this.ventanaSeleccionarResponsable.getComboOrdenarPor();
-		ordenarPor.addItem("Seleccionar");
-		ordenarPor.addItem("Nombre a-z");
-		ordenarPor.addItem("Nombre z-a");
-		ordenarPor.addItem("Apellido a-z");
-		ordenarPor.addItem("Apellido z-a");
-		ordenarPor.addItem("DNI ascendente");
-		ordenarPor.addItem("DNI descendente");
 	}
 
 	private void llenarComboFiltrarPor() {
@@ -86,38 +74,8 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 					// de lo ingresasdo en
 					// this.ventanaSeleccionarResponsable.getTxtFiltro().getText();
 				}
+				this.llenarTablaResponsables();
 			}
-			if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() == 1) {
-					// Ordenar los RESPONSABLES por Nombre ascendente
-					Collections.sort(this.responsables_en_tabla, new Comparator<Empleado>() {
-						public int compare(Empleado obj1, Empleado obj2) {
-							return obj1.getNombre().compareTo(obj2.getNombre());
-						}
-					});
-				} else if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() == 2) {
-					// Ordenar los RESPONSABLES por Nombre descendente
-				} else if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() == 3) {
-					// Ordenar los RESPONSABLES por apellido ascendente
-					Collections.sort(this.responsables_en_tabla, new Comparator<Empleado>() {
-						public int compare(Empleado obj1, Empleado obj2) {
-							return obj1.getApellido().compareTo(obj2.getApellido());
-						}
-					});
-				} else if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() == 4) {
-					// Ordenar los RESPONSABLES por Apellido descendente
-				} else if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() == 5) {
-					// Ordenar los RESPONSABLES por DNI ascendente
-					Collections.sort(this.responsables_en_tabla, new Comparator<Empleado>() {
-						public int compare(Empleado obj1, Empleado obj2) {
-							return obj1.getDNI().compareTo(obj2.getDNI());
-						}
-					});
-				} else if (this.ventanaSeleccionarResponsable.getComboOrdenarPor().getSelectedIndex() == 6) {
-					// Ordenar los RESPONSABLES por DNI descendente
-				}
-			}
-			this.llenarTablaResponsables();
 		}
 
 	}

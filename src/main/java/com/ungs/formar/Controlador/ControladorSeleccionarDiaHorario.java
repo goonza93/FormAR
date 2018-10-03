@@ -37,18 +37,9 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 	public void inicializar() {
 		this.ventanaSeleccionarDiaHorario.setVisible(true);
 		llenarComboDia();
-		llenarComboOrdenarPor();
 		llenarTablaDiaHorario();
 	}
 
-	private void llenarComboOrdenarPor() {
-		JComboBox<String> ordenarPor = this.ventanaSeleccionarDiaHorario.getComboOrdenar();
-		this.ventanaSeleccionarDiaHorario.getComboOrdenar().addItem("Seleccionar");
-		this.ventanaSeleccionarDiaHorario.getComboOrdenar().addItem("Hora inicio ascendente");
-		this.ventanaSeleccionarDiaHorario.getComboOrdenar().addItem("Hora inicio descendente");
-		this.ventanaSeleccionarDiaHorario.getComboOrdenar().addItem("Hora fin ascendente");
-		this.ventanaSeleccionarDiaHorario.getComboOrdenar().addItem("Hora fin descendente");
-	}
 
 	private void llenarComboDia() {
 		JComboBox<String> dia = this.ventanaSeleccionarDiaHorario.getComboDia();
@@ -68,8 +59,9 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnSeleccionar()) {
 			int fila_seleccionada = this.ventanaSeleccionarDiaHorario.getTablaDiasHorarios().getSelectedRow();
-			if(fila_seleccionada != -1){
-				//this.controladorCrearCurso.setHorariosCursada(//DIA HORARIO EN FILA SELECCIONADA);
+			if (fila_seleccionada != -1) {
+				// this.controladorCrearCurso.setHorariosCursada(//DIA HORARIO
+				// EN FILA SELECCIONADA);
 			}
 		} else if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnCancelar()) {
 			this.ventanaSeleccionarDiaHorario.dispose();
@@ -90,37 +82,14 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 				} else if (this.ventanaSeleccionarDiaHorario.getComboDia().getSelectedIndex() == 6) {
 					// this.horarios_en_tabla = obtenerHorarioPorDia SABADO;
 				}
-				
-			}
-			if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() == 1) {
-					// Ordenar los Dias Horarios por hora Inicio ascendente
-					Collections.sort(this.horarios_en_tabla, new Comparator<Horario>() {
-						public int compare(Horario obj1, Horario obj2) {
-							return obj1.getHoraInicio().compareTo(obj2.getHoraInicio());
-						}
-					});
-				} else if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() == 2) {
-					// Ordenar los Dias Horarios por hora Inicio descendente
-
-				} else if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() == 3) {
-					// Ordenar los Dias Horarios por hora Fin ascendente
-					Collections.sort(this.horarios_en_tabla, new Comparator<Horario>() {
-						public int compare(Horario obj1, Horario obj2) {
-							return obj1.getHoraFin().compareTo(obj2.getHoraFin());
-						}
-					});
-				} else if (this.ventanaSeleccionarDiaHorario.getComboOrdenar().getSelectedIndex() == 4) {
-					// Ordenar los Dias Horarios por hora Fin descendente
-
-				}
 				this.llenarTablaDiaHorario();
 			}
 		} else if (e.getSource() == ventanaSeleccionarDiaHorario.getBtnAgregar()) {
 			this.ventanaSeleccionarDiaHorario.setVisible(false);
 			this.ventanaAltaModifDiaHorario = new AltaModifDiaHorario();
 			this.ventanaAltaModifDiaHorario.setVisible(true);
-			//new ControladorAltaModifDiaHorario(this.ventanaAltaModifDiaHorario,this);
+			// new
+			// ControladorAltaModifDiaHorario(this.ventanaAltaModifDiaHorario,this);
 		}
 
 	}

@@ -28,24 +28,24 @@ public class SeleccionarPrograma extends JFrame {
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
 	private JComboBox<String> comboFiltrar;
-	private JComboBox<String> comboOrdenarPor;
 	private JButton btnFiltrar;
 
 	public SeleccionarPrograma() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 518, 432);
+		setBounds(100, 100, 518, 381);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JScrollPane spProgramas = new JScrollPane();
-		spProgramas.setBounds(10, 141, 482, 206);
+		spProgramas.setBounds(10, 90, 482, 206);
 		contentPane.add(spProgramas);
 
 		modelTemas = new DefaultTableModel(null, nombreColumnas);
 		tablaProgramas = new JTable(modelTemas);
 		tablaProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
+		tablaProgramas.setAutoCreateRowSorter(true);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -55,12 +55,16 @@ public class SeleccionarPrograma extends JFrame {
 
 		btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionar.setBounds(10, 358, 199, 23);
+		btnSeleccionar.setBounds(10, 307, 199, 23);
 		contentPane.add(btnSeleccionar);
 
 		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(293, 359, 199, 23);
+		btnCancelar.setBounds(293, 308, 199, 23);
 		contentPane.add(btnCancelar);
 
 		JLabel lblFiltrarPor = new JLabel("FILTRAR POR:");
@@ -84,25 +88,15 @@ public class SeleccionarPrograma extends JFrame {
 		contentPane.add(txtFiltro);
 		txtFiltro.setColumns(10);
 
-		comboOrdenarPor = new JComboBox<String>();
-		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboOrdenarPor.setBounds(151, 65, 178, 20);
-		contentPane.add(comboOrdenarPor);
-
-		JLabel lblOrdenarPor = new JLabel("ORDENAR POR:");
-		lblOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblOrdenarPor.setBounds(10, 68, 131, 14);
-		contentPane.add(lblOrdenarPor);
-
 		JLabel lblProgramas = new JLabel("PROGRAMAS");
 		lblProgramas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblProgramas.setBounds(10, 106, 482, 14);
+		lblProgramas.setBounds(10, 65, 482, 14);
 		contentPane.add(lblProgramas);
 		
 		btnFiltrar = new JButton("FILTRAR");
 		btnFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnFiltrar.setBounds(339, 64, 153, 23);
+		btnFiltrar.setBounds(339, 36, 153, 23);
 		contentPane.add(btnFiltrar);
 	}
 
@@ -124,10 +118,6 @@ public class SeleccionarPrograma extends JFrame {
 
 	public JComboBox<String> getComboFiltrar() {
 		return comboFiltrar;
-	}
-
-	public JComboBox<String> getComboOrdenarPor() {
-		return comboOrdenarPor;
 	}
 
 	public JTable getTablaProgramas() {

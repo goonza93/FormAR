@@ -67,23 +67,6 @@ public class ControladorCrearCurso implements ActionListener {
 		return true;
 	}
 
-	private boolean estaDisponibleInstructor() {
-		for (HorarioCursada horario : this.horariosCursada) {
-			// Horario horaDia = obtenerHorario por el ID;
-			// if (this.ventanaCrearCurso.getInstructor() tiene asignado un
-			// curso en ese horario){
-			// JOptionPane.showMessageDialog(null,
-			// "El instructor " +
-			// this.ventanaCrearCurso.getInstructor().getNombre() + " "
-			// + this.ventanaCrearCurso.getInstructor().getApellido() + " no
-			// esta disponible el dia "
-			// + horaDia.getDia() + " en el horario elegido");
-			// return false;
-			// }
-		}
-		return true;
-	}
-
 	private void llenarTablaDiasHorarios() {
 
 	}
@@ -137,8 +120,6 @@ public class ControladorCrearCurso implements ActionListener {
 					.compareTo(this.ventanaCrearCurso.getDateFechaInicio().getDate()) == 0) {
 				JOptionPane.showMessageDialog(null, "La fecha de fin no puede ser igual a la fecha de inicio");
 			} else if (!estaDisponibleSala()) {
-
-			} else if (!estaDisponibleInstructor()) {
 
 			} else if (Integer.parseInt(this.ventanaCrearCurso.getTxtCupoMaximo().getText()) > this.sala
 					.getCapacidad()) {

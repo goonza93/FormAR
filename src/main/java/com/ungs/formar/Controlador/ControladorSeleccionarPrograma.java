@@ -37,19 +37,7 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 	public void inicializar() {
 		this.ventanaSeleccionarPrograma.setVisible(true);
 		llenarComboFiltrarPor();
-		llenarComboOrdenarPor();
 		llenarTablaInstructores();
-	}
-
-	private void llenarComboOrdenarPor() {
-		JComboBox<String> ordenarPor = this.ventanaSeleccionarPrograma.getComboOrdenarPor();
-		ordenarPor.addItem("Seleccionar");
-		ordenarPor.addItem("Nombre a-z");
-		ordenarPor.addItem("Nombre z-a");
-		ordenarPor.addItem("Area de interes a-z");
-		ordenarPor.addItem("Area de interes z-a");
-		ordenarPor.addItem("Fecha Creacion ascendente");
-		ordenarPor.addItem("Fecha Creacion descendente");
 	}
 
 	private void llenarComboFiltrarPor() {
@@ -84,43 +72,8 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 					// de lo ingresasdo en
 					// this.ventanaSeleccionarPrograma.getTxtFiltro().getText();
 				}
+				this.llenarTablaInstructores();
 			}
-			if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() != 0) {
-				if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() == 1) {
-					// Ordenar los PROGRAMAS por Nombre ascendente
-					Collections.sort(this.programas_en_tabla, new Comparator<Programa>() {
-						public int compare(Programa obj1, Programa obj2) {
-							return obj1.getNombreMateria().compareTo(obj2.getNombreMateria());
-						}
-					});
-				} else if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() == 2) {
-					// Ordenar los PROGRAMAS por Nombre descendente
-				} else if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() == 3) {
-					// Ordenar los PROGRAMAS por AREA DE INTERES ascendente
-					/*
-					 * Collections.sort(this.programas_en_tabla, new
-					 * Comparator<Programa>() { public int compare(Programa
-					 * obj1, Programa obj2) { AreaDeInteres areaDeInteresObj1 =
-					 * OBTENER AREA DE INTERES POR Id; AreaDeInteres
-					 * areaDeInteresObj2 = OBTENER AREA DE INTERES POR Id;
-					 * return
-					 * areaDeInteresObj1.getArea().compareTo(areaDeInteresObj2.
-					 * getArea()); } });
-					 */
-				} else if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() == 4) {
-					// Ordenar los PROGRAMAS por AREA DE INTERES descendente
-				} else if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() == 5) {
-					// Ordenar los PROGRAMAS por Fecha Creacion ascendente
-					Collections.sort(this.programas_en_tabla, new Comparator<Programa>() {
-						public int compare(Programa obj1, Programa obj2) {
-							return obj1.getFechaAprobacion().compareTo(obj2.getFechaAprobacion());
-						}
-					});
-				} else if (this.ventanaSeleccionarPrograma.getComboOrdenarPor().getSelectedIndex() == 6) {
-					// Ordenar los PROGRAMAS por Fecha Creacion descendente
-				}
-			}
-			this.llenarTablaInstructores();
 		}
 
 	}
