@@ -54,11 +54,6 @@ public class CrearCurso extends JFrame {
 	private DefaultTableModel modelDiasHorarios;
 	private  String[] nombreColumnas = {"Dia", "Hora Inicio", "Hora Fin"};
 	private JButton btnBorrarDia;
-	private Empleado instructor;
-	private Empleado responsable;
-	private Sala sala;
-	private Programa programa;
-	private HorarioCursada[] horariosCursada; 
 	
 	public CrearCurso() {
 				
@@ -329,45 +324,6 @@ public class CrearCurso extends JFrame {
 		return tablaDiasHorarios;
 	}
 
-	public Empleado getInstructor() {
-		return instructor;
-	}
-
-	public void setInstructor(Empleado instructor) {
-		this.instructor = instructor;
-	}
-
-	public Empleado getResponsable() {
-		return responsable;
-	}
-
-	public void setResponsable(Empleado responsable) {
-		this.responsable = responsable;
-	}
-
-	public Sala getSala() {
-		return sala;
-	}
-
-	public void setSala(Sala sala) {
-		this.sala = sala;
-	}
-
-	public Programa getPrograma() {
-		return programa;
-	}
-
-	public void setPrograma(Programa programa) {
-		this.programa = programa;
-	}
-
-	public HorarioCursada[] getHorariosCursada() {
-		return horariosCursada;
-	}
-
-	public void setHorariosCursada(HorarioCursada[] horariosCursada) {
-		this.horariosCursada = horariosCursada;
-	}
 	
 	
 }

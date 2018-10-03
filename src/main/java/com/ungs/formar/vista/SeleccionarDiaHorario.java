@@ -124,4 +124,10 @@ public class SeleccionarDiaHorario extends JFrame {
 		return comboDia;
 	}
 
+	public JTable getTablaDiasHorarios() {
+		return tablaDiasHorarios;
+	}
+	
+	
+
 }
