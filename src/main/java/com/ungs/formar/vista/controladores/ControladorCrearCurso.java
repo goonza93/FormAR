@@ -141,22 +141,18 @@ public class ControladorCrearCurso implements ActionListener {
 			new ControladorSeleccionarInstructor(this.ventanaSeleccionarInstructor, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarPrograma()) {
 			this.ventanaSeleccionarPrograma = new SeleccionarPrograma();
-			this.ventanaSeleccionarPrograma.setVisible(true);
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarPrograma(this.ventanaSeleccionarPrograma, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarResponsable()) {
 			this.ventanaSeleccionarResponsable = new SeleccionarResponsable();
-			this.ventanaSeleccionarResponsable.setVisible(true);
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarResponsable(this.ventanaSeleccionarResponsable, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarSala()) {
 			this.ventanaSeleccionarSala = new SeleccionarSala();
-			this.ventanaSeleccionarSala.setVisible(true);
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarSala(this.ventanaSeleccionarSala, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnAgregarDia()) {
 			this.ventanaSeleccionarDiaHorario = new SeleccionarDiaHorario();
-			this.ventanaSeleccionarDiaHorario.setVisible(true);
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarDiaHorario(this.ventanaSeleccionarDiaHorario, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {

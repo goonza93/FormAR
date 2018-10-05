@@ -25,6 +25,7 @@ public class ControladorGestionarCurso implements ActionListener{
 			this.ventanaGestionarCursos.getBtnAgregar().addActionListener(this);
 			this.ventanaGestionarCursos.getBtnBorrar().addActionListener(this);
 			this.ventanaGestionarCursos.getBtnEditar().addActionListener(this);
+			this.ventanaGestionarCursos.getBtnCancelar().addActionListener(this);
 		}
 		
 		public void inicializar()
@@ -56,7 +57,8 @@ public class ControladorGestionarCurso implements ActionListener{
 			else if(e.getSource() == this.ventanaGestionarCursos.getBtnEditar()){
 				
 			}else if(e.getSource() == this.ventanaGestionarCursos.getBtnCancelar()){
-				
+				this.controladorPantallaPrincipal.inicializar();
+				this.ventanaGestionarCursos.ocultar();
 			}
 			
 		}

@@ -28,6 +28,7 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarResponsable.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarResponsable.getBtnSeleccionar().addActionListener(this);
+		this.inicializar();
 	}
 
 	public void inicializar() {

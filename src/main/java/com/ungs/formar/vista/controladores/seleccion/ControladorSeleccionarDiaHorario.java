@@ -29,7 +29,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 		this.ventanaSeleccionarDiaHorario.getBtnAgregar().addActionListener(this);
 		this.ventanaSeleccionarDiaHorario.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarDiaHorario.getBtnSeleccionar().addActionListener(this);
-
+		this.inicializar();
 	}
 
 	public void inicializar() {
