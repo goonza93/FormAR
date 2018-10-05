@@ -2,69 +2,120 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class GestionarCursos {
 	private JFrame frame;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
 	private JButton btnEditar;
-	private DefaultTableModel modelPersonas;
-	private String[] nombreColumnas = { "Nombre", "Apellido", "Telefono", "Email", "Cumpleaños", "Calle", "Altura",
-			"Piso", "Depto", "Localidad", "Tipo de contacto" };
+	private DefaultTableModel modelCursos;
+	private String[] nombreColumnas = { "Curso", "Estado", "Vacantes", "Fecha inicio", "Fecha fin", "Instructor", "Responsable", "Sala"};
+	private JScrollPane spCursos;
 	private JTable tablaCursos;
+	private JLabel lblFiltrar;
+	private JTextField txtFiltro;
+	private JLabel lblCursos;
+	private JButton btnCancelar;
 
 	public GestionarCursos() {
-		super();
-		initialize();
-	}
-
-	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 319, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 897, 369);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 303, 262);
+		panel.setBounds(0, 0, 881, 330);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		tablaCursos = new JTable(modelPersonas);
-		modelPersonas = new DefaultTableModel(null, nombreColumnas);
-
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 228, 89, 23);
+		btnAgregar = new JButton("AGREGAR");
+		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAgregar.setBounds(10, 296, 120, 23);
 		panel.add(btnAgregar);
 
-		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(109, 228, 89, 23);
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEditar.setBounds(140, 296, 120, 23);
 		panel.add(btnEditar);
 
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(208, 228, 89, 23);
+		btnBorrar = new JButton("BORRAR");
+		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnBorrar.setBounds(270, 296, 120, 23);
 		panel.add(btnBorrar);
-	}
+		
+		spCursos = new JScrollPane();
+		spCursos.setBounds(10, 79, 861, 206);
+		panel.add(spCursos);
+		
+		modelCursos = new DefaultTableModel(null, nombreColumnas);
+		tablaCursos = new JTable(modelCursos);
+		tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+		spCursos.setViewportView(tablaCursos);
 
-	public void show() {
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de FormAR!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					System.exit(0);
-				}
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
+		tablaCursos.setRowSorter(sorter);
+		
+		lblFiltrar = new JLabel("FILTRAR:");
+		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblFiltrar.setBounds(10, 14, 106, 14);
+		panel.add(lblFiltrar);
+		
+		txtFiltro = new JTextField();
+		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFiltro.setColumns(10);
+		txtFiltro.setBounds(126, 11, 310, 20);
+		panel.add(txtFiltro);
+		
+		lblCursos = new JLabel("CURSOS:");
+		lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblCursos.setBounds(10, 46, 861, 14);
+		panel.add(lblCursos);
+		
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnCancelar.setBounds(400, 296, 120, 23);
+		panel.add(btnCancelar);
+		
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
 			}
-		});
+        });
+		
+	}
+	
+	public void mostrar(){
 		this.frame.setVisible(true);
 	}
 	
@@ -83,9 +134,13 @@ public class GestionarCursos {
 	public JButton getBtnEditar() {
 		return btnEditar;
 	}
+	
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
 
-	public DefaultTableModel getModelPersonas() {
-		return modelPersonas;
+	public DefaultTableModel getModelCursos() {
+		return modelCursos;
 	}
 
 	public String[] getNombreColumnas() {

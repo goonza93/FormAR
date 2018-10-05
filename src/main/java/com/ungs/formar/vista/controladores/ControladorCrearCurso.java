@@ -161,7 +161,7 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarDiaHorario(this.ventanaSeleccionarDiaHorario, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
-			int filas_seleccionadas = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRow();
+			int fila = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRow();
 			// this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
 			// this.llenarTablaDiasHorarios();
 		}

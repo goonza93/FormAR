@@ -2,7 +2,10 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.GestionarCursos;
 
@@ -10,11 +13,15 @@ import com.ungs.formar.vista.ventanas.GestionarCursos;
 
 public class ControladorGestionarCurso implements ActionListener{
 		private GestionarCursos ventanaGestionarCursos;
-		private CrearCurso ventanaCrearCurso; 
+		private ControladorPantallaPrincipal controladorPantallaPrincipal;
+		private CrearCurso ventanaCrearCurso;
+		private List<Curso> cursos_en_tabla;
+
 		
-		public ControladorGestionarCurso(GestionarCursos ventanaGestionarCursos)
+		public ControladorGestionarCurso(GestionarCursos ventanaGestionarCursos, ControladorPantallaPrincipal controladorPantallaPrincipal)
 		{
 			this.ventanaGestionarCursos = ventanaGestionarCursos;
+			this.controladorPantallaPrincipal = controladorPantallaPrincipal;
 			this.ventanaGestionarCursos.getBtnAgregar().addActionListener(this);
 			this.ventanaGestionarCursos.getBtnBorrar().addActionListener(this);
 			this.ventanaGestionarCursos.getBtnEditar().addActionListener(this);
@@ -22,7 +29,8 @@ public class ControladorGestionarCurso implements ActionListener{
 		
 		public void inicializar()
 		{
-			this.ventanaGestionarCursos.show();
+			this.ventanaGestionarCursos.mostrar();
+			llenarTablaCursos();
 		}
 
 		private void llenarTablaCursos(){
@@ -45,8 +53,11 @@ public class ControladorGestionarCurso implements ActionListener{
 				}				
 				//this.llenarTablaCursos();		
 			}
-			/*else if(e.getSource() == this.ventanaGestionarCursos.getBtnEditar()){
+			else if(e.getSource() == this.ventanaGestionarCursos.getBtnEditar()){
 				
-			}*/
+			}else if(e.getSource() == this.ventanaGestionarCursos.getBtnCancelar()){
+				
+			}
+			
 		}
 }

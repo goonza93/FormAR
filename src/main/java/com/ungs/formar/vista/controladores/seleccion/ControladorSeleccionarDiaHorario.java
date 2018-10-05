@@ -6,9 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import javax.swing.JComboBox;
-
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.ABMHorario;
