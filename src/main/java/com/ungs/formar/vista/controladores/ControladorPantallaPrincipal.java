@@ -39,8 +39,7 @@ public class ControladorPantallaPrincipal implements ActionListener{
 				new ControladorGestionarCurso(this.ventanaGestionarCursos, this);
 			}
 			else if(e.getSource() == this.ventanaPantallaPrincipal.getBtnGestionarInstructores()){
-				this.ventanaGestionarCursos.ocultar();
-				this.ventanaPantallaPrincipal.show();
+				
 			}
 		}
 }
