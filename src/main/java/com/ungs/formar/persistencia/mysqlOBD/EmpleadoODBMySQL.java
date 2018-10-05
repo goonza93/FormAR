@@ -33,7 +33,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 			while (resultados.next()) {
 				empleados.add(new Empleado(
 						resultados.getInt("empleado_ID"),
-						resultados.getString("legajo"),
+						resultados.getString("dni"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),

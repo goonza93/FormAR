@@ -137,7 +137,6 @@ public class ControladorCrearCurso implements ActionListener {
 			this.controladorGestionarCurso.inicializar();
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarInstructor()) {
 			this.ventanaSeleccionarInstructor = new SeleccionarInstructor();
-			this.ventanaSeleccionarInstructor.setVisible(true);
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarInstructor(this.ventanaSeleccionarInstructor, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarPrograma()) {

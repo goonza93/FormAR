@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 public class SeleccionarInstructor extends JFrame {
 
 	private JPanel contentPane;
-	private DefaultTableModel modelTemas;
+	private DefaultTableModel modelInstructores;
 	private String[] nombreColumnas = { "Nombre", "Apellido", "DNI" };
 	private JTable tablaInstructores;
 	private JTextField txtFiltro;
@@ -40,8 +40,8 @@ public class SeleccionarInstructor extends JFrame {
 		spInstructores.setBounds(10, 74, 482, 206);
 		contentPane.add(spInstructores);
 
-		modelTemas = new DefaultTableModel(null, nombreColumnas);
-		tablaInstructores = new JTable(modelTemas);
+		modelInstructores = new DefaultTableModel(null, nombreColumnas);
+		tablaInstructores = new JTable(modelInstructores);
 		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
 		tablaInstructores.setAutoCreateRowSorter(true);
 		/*
@@ -94,6 +94,16 @@ public class SeleccionarInstructor extends JFrame {
 	public JTable getTablaInstructores() {
 		return tablaInstructores;
 	}
+
+	public DefaultTableModel getModelInstructores() {
+		return modelInstructores;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+	
+	
 
 	
 }
