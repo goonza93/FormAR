@@ -10,6 +10,6 @@ public interface AlumnoODB {
 	public void delete (Alumno alumno);
 	public List<Alumno> select();
 	public Alumno selectByNombre(String nombre);
-	public Alumno selectByID(int id);
+	public Alumno selectByID(Integer id);
 	
 }

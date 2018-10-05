@@ -52,7 +52,7 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 		return alumno;
 	}
 	
-	public Alumno selectByID(int id) {
+	public Alumno selectByID(Integer id) {
 		String condicion = "cliente_ID = '"+id+"'";
 		List<Alumno> alumnos = selectByCondicion(condicion);
 		Alumno alumno = null;

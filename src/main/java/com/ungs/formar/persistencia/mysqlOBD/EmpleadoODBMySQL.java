@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
@@ -13,10 +14,55 @@ import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
 public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	private final String tabla = "for_empleados";
 
+	public void insert(Empleado empleado) {
+		String consulta = "insert into "+tabla+" (DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
+		String valores = "'"+ empleado.getDNI() +"', '"+ empleado.getNombre() +"', '"
+				+ empleado.getApellido() +"', '"+ empleado.getTelefono() +"', '"+ empleado.getEmail() +"', '"
+				+ empleado.getFechaIngreso()+"', '"+ empleado.getFechaEgreso()+"'";
+		consulta += "values ("+valores+");";
+		ejecutarSQL(consulta);
+		
+	}
+
+	public void edit(Empleado empleado) {
+		String consulta = "update "+tabla+" set ";
+		String valores = "DNI = '"+ empleado.getDNI() +"', nombre = '"+ empleado.getNombre() +"', apellido = '"
+		+ empleado.getApellido() +"', telefono = '"+ empleado.getTelefono() +"', email = '"+ empleado.getEmail() +"'";
+		consulta += valores+" where empleado_ID = '"+empleado.getEmpleadoID() +"';";
+		ejecutarSQL(consulta);
+	}
+
+	public void delete(Empleado empleado) {
+		String consulta = "delete from "+tabla+" where ";
+		String valor = "empleado_ID = '"+empleado.getEmpleadoID()+"'";
+		consulta += valor+";";
+		ejecutarSQL(consulta);
+	}
+	
 	public List<Empleado> select() {
 		String condicion = "1=1";
 		List<Empleado> empleados = selectByCondicion(condicion);
 		return empleados;
+	}
+	
+	public Empleado selectByNombre(String nombre) {
+		String condicion = "nombre = '"+nombre+"'";
+		List<Empleado> empleados = selectByCondicion(condicion);
+		Empleado empleado = null;
+		if (empleados.size()>0)
+			empleado = empleados.get(0); 
+		
+		return empleado;
+	}
+
+	public Empleado selectByID(Integer id) {
+		String condicion = "empleado_ID = '"+id+"'";
+		List<Empleado> empleados = selectByCondicion(condicion);
+		Empleado empleado = null;
+		if (empleados.size()>0)
+			empleado = empleados.get(0); 
+		
+		return empleado;
 	}
 
 	private List<Empleado> selectByCondicion(String condicion) {
@@ -33,7 +79,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 			while (resultados.next()) {
 				empleados.add(new Empleado(
 						resultados.getInt("empleado_ID"),
-						resultados.getString("legajo"),
+						resultados.getString("dni"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),
@@ -53,6 +99,5 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		}
 			
 		return empleados;
-	}
-	
+	}	
 }

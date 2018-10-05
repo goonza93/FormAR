@@ -7,7 +7,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JComboBox;
-
+import com.ungs.formar.negocios.DiaManager;
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.persistencia.entidades.Dia;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
@@ -28,14 +30,31 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarInstructor.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarInstructor.getBtnSeleccionar().addActionListener(this);
+		this.inicializar();
 	}
 
 	public void inicializar() {
-		this.ventanaSeleccionarInstructor.setVisible(true);
 		llenarTablaInstructores();
+		this.ventanaSeleccionarInstructor.setVisible(true);
 	}
 
 	private void llenarTablaInstructores() {
+		this.ventanaSeleccionarInstructor.getModelInstructores().setRowCount(0); //Para vaciar la tabla
+		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnCount(0);
+		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnIdentifiers(this.ventanaSeleccionarInstructor.getNombreColumnas());
+		
+		this.instructores_en_tabla = EmpleadoManager.traerEmpleados();
+		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
+			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
+			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
+			   }
+			});
+		*/
+		for (int i = 0; i < this.instructores_en_tabla.size(); i ++){
+			Object[] fila = {this.instructores_en_tabla.get(i).getNombre(), this.instructores_en_tabla.get(i).getApellido(),
+					this.instructores_en_tabla.get(i).getDNI()};
+			this.ventanaSeleccionarInstructor.getModelInstructores().addRow(fila);
+		}
 
 	}
 
