@@ -21,7 +21,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 
 	private List<Empleado> selectByCondicion(String condicion) {
 		List<Empleado> empleados = new ArrayList<Empleado>();
-		String campos = "empleado_ID, legajo, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
+		String campos = "empleado_ID, dni, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 

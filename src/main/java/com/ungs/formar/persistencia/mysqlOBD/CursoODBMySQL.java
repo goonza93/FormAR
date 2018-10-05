@@ -35,7 +35,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 
 	private List<Curso> selectByCondicion(String condicion) {
 		List<Curso> cursos = new ArrayList<Curso>();
-		String campos = "curso_ID, nombre, cupo_minimo, cupo_maximo, fecha_inicio, fecha_fin, contenido, clases, horas, instructor, responsable, sala, programa";
+		String campos = "curso_ID, nombre, cupo_minimo, cupo_maximo, fecha_inicio, fecha_fin, contenido, clases, horas, instructor, responsable, sala, programa, estado";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";
 				
 		try { 
