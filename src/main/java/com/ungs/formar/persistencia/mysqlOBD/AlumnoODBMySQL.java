@@ -11,7 +11,7 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 
 public class AlumnoODBMySQL extends ODB implements AlumnoODB{
-	private final String tabla = "cliente";
+	private final String tabla = "for_clientes";
 	
 	public void insert (Alumno alumno) {
 		String consulta = "insert into "+tabla+" (dni, nombre, apellido, telefono, email) ";
