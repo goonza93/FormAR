@@ -13,7 +13,7 @@ public class SalaODBTest {
 		List<Sala> salas = odb.select();
 		System.out.println("Cantidad:"+odb.select().size());
 		for (Sala sala: salas)
-			System.out.println(sala.getNumero());
+			System.out.println(sala.getNombre());
 	}
 	
 	public static void main(String[] args) {
