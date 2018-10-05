@@ -8,6 +8,11 @@ public class Dia {
 		this.diaID = diaID;
 		this.descripcion = descripcion;
 	}
+	
+	@Override
+	public String toString() {
+		return descripcion;
+	}
 
 	public Integer getDiaID() {
 		return diaID;

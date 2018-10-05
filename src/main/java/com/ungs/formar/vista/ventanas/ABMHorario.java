@@ -1,30 +1,26 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import com.ungs.formar.negocios.DiaManager;
+import com.ungs.formar.persistencia.entidades.Dia;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.Font;
-import javax.swing.JPasswordField;
+import java.util.List;
 import javax.swing.JButton;
 
-public class AltaModifDiaHorario extends JFrame {
-
+public class ABMHorario extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AltaModifDiaHorario frame = new AltaModifDiaHorario();
+					ABMHorario frame = new ABMHorario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,10 +29,7 @@ public class AltaModifDiaHorario extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public AltaModifDiaHorario() {
+	public ABMHorario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 458, 186);
 		contentPane = new JPanel();
@@ -49,10 +42,7 @@ public class AltaModifDiaHorario extends JFrame {
 		lblDia.setBounds(10, 11, 146, 14);
 		contentPane.add(lblDia);
 		
-		JComboBox comboDia = new JComboBox();
-		comboDia.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboDia.setBounds(166, 8, 224, 20);
-		contentPane.add(comboDia);
+		contentPane.add(crearListaDias());
 		
 		JButton btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -84,4 +74,16 @@ public class AltaModifDiaHorario extends JFrame {
 		comboHoraFin.setBounds(166, 64, 224, 20);
 		contentPane.add(comboHoraFin);
 	}
+
+	private JComboBox<Dia> crearListaDias() {
+		JComboBox<Dia> lista = new JComboBox<Dia>();
+		List<Dia> dias = DiaManager.traerDias();
+		for (Dia dia : dias)
+			lista.addItem(dia);
+		
+		lista.setFont(new Font("Arial", Font.PLAIN, 12));
+		lista.setBounds(166, 8, 224, 20);
+		return lista;
+	}
+
 }

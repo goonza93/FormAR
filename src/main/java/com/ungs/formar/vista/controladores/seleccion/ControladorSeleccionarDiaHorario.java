@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
 
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
-import com.ungs.formar.vista.ventanas.AltaModifDiaHorario;
+import com.ungs.formar.vista.ventanas.ABMHorario;
 import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
@@ -21,7 +21,7 @@ import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 public class ControladorSeleccionarDiaHorario implements ActionListener {
 	private SeleccionarDiaHorario ventanaSeleccionarDiaHorario;
 	private ControladorCrearCurso controladorCrearCurso;
-	private AltaModifDiaHorario ventanaAltaModifDiaHorario;
+	private ABMHorario ventanaAltaModifDiaHorario;
 	private List<Horario> horarios_en_tabla;
 
 	public ControladorSeleccionarDiaHorario(SeleccionarDiaHorario ventanaSeleccionarDiaHorario,
@@ -55,7 +55,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 			this.controladorCrearCurso.inicializar();
 		} else if (e.getSource() == ventanaSeleccionarDiaHorario.getBtnAgregar()) {
 			this.ventanaSeleccionarDiaHorario.setVisible(false);
-			this.ventanaAltaModifDiaHorario = new AltaModifDiaHorario();
+			this.ventanaAltaModifDiaHorario = new ABMHorario();
 			this.ventanaAltaModifDiaHorario.setVisible(true);
 			// new
 			// ControladorAltaModifDiaHorario(this.ventanaAltaModifDiaHorario,this);
