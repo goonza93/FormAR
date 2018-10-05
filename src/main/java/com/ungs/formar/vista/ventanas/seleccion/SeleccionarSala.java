@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
 public class SeleccionarSala extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private DefaultTableModel modelTemas;
+	private DefaultTableModel modelSalas;
 	private String[] nombreColumnas = { "Numero", "Nombre", "Capacidad" };
 	private JTable tablaSalas;
 	private JLabel lblSalas;
@@ -42,10 +42,10 @@ public class SeleccionarSala extends JFrame {
 		spInstructores.setBounds(10, 61, 482, 206);
 		contentPane.add(spInstructores);
 
-		modelTemas = new DefaultTableModel(null, nombreColumnas);
-		tablaSalas = new JTable(modelTemas);
+		modelSalas = new DefaultTableModel(null, nombreColumnas);
+		tablaSalas = new JTable(modelSalas);
 		//tablaSalas.setAutoCreateRowSorter(true); al filtrar es mejor darselo.
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelTemas);
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelSalas);
 	    tablaSalas.setRowSorter(sorter);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -120,5 +120,14 @@ public class SeleccionarSala extends JFrame {
 	public JTextField getTxtFiltrar(){
 		return txtFiltro;
 	}
+
+	public DefaultTableModel getModelSalas() {
+		return modelSalas;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+	
 	
 }

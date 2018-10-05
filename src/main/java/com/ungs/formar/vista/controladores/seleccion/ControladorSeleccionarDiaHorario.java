@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.JComboBox;
+
+import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.ABMHorario;
@@ -33,12 +35,27 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.ventanaSeleccionarDiaHorario.setVisible(true);
 		llenarTablaDiaHorario();
+		this.ventanaSeleccionarDiaHorario.setVisible(true);
 	}
 
 	private void llenarTablaDiaHorario() {
-
+		this.ventanaSeleccionarDiaHorario.getModelTemas().setRowCount(0); //Para vaciar la tabla
+		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnCount(0);
+		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnIdentifiers(this.ventanaGestionarCursos.getNombreColumnas());
+		
+		//this.horarios_en_tabla = HorariosManager.traerHorarios();
+		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
+			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
+			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
+			   }
+			});
+		*/
+		for (int i = 0; i < this.horarios_en_tabla.size(); i ++){
+			Object[] fila = {this.horarios_en_tabla.get(i).getDiaID(), this.horarios_en_tabla.get(i).getHoraInicio(),
+					this.horarios_en_tabla.get(i).getHoraFin()};
+			this.ventanaSeleccionarDiaHorario.getModelTemas().addRow(fila);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {

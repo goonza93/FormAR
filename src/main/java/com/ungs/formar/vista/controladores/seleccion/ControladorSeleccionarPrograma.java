@@ -9,6 +9,8 @@ import java.util.List;
 import javax.swing.JComboBox;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Programa;
@@ -34,13 +36,28 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 		this.inicializar();
 	}
 
-	public void inicializar() {
-		this.ventanaSeleccionarPrograma.setVisible(true);
+	public void inicializar() {		
 		llenarTablaProgramas();
+		this.ventanaSeleccionarPrograma.setVisible(true);
 	}
 
 	private void llenarTablaProgramas() {
-
+		this.ventanaSeleccionarPrograma.getModelTemas().setRowCount(0); //Para vaciar la tabla
+		this.ventanaSeleccionarPrograma.getModelTemas().setColumnCount(0);
+		this.ventanaSeleccionarPrograma.getModelTemas().setColumnIdentifiers(this.ventanaSeleccionarPrograma.getNombreColumnas());
+		
+		this.programas_en_tabla = ProgramaManager.traerProgramas();
+		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
+			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
+			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
+			   }
+			});
+		*/
+		for (int i = 0; i < this.programas_en_tabla.size(); i ++){
+			Object[] fila = {this.programas_en_tabla.get(i).getNombre(), this.programas_en_tabla.get(i).getAreaID(),
+					this.programas_en_tabla.get(i).getFechaAprobacion()};
+			this.ventanaSeleccionarPrograma.getModelTemas().addRow(fila);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {

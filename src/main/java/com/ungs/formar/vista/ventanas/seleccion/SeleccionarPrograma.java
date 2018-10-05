@@ -99,5 +99,14 @@ public class SeleccionarPrograma extends JFrame {
 		return tablaProgramas;
 	}
 
+	public DefaultTableModel getModelTemas() {
+		return modelTemas;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	
 	
 }

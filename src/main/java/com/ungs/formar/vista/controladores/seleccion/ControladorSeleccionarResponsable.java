@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 
+import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
@@ -32,12 +33,27 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.ventanaSeleccionarResponsable.setVisible(true);
 		llenarTablaResponsables();
+		this.ventanaSeleccionarResponsable.setVisible(true);
 	}
 
 	private void llenarTablaResponsables() {
-
+		this.ventanaSeleccionarResponsable.getModelResponsables().setRowCount(0); //Para vaciar la tabla
+		this.ventanaSeleccionarResponsable.getModelResponsables().setColumnCount(0);
+		this.ventanaSeleccionarResponsable.getModelResponsables().setColumnIdentifiers(this.ventanaSeleccionarResponsable.getNombreColumnas());
+		
+		this.responsables_en_tabla = EmpleadoManager.traerEmpleados();
+		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
+			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
+			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
+			   }
+			});
+		*/
+		for (int i = 0; i < this.responsables_en_tabla.size(); i ++){
+			Object[] fila = {this.responsables_en_tabla.get(i).getNombre(), this.responsables_en_tabla.get(i).getApellido(),
+					this.responsables_en_tabla.get(i).getDNI()};
+			this.ventanaSeleccionarResponsable.getModelResponsables().addRow(fila);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
