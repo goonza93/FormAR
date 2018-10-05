@@ -44,7 +44,6 @@ public class SeleccionarSala extends JFrame {
 
 		modelSalas = new DefaultTableModel(null, nombreColumnas);
 		tablaSalas = new JTable(modelSalas);
-		//tablaSalas.setAutoCreateRowSorter(true); al filtrar es mejor darselo.
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelSalas);
 	    tablaSalas.setRowSorter(sorter);
 		/*

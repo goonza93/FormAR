@@ -8,7 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,6 +20,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 
 public class SeleccionarInstructor extends JFrame {
@@ -44,6 +49,9 @@ public class SeleccionarInstructor extends JFrame {
 		tablaInstructores = new JTable(modelInstructores);
 		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
 		tablaInstructores.setAutoCreateRowSorter(true);
+		
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelInstructores);
+		tablaInstructores.setRowSorter(sorter);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -77,6 +85,28 @@ public class SeleccionarInstructor extends JFrame {
 		lblInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblInstructores.setBounds(10, 39, 482, 14);
 		contentPane.add(lblInstructores);
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+        });
+		
+		
+		
 	}
 
 	public JTextField getTxtFiltro() {
