@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 public class SeleccionarResponsable extends JFrame {
 
 	private JPanel contentPane;
-	private DefaultTableModel modelTemas;
+	private DefaultTableModel modelResponsables;
 	private  String[] nombreColumnas = {"Nombre", "Apellido", "DNI"};
 	private JTable tablaAdministrativos;
 	private JTextField txtFiltro;
@@ -40,8 +40,8 @@ public class SeleccionarResponsable extends JFrame {
 		spAdministrativos.setBounds(10, 64, 482, 206);
 		contentPane.add(spAdministrativos);
 		
-		modelTemas = new DefaultTableModel(null,nombreColumnas);
-		tablaAdministrativos = new JTable(modelTemas);
+		modelResponsables = new DefaultTableModel(null,nombreColumnas);
+		tablaAdministrativos = new JTable(modelResponsables);
 		tablaAdministrativos.setFont(new Font("Arial", Font.PLAIN, 12));
 		tablaAdministrativos.setAutoCreateRowSorter(true);
 		/*
@@ -95,5 +95,14 @@ public class SeleccionarResponsable extends JFrame {
 		return tablaAdministrativos;
 	}
 
+	public DefaultTableModel getModelResponsables() {
+		return modelResponsables;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	
 	
 }

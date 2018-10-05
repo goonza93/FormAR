@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import com.ungs.formar.negocios.CursoManager;
+import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.ventanas.CrearCurso;
@@ -30,12 +32,28 @@ public class ControladorGestionarCurso implements ActionListener{
 		
 		public void inicializar()
 		{
-			this.ventanaGestionarCursos.mostrar();
 			llenarTablaCursos();
+			this.ventanaGestionarCursos.mostrar();
 		}
 
 		private void llenarTablaCursos(){
+			this.ventanaGestionarCursos.getModelCursos().setRowCount(0); //Para vaciar la tabla
+			this.ventanaGestionarCursos.getModelCursos().setColumnCount(0);
+			this.ventanaGestionarCursos.getModelCursos().setColumnIdentifiers(this.ventanaGestionarCursos.getNombreColumnas());
 			
+			this.cursos_en_tabla = CursoManager.traerCursos();
+			/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
+				   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
+				      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
+				   }
+				});
+			*/
+			for (int i = 0; i < this.cursos_en_tabla.size(); i ++){
+				Object[] fila = {this.cursos_en_tabla.get(i).getNombre(), this.cursos_en_tabla.get(i).getEstado(), /* Calcular vacantes*/
+						this.cursos_en_tabla.get(i).getFechaInicio(), this.cursos_en_tabla.get(i).getFechaFin(), this.cursos_en_tabla.get(i).getInstructor(),
+						this.cursos_en_tabla.get(i).getResponsable(), this.cursos_en_tabla.get(i).getSala()};
+				this.ventanaGestionarCursos.getModelCursos().addRow(fila);
+			}	
 		}
 		
 		public void actionPerformed(ActionEvent e) {

@@ -99,6 +99,10 @@ public class SeleccionarDiaHorario extends JFrame {
 		return tablaDiasHorarios;
 	}
 	
+	public DefaultTableModel getModelTemas() {
+		return modelTemas;
+	}
+
 	
 
 }

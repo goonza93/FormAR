@@ -2,12 +2,18 @@ package com.ungs.formar.vista.controladores.seleccion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.SalaManager;
+import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarSala implements ActionListener {
 	private SeleccionarSala ventana;
 	private ControladorCrearCurso controlador;
+	private List<Sala> salas_en_tabla;
 
 	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorCrearCurso controlador) {
 		this.ventana = ventana;
@@ -18,13 +24,27 @@ public class ControladorSeleccionarSala implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.ventana.setVisible(true);
 		llenarTablaSalas();
+		this.ventana.setVisible(true);
 	}
 
 	private void llenarTablaSalas() {
-		// No me acuerdo como se hacia pero les dejo la lista de salas
-		// List<Sala> salas = SalaManager.traerSalas();
+		this.ventana.getModelSalas().setRowCount(0); //Para vaciar la tabla
+		this.ventana.getModelSalas().setColumnCount(0);
+		this.ventana.getModelSalas().setColumnIdentifiers(this.ventana.getNombreColumnas());
+		
+		this.salas_en_tabla = SalaManager.traerSalas();
+		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
+			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
+			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
+			   }
+			});
+		*/
+		for (int i = 0; i < this.salas_en_tabla.size(); i ++){
+			Object[] fila = {this.salas_en_tabla.get(i).getNumero(), this.salas_en_tabla.get(i).getNombre(),
+					this.salas_en_tabla.get(i).getCapacidad()};
+			this.ventana.getModelSalas().addRow(fila);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
