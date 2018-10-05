@@ -16,11 +16,11 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	public void insert (Curso curso) {
 		String campos = "nombre, cupo_minimo, cupo_maximo, fecha_inicio, fecha_fin, contenido, clases, horas, instructor, responsable, sala, programa";
 		
-		String fInicio = curso.getFecha_inicio() == null ? null : "'"+curso.getFecha_inicio()+"'"; 
-		String fFin = curso.getFecha_fin() == null ? null : "'"+curso.getFecha_fin()+"'"; 
+		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
+		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
 		
 		String valores = "'"+curso.getNombre()+"', "+curso.getCupoMinimo()+", "+curso.getCupoMaximo()+", ";
-		valores += fInicio+", "+fFin+", '"+curso.getContenido()+"', "+curso.getCantidadClases()+", ";
+		valores += fInicio+", "+fFin+", '"+curso.getContenido()+"', "+curso.getClases()+", ";
 		valores += 10 +", "+curso.getInstructor()+", "+1+", "+curso.getSala()+", "+curso.getPrograma();
 		
 		String consulta = "insert into "+tabla+" ("+campos+") values ("+valores+")";
@@ -50,13 +50,16 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 						resultados.getInt("cupo_minimo"),
 						resultados.getInt("cupo_maximo"),
 						resultados.getInt("clases"),
-						resultados.getInt("instructor"),
-						resultados.getInt("sala"),
-						resultados.getInt("programa"),
+						resultados.getInt("horas"),
 						resultados.getString("nombre"),
 						resultados.getString("contenido"),
 						resultados.getDate("fecha_inicio"),
-						resultados.getDate("fecha_fin")
+						resultados.getDate("fecha_fin"),
+						resultados.getInt("instructor"),
+						resultados.getInt("sala"),
+						resultados.getInt("programa"),
+						resultados.getInt("estado"),
+						resultados.getInt("responsable")
 						));
 				}
 			
