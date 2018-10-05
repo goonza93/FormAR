@@ -1,9 +1,9 @@
 package com.ungs.formar;
 
-import com.ungs.formar.Controlador.ControladorCrearCurso;
-import com.ungs.formar.Controlador.ControladorGestionarCurso;
-import com.ungs.formar.vista.CrearCurso;
-import com.ungs.formar.vista.GestionarCursos;
+import com.ungs.formar.vista.controladores.ControladorCrearCurso;
+import com.ungs.formar.vista.controladores.ControladorGestionarCurso;
+import com.ungs.formar.vista.ventanas.CrearCurso;
+import com.ungs.formar.vista.ventanas.GestionarCursos;
 
 
 
