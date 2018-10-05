@@ -23,7 +23,7 @@ public class CursoODBTest {
 	}
 	
 	public static void main(String[] args) {
-		Curso curso = new Curso(-1, 10, 40, 50, 1, 1, 1, "Crso definitivo de supervivencia", "nada", null, null);
+		Curso curso = new Curso(-1, 10, 50, 15, 15, "Curso Y", "XXX", null, null, 1, 1, 1, 1, 1);
 		insertTest(curso);
 		selectTest();
 	}
