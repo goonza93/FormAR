@@ -1,53 +1,45 @@
 package com.ungs.formar.persistencia.entidades;
 
-import java.util.Date;
-
 public class Horario {
+	private Integer horarioID, diaID, horaInicio, horaFin;
 
-	private int horarioID;
-	private Date horaInicio;
-	private Date horaFin;
-	private int dia;
-	
-	public Horario(int horarioID, Date horaInicio, Date horaFin, int dia) {
+	public Horario(Integer horarioID, Integer diaID, Integer horaInicio, Integer horaFin) {
 		this.horarioID = horarioID;
+		this.diaID = diaID;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
-		this.dia = dia;
 	}
 
-	public int getHorarioID() {
+	public Integer getHorarioID() {
 		return horarioID;
 	}
 
-	public void setHorarioID(int horarioID) {
+	public void setHorarioID(Integer horarioID) {
 		this.horarioID = horarioID;
 	}
 
-	public Date getHoraInicio() {
+	public Integer getDiaID() {
+		return diaID;
+	}
+
+	public void setDiaID(Integer diaID) {
+		this.diaID = diaID;
+	}
+
+	public Integer getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Date horaInicio) {
+	public void setHoraInicio(Integer horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Date getHoraFin() {
+	public Integer getHoraFin() {
 		return horaFin;
 	}
 
-	public void setHoraFin(Date horaFin) {
+	public void setHoraFin(Integer horaFin) {
 		this.horaFin = horaFin;
 	}
-
-	public int getDia() {
-		return dia;
-	}
-
-	public void setDia(int dia) {
-		this.dia = dia;
-	}
-
-	
 	
 }

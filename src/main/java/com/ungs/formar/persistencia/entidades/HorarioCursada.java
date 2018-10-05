@@ -1,41 +1,36 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class HorarioCursada {
+	private Integer horarioCursadaID, cursoID, horarioID;
 
-	private int horarioCursadaID;
-	private int curso;
-	private int horario;
-	
-	public HorarioCursada(int horarioCursadaID, int curso, int horario) {
+	public HorarioCursada(Integer horarioCursadaID, Integer cursoID, Integer horarioID) {
 		this.horarioCursadaID = horarioCursadaID;
-		this.curso = curso;
-		this.horario = horario;
+		this.cursoID = cursoID;
+		this.horarioID = horarioID;
 	}
 
-	public int getHorarioCursadaID() {
+	public Integer getHorarioCursadaID() {
 		return horarioCursadaID;
 	}
 
-	public void setHorarioCursadaID(int horarioCursadaID) {
+	public void setHorarioCursadaID(Integer horarioCursadaID) {
 		this.horarioCursadaID = horarioCursadaID;
 	}
 
-	public int getCurso() {
-		return curso;
+	public Integer getCursoID() {
+		return cursoID;
 	}
 
-	public void setCurso(int curso) {
-		this.curso = curso;
+	public void setCursoID(Integer cursoID) {
+		this.cursoID = cursoID;
 	}
 
-	public int getHorario() {
-		return horario;
+	public Integer getHorarioID() {
+		return horarioID;
 	}
 
-	public void setHorario(int horario) {
-		this.horario = horario;
+	public void setHorarioID(Integer horarioID) {
+		this.horarioID = horarioID;
 	}
-
-	
 	
 }

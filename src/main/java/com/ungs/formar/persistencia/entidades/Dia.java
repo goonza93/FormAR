@@ -1,31 +1,28 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Dia {
-
-	private int diaID;
-	private String dia;
+	private Integer diaID;
+	private String descripcion;
 	
-	public Dia(int diaID, String dia) {
+	public Dia(Integer diaID, String descripcion) {
 		this.diaID = diaID;
-		this.dia = dia;
+		this.descripcion = descripcion;
 	}
 
-	public int getDiaID() {
+	public Integer getDiaID() {
 		return diaID;
 	}
 
-	public void setDiaID(int diaID) {
+	public void setDiaID(Integer diaID) {
 		this.diaID = diaID;
 	}
 
-	public String getDia() {
-		return dia;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDia(String dia) {
-		this.dia = dia;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-
-	
 	
 }

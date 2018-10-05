@@ -1,45 +1,42 @@
 package com.ungs.formar.persistencia.entidades;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Programa {
-	
-	private int programaID;
-	private String nombreMateria;
+	private Integer programaID, areaID;
+	private String nombre, descripcion;
 	private Date fechaAprobacion;
-	private String descripcion;
-	private int areaDeInteres;
 	
-	public Programa(int programaID, String nombreMateria, Date fechaAprobacion, String descripcion, int areaDeInteres) {
+	public Programa(Integer programaID, Integer areaID, String nombre, String descripcion, Date fechaAprobacion) {
 		this.programaID = programaID;
-		this.nombreMateria = nombreMateria;
-		this.fechaAprobacion = fechaAprobacion;
+		this.areaID = areaID;
+		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.areaDeInteres = areaDeInteres;
+		this.fechaAprobacion = fechaAprobacion;
 	}
 
-	public int getProgramaID() {
+	public Integer getProgramaID() {
 		return programaID;
 	}
 
-	public void setProgramaID(int programaID) {
+	public void setProgramaID(Integer programaID) {
 		this.programaID = programaID;
 	}
 
-	public String getNombreMateria() {
-		return nombreMateria;
+	public Integer getAreaID() {
+		return areaID;
 	}
 
-	public void setNombreMateria(String nombreMateria) {
-		this.nombreMateria = nombreMateria;
+	public void setAreaID(Integer areaID) {
+		this.areaID = areaID;
 	}
 
-	public Date getFechaAprobacion() {
-		return fechaAprobacion;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setFechaAprobacion(Date fechaAprobacion) {
-		this.fechaAprobacion = fechaAprobacion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getDescripcion() {
@@ -50,14 +47,12 @@ public class Programa {
 		this.descripcion = descripcion;
 	}
 
-	public int getAreaDeInteres() {
-		return areaDeInteres;
+	public Date getFechaAprobacion() {
+		return fechaAprobacion;
 	}
 
-	public void setAreaDeInteres(int areaDeInteres) {
-		this.areaDeInteres = areaDeInteres;
+	public void setFechaAprobacion(Date fechaAprobacion) {
+		this.fechaAprobacion = fechaAprobacion;
 	}
-
-
 	
 }

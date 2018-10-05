@@ -1,31 +1,28 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class EstadoCurso {
+	private Integer estadoID;
+	private String descripcion;
 	
-	private int estadoID;
-	private String estado;
-	
-	public EstadoCurso(int estadoID, String estado) {
+	public EstadoCurso(Integer estadoID, String descripcion) {
 		this.estadoID = estadoID;
-		this.estado = estado;
+		this.descripcion = descripcion;
 	}
 
-	public int getEstadoID() {
+	public Integer getEstadoID() {
 		return estadoID;
 	}
 
-	public void setEstadoID(int estadoID) {
+	public void setEstadoID(Integer estadoID) {
 		this.estadoID = estadoID;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-
-
 	
 }
