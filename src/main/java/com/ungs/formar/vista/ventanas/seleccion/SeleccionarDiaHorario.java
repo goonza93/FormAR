@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.ventanas;
+package com.ungs.formar.vista.ventanas.seleccion;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -18,86 +18,93 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class SeleccionarPrograma extends JFrame {
+public class SeleccionarDiaHorario extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultTableModel modelTemas;
-	private String[] nombreColumnas = { "Nombre", "Area de Interes", "Fecha de creacion" };
-	private JTable tablaProgramas;
-	private JTextField txtFiltro;
+	private String[] nombreColumnas = { "Dia", "Hora Inicio", "Hora Fin" };
+	private JTable tablaDiasHorarios;
+	private JLabel lblDiasHorarios;
+	private JButton btnAgregar;
 	private JButton btnSeleccionar;
 	private JButton btnCancelar;
+	private JTextField txtFiltro;
 
-	public SeleccionarPrograma() {
+	public SeleccionarDiaHorario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 518, 351);
+		setBounds(100, 100, 518, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JScrollPane spProgramas = new JScrollPane();
-		spProgramas.setBounds(10, 64, 482, 206);
-		contentPane.add(spProgramas);
+		JScrollPane spDiasHorarios = new JScrollPane();
+		spDiasHorarios.setBounds(10, 68, 482, 206);
+		contentPane.add(spDiasHorarios);
 
 		modelTemas = new DefaultTableModel(null, nombreColumnas);
-		tablaProgramas = new JTable(modelTemas);
-		tablaProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
-		tablaProgramas.setAutoCreateRowSorter(true);
+		tablaDiasHorarios = new JTable(modelTemas);
+		tablaDiasHorarios.setAutoCreateRowSorter(true);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
 		 */
 
-		spProgramas.setViewportView(tablaProgramas);
+		spDiasHorarios.setViewportView(tablaDiasHorarios);
 
 		btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionar.setBounds(10, 281, 199, 23);
+		btnSeleccionar.setBounds(10, 285, 143, 23);
 		contentPane.add(btnSeleccionar);
 
 		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(293, 282, 199, 23);
+		btnCancelar.setBounds(358, 285, 134, 23);
 		contentPane.add(btnCancelar);
 
-		JLabel lblFiltro = new JLabel("FILTRAR: ");
-		lblFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltro.setBounds(10, 14, 131, 14);
-		contentPane.add(lblFiltro);
+		JLabel lblDia = new JLabel("FILTRAR:");
+		lblDia.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblDia.setBounds(21, 11, 106, 14);
+		contentPane.add(lblDia);
 
+		lblDiasHorarios = new JLabel("DIAS Y HORARIOS:");
+		lblDiasHorarios.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDiasHorarios.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblDiasHorarios.setBounds(21, 43, 481, 14);
+		contentPane.add(lblDiasHorarios);
+
+		btnAgregar = new JButton("AGREGAR");
+		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnAgregar.setBounds(183, 285, 143, 23);
+		contentPane.add(btnAgregar);
+		
 		txtFiltro = new JTextField();
 		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFiltro.setBounds(151, 11, 205, 20);
-		contentPane.add(txtFiltro);
 		txtFiltro.setColumns(10);
-
-		JLabel lblProgramas = new JLabel("PROGRAMAS");
-		lblProgramas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblProgramas.setBounds(10, 39, 482, 14);
-		contentPane.add(lblProgramas);
+		txtFiltro.setBounds(137, 8, 189, 20);
+		contentPane.add(txtFiltro);
 	}
 
-	public JTextField getTxtFiltro() {
-		return txtFiltro;
+	public JButton getBtnAgregar() {
+		return btnAgregar;
 	}
 
 	public JButton getBtnSeleccionar() {
 		return btnSeleccionar;
 	}
 
+	public JTextField getTxtFiltrar() {
+		return txtFiltro;
+	}
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
 
-	public JTable getTablaProgramas() {
-		return tablaProgramas;
+	public JTable getTablaDiasHorarios() {
+		return tablaDiasHorarios;
 	}
-
 	
+	
+
 }

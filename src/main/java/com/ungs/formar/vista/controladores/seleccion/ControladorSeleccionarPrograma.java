@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.controladores;
+package com.ungs.formar.vista.controladores.seleccion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +12,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.CrearCurso;
-import com.ungs.formar.vista.ventanas.SeleccionarDiaHorario;
-import com.ungs.formar.vista.ventanas.SeleccionarInstructor;
-import com.ungs.formar.vista.ventanas.SeleccionarPrograma;
-import com.ungs.formar.vista.ventanas.SeleccionarResponsable;
-import com.ungs.formar.vista.ventanas.SeleccionarSala;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarPrograma implements ActionListener {
 	private SeleccionarPrograma ventanaSeleccionarPrograma;

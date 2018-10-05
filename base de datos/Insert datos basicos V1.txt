@@ -1,0 +1,8 @@
+USE formar;
+INSERT INTO for_semana (descripcion) VALUES ("Lunes");
+INSERT INTO for_semana (descripcion) VALUES ("Martes");
+INSERT INTO for_semana (descripcion) VALUES ("Miercoles");
+INSERT INTO for_semana (descripcion) VALUES ("Jueves");
+INSERT INTO for_semana (descripcion) VALUES ("Viernes");
+INSERT INTO for_semana (descripcion) VALUES ("Sabado");
+INSERT INTO for_semana (descripcion) VALUES ("Domingo");

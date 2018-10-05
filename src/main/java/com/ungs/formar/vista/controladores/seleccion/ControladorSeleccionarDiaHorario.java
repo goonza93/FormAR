@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.controladores;
+package com.ungs.formar.vista.controladores.seleccion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,12 +10,13 @@ import java.util.List;
 import javax.swing.JComboBox;
 
 import com.ungs.formar.persistencia.entidades.Horario;
+import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.AltaModifDiaHorario;
 import com.ungs.formar.vista.ventanas.CrearCurso;
-import com.ungs.formar.vista.ventanas.SeleccionarDiaHorario;
-import com.ungs.formar.vista.ventanas.SeleccionarInstructor;
-import com.ungs.formar.vista.ventanas.SeleccionarResponsable;
-import com.ungs.formar.vista.ventanas.SeleccionarSala;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarDiaHorario implements ActionListener {
 	private SeleccionarDiaHorario ventanaSeleccionarDiaHorario;

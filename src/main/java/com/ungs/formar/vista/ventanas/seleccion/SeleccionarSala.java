@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.ventanas;
+package com.ungs.formar.vista.ventanas.seleccion;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

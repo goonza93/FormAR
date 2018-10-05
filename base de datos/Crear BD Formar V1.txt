@@ -122,8 +122,8 @@ CREATE TABLE for_inscripciones (
 
 -- ESQUEMA SEMANA
 CREATE TABLE for_semana (
-	dia_ID int(11),
-	descripcion int(11) DEFAULT NULL,
+	dia_ID int(11) AUTO_INCREMENT,
+	descripcion varchar(20) DEFAULT NULL,
 	PRIMARY KEY (dia_ID)
 );
 	

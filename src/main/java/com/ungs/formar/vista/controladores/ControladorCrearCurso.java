@@ -13,12 +13,17 @@ import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.entidades.Sala;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarDiaHorario;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarInstructor;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarResponsable;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarSala;
 import com.ungs.formar.vista.ventanas.CrearCurso;
-import com.ungs.formar.vista.ventanas.SeleccionarDiaHorario;
-import com.ungs.formar.vista.ventanas.SeleccionarInstructor;
-import com.ungs.formar.vista.ventanas.SeleccionarPrograma;
-import com.ungs.formar.vista.ventanas.SeleccionarResponsable;
-import com.ungs.formar.vista.ventanas.SeleccionarSala;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorCrearCurso implements ActionListener {
 	private CrearCurso ventanaCrearCurso;
