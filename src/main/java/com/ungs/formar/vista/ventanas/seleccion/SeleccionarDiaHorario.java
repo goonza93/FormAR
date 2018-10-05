@@ -102,7 +102,10 @@ public class SeleccionarDiaHorario extends JFrame {
 	public DefaultTableModel getModelTemas() {
 		return modelTemas;
 	}
-
+	
+	public String[] getNombreColumnas(){
+		return nombreColumnas;
+	}
 	
 
 }

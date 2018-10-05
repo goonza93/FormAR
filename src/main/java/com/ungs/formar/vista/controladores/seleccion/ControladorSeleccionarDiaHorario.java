@@ -42,7 +42,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 	private void llenarTablaDiaHorario() {
 		this.ventanaSeleccionarDiaHorario.getModelTemas().setRowCount(0); //Para vaciar la tabla
 		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnCount(0);
-		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnIdentifiers(this.ventanaGestionarCursos.getNombreColumnas());
+		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnIdentifiers(this.ventanaSeleccionarDiaHorario.getNombreColumnas());
 		
 		//this.horarios_en_tabla = HorariosManager.traerHorarios();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
