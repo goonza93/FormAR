@@ -197,7 +197,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
-		this.ventanaCrearCurso.getTxtPrograma().setText(this.programa.getNombreMateria());
+		this.ventanaCrearCurso.getTxtPrograma().setText(this.programa.getNombre());
 	}
 
 	public List<HorarioCursada> getHorariosCursada() {

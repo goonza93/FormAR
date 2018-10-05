@@ -1,0 +1,145 @@
+-- CREO LA BASE DE DATOS FORMAR, SI YA EXISTE, LA  ELIMINO PRIMERO
+DROP DATABASE IF EXISTS formar;
+CREATE DATABASE formar;
+USE formar;
+
+-- ESQUEMA DE AREAS
+CREATE TABLE for_areas (
+	area_ID int(11) AUTO_INCREMENT,
+	nombre varchar(50),
+	descripcion varchar(200),
+	PRIMARY KEY (area_ID)
+);
+
+-- ESQUEMA DE ASISTENCIAS
+CREATE TABLE for_asistencias (
+	asistencia_ID int(11) AUTO_INCREMENT,
+	curso int(11) NOT NULL,
+	cliente int(11) NOT NULL,
+	fecha date,
+	presente binary(50),
+	PRIMARY KEY (asistencia_ID)
+);
+
+-- ESQUEMA CLIENTES
+CREATE TABLE for_clientes (
+	cliente_ID int(11) AUTO_INCREMENT,
+	dni varchar(20) NOT NULL,
+	nombre varchar(50) DEFAULT NULL,
+	apellido varchar(50) DEFAULT NULL,
+	telefono varchar(50) DEFAULT NULL,
+	email varchar(50) DEFAULT NULL,
+	PRIMARY KEY (cliente_ID),
+	UNIQUE KEY dni (dni)
+);
+
+-- ESQUEMA CURSOS
+CREATE TABLE for_cursos (
+	curso_ID int(11) AUTO_INCREMENT,
+	nombre varchar(50) DEFAULT NULL,
+	cupo_minimo int(3) DEFAULT 1,
+	cupo_maximo int(3) DEFAULT 1000,
+	fecha_inicio date DEFAULT NULL,
+	fecha_fin date DEFAULT NULL,
+	contenido varchar(50) DEFAULT NULL,
+	clases int(11) DEFAULT NULL,  
+	horas int(5) DEFAULT NULL,
+	instructor int(11) not NULL,
+	responsable int(11) not NULL,
+	sala int(11) DEFAULT NULL,
+	programa int(11) DEFAULT NULL,
+	estado int(11) DEFAULT NULL,
+	PRIMARY KEY (curso_ID)
+);
+
+-- ESQUEMA ESTADO DE CURSO
+CREATE TABLE for_estados_curso (
+	estado_ID int(11) AUTO_INCREMENT,
+	descripcion text,
+	PRIMARY KEY (estado_ID)
+);
+
+-- ESQUEMA DE EMPLEADOS
+CREATE TABLE for_empleados (
+	empleado_ID int(11) AUTO_INCREMENT,
+	DNI int(11) NOT NULL,
+	nombre varchar(50) NOT NULL DEFAULT 'NOMBRE',
+	apellido varchar(50) NOT NULL DEFAULT 'APELLIDO',
+	telefono varchar(11) NOT NULL DEFAULT '1234-1234',
+	email varchar(50) NOT NULL DEFAULT 'SIN EMAIL',
+	fecha_ingreso DATE NOT NULL,
+	fecha_egreso DATE,
+	PRIMARY KEY (empleado_ID)
+);
+
+-- ESQUEMA ESTADOS DE INSCRIPCION
+CREATE TABLE for_estados_inscripcion (
+	estado_ID int(11) AUTO_INCREMENT,
+	descripcion varchar(50),
+	PRIMARY KEY (estado_ID)
+);
+
+-- ESQUEMA EXAMENES
+CREATE TABLE for_examenes (
+	examen_ID int(11) AUTO_INCREMENT,
+	cliente int(11) DEFAULT NULL,
+	curso int(11) DEFAULT NULL,
+	fecha date DEFAULT NULL,
+	descripcion varchar(50) DEFAULT NULL,
+	nota int(11) DEFAULT NULL,
+	PRIMARY KEY (examen_ID)
+);
+
+-- ESQUEMA DE PROGRAMAS
+CREATE TABLE for_programas (
+	programa_ID int(11) AUTO_INCREMENT,
+	area_ID int(11),
+	nombre varchar(50) DEFAULT NULL,
+	fecha_aprobacion date DEFAULT NULL,
+	descripcion varchar(50) DEFAULT NULL,
+	PRIMARY KEY (programa_ID)
+);
+
+-- ESQUEMA SALAS
+CREATE TABLE for_salas (
+	sala_ID int(11) AUTO_INCREMENT,
+	nombre varchar(50) DEFAULT NULL,
+	numero int(11) DEFAULT 1,
+	capacidad int(11) DEFAULT 1,
+	PRIMARY KEY (sala_ID)
+);
+
+-- ESQUEMA INSCRIPCIONES
+CREATE TABLE for_inscripciones (
+	inscripcion_ID int(11) AUTO_INCREMENT,
+	cliente int(11) DEFAULT NULL,
+	curso int(11) DEFAULT NULL,
+	estado int(11) DEFAULT NULL,
+	fecha date DEFAULT NULL,
+	nota decimal(10,0) DEFAULT NULL,
+	PRIMARY KEY (inscripcion_ID)
+);
+
+-- ESQUEMA SEMANA
+CREATE TABLE for_semana (
+	dia_ID int(11),
+	descripcion int(11) DEFAULT NULL,
+	PRIMARY KEY (dia_ID)
+);
+	
+-- ESQUEMAS HORARIOS
+CREATE TABLE for_horarios (
+	horario_ID int(11) AUTO_INCREMENT,
+	dia_ID int(11) DEFAULT NULL,
+	hora_inicio double DEFAULT NULL,
+	hora_fin double DEFAULT NULL,
+	PRIMARY KEY (horario_ID)
+);
+
+-- ESQUEMA HORARIOS DE CURSADA
+CREATE TABLE for_horarios_cursada (
+	horario_cursada_ID int(11) AUTO_INCREMENT,
+	curso_ID int(11) DEFAULT NULL,
+	horario_id int(11) DEFAULT NULL,
+	PRIMARY KEY (horario_cursada_ID)
+);
