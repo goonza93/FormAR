@@ -31,14 +31,15 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 		this.controladorCrearCurso = controladorCrearCurso;
 		this.ventanaSeleccionarPrograma.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarPrograma.getBtnSeleccionar().addActionListener(this);
+		this.inicializar();
 	}
 
 	public void inicializar() {
 		this.ventanaSeleccionarPrograma.setVisible(true);
-		llenarTablaInstructores();
+		llenarTablaProgramas();
 	}
 
-	private void llenarTablaInstructores() {
+	private void llenarTablaProgramas() {
 
 	}
 

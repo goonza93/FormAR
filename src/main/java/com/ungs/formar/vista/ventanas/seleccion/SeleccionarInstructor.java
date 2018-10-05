@@ -102,6 +102,8 @@ public class SeleccionarInstructor extends JFrame {
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
+	
+	
 
 	
 }

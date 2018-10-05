@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JComboBox;
+
 import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.entidades.Dia;
@@ -34,7 +35,7 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 	}
 
 	public void inicializar() {
-		llenarTablaInstructores();
+		this.llenarTablaInstructores();
 		this.ventanaSeleccionarInstructor.setVisible(true);
 	}
 
@@ -54,7 +55,7 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 			Object[] fila = {this.instructores_en_tabla.get(i).getNombre(), this.instructores_en_tabla.get(i).getApellido(),
 					this.instructores_en_tabla.get(i).getDNI()};
 			this.ventanaSeleccionarInstructor.getModelInstructores().addRow(fila);
-		}
+		}			
 
 	}
 

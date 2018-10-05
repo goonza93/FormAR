@@ -14,6 +14,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 		this.controlador = controlador;
 		this.ventana.getBtnCancelar().addActionListener(this);
 		this.ventana.getBtnSeleccionar().addActionListener(this);
+		this.inicializar();
 	}
 
 	public void inicializar() {
