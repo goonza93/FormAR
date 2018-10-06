@@ -51,6 +51,12 @@ public class ControladorSeleccionarSala implements ActionListener {
 		if (e.getSource() == ventana.getBtnSeleccionar()) {
 			int fila_seleccionada = this.ventana.getTablaSalas().getSelectedRow();
 			if (fila_seleccionada != -1) {
+				// ESTE ES EL FIX PARA QUE FUNCIONE TMB CON FILTROS...
+				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
+				int row = this.ventana.getTablaSalas().getSelectedRow(); // indice row de la tabla
+				int modelFila = this.ventana.getTablaSalas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
+				System.out.println(modelFila); // para revisar
+				
 				// this.controladorCrearCurso.setSala(//Sala EN
 				// FILA
 				// SELECCIONADA);
