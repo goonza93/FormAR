@@ -2,6 +2,7 @@ package com.ungs.formar.negocios;
 
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 
@@ -15,6 +16,12 @@ public class SalaManager {
 	public static Sala traerSala(Integer id){
 		SalaODB odb = FactoryODB.crearSalaODB();
 		return odb.selectByID(id);
+	}
+	
+	public static boolean validarHorarioDeCursada(HorarioCursada horarioCursada) {
+		
+		
+		return true;
 	}
 
 }
