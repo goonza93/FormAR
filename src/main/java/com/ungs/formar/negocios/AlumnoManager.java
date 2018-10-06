@@ -7,7 +7,7 @@ import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 
 public class AlumnoManager {
 
-	public static List<Alumno> traerAlumno() {
+	public static List<Alumno> traerAlumnos() {
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		return odb.select();
 	}

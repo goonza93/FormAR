@@ -49,7 +49,7 @@ public class ControladorGestionarAlumnos implements ActionListener {
 		this.ventanaGestionarAlumnos.getModelAlumnos().setColumnCount(0);
 		this.ventanaGestionarAlumnos.getModelAlumnos().setColumnIdentifiers(this.ventanaGestionarAlumnos.getNombreColumnas());
 		
-		this.alumnos_en_tabla = AlumnoManager.traerAlumno();
+		this.alumnos_en_tabla = AlumnoManager.traerAlumnos();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
