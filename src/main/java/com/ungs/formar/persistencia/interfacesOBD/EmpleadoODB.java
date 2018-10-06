@@ -12,5 +12,6 @@ public interface EmpleadoODB {
 	public List<Empleado> select();
 	public Empleado selectByNombre(String nombre);
 	public Empleado selectByID(Integer id);
+	public List<Empleado> selectByRol(Integer rolID);
 	
 }

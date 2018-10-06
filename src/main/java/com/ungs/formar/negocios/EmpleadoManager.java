@@ -11,5 +11,15 @@ public class EmpleadoManager {
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		return odb.select();
 	}
+	
+	public static List<Empleado> traerAdministrativos(){
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByRol(1);
+	}
+	
+	public static List<Empleado> traerInstructores(){
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByRol(2);
+	}
 
 }

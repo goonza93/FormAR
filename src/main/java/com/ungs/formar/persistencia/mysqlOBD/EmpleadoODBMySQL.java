@@ -15,7 +15,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	private final String tabla = "for_empleados";
 
 	public void insert(Empleado empleado) {
-		String consulta = "insert into "+tabla+" (rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
+		String consulta = "insert into "+tabla+" (DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
 		String valores = empleado.getRol() +", '"+ empleado.getDNI() +"', '"+ empleado.getNombre() +"', '"
 				+ empleado.getApellido() +"', '"+ empleado.getTelefono() +"', '"+ empleado.getEmail() +"', '"
 				+ empleado.getFechaIngreso()+"', '"+ empleado.getFechaEgreso()+"'";
@@ -63,6 +63,12 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		
 		return empleado;
 	}
+	
+	public List<Empleado> selectByRol(Integer rolID){
+		String condicion = "rol = '"+rolID+"'";
+		return selectByCondicion(condicion);
+	}
+
 
 	private List<Empleado> selectByCondicion(String condicion) {
 		List<Empleado> empleados = new ArrayList<Empleado>();
