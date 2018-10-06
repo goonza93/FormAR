@@ -7,12 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -60,6 +67,8 @@ public class GestionarUsuarios extends JFrame {
 		
 		modelUsuarios = new DefaultTableModel(null,nombreColumnas);
 		tablaUsuarios = new JTable(modelUsuarios);
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelUsuarios);
+	    tablaUsuarios.setRowSorter(sorter);
 		/*
 		tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -102,6 +111,25 @@ public class GestionarUsuarios extends JFrame {
 		txtFiltro.setColumns(10);
 		txtFiltro.setBounds(151, 39, 178, 20);
 		contentPane.add(txtFiltro);
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+        });
 		
 		JComboBox comboOrdenarPor = new JComboBox();
 		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));

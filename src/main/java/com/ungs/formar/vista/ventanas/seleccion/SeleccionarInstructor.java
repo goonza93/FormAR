@@ -48,8 +48,6 @@ public class SeleccionarInstructor extends JFrame {
 		modelInstructores = new DefaultTableModel(null, nombreColumnas);
 		tablaInstructores = new JTable(modelInstructores);
 		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
-		tablaInstructores.setAutoCreateRowSorter(true);
-		
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelInstructores);
 		tablaInstructores.setRowSorter(sorter);
 		/*
@@ -104,8 +102,6 @@ public class SeleccionarInstructor extends JFrame {
 				// TODO Auto-generated method stub
 			}
         });
-		
-		
 		
 	}
 

@@ -7,12 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -21,7 +28,7 @@ import javax.swing.SwingConstants;
 public class SeleccionarPrograma extends JFrame {
 
 	private JPanel contentPane;
-	private DefaultTableModel modelTemas;
+	private DefaultTableModel modelProgramas;
 	private String[] nombreColumnas = { "Nombre", "Area de Interes", "Fecha de creacion" };
 	private JTable tablaProgramas;
 	private JTextField txtFiltro;
@@ -40,10 +47,11 @@ public class SeleccionarPrograma extends JFrame {
 		spProgramas.setBounds(10, 64, 482, 206);
 		contentPane.add(spProgramas);
 
-		modelTemas = new DefaultTableModel(null, nombreColumnas);
-		tablaProgramas = new JTable(modelTemas);
+		modelProgramas = new DefaultTableModel(null, nombreColumnas);
+		tablaProgramas = new JTable(modelProgramas);
 		tablaProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
-		tablaProgramas.setAutoCreateRowSorter(true);
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelProgramas);
+	    tablaProgramas.setRowSorter(sorter);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -75,6 +83,25 @@ public class SeleccionarPrograma extends JFrame {
 		txtFiltro.setBounds(151, 11, 205, 20);
 		contentPane.add(txtFiltro);
 		txtFiltro.setColumns(10);
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+        });
 
 		JLabel lblProgramas = new JLabel("PROGRAMAS");
 		lblProgramas.setHorizontalAlignment(SwingConstants.CENTER);
@@ -100,7 +127,7 @@ public class SeleccionarPrograma extends JFrame {
 	}
 
 	public DefaultTableModel getModelTemas() {
-		return modelTemas;
+		return modelProgramas;
 	}
 
 	public String[] getNombreColumnas() {

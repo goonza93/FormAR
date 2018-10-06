@@ -7,15 +7,24 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -23,7 +32,7 @@ import javax.swing.JTextField;
 public class AsignacionesInstructor extends JFrame {
 
 	private JPanel contentPane;
-	private DefaultTableModel modelTemas;
+	private DefaultTableModel modelInstructores;
 	private  String[] nombreColumnas = {"Curso", "Dia", "Hora Inicio", "Hora Fin"};
 	private JTextField txtFiltro;
 	private JTable tablaInstructores;
@@ -60,11 +69,10 @@ public class AsignacionesInstructor extends JFrame {
 		spInstructores.setBounds(10, 198, 482, 231);
 		contentPane.add(spInstructores);
 		
-		modelTemas = new DefaultTableModel(null,nombreColumnas);
-		tablaInstructores = new JTable(modelTemas);
-		
-		
-		
+		modelInstructores = new DefaultTableModel(null,nombreColumnas);
+		tablaInstructores = new JTable(modelInstructores);
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelInstructores);
+	    tablaInstructores.setRowSorter(sorter);
 		
 		spInstructores.setViewportView(tablaInstructores);
 		
@@ -113,6 +121,25 @@ public class AsignacionesInstructor extends JFrame {
 		txtFiltro.setColumns(10);
 		txtFiltro.setBounds(151, 114, 178, 20);
 		contentPane.add(txtFiltro);
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+        });
 		
 		JComboBox comboOrdenarPor = new JComboBox();
 		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -140,6 +167,6 @@ public class AsignacionesInstructor extends JFrame {
 		btnCancelar.setBounds(138, 440, 199, 23);
 		contentPane.add(btnCancelar);
 		
-		modelTemas = new DefaultTableModel(null,nombreColumnas);
+		modelInstructores = new DefaultTableModel(null,nombreColumnas);
 	}
 }

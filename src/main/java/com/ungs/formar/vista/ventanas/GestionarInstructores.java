@@ -22,7 +22,7 @@ import javax.swing.event.DocumentListener;
 public class GestionarInstructores {
 	private JFrame frame;
 	private JButton btnAgregar;
-	private DefaultTableModel modelCursos;
+	private DefaultTableModel modelInstructores;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "Email", "Telefono", "Fecha ingreso", "Fecha egreso"};
 	private JScrollPane spInstructores;
 	private JTable tablaInstructores;
@@ -51,12 +51,12 @@ public class GestionarInstructores {
 		spInstructores.setBounds(10, 79, 704, 206);
 		panel.add(spInstructores);
 		
-		modelCursos = new DefaultTableModel(null, nombreColumnas);
-		tablaInstructores = new JTable(modelCursos);
+		modelInstructores = new DefaultTableModel(null, nombreColumnas);
+		tablaInstructores = new JTable(modelInstructores);
 		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
 		spInstructores.setViewportView(tablaInstructores);
 
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelInstructores);
 		tablaInstructores.setRowSorter(sorter);
 		
 		lblFiltrar = new JLabel("FILTRAR:");
@@ -120,7 +120,7 @@ public class GestionarInstructores {
 	}
 
 	public DefaultTableModel getModelInstructores() {
-		return modelCursos;
+		return modelInstructores;
 	}
 
 	public String[] getNombreColumnas() {

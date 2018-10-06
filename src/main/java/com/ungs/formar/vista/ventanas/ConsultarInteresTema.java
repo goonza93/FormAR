@@ -7,12 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -24,7 +31,7 @@ public class ConsultarInteresTema extends JFrame {
 	private DefaultTableModel modelTemas;
 	private  String[] nombreColumnas = {"Nombre"};
 	private JTable tablaTemas;
-	private JTextField textField;
+	private JTextField txtFiltro;
 
 	
 	/**
@@ -61,6 +68,8 @@ public class ConsultarInteresTema extends JFrame {
 		modelTemas = new DefaultTableModel(null,nombreColumnas);
 		tablaTemas = new JTable(modelTemas);
 		tablaTemas.setFont(new Font("Arial", Font.PLAIN, 12));
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelTemas);
+	    tablaTemas.setRowSorter(sorter);
 		/*
 		tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
@@ -97,11 +106,30 @@ public class ConsultarInteresTema extends JFrame {
 		label_1.setBounds(10, 42, 131, 14);
 		contentPane.add(label_1);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Arial", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(151, 39, 178, 20);
-		contentPane.add(textField);
+		txtFiltro = new JTextField();
+		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFiltro.setColumns(10);
+		txtFiltro.setBounds(151, 39, 178, 20);
+		contentPane.add(txtFiltro);
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
+            public void insertUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+            public void removeUpdate(DocumentEvent e) {
+                if (txtFiltro.getText().trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                }
+            }
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+        });
 		
 		JLabel label_2 = new JLabel("TEMAS");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
