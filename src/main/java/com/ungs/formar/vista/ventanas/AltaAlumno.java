@@ -10,13 +10,17 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import com.ungs.formar.vista.controladores.ControladorGestionarAlumnos;
 
 public class AltaAlumno extends JFrame {
 
@@ -32,8 +36,11 @@ public class AltaAlumno extends JFrame {
 	private JTextField txtEmail;
 	private JLabel lblTelefono;
 	private JTextField txtTelefono;
+	private ControladorGestionarAlumnos controlador;
 
-	public AltaAlumno() {
+	public AltaAlumno(ControladorGestionarAlumnos controlador) {
+		this.controlador = controlador;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 391, 262);
 		contentPane = new JPanel();
@@ -44,11 +51,15 @@ public class AltaAlumno extends JFrame {
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAgregar.setBounds(10, 188, 165, 23);
+		btnAgregar.setActionCommand("AgregarAlumno");
+		btnAgregar.addActionListener(this.controlador);
 		contentPane.add(btnAgregar);
 
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(191, 188, 165, 23);
+		btnCancelar.setActionCommand("CancelarAgregarAlumno");
+		btnCancelar.addActionListener(this.controlador);
 		contentPane.add(btnCancelar);
 
 		JLabel lblNombre = new JLabel("NOMBRE:");
@@ -107,6 +118,14 @@ public class AltaAlumno extends JFrame {
 		contentPane.add(txtTelefono);
 	}
 
+	public void mostrar(){
+		this.setVisible(true);
+	}
+	
+	public void ocultar(){
+		this.setVisible(false);
+	}
+	
 	public JTextField getTxtNombre() {
 		return txtNombre;
 	}

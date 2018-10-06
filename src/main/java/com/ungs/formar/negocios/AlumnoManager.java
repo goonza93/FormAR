@@ -11,4 +11,10 @@ public class AlumnoManager {
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		return odb.select();
 	}
+	
+	public static void crearAlumno(Integer dni, String nombre, String apellido, String telefono, String email){
+		Alumno aInsertar = new Alumno(-1,dni,nombre,apellido,telefono,email);
+		AlumnoODB odb = FactoryODB.crearAlumnoODB();
+		odb.insert(aInsertar);
+	}
 }

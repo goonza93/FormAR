@@ -66,7 +66,8 @@ public class ControladorGestionarAlumnos implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ventanaGestionarAlumnos.getBtnAgregar()) {
-			this.ventanaAltaAlumno = new AltaAlumno();
+			this.ventanaAltaAlumno = new AltaAlumno(this);
+			this.ventanaAltaAlumno.mostrar();
 			this.ventanaGestionarAlumnos.ocultar();
 			//new ControladorAltaAlumno(this.ventanaAltaAlumno, this);
 		}
@@ -74,6 +75,22 @@ public class ControladorGestionarAlumnos implements ActionListener {
 		else if (e.getSource() == ventanaGestionarAlumnos.getBtnCancelar()) {
 			this.ventanaGestionarAlumnos.ocultar();
 			this.controladorPantallaPrincipal.inicializar();
+		}
+		
+		else if (e.getActionCommand() == "AgregarAlumno"){
+			Integer dni = Integer.valueOf(this.ventanaAltaAlumno.getTxtDni().getText());
+			String nombre = this.ventanaAltaAlumno.getTxtNombre().getText();
+			String apellido = this.ventanaAltaAlumno.getTxtApellido().getText();
+			String telefono = this.ventanaAltaAlumno.getTxtTelefono().getText();
+			String email = this.ventanaAltaAlumno.getTxtEmail().getText();
+			AlumnoManager.crearAlumno(dni,nombre,apellido,telefono,email);
+			this.ventanaAltaAlumno.dispose();
+			this.inicializar();
+		}
+		
+		else if (e.getActionCommand() == "CancelarAgregarAlumno"){
+			this.ventanaAltaAlumno.dispose();
+			this.ventanaGestionarAlumnos.mostrar();
 		}
 	}
 }
