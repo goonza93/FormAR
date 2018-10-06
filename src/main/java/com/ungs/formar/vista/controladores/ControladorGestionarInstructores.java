@@ -15,34 +15,35 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.CrearCurso;
+import com.ungs.formar.vista.ventanas.GestionarInstructores;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorGestionarInstructores implements ActionListener {
-	private SeleccionarInstructor ventanaSeleccionarInstructor;
-	private ControladorCrearCurso controladorCrearCurso;
+	private GestionarInstructores ventanaGestionarInstructores;
+	private ControladorPantallaPrincipal controladorPantallaPrincipal;
 	private List<Empleado> instructores_en_tabla;
 
-	public ControladorGestionarInstructores(SeleccionarInstructor ventanaSeleccionarInstructor,
-			ControladorCrearCurso controladorCrearCurso) {
-		this.ventanaSeleccionarInstructor = ventanaSeleccionarInstructor;
-		this.controladorCrearCurso = controladorCrearCurso;
-		this.ventanaSeleccionarInstructor.getBtnCancelar().addActionListener(this);
-		this.ventanaSeleccionarInstructor.getBtnSeleccionar().addActionListener(this);
+	public ControladorGestionarInstructores(GestionarInstructores ventanaGestionarInstructores,
+			ControladorPantallaPrincipal controladorPantallaPrincipal) {
+		this.ventanaGestionarInstructores = ventanaGestionarInstructores;
+		this.controladorPantallaPrincipal = controladorPantallaPrincipal;
+		this.ventanaGestionarInstructores.getBtnCancelar().addActionListener(this);
+		this.ventanaGestionarInstructores.getBtnAgregar().addActionListener(this);
 		this.inicializar();
 	}
 
 	public void inicializar() {
 		this.llenarTablaInstructores();
-		this.ventanaSeleccionarInstructor.setVisible(true);
+		this.ventanaGestionarInstructores.mostrar();
 	}
 
 	private void llenarTablaInstructores() {
-		this.ventanaSeleccionarInstructor.getModelInstructores().setRowCount(0); //Para vaciar la tabla
-		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnCount(0);
-		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnIdentifiers(this.ventanaSeleccionarInstructor.getNombreColumnas());
+		this.ventanaGestionarInstructores.getModelInstructores().setRowCount(0); //Para vaciar la tabla
+		this.ventanaGestionarInstructores.getModelInstructores().setColumnCount(0);
+		this.ventanaGestionarInstructores.getModelInstructores().setColumnIdentifiers(this.ventanaGestionarInstructores.getNombreColumnas());
 		
 		this.instructores_en_tabla = EmpleadoManager.traerEmpleados();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
@@ -54,22 +55,17 @@ public class ControladorGestionarInstructores implements ActionListener {
 		for (int i = 0; i < this.instructores_en_tabla.size(); i ++){
 			Object[] fila = {this.instructores_en_tabla.get(i).getNombre(), this.instructores_en_tabla.get(i).getApellido(),
 					this.instructores_en_tabla.get(i).getDNI()};
-			this.ventanaSeleccionarInstructor.getModelInstructores().addRow(fila);
+			this.ventanaGestionarInstructores.getModelInstructores().addRow(fila);
 		}			
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ventanaSeleccionarInstructor.getBtnSeleccionar()) {
-			int fila_seleccionada = this.ventanaSeleccionarInstructor.getTablaInstructores().getSelectedRow();
-			if (fila_seleccionada != -1) {
-				// this.controladorCrearCurso.setInstructor(//INSTRUCTOR EN FILA
-				// SELECCIONADA);
-			}
+		if (e.getSource() == ventanaGestionarInstructores.getBtnAgregar()) {
 
-		} else if (e.getSource() == ventanaSeleccionarInstructor.getBtnCancelar()) {
-			this.ventanaSeleccionarInstructor.dispose();
-			this.controladorCrearCurso.inicializar();
+		} else if (e.getSource() == ventanaGestionarInstructores.getBtnCancelar()) {
+			this.ventanaGestionarInstructores.ocultar();
+			this.controladorPantallaPrincipal.inicializar();
 		}
 	}
 }
