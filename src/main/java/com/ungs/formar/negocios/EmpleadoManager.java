@@ -21,5 +21,10 @@ public class EmpleadoManager {
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		return odb.selectByRol(2);
 	}
+	
+	public static Empleado traerEmpleado(Integer id){
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByID(id);
+	}
 
 }

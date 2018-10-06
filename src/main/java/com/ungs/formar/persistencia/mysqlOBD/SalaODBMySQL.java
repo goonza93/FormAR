@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
@@ -17,6 +18,16 @@ public class SalaODBMySQL extends ODB implements SalaODB{
 		String condicion = "1=1";
 		List<Sala> empleados = selectByCondicion(condicion);
 		return empleados;
+	}
+	
+	public Sala selectByID(Integer id){
+		String condicion = "sala_ID = '"+id+"'";
+		List<Sala> salas = selectByCondicion(condicion);
+		Sala sala = null;
+		if (salas.size()>0)
+			sala = salas.get(0); 
+		
+		return sala;
 	}
 
 	private List<Sala> selectByCondicion(String condicion) {

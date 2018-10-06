@@ -11,5 +11,10 @@ public class SalaManager {
 		SalaODB odb = FactoryODB.crearSalaODB();
 		return odb.select();
 	}
+	
+	public static Sala traerSala(Integer id){
+		SalaODB odb = FactoryODB.crearSalaODB();
+		return odb.selectByID(id);
+	}
 
 }
