@@ -2,6 +2,7 @@ package com.ungs.formar.vista.controladores.seleccion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,6 +46,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnIdentifiers(this.ventanaSeleccionarDiaHorario.getNombreColumnas());
 		
 		//this.horarios_en_tabla = HorariosManager.traerHorarios();
+		this.horarios_en_tabla = new ArrayList<Horario>(); //Esta linea despues se borra y queda la de arriba
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
