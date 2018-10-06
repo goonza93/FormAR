@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.EstadoCurso;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
+import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
 
 public class CursoManager {
 	
@@ -23,6 +25,16 @@ public class CursoManager {
 	public static List<Curso> traerCursos() {
 		CursoODB odb = FactoryODB.crearCursoODB();
 		return odb.select();
+	}
+	
+	public static List<EstadoCurso> traerEstadosDeCurso() {
+		EstadoCursoOBD obd = FactoryODB.crearEstadoCursoOBD();
+		return obd.select();
+	}
+	
+	public static EstadoCurso traerEstadoSegunID(Integer ID) {
+		EstadoCursoOBD obd = FactoryODB.crearEstadoCursoOBD();
+		return obd.selectByID(ID);
 	}
 
 }
