@@ -11,7 +11,7 @@ import com.ungs.formar.persistencia.entidades.Dia;
 import com.ungs.formar.persistencia.interfacesOBD.DiaOBD;
 
 public class DiaODBMySQL extends ODB implements DiaOBD{
-	private final String tabla = "for_semana";
+	private final String tabla = "for_dias";
 
 	public List<Dia> select() {
 		String condicion = "1=1";

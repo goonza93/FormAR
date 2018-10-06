@@ -5,11 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.entidades.Sala;

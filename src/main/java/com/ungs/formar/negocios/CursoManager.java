@@ -9,12 +9,12 @@ import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 public class CursoManager {
 	
 	public static void crearCurso(
-			Integer cupoMinimo, Integer cupoMaximo, Integer clases, Integer horas, Integer estado,Integer responsable,
-			Integer instructor, Integer sala, Integer programa, String nombre,
+			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Integer estado,Integer responsable,
+			Integer instructor, Integer programa, 
 			String contenido, Date fechaInicio, Date fechaFin) {
 		
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, clases, horas, nombre,
-				contenido, fechaInicio, fechaFin, instructor, sala, programa, estado, responsable);
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, 
+				contenido, fechaInicio, fechaFin, instructor, programa, estado, responsable);
 		
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);

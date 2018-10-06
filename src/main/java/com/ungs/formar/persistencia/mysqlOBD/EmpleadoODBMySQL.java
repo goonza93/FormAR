@@ -15,13 +15,12 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	private final String tabla = "for_empleados";
 
 	public void insert(Empleado empleado) {
-		String consulta = "insert into "+tabla+" (DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
-		String valores = "'"+ empleado.getDNI() +"', '"+ empleado.getNombre() +"', '"
+		String consulta = "insert into "+tabla+" (rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
+		String valores = empleado.getRol() +", '"+ empleado.getDNI() +"', '"+ empleado.getNombre() +"', '"
 				+ empleado.getApellido() +"', '"+ empleado.getTelefono() +"', '"+ empleado.getEmail() +"', '"
 				+ empleado.getFechaIngreso()+"', '"+ empleado.getFechaEgreso()+"'";
 		consulta += "values ("+valores+");";
 		ejecutarSQL(consulta);
-		
 	}
 
 	public void edit(Empleado empleado) {
@@ -67,7 +66,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 
 	private List<Empleado> selectByCondicion(String condicion) {
 		List<Empleado> empleados = new ArrayList<Empleado>();
-		String campos = "empleado_ID, dni, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
+		String campos = "empleado_ID, rol, dni, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -79,6 +78,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 			while (resultados.next()) {
 				empleados.add(new Empleado(
 						resultados.getInt("empleado_ID"),
+						resultados.getInt("rol"),
 						resultados.getString("dni"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),

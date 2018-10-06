@@ -3,11 +3,11 @@ package com.ungs.formar.persistencia.entidades;
 import java.sql.Date;
 
 public class Empleado {
-	private Integer empleadoID;
+	private Integer empleadoID, rol;
 	private String DNI, nombre, apellido, telefono, email;
 	private Date fechaIngreso, fechaEgreso;
 	
-	public Empleado(Integer empleadoID, String DNI, String nombre, String apellido, String telefono, String email,
+	public Empleado(Integer empleadoID, Integer rol, String DNI, String nombre, String apellido, String telefono, String email,
 			Date fechaIngreso, Date fechaEgreso) {
 		this.empleadoID = empleadoID;
 		this.DNI = DNI;
@@ -82,5 +82,13 @@ public class Empleado {
 	public void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
-	
+
+	public Integer getRol() {
+		return rol;
+	}
+
+	public void setRol(Integer rol) {
+		this.rol = rol;
+	}
+		
 }

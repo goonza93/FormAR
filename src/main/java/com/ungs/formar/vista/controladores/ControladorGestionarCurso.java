@@ -48,12 +48,25 @@ public class ControladorGestionarCurso implements ActionListener{
 				   }
 				});
 			*/
+			
+			
+			
+			/*
+			 
+			/* Calcular vacantes
+			 
+			 este for falla porque pide el nombre del curso que aun no tenemos
 			for (int i = 0; i < this.cursos_en_tabla.size(); i ++){
-				Object[] fila = {this.cursos_en_tabla.get(i).getNombre(), this.cursos_en_tabla.get(i).getEstado(), /* Calcular vacantes*/
+				Object[] fila = {this.cursos_en_tabla.get(i).getNombre(), this.cursos_en_tabla.get(i).getEstado(), 
 						this.cursos_en_tabla.get(i).getFechaInicio(), this.cursos_en_tabla.get(i).getFechaFin(), this.cursos_en_tabla.get(i).getInstructor(),
 						this.cursos_en_tabla.get(i).getResponsable(), this.cursos_en_tabla.get(i).getSala()};
 				this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 			}	
+			*/
+			
+			
+			
+			
 		}
 		
 		public void actionPerformed(ActionEvent e) {

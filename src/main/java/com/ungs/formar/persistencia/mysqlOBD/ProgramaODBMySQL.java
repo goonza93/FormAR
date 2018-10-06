@@ -21,7 +21,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 
 	private List<Programa> selectByCondicion(String condicion) {
 		List<Programa> programas = new ArrayList<Programa>();
-		String campos = "programa_ID, area_ID, nombre, fecha_aprobacion, descripcion";
+		String campos = "programa_ID, area, nombre, fecha_aprobacion, descripcion";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -33,7 +33,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 			while (resultados.next()) {
 				programas.add(new Programa(
 						resultados.getInt("programa_ID"),
-						resultados.getInt("area_ID"),
+						resultados.getInt("area"),
 						resultados.getString("nombre"),
 						resultados.getString("descripcion"),
 						resultados.getDate("fecha_aprobacion")

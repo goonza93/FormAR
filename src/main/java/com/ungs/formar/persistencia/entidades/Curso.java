@@ -3,25 +3,22 @@ package com.ungs.formar.persistencia.entidades;
 import java.sql.Date;
 
 public class Curso {
-	private Integer cursoID, cupoMinimo, cupoMaximo, clases, horas;
-	private String nombre, contenido;
+	private Integer cursoID, cupoMinimo, cupoMaximo, horas;
+	private String contenido;
 	private Date fechaInicio, fechaFin;
-	private Integer instructor, sala, programa, estado, responsable;
-
-	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer clases, Integer horas, String nombre,
-			String contenido, Date fechaInicio, Date fechaFin, Integer instructor, Integer sala, Integer programa,
-			Integer estado, Integer responsable) {
+	private Integer instructor, programa, estado, responsable;
+	
+	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer horas, String contenido,
+			Date fechaInicio, Date fechaFin, Integer instructor, Integer programa, Integer estado,
+			Integer responsable) {
 		this.cursoID = cursoID;
 		this.cupoMinimo = cupoMinimo;
 		this.cupoMaximo = cupoMaximo;
-		this.clases = clases;
 		this.horas = horas;
-		this.nombre = nombre;
 		this.contenido = contenido;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.instructor = instructor;
-		this.sala = sala;
 		this.programa = programa;
 		this.estado = estado;
 		this.responsable = responsable;
@@ -51,28 +48,12 @@ public class Curso {
 		this.cupoMaximo = cupoMaximo;
 	}
 
-	public Integer getClases() {
-		return clases;
-	}
-
-	public void setClases(Integer clases) {
-		this.clases = clases;
-	}
-
 	public Integer getHoras() {
 		return horas;
 	}
 
 	public void setHoras(Integer horas) {
 		this.horas = horas;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public String getContenido() {
@@ -107,14 +88,6 @@ public class Curso {
 		this.instructor = instructor;
 	}
 
-	public Integer getSala() {
-		return sala;
-	}
-
-	public void setSala(Integer sala) {
-		this.sala = sala;
-	}
-
 	public Integer getPrograma() {
 		return programa;
 	}
@@ -138,5 +111,5 @@ public class Curso {
 	public void setResponsable(Integer responsable) {
 		this.responsable = responsable;
 	}
-
+	
 }

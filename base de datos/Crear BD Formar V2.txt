@@ -1,0 +1,157 @@
+-- SCRIPT PARA CREAR LA BASE DE DATOS
+-- EJECUTAR DIRECTAMENTE, NO IMPORTA SI EXISTE O NO PREVIAMENTE
+-- ASEGURARSE DE QUE ES LA ULTIMA VERSION
+
+-- CREA LA BD, SI YA EXISTIA PRIMERO LA ELIMINA
+DROP DATABASE IF EXISTS formar;
+CREATE DATABASE formar;
+USE formar;
+
+-- ESQUEMA SALAS
+CREATE TABLE for_salas (
+	sala_ID INT(4) AUTO_INCREMENT,
+	numero INT(4) NOT NULL,
+	nombre VARCHAR(50) DEFAULT NULL,
+	capacidad INT(4) NOT NULL DEFAULT 1,
+	PRIMARY KEY (sala_ID)
+);
+
+-- ESQUEMA DIAS DE LA SEMANA
+CREATE TABLE for_dias (
+	dia_ID INT(4) AUTO_INCREMENT,
+	descripcion VARCHAR(20) NOT NULL,
+	PRIMARY KEY (dia_ID)
+);
+
+-- ESQUEMA ROLES DE EMPLEADO
+CREATE TABLE for_roles_empleado (
+	rol_ID INT(1) AUTO_INCREMENT,
+	descripcion VARCHAR(50),
+	PRIMARY KEY (rol_ID)
+);
+
+-- ESQUEMA CLIENTES
+CREATE TABLE for_clientes (
+	cliente_ID INT(4) AUTO_INCREMENT,
+	dni VARCHAR(20) NOT NULL,
+	nombre VARCHAR(50) NOT NULL,
+	apellido VARCHAR(50) NOT NULL,
+	telefono VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	PRIMARY KEY (cliente_ID),
+	UNIQUE KEY dni (dni)
+);
+
+-- ESQUEMA DE AREAS DE INTERES
+CREATE TABLE for_areas (
+	area_ID INT(4) AUTO_INCREMENT,
+	nombre VARCHAR(50),
+	descripcion VARCHAR(200),
+	PRIMARY KEY (area_ID)
+);
+
+-- ESQUEMA ESTADO DE CURSO
+CREATE TABLE for_estados_curso (
+	estado_ID INT(4) AUTO_INCREMENT,
+	descripcion VARCHAR(20),
+	PRIMARY KEY (estado_ID)
+);
+
+-- ESQUEMA ESTADOS DE INSCRIPCION
+CREATE TABLE for_estados_inscripcion (
+	estado_ID INT(4) AUTO_INCREMENT,
+	descripcion VARCHAR(50),
+	PRIMARY KEY (estado_ID)
+);
+
+-- ESQUEMA DE PROGRAMAS
+CREATE TABLE for_programas (
+	programa_ID INT(4) AUTO_INCREMENT,
+	area INT(11), -- FK AREAS DE INTERES
+	nombre VARCHAR(50) NOT NULL,
+	fecha_aprobacion DATE DEFAULT NULL,
+	descripcion VARCHAR(500) NOT NULL,
+	PRIMARY KEY (programa_ID)
+);
+
+-- ESQUEMAS HORARIOS
+CREATE TABLE for_horarios (
+	horario_ID INT(4) AUTO_INCREMENT,
+	dia INT(4) NOT NULL, -- FK DIAS DE LA SEMANA
+	hora_inicio INT(2) NOT NULL,
+	hora_fin INT(2) NOT NULL,
+    minuto_inicio INT(2) NOT NULL,
+    minuto_fin INT(2) NOT NULL,
+	PRIMARY KEY (horario_ID)
+);
+
+-- ESQUEMA DE EMPLEADOS
+CREATE TABLE for_empleados (
+	empleado_ID INT(4) AUTO_INCREMENT,
+	DNI VARCHAR(20) NOT NULL,
+    rol INT(1) NOT NULL, -- FK ROLES DE EMPLEADO
+	nombre VARCHAR(50) NOT NULL,
+	apellido VARCHAR(50) NOT NULL,
+	telefono VARCHAR(20) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	fecha_ingreso DATE NOT NULL,
+	fecha_egreso DATE NULL,
+	PRIMARY KEY (empleado_ID)
+);
+
+-- ESQUEMA CURSOS
+CREATE TABLE for_cursos (
+	curso_ID INT(4) AUTO_INCREMENT,
+	cupo_minimo INT(3) DEFAULT 1,
+	cupo_maximo INT(3) DEFAULT 999,
+	fecha_inicio DATE NOT NULL,
+	fecha_fin DATE NOT NULL,
+	contenido VARCHAR(500) DEFAULT NULL,
+	horas INT(5) NOT NULL,
+	instructor INT(4) NOT NULL, -- FK EMPLEADOS
+	responsable INT(4) NOT NULL, -- FK EMPLEADOS
+	programa INT(4) NOT NULL, -- FK PROGRAMAS
+	estado INT(4) NOT NULL, -- FK ESTADOS DE CURSO
+	PRIMARY KEY (curso_ID)
+);
+
+-- ESQUEMA DE ASISTENCIAS
+CREATE TABLE for_asistencias (
+	asistencia_ID INT(10) AUTO_INCREMENT,
+	curso INT(4) NOT NULL, -- FK CURSOS
+	cliente INT(4) NOT NULL, -- FK CLIENTES
+	fecha DATE NOT NULL,
+	presente BOOLEAN NOT NULL,
+	PRIMARY KEY (asistencia_ID)
+);
+
+-- ESQUEMA EXAMENES
+CREATE TABLE for_examenes (
+	examen_ID INT(4) AUTO_INCREMENT,
+	cliente INT(4) DEFAULT NULL,
+	curso INT(4) DEFAULT NULL,
+	fecha DATE NOT NULL,
+	descripcion VARCHAR(50) NOT NULL,
+	nota INT(4) NOT NULL,
+	PRIMARY KEY (examen_ID)
+);
+
+-- ESQUEMA INSCRIPCIONES
+CREATE TABLE for_inscripciones (
+	inscripcion_ID INT(4) AUTO_INCREMENT,
+	cliente INT(4) NOT NULL, -- FK CLIENTES
+	curso INT(4) NOT  NULL, -- FK CURSOS
+	estado INT(4) NOT NULL, -- FK ESTADOS DE INSCRIPCION
+	fecha DATE NOT NULL,
+	nota DECIMAL(10,0) DEFAULT NULL,
+	PRIMARY KEY (inscripcion_ID)
+);
+
+-- ESQUEMA HORARIOS DE CURSADA CON SALA
+CREATE TABLE for_horarios_cursada (
+	horario_ID INT(4) AUTO_INCREMENT,
+	curso INT(4) NOT NULL, -- FK CURSOS
+	horario INT(4) NOT NULL, -- FK HORARIOS
+    sala INT(4) NOT NULL, -- FK SALAS
+	PRIMARY KEY (horario_ID)
+);
