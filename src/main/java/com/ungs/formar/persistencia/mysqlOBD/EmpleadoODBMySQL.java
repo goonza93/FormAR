@@ -23,7 +23,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		ejecutarSQL(consulta);
 	}
 
-	public void edit(Empleado empleado) {
+	public void update(Empleado empleado) {
 		String consulta = "update "+tabla+" set ";
 		String valores = "DNI = '"+ empleado.getDNI() +"', nombre = '"+ empleado.getNombre() +"', apellido = '"
 		+ empleado.getApellido() +"', telefono = '"+ empleado.getTelefono() +"', email = '"+ empleado.getEmail() +"'";
