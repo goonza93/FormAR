@@ -11,5 +11,10 @@ public class ProgramaManager {
 		ProgramaODB odb = FactoryODB.crearProgramaODB();
 		return odb.select();
 	}
+	
+	public static Programa traerPrograma(Integer id){
+		ProgramaODB odb = FactoryODB.crearProgramaODB();
+		return odb.selectByID(id);
+	}
 
 }

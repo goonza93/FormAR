@@ -18,6 +18,16 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 		List<Programa> programas= selectByCondicion(condicion);
 		return programas;
 	}
+	
+	public Programa selectByID(Integer id) {
+		String condicion = "programa_ID = '"+id+"'";
+		List<Programa> programas = selectByCondicion(condicion);
+		Programa programa = null;
+		if (programas.size()>0)
+			programa = programas.get(0); 
+		
+		return programa;
+	}
 
 	private List<Programa> selectByCondicion(String condicion) {
 		List<Programa> programas = new ArrayList<Programa>();
