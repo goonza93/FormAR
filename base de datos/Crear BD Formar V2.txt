@@ -156,5 +156,5 @@ CREATE TABLE for_horarios_cursada (
 	PRIMARY KEY (horario_ID)
 );
 
-insert into for_roles_empleado(descripcion) values (Administrativo);
-insert into for_roles_empleado(descripcion) values (Instructor);
+insert into for_roles_empleado (descripcion) values ('Administrativo');
+insert into for_roles_empleado (descripcion) values ('Instructor');
