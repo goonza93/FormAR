@@ -2,12 +2,18 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.EstadoCursoManager;
+import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.GestionarCursos;
 
@@ -50,11 +56,20 @@ public class ControladorGestionarCurso implements ActionListener {
 		 */
 
 		/*for (int i = 0; i < this.cursos_en_tabla.size(); i++) {
-			Object[] fila = { this.cursos_en_tabla.get(i).getNombre(), this.cursos_en_tabla.get(i).getEstado(),
-					this.cursos_en_tabla.get(i).getCupoMinimo(), this.cursos_en_tabla.get(i).getCupoMaximo(),
-					this.cursos_en_tabla.get(i).getFechaInicio(), this.cursos_en_tabla.get(i).getFechaFin(),
-					this.cursos_en_tabla.get(i).getInstructor(), this.cursos_en_tabla.get(i).getResponsable(),
-					this.cursos_en_tabla.get(i).getHoras()};
+			String nombre = ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getNombre();
+			String area =  ProgramaManager.traerAreaSegunID(ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getAreaID()).getDescripcion();
+			String estado = EstadoCursoManager.traerEstadoCurso(this.cursos_en_tabla.get(i).getEstado()).getDescripcion();
+			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
+			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
+			Date fechaInicio = this.cursos_en_tabla.get(i).getFechaInicio();
+			Date fechaFin = this.cursos_en_tabla.get(i).getFechaFin();
+			Empleado instructor = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getInstructor());
+			Empleado responsable = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getResponsable());
+			List<HorarioCursada> horarios = 	HorarioCursadaManager.traerHorariosCursada(this.cursos_en_tabla.get(i).getCursoID());
+			
+			Object[] fila = { nombre, area, estado, cupoMinimo, cupoMaximo, fechaInicio, fechaFin, 
+					instructor.getApellido()+" "+instructor.getNombre(), 
+					responsable.getApellido()+" "+responsable.getNombre(), horarios};
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 		}*/
 

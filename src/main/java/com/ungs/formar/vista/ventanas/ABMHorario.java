@@ -20,6 +20,10 @@ public class ABMHorario extends JFrame {
 	private JButton btnAgregar;
 	private JButton btnCancelar;
 	private JButton btnSeleccionarSala;
+	private JTextField txtHorasInicio;
+	private JTextField txtMinutosInicio;
+	private JTextField txtMinutosFin;
+	private JTextField txtHorasFin;
 
 	public ABMHorario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,20 +55,10 @@ public class ABMHorario extends JFrame {
 		lblHoraInicio.setBounds(10, 39, 146, 14);
 		contentPane.add(lblHoraInicio);
 
-		JComboBox comboHoraInicio = new JComboBox();
-		comboHoraInicio.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboHoraInicio.setBounds(166, 36, 224, 20);
-		contentPane.add(comboHoraInicio);
-
 		JLabel lblHoraFin = new JLabel("HORA FIN:");
 		lblHoraFin.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblHoraFin.setBounds(10, 67, 146, 14);
 		contentPane.add(lblHoraFin);
-
-		JComboBox comboHoraFin = new JComboBox();
-		comboHoraFin.setFont(new Font("Arial", Font.PLAIN, 12));
-		comboHoraFin.setBounds(166, 64, 224, 20);
-		contentPane.add(comboHoraFin);
 
 		btnSeleccionarSala = new JButton("...");
 		btnSeleccionarSala.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -82,6 +76,44 @@ public class ABMHorario extends JFrame {
 		lblSala.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblSala.setBounds(10, 99, 146, 14);
 		contentPane.add(lblSala);
+		
+		txtHorasInicio = new JTextField();
+		txtHorasInicio.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtHorasInicio.setText("Horas");
+		txtHorasInicio.setBounds(166, 39, 107, 20);
+		contentPane.add(txtHorasInicio);
+		txtHorasInicio.setColumns(10);
+		
+		txtMinutosInicio = new JTextField();
+		txtMinutosInicio.setText("Minutos");
+		txtMinutosInicio.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtMinutosInicio.setColumns(10);
+		txtMinutosInicio.setBounds(289, 39, 101, 20);
+		contentPane.add(txtMinutosInicio);
+		
+		JLabel lbl = new JLabel(":");
+		lbl.setFont(new Font("Arial", Font.BOLD, 18));
+		lbl.setBounds(277, 41, 16, 14);
+		contentPane.add(lbl);
+		
+		txtMinutosFin = new JTextField();
+		txtMinutosFin.setText("Minutos");
+		txtMinutosFin.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtMinutosFin.setColumns(10);
+		txtMinutosFin.setBounds(289, 67, 101, 20);
+		contentPane.add(txtMinutosFin);
+		
+		JLabel label = new JLabel(":");
+		label.setFont(new Font("Arial", Font.BOLD, 18));
+		label.setBounds(277, 69, 16, 14);
+		contentPane.add(label);
+		
+		txtHorasFin = new JTextField();
+		txtHorasFin.setText("Horas");
+		txtHorasFin.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtHorasFin.setColumns(10);
+		txtHorasFin.setBounds(166, 67, 107, 20);
+		contentPane.add(txtHorasFin);
 	}
 
 	private JComboBox<Dia> crearListaDias() {
@@ -114,6 +146,4 @@ public class ABMHorario extends JFrame {
 	public JButton getBtnSeleccionarSala() {
 		return btnSeleccionarSala;
 	}
-	
-	
 }
