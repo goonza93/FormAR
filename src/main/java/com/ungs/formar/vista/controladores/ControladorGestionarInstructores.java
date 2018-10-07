@@ -66,7 +66,9 @@ public class ControladorGestionarInstructores implements ActionListener {
 		 */
 		for (int i = 0; i < this.instructores_en_tabla.size(); i++) {
 			Object[] fila = { this.instructores_en_tabla.get(i).getApellido(),
-					this.instructores_en_tabla.get(i).getNombre(), this.instructores_en_tabla.get(i).getDNI() };
+					this.instructores_en_tabla.get(i).getNombre(), this.instructores_en_tabla.get(i).getDNI(),
+					this.instructores_en_tabla.get(i).getEmail(), this.instructores_en_tabla.get(i).getTelefono(),
+					this.instructores_en_tabla.get(i).getFechaIngreso(), this.instructores_en_tabla.get(i).getFechaEgreso()};
 			this.ventanaGestionarInstructores.getModelInstructores().addRow(fila);
 		}
 
