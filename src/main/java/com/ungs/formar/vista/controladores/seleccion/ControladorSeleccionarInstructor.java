@@ -44,7 +44,7 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnCount(0);
 		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnIdentifiers(this.ventanaSeleccionarInstructor.getNombreColumnas());
 		
-		this.instructores_en_tabla = EmpleadoManager.traerEmpleados();
+		this.instructores_en_tabla = EmpleadoManager.traerInstructores();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
@@ -52,7 +52,7 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 			});
 		*/
 		for (int i = 0; i < this.instructores_en_tabla.size(); i ++){
-			Object[] fila = {this.instructores_en_tabla.get(i).getNombre(), this.instructores_en_tabla.get(i).getApellido(),
+			Object[] fila = {this.instructores_en_tabla.get(i).getApellido(), this.instructores_en_tabla.get(i).getNombre(),
 					this.instructores_en_tabla.get(i).getDNI()};
 			this.ventanaSeleccionarInstructor.getModelInstructores().addRow(fila);
 		}			

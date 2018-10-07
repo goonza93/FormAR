@@ -25,7 +25,7 @@ public class GestionarCursos {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelCursos;
-	private String[] nombreColumnas = { "Curso", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio", "Fecha fin",
+	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio", "Fecha fin",
 			"Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JScrollPane spCursos;
 	private JTable tablaCursos;
@@ -81,7 +81,7 @@ public class GestionarCursos {
 		tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
-		
+		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(50);
 		
 		lblFiltrar = new JLabel("FILTRAR:");
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));

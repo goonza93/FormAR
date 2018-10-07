@@ -2,10 +2,13 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+
+import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
@@ -62,18 +65,18 @@ public class ControladorCrearCurso implements ActionListener {
 
 			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
 
-			Matcher cupoMinimo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMinimo().getText());
-			Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMaximo().getText());
-			Matcher horasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getTxtHorasTotalesClases().getText());
+			Matcher mcupoMinimo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMinimo().getText());
+			Matcher mcupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMaximo().getText());
+			Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getTxtHorasTotalesClases().getText());
 
 			// Validaciones de null, y de tipos de datos validos
-			if (!cupoMinimo.matches() || this.ventanaCrearCurso.getTxtCupoMinimo().getText().isEmpty()) {
+			if (!mcupoMinimo.matches() || this.ventanaCrearCurso.getTxtCupoMinimo().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo minimo valido");
-			} else if (!cupoMaximo.matches() || this.ventanaCrearCurso.getTxtCupoMaximo().getText().isEmpty()) {
+			} else if (!mcupoMaximo.matches() || this.ventanaCrearCurso.getTxtCupoMaximo().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo maximo valido");
 			} else if (this.ventanaCrearCurso.getDateFechaInicio().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
-			} else if (!horasTotal.matches() || this.ventanaCrearCurso.getTxtHorasTotalesClases().getText().isEmpty()) {
+			} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getTxtHorasTotalesClases().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
 			} else if (this.instructor == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un instructor");
@@ -89,6 +92,23 @@ public class ControladorCrearCurso implements ActionListener {
 			else if (Integer.parseInt(this.ventanaCrearCurso.getTxtCupoMaximo().getText()) < Integer
 					.parseInt(this.ventanaCrearCurso.getTxtCupoMinimo().getText())) {
 				JOptionPane.showMessageDialog(null, "El cupo maximo no puede ser menor que el cupo minimo");
+			}
+			else{
+				Integer cupoMinimo = new Integer(this.ventanaCrearCurso.getTxtCupoMinimo().getText());
+				Integer cupoMaximo = new Integer(this.ventanaCrearCurso.getTxtCupoMaximo().getText());
+				Integer horas = new Integer(this.ventanaCrearCurso.getTxtHorasTotalesClases().getText());
+				Integer estado = new Integer(1);
+				Integer responsable = this.responsable.getEmpleadoID();
+				Integer instructor = this.instructor.getEmpleadoID();
+				Integer programa = this.programa.getProgramaID();
+				String contenido = this.ventanaCrearCurso.getTxtProgramaEspecifico().getText();
+				Date fechaInicio = this.ventanaCrearCurso.getDateFechaInicio().getDate();
+				Date fechaFin = this.ventanaCrearCurso.getDateFechaFin().getDate();
+				
+				CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 
+						new java.sql.Date(fechaInicio.getTime()), new java.sql.Date(fechaFin.getTime()));
+				this.ventanaCrearCurso.dispose();
+				this.controladorGestionarCurso.inicializar();
 			}
 
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {

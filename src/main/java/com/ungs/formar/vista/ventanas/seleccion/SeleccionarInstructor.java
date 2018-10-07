@@ -27,7 +27,7 @@ public class SeleccionarInstructor extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultTableModel modelInstructores;
-	private String[] nombreColumnas = { "Nombre", "Apellido", "DNI" };
+	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI" };
 	private JTable tablaInstructores;
 	private JTextField txtFiltro;
 	private JButton btnSeleccionar;
