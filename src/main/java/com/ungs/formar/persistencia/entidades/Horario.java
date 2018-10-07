@@ -1,13 +1,16 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Horario {
-	private Integer horarioID, diaID, horaInicio, horaFin;
+	private Integer horarioID, dia, horaInicio, horaFin, minutoInicio, minutoFin;
 
-	public Horario(Integer horarioID, Integer diaID, Integer horaInicio, Integer horaFin) {
+	public Horario(Integer horarioID, Integer dia, Integer horaInicio, Integer horaFin, Integer minutoInicio,
+			Integer minutoFin) {
 		this.horarioID = horarioID;
-		this.diaID = diaID;
+		this.dia = dia;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
+		this.minutoInicio = minutoInicio;
+		this.minutoFin = minutoFin;
 	}
 
 	public Integer getHorarioID() {
@@ -18,12 +21,12 @@ public class Horario {
 		this.horarioID = horarioID;
 	}
 
-	public Integer getDiaID() {
-		return diaID;
+	public Integer getDia() {
+		return dia;
 	}
 
-	public void setDiaID(Integer diaID) {
-		this.diaID = diaID;
+	public void setDia(Integer dia) {
+		this.dia = dia;
 	}
 
 	public Integer getHoraInicio() {
@@ -40,6 +43,22 @@ public class Horario {
 
 	public void setHoraFin(Integer horaFin) {
 		this.horaFin = horaFin;
+	}
+
+	public Integer getMinutoInicio() {
+		return minutoInicio;
+	}
+
+	public void setMinutoInicio(Integer minutoInicio) {
+		this.minutoInicio = minutoInicio;
+	}
+
+	public Integer getMinutoFin() {
+		return minutoFin;
+	}
+
+	public void setMinutoFin(Integer minutoFin) {
+		this.minutoFin = minutoFin;
 	}
 	
 }
