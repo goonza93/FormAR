@@ -41,7 +41,8 @@ public class CursoManager {
 		
 	}
 	
-	public static void updateCurso(Integer idCurso){
+	public static void updateCurso(/*idCursoAmodificar, cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 
+			fechaInicio, fechaFin*/){
 		
 	}
 	

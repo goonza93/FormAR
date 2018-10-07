@@ -27,7 +27,6 @@ import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 public class ControladorSeleccionarDiaHorario implements ActionListener {
 	private ControladorCrearCurso controladorCrearCurso;
 	private ABMHorario ventanaAltaModifDiaHorario;
-	private List<Horario> horarios_en_tabla;
 	private Sala sala;
 	private SeleccionarSala ventanaSeleccionarSala;
 	private ControladorSeleccionarSala controladorSeleccionarSala;

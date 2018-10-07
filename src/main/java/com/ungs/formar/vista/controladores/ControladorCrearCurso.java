@@ -38,6 +38,7 @@ public class ControladorCrearCurso implements ActionListener {
 	private Empleado responsable;
 	private Programa programa;
 	private List<HorarioCursada> horariosCursada;
+	private Integer idEdicion = -1;
 
 	public ControladorCrearCurso(CrearCurso ventanaCrearCurso, ControladorGestionarCurso controladorGestionarCurso) {
 		this.ventanaCrearCurso = ventanaCrearCurso;
@@ -104,9 +105,14 @@ public class ControladorCrearCurso implements ActionListener {
 				String contenido = this.ventanaCrearCurso.getTxtProgramaEspecifico().getText();
 				Date fechaInicio = this.ventanaCrearCurso.getDateFechaInicio().getDate();
 				Date fechaFin = this.ventanaCrearCurso.getDateFechaFin().getDate();
-				
+				if(this.idEdicion == -1){
 				CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 
 						new java.sql.Date(fechaInicio.getTime()), new java.sql.Date(fechaFin.getTime()));
+				}
+				else{
+					/*CursoManager.updateCurso(this.idEdicion, cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 
+						new java.sql.Date(fechaInicio.getTime()), new java.sql.Date(fechaFin.getTime()));*/
+				}
 				this.ventanaCrearCurso.dispose();
 				this.controladorGestionarCurso.inicializar();
 			}
@@ -188,6 +194,10 @@ public class ControladorCrearCurso implements ActionListener {
 	public void setHorariosCursada(HorarioCursada horarioCursada) {
 		this.horariosCursada.add(horarioCursada);
 		llenarTablaDiasHorarios();
+	}
+
+	public void setIdEdicion(Integer cursoID) {
+		
 	}
 
 }
