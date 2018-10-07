@@ -25,7 +25,8 @@ public class GestionarCursos {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelCursos;
-	private String[] nombreColumnas = { "Curso", "Estado", "Vacantes", "Fecha inicio", "Fecha fin", "Instructor", "Responsable", "Sala"};
+	private String[] nombreColumnas = { "Curso", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio", "Fecha fin",
+			"Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JScrollPane spCursos;
 	private JTable tablaCursos;
 	private JLabel lblFiltrar;
@@ -35,12 +36,12 @@ public class GestionarCursos {
 
 	public GestionarCursos() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 897, 369);
+		frame.setBounds(100, 100, 1375, 369);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 881, 330);
+		panel.setBounds(0, 0, 1359, 330);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
@@ -58,11 +59,11 @@ public class GestionarCursos {
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBorrar.setBounds(270, 296, 120, 23);
 		panel.add(btnBorrar);
-		
+
 		spCursos = new JScrollPane();
-		spCursos.setBounds(10, 79, 861, 206);
+		spCursos.setBounds(10, 79, 1339, 206);
 		panel.add(spCursos);
-		
+
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
 		tablaCursos = new JTable(modelCursos);
 		tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -71,55 +72,68 @@ public class GestionarCursos {
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
 		tablaCursos.setRowSorter(sorter);
 		
+		tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(3).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(4).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(5).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
+		
+		
 		lblFiltrar = new JLabel("FILTRAR:");
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblFiltrar.setBounds(10, 14, 106, 14);
 		panel.add(lblFiltrar);
-		
+
 		txtFiltro = new JTextField();
 		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtFiltro.setColumns(10);
 		txtFiltro.setBounds(126, 11, 310, 20);
 		panel.add(txtFiltro);
-		
+
 		lblCursos = new JLabel("CURSOS:");
 		lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblCursos.setBounds(10, 46, 861, 14);
+		lblCursos.setBounds(10, 46, 1339, 14);
 		panel.add(lblCursos);
-		
+
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(400, 296, 120, 23);
 		panel.add(btnCancelar);
-		
-		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
-            public void insertUpdate(DocumentEvent e) {
-                if (txtFiltro.getText().trim().length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
-                }
-            }
-            public void removeUpdate(DocumentEvent e) {
-                if (txtFiltro.getText().trim().length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
-                }
-            }
+
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				if (txtFiltro.getText().trim().length() == 0) {
+					sorter.setRowFilter(null);
+				} else {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+				}
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				if (txtFiltro.getText().trim().length() == 0) {
+					sorter.setRowFilter(null);
+				} else {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+				}
+			}
+
 			public void changedUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 			}
-        });
-		
+		});
+
 	}
-	
-	public void mostrar(){
+
+	public void mostrar() {
 		this.frame.setVisible(true);
 	}
-	
-	public void ocultar(){
+
+	public void ocultar() {
 		this.frame.setVisible(false);
 	}
 
@@ -134,7 +148,7 @@ public class GestionarCursos {
 	public JButton getBtnEditar() {
 		return btnEditar;
 	}
-	
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
@@ -150,6 +164,5 @@ public class GestionarCursos {
 	public JTable getTablaCursos() {
 		return tablaCursos;
 	}
-	
-	
+
 }

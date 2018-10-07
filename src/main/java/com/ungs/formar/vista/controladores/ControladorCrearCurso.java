@@ -32,7 +32,6 @@ public class ControladorCrearCurso implements ActionListener {
 	private ControladorGestionarCurso controladorGestionarCurso;
 	private Empleado instructor;
 	private Empleado responsable;
-	private Sala sala;
 	private Programa programa;
 	private List<HorarioCursada> horariosCursada;
 
@@ -50,23 +49,8 @@ public class ControladorCrearCurso implements ActionListener {
 	}
 
 	public void inicializar() {
+		llenarTablaDiasHorarios();
 		this.ventanaCrearCurso.setVisible(true);
-	}
-
-	private boolean estaDisponibleSala() {
-		for (HorarioCursada horario : this.horariosCursada) {
-			// Horario horaDia = obtenerHorario por el ID;
-			// if(this.ventanaCrearCurso.getSala() esta asignada a otro curso en
-			// alguno de TODOS los dias y horarios elegidos){
-			// JOptionPane.showMessageDialog(null, "La sala
-			// "+this.ventanaCrearCurso.getSala().getNombre()+" numero"+
-			// this.ventanaCrearCurso.getSala().getNumero()+
-			// " no esta disponible el dia "+ horaDia.getDia() + " en el horario
-			// seleccionado");
-			// return false;
-			// }
-		}
-		return true;
 	}
 
 	private void llenarTablaDiasHorarios() {
@@ -76,9 +60,7 @@ public class ControladorCrearCurso implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ventanaCrearCurso.getBtnAgregar()) {
 
-			Pattern patronLetras = Pattern.compile("^[a-zA-Z ]*$");
 			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
-			Pattern patronLetrasNumeros = Pattern.compile("^[a-zA-Z0-9 ]*$");
 
 			Matcher cupoMinimo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMinimo().getText());
 			Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMaximo().getText());
@@ -92,8 +74,6 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo maximo valido");
 			} else if (this.ventanaCrearCurso.getDateFechaInicio().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
-			} else if (this.ventanaCrearCurso.getDateFechaFin().getDate() == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de fin valida");
 			} else if (!clasesTotal.matches()
 					|| this.ventanaCrearCurso.getTxtCantidadTotalClases().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de clases valida");
@@ -101,9 +81,7 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
 			} else if (this.instructor == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un instructor");
-			} else if (this.sala == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, seleccione una sala");
-			} else if (this.programa == null) {
+			}else if (this.programa == null) {
 				JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
 			} else if (this.responsable == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
@@ -115,18 +93,6 @@ public class ControladorCrearCurso implements ActionListener {
 			else if (Integer.parseInt(this.ventanaCrearCurso.getTxtCupoMaximo().getText()) < Integer
 					.parseInt(this.ventanaCrearCurso.getTxtCupoMinimo().getText())) {
 				JOptionPane.showMessageDialog(null, "El cupo maximo no puede ser menor que el cupo minimo");
-			} else if (this.ventanaCrearCurso.getDateFechaFin().getDate()
-					.before(this.ventanaCrearCurso.getDateFechaInicio().getDate())) {
-				JOptionPane.showMessageDialog(null, "La fecha de fin tiene que ser anterior a la fecha de inicio");
-			} else if (this.ventanaCrearCurso.getDateFechaFin().getDate()
-					.compareTo(this.ventanaCrearCurso.getDateFechaInicio().getDate()) == 0) {
-				JOptionPane.showMessageDialog(null, "La fecha de fin no puede ser igual a la fecha de inicio");
-			} else if (!estaDisponibleSala()) {
-
-			} else if (Integer.parseInt(this.ventanaCrearCurso.getTxtCupoMaximo().getText()) > this.sala
-					.getCapacidad()) {
-				JOptionPane.showMessageDialog(null,
-						"La capacidad maxima establecida es mayor a la capacidad de la sala seleccionada");
 			}
 
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {
@@ -144,19 +110,30 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaSeleccionarResponsable = new SeleccionarResponsable();
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarResponsable(this.ventanaSeleccionarResponsable, this);
-		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarSala()) {
-			this.ventanaSeleccionarSala = new SeleccionarSala();
-			this.ventanaCrearCurso.setVisible(false);
-			new ControladorSeleccionarSala(this.ventanaSeleccionarSala, this);
 		} else if (e.getSource() == ventanaCrearCurso.getBtnAgregarDia()) {
-			this.ventanaSeleccionarDiaHorario = new SeleccionarDiaHorario();
-			this.ventanaCrearCurso.setVisible(false);
-			new ControladorSeleccionarDiaHorario(this.ventanaSeleccionarDiaHorario, this);
+			
+			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+			Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMaximo().getText());
+			
+			if (!cupoMaximo.matches() || this.ventanaCrearCurso.getTxtCupoMaximo().getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese un cupo maximo");
+			} else if (this.ventanaCrearCurso.getDateFechaInicio().getDate() == null) {
+				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese una fecha de inicio");
+			} 
+			else{
+				this.ventanaSeleccionarDiaHorario = new SeleccionarDiaHorario();
+				this.ventanaCrearCurso.setVisible(false);
+				new ControladorSeleccionarDiaHorario(this.ventanaSeleccionarDiaHorario, this);
+			}
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
 			int fila = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRow();
 			// this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
 			// this.llenarTablaDiasHorarios();
-		}
+		}/*else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarSala()) {
+			this.ventanaSeleccionarSala = new SeleccionarSala();
+			this.ventanaCrearCurso.setVisible(false);
+			new ControladorSeleccionarSala(this.ventanaSeleccionarSala, this);
+		} */
 	}
 
 	public Empleado getInstructor() {
@@ -177,15 +154,6 @@ public class ControladorCrearCurso implements ActionListener {
 		this.responsable = responsable;
 		this.ventanaCrearCurso.getTxtResponsable()
 				.setText(this.responsable.getNombre() + " " + this.responsable.getApellido());
-	}
-
-	public Sala getSala() {
-		return sala;
-	}
-
-	public void setSala(Sala sala) {
-		this.sala = sala;
-		this.ventanaCrearCurso.getTxtSala().setText(this.sala.getNumero() + " " + this.sala.getNombre());
 	}
 
 	public Programa getPrograma() {

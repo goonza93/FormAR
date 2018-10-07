@@ -118,6 +118,7 @@ public class CrearCurso extends JFrame {
 		dateFechaFin = new JDateChooser();
 		dateFechaFin.setBounds(208, 92, 269, 20);
 		contentPane.add(dateFechaFin);
+		dateFechaFin.setEnabled(false);
 		
 		txtCantidadTotalClases = new JTextField();
 		txtCantidadTotalClases.setFont(new Font("Arial", Font.PLAIN, 12));
