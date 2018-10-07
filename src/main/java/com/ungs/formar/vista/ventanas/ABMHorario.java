@@ -146,4 +146,26 @@ public class ABMHorario extends JFrame {
 	public JButton getBtnSeleccionarSala() {
 		return btnSeleccionarSala;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public JTextField getTxtHorasInicio() {
+		return txtHorasInicio;
+	}
+
+	public JTextField getTxtMinutosInicio() {
+		return txtMinutosInicio;
+	}
+
+	public JTextField getTxtMinutosFin() {
+		return txtMinutosFin;
+	}
+
+	public JTextField getTxtHorasFin() {
+		return txtHorasFin;
+	}
+	
+	
 }
