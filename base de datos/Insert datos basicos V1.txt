@@ -22,3 +22,7 @@ INSERT INTO for_estados_curso (descripcion) VALUES ("Abierto");
 INSERT INTO for_estados_curso (descripcion) VALUES ("Cursando");
 INSERT INTO for_estados_curso (descripcion) VALUES ("Cerrado");
 INSERT INTO for_estados_curso (descripcion) VALUES ("Cancelado");
+
+-- insertar roles
+insert into for_roles_empleado (descripcion) values ('Administrativo');
+insert into for_roles_empleado (descripcion) values ('Instructor');

@@ -155,6 +155,3 @@ CREATE TABLE for_horarios_cursada (
     sala INT(4) NOT NULL, -- FK SALAS
 	PRIMARY KEY (horario_ID)
 );
-
-insert into for_roles_empleado (descripcion) values ('Administrativo');
-insert into for_roles_empleado (descripcion) values ('Instructor');
