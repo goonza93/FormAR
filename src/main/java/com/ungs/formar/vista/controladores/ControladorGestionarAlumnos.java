@@ -77,7 +77,6 @@ public class ControladorGestionarAlumnos implements ActionListener {
 			this.ventanaAltaAlumno = new AltaAlumno(this);
 			this.ventanaAltaAlumno.mostrar();
 			this.ventanaGestionarAlumnos.ocultar();
-			// new ControladorAltaAlumno(this.ventanaAltaAlumno, this);
 		}
 
 		else if (e.getSource() == ventanaGestionarAlumnos.getBtnCancelar()) {
