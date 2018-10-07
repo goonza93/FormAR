@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.CursoManager;
@@ -13,7 +14,6 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.entidades.Sala;
-import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarDiaHorario;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarInstructor;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarResponsable;
@@ -145,7 +145,7 @@ public class ControladorCrearCurso implements ActionListener {
 			else{
 				this.ventanaABMHorario = new ABMHorario();
 				this.ventanaCrearCurso.setVisible(false);
-				new ControladorSeleccionarDiaHorario(this.ventanaABMHorario, this);
+				new ControladorCrearDiaHorario(this.ventanaABMHorario, this);
 			}
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
 			int fila = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRow();

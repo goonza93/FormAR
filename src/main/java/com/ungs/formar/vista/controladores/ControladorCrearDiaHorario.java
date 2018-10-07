@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.controladores.seleccion;
+package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +14,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.CursoManager;
+import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.persistencia.entidades.Horario;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Sala;
-import com.ungs.formar.vista.controladores.ControladorCrearCurso;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarSala;
 import com.ungs.formar.vista.ventanas.ABMHorario;
 import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
@@ -24,14 +26,14 @@ import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
-public class ControladorSeleccionarDiaHorario implements ActionListener {
+public class ControladorCrearDiaHorario implements ActionListener {
 	private ControladorCrearCurso controladorCrearCurso;
 	private ABMHorario ventanaAltaModifDiaHorario;
 	private Sala sala;
 	private SeleccionarSala ventanaSeleccionarSala;
 	private ControladorSeleccionarSala controladorSeleccionarSala;
 
-	public ControladorSeleccionarDiaHorario(ABMHorario ventanaAltaModifDiaHorario,
+	public ControladorCrearDiaHorario(ABMHorario ventanaAltaModifDiaHorario,
 			ControladorCrearCurso controladorCrearCurso) {
 		this.ventanaAltaModifDiaHorario = ventanaAltaModifDiaHorario;
 		this.controladorCrearCurso = controladorCrearCurso;
@@ -87,6 +89,18 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 			} else if (Integer.parseInt(this.ventanaAltaModifDiaHorario.getTxtHorasFin().getText()) > 23) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de fin valida");
 			} else {
+				/*
+				Integer idhorario = HorarioCursadaManager.crearHorario(dia,horai,horaf,mini,minf);
+				Integer idCurso = CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, estado, responsable
+						, instructor, programa, contenido, fechaInicio, fechaFin);
+				HorarioCursada nuevoHC = new HorarioCursada(-1,idCurso,idhorario,salaid);
+				
+				*/
+				
+				/*
+				HorarioCursada ()
+				Horario nuevoH = new Horario(-1,dia,horai,horaf,mini,minf);
+				HorarioCursada nuevoHC = new HorarioCursada(-1,-1,horarioid,salaid);*/
 				// this.ventanaAltaModifDiaHorario.setVisible(false);
 				// HorarioManager.crearHorario();
 				// ControladorCrearCurso.addHorario();

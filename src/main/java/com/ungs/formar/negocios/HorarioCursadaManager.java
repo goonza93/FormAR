@@ -22,5 +22,9 @@ public class HorarioCursadaManager {
 		return null;
 	}
 	
+	public static Integer crearHorario(Integer dia, Integer horaI, Integer horaF, Integer minutoI, Integer minutoFin){
+		// implementar ambas, el crear y el devolver el int del id del creado.
+		return null;
+	}
 
 }
