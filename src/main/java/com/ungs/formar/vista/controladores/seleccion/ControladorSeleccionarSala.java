@@ -12,10 +12,10 @@ import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarSala implements ActionListener {
 	private SeleccionarSala ventana;
-	private ControladorCrearCurso controlador;
+	private ControladorSeleccionarDiaHorario controlador;
 	private List<Sala> salas_en_tabla;
 
-	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorCrearCurso controlador) {
+	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorSeleccionarDiaHorario controlador) {
 		this.ventana = ventana;
 		this.controlador = controlador;
 		this.ventana.getBtnCancelar().addActionListener(this);
@@ -55,11 +55,10 @@ public class ControladorSeleccionarSala implements ActionListener {
 				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
 				int row = this.ventana.getTablaSalas().getSelectedRow(); // indice row de la tabla
 				int modelFila = this.ventana.getTablaSalas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-				System.out.println(modelFila); // para revisar
 				
-				// this.controladorCrearCurso.setSala(//Sala EN
-				// FILA
-				// SELECCIONADA);
+				this.controlador.setSala(this.salas_en_tabla.get(modelFila));
+				this.ventana.dispose();
+				this.controlador.inicializar();
 			}
 		} else if (e.getSource() == ventana.getBtnCancelar()) {
 			this.ventana.dispose();
