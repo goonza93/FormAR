@@ -15,6 +15,7 @@ import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarInstr
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarResponsable;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarSala;
+import com.ungs.formar.vista.ventanas.ABMHorario;
 import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
@@ -28,7 +29,7 @@ public class ControladorCrearCurso implements ActionListener {
 	private SeleccionarPrograma ventanaSeleccionarPrograma;
 	private SeleccionarResponsable ventanaSeleccionarResponsable;
 	private SeleccionarSala ventanaSeleccionarSala;
-	private SeleccionarDiaHorario ventanaSeleccionarDiaHorario;
+	private ABMHorario ventanaABMHorario;
 	private ControladorGestionarCurso controladorGestionarCurso;
 	private Empleado instructor;
 	private Empleado responsable;
@@ -42,7 +43,6 @@ public class ControladorCrearCurso implements ActionListener {
 		this.ventanaCrearCurso.getBtnSeleccionarInstructor().addActionListener(this);
 		this.ventanaCrearCurso.getBtnSeleccionarPrograma().addActionListener(this);
 		this.ventanaCrearCurso.getBtnSeleccionarResponsable().addActionListener(this);
-		this.ventanaCrearCurso.getBtnSeleccionarSala().addActionListener(this);
 		this.ventanaCrearCurso.getBtnAgregarDia().addActionListener(this);
 		this.ventanaCrearCurso.getBtnBorrarDia().addActionListener(this);
 		this.controladorGestionarCurso = controladorGestionarCurso;
@@ -64,7 +64,6 @@ public class ControladorCrearCurso implements ActionListener {
 
 			Matcher cupoMinimo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMinimo().getText());
 			Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCupoMaximo().getText());
-			Matcher clasesTotal = patronNumeros.matcher(this.ventanaCrearCurso.getTxtCantidadTotalClases().getText());
 			Matcher horasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getTxtHorasTotalesClases().getText());
 
 			// Validaciones de null, y de tipos de datos validos
@@ -74,9 +73,6 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo maximo valido");
 			} else if (this.ventanaCrearCurso.getDateFechaInicio().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
-			} else if (!clasesTotal.matches()
-					|| this.ventanaCrearCurso.getTxtCantidadTotalClases().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de clases valida");
 			} else if (!horasTotal.matches() || this.ventanaCrearCurso.getTxtHorasTotalesClases().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
 			} else if (this.instructor == null) {
@@ -121,9 +117,9 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese una fecha de inicio");
 			} 
 			else{
-				this.ventanaSeleccionarDiaHorario = new SeleccionarDiaHorario();
+				this.ventanaABMHorario = new ABMHorario();
 				this.ventanaCrearCurso.setVisible(false);
-				new ControladorSeleccionarDiaHorario(this.ventanaSeleccionarDiaHorario, this);
+				new ControladorSeleccionarDiaHorario(this.ventanaABMHorario, this);
 			}
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
 			int fila = this.ventanaCrearCurso.getTablaDiasHorarios().getSelectedRow();

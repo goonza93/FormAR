@@ -32,16 +32,13 @@ public class CrearCurso extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtCupoMinimo;
 	private JTextField txtCupoMaximo;
-	private JTextField txtCantidadTotalClases;
 	private JTextField txtHorasTotalesClases;
 	private JTextField txtInstructor;
 	private JButton btnSeleccionarInstructor;
-	private JTextField txtSala;
 	private JTextField txtPrograma;
 	private JTextField txtResponsable;
 	private JButton btnAgregar;
 	private JButton btnCancelar;
-	private JButton btnSeleccionarSala;
 	private JButton btnSeleccionarResponsable;
 	private JButton btnSeleccionarPrograma;
 	private JDateChooser dateFechaInicio;
@@ -52,13 +49,13 @@ public class CrearCurso extends JFrame {
 	private JScrollPane spDiasyHorarios;
 	private JTable tablaDiasHorarios;
 	private DefaultTableModel modelDiasHorarios;
-	private  String[] nombreColumnas = {"Dia", "Hora Inicio", "Hora Fin"};
+	private  String[] nombreColumnas = {"Dia", "Hora Inicio", "Hora Fin", "Sala"};
 	private JButton btnBorrarDia;
 	
 	public CrearCurso() {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 498, 709);
+		setBounds(100, 100, 504, 624);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,7 +73,7 @@ public class CrearCurso extends JFrame {
 		
 		JLabel lblInstructor = new JLabel("INSTRUCTOR:");
 		lblInstructor.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblInstructor.setBounds(10, 177, 188, 14);
+		lblInstructor.setBounds(10, 150, 188, 14);
 		contentPane.add(lblInstructor);
 		
 		txtCupoMinimo = new JTextField();
@@ -87,12 +84,12 @@ public class CrearCurso extends JFrame {
 		
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregar.setBounds(10, 636, 101, 23);
+		btnAgregar.setBounds(10, 548, 101, 23);
 		contentPane.add(btnAgregar);
 		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(376, 636, 101, 23);
+		btnCancelar.setBounds(376, 548, 101, 23);
 		contentPane.add(btnCancelar);
 		
 		JLabel lblCupoMaximo = new JLabel("CUPO M\u00C1XIMO:");
@@ -120,93 +117,65 @@ public class CrearCurso extends JFrame {
 		contentPane.add(dateFechaFin);
 		dateFechaFin.setEnabled(false);
 		
-		txtCantidadTotalClases = new JTextField();
-		txtCantidadTotalClases.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtCantidadTotalClases.setColumns(10);
-		txtCantidadTotalClases.setBounds(208, 119, 269, 20);
-		contentPane.add(txtCantidadTotalClases);
-		
-		JLabel lblCantidadTotalClases = new JLabel("CANTIDAD TOTAL DE CLASES:");
-		lblCantidadTotalClases.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblCantidadTotalClases.setBounds(10, 121, 188, 14);
-		contentPane.add(lblCantidadTotalClases);
-		
 		txtHorasTotalesClases = new JTextField();
 		txtHorasTotalesClases.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtHorasTotalesClases.setColumns(10);
-		txtHorasTotalesClases.setBounds(208, 146, 269, 20);
+		txtHorasTotalesClases.setBounds(208, 119, 269, 20);
 		contentPane.add(txtHorasTotalesClases);
 		
 		JLabel lblHorasTotalesClases = new JLabel("HORAS TOTALES DE CLASES:");
 		lblHorasTotalesClases.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblHorasTotalesClases.setBounds(10, 148, 188, 14);
+		lblHorasTotalesClases.setBounds(10, 121, 188, 14);
 		contentPane.add(lblHorasTotalesClases);
 		
 		txtInstructor = new JTextField();
 		txtInstructor.setEditable(false);
 		txtInstructor.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtInstructor.setColumns(10);
-		txtInstructor.setBounds(208, 175, 224, 20);
+		txtInstructor.setBounds(208, 148, 224, 20);
 		contentPane.add(txtInstructor);
 		
 		btnSeleccionarInstructor = new JButton("...");
 		btnSeleccionarInstructor.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionarInstructor.setBounds(442, 173, 35, 23);
+		btnSeleccionarInstructor.setBounds(442, 146, 35, 23);
 		contentPane.add(btnSeleccionarInstructor);
-		
-		JLabel lblSala = new JLabel("SALA:");
-		lblSala.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblSala.setBounds(10, 206, 188, 14);
-		contentPane.add(lblSala);
-		
-		txtSala = new JTextField();
-		txtSala.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtSala.setEditable(false);
-		txtSala.setColumns(10);
-		txtSala.setBounds(208, 204, 224, 20);
-		contentPane.add(txtSala);
-		
-		btnSeleccionarSala = new JButton("...");
-		btnSeleccionarSala.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionarSala.setBounds(442, 202, 35, 23);
-		contentPane.add(btnSeleccionarSala);
 		
 		btnSeleccionarPrograma = new JButton("...");
 		btnSeleccionarPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionarPrograma.setBounds(442, 231, 35, 23);
+		btnSeleccionarPrograma.setBounds(442, 175, 35, 23);
 		contentPane.add(btnSeleccionarPrograma);
 		
 		txtPrograma = new JTextField();
 		txtPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtPrograma.setEditable(false);
 		txtPrograma.setColumns(10);
-		txtPrograma.setBounds(208, 233, 224, 20);
+		txtPrograma.setBounds(208, 177, 224, 20);
 		contentPane.add(txtPrograma);
 		
 		JLabel lblPrograma = new JLabel("PROGRAMA:");
 		lblPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblPrograma.setBounds(10, 235, 188, 14);
+		lblPrograma.setBounds(10, 179, 188, 14);
 		contentPane.add(lblPrograma);
 		
 		btnSeleccionarResponsable = new JButton("...");
 		btnSeleccionarResponsable.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSeleccionarResponsable.setBounds(442, 260, 35, 23);
+		btnSeleccionarResponsable.setBounds(442, 204, 35, 23);
 		contentPane.add(btnSeleccionarResponsable);
 		
 		txtResponsable = new JTextField();
 		txtResponsable.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtResponsable.setEditable(false);
 		txtResponsable.setColumns(10);
-		txtResponsable.setBounds(208, 262, 224, 20);
+		txtResponsable.setBounds(208, 206, 224, 20);
 		contentPane.add(txtResponsable);
 		
 		JLabel lblResponsable = new JLabel("RESPONSABLE:");
 		lblResponsable.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblResponsable.setBounds(10, 264, 188, 14);
+		lblResponsable.setBounds(10, 208, 188, 14);
 		contentPane.add(lblResponsable);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 501, 467, 124);
+		scrollPane.setBounds(10, 413, 467, 124);
 		contentPane.add(scrollPane);
 		
 		txtProgramaEspecifico = new JTextArea();
@@ -216,22 +185,22 @@ public class CrearCurso extends JFrame {
 		JLabel lblProgramaEspecifico = new JLabel("PROGRAMA ESPECIFICO:");
 		lblProgramaEspecifico.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramaEspecifico.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblProgramaEspecifico.setBounds(10, 476, 467, 14);
+		lblProgramaEspecifico.setBounds(10, 388, 467, 14);
 		contentPane.add(lblProgramaEspecifico);
 		
 		lblDiasYHorarios = new JLabel("DIAS Y HORARIOS:");
 		lblDiasYHorarios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiasYHorarios.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblDiasYHorarios.setBounds(10, 294, 422, 14);
+		lblDiasYHorarios.setBounds(10, 238, 422, 14);
 		contentPane.add(lblDiasYHorarios);
 		
 		btnAgregarDia = new JButton("AGREGAR DIA");
 		btnAgregarDia.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregarDia.setBounds(10, 410, 129, 23);
+		btnAgregarDia.setBounds(10, 354, 129, 23);
 		contentPane.add(btnAgregarDia);
 		
 		spDiasyHorarios = new JScrollPane();
-		spDiasyHorarios.setBounds(10, 319, 462, 80);
+		spDiasyHorarios.setBounds(10, 263, 462, 80);
 		contentPane.add(spDiasyHorarios);
 		
 		modelDiasHorarios = new DefaultTableModel(null,nombreColumnas);
@@ -241,7 +210,7 @@ public class CrearCurso extends JFrame {
 		
 		btnBorrarDia = new JButton("BORRAR DIA");
 		btnBorrarDia.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnBorrarDia.setBounds(343, 411, 129, 23);
+		btnBorrarDia.setBounds(343, 355, 129, 23);
 		contentPane.add(btnBorrarDia);
 	}
 	
@@ -261,10 +230,6 @@ public class CrearCurso extends JFrame {
 		return txtCupoMaximo;
 	}
 
-	public JTextField getTxtCantidadTotalClases() {
-		return txtCantidadTotalClases;
-	}
-
 	public JTextField getTxtHorasTotalesClases() {
 		return txtHorasTotalesClases;
 	}
@@ -276,21 +241,13 @@ public class CrearCurso extends JFrame {
 	public JButton getBtnSeleccionarInstructor() {
 		return btnSeleccionarInstructor;
 	}
-
-	public JTextField getTxtSala() {
-		return txtSala;
-	}
-
+	
 	public JTextField getTxtPrograma() {
 		return txtPrograma;
 	}
 
 	public JTextField getTxtResponsable() {
 		return txtResponsable;
-	}
-
-	public JButton getBtnSeleccionarSala() {
-		return btnSeleccionarSala;
 	}
 
 	public JButton getBtnSeleccionarResponsable() {

@@ -20,62 +20,33 @@ import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarDiaHorario implements ActionListener {
-	private SeleccionarDiaHorario ventanaSeleccionarDiaHorario;
 	private ControladorCrearCurso controladorCrearCurso;
 	private ABMHorario ventanaAltaModifDiaHorario;
 	private List<Horario> horarios_en_tabla;
 
-	public ControladorSeleccionarDiaHorario(SeleccionarDiaHorario ventanaSeleccionarDiaHorario,
+	public ControladorSeleccionarDiaHorario(ABMHorario ventanaAltaModifDiaHorario,
 			ControladorCrearCurso controladorCrearCurso) {
-		this.ventanaSeleccionarDiaHorario = ventanaSeleccionarDiaHorario;
+		this.ventanaAltaModifDiaHorario = ventanaAltaModifDiaHorario;
 		this.controladorCrearCurso = controladorCrearCurso;
-		this.ventanaSeleccionarDiaHorario.getBtnAgregar().addActionListener(this);
-		this.ventanaSeleccionarDiaHorario.getBtnCancelar().addActionListener(this);
-		this.ventanaSeleccionarDiaHorario.getBtnSeleccionar().addActionListener(this);
+		this.ventanaAltaModifDiaHorario.getBtnAgregar().addActionListener(this);
+		this.ventanaAltaModifDiaHorario.getBtnCancelar().addActionListener(this);
+		this.ventanaAltaModifDiaHorario.getBtnSeleccionarSala().addActionListener(this);
 		this.inicializar();
 	}
 
 	public void inicializar() {
-		llenarTablaDiaHorario();
-		this.ventanaSeleccionarDiaHorario.setVisible(true);
-	}
-
-	private void llenarTablaDiaHorario() {
-		this.ventanaSeleccionarDiaHorario.getModelTemas().setRowCount(0); //Para vaciar la tabla
-		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnCount(0);
-		this.ventanaSeleccionarDiaHorario.getModelTemas().setColumnIdentifiers(this.ventanaSeleccionarDiaHorario.getNombreColumnas());
-		
-		//this.horarios_en_tabla = HorariosManager.traerHorarios();
-		this.horarios_en_tabla = new ArrayList<Horario>(); //Esta linea despues se borra y queda la de arriba
-		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
-			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
-			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
-			   }
-			});
-		*/
-		for (int i = 0; i < this.horarios_en_tabla.size(); i ++){
-			Object[] fila = {this.horarios_en_tabla.get(i).getDiaID(), this.horarios_en_tabla.get(i).getHoraInicio(),
-					this.horarios_en_tabla.get(i).getHoraFin()};
-			this.ventanaSeleccionarDiaHorario.getModelTemas().addRow(fila);
-		}
+		this.ventanaAltaModifDiaHorario.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnSeleccionar()) {
-			int fila_seleccionada = this.ventanaSeleccionarDiaHorario.getTablaDiasHorarios().getSelectedRow();
-			if (fila_seleccionada != -1) {
-				// this.controladorCrearCurso.setHorariosCursada(//DIA HORARIO
-				// EN FILA SELECCIONADA);
-			}
-		} else if (e.getSource() == this.ventanaSeleccionarDiaHorario.getBtnCancelar()) {
-			this.ventanaSeleccionarDiaHorario.dispose();
+		if (e.getSource() == this.ventanaAltaModifDiaHorario.getBtnSeleccionarSala()) {
+			
+		} else if (e.getSource() == this.ventanaAltaModifDiaHorario.getBtnCancelar()) {
+			this.ventanaAltaModifDiaHorario.dispose();
 			this.controladorCrearCurso.inicializar();
-		} else if (e.getSource() == ventanaSeleccionarDiaHorario.getBtnAgregar()) {
-			this.ventanaSeleccionarDiaHorario.setVisible(false);
-			this.ventanaAltaModifDiaHorario = new ABMHorario();
-			this.ventanaAltaModifDiaHorario.setVisible(true);
-			// new
-			// ControladorAltaModifDiaHorario(this.ventanaAltaModifDiaHorario,this);
+		} else if (e.getSource() == ventanaAltaModifDiaHorario.getBtnAgregar()) {
+			this.ventanaAltaModifDiaHorario.setVisible(false);
+			//return el Horario, y sala.
 		}
 
 	}
