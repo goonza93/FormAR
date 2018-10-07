@@ -10,7 +10,7 @@ public class ODB {
 	// Ambiente Desarrollo
 	protected String cadenaConexion = "jdbc:mysql://localhost:3306/formar"; 
 	protected String usuarioBD = "root"; 
-	protected String passwordBD = "root";
+	protected String passwordBD = "pass";
 	
 	
 	// Ambiente Produccion
