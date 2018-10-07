@@ -15,8 +15,10 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	private final String tabla = "for_empleados";
 
 	public void insert(Empleado empleado) {
-		String consulta = "insert into "+tabla+" (DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
-		String valores = empleado.getDNI() +", '"+ empleado.getRol() +"', '"+ empleado.getNombre() +"', '"
+		String consulta = "insert into "+tabla+" (rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
+		String fechaEgreso = empleado.getFechaEgreso() == null ? null : "'"+empleado.getFechaEgreso()+"'"; 
+		
+		String valores = empleado.getRol() +", '"+ empleado.getDNI() +"', '"+ empleado.getNombre() +"', '"
 				+ empleado.getApellido() +"', '"+ empleado.getTelefono() +"', '"+ empleado.getEmail() +"', '"
 				+ empleado.getFechaIngreso()+"', ";
 		if(empleado.getFechaEgreso() == null){
