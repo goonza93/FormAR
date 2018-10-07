@@ -37,4 +37,16 @@ public class CursoManager {
 		return obd.selectByID(ID);
 	}
 
+	public static void borrarCurso(Integer idCurso){
+		
+	}
+	
+	public static void updateCurso(Integer idCurso){
+		
+	}
+	
+	public static Curso traerCursoPorId(Integer idCurso){
+		
+		return null;
+	}
 }
