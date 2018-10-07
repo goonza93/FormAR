@@ -169,7 +169,7 @@ public class ControladorCrearCurso implements ActionListener {
 	public void setResponsable(Empleado responsable) {
 		this.responsable = responsable;
 		this.ventanaCrearCurso.getTxtResponsable()
-				.setText(this.responsable.getNombre() + " " + this.responsable.getApellido());
+				.setText(this.responsable.getApellido() + " " + this.responsable.getNombre());
 	}
 
 	public Programa getPrograma() {

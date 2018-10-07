@@ -63,8 +63,15 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 		if (e.getSource() == ventanaSeleccionarInstructor.getBtnSeleccionar()) {
 			int fila_seleccionada = this.ventanaSeleccionarInstructor.getTablaInstructores().getSelectedRow();
 			if (fila_seleccionada != -1) {
-				// this.controladorCrearCurso.setInstructor(//INSTRUCTOR EN FILA
-				// SELECCIONADA);
+				// ESTE ES EL FIX PARA QUE FUNCIONE TMB CON FILTROS...
+				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
+				int row = this.ventanaSeleccionarInstructor.getTablaInstructores().getSelectedRow(); // indice row de la tabla
+				int modelFila = this.ventanaSeleccionarInstructor.getTablaInstructores().convertRowIndexToModel(row); // indice row del model de 
+				//la row de la tabla
+				
+				this.controladorCrearCurso.setInstructor(this.instructores_en_tabla.get(modelFila));
+				this.ventanaSeleccionarInstructor.dispose();
+				this.controladorCrearCurso.inicializar();
 			}
 
 		} else if (e.getSource() == ventanaSeleccionarInstructor.getBtnCancelar()) {
