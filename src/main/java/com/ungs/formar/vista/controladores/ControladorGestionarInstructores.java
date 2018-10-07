@@ -112,7 +112,6 @@ public class ControladorGestionarInstructores implements ActionListener {
 				String email = this.ventanaAltaInstructor.getTxtEmail().getText();
 				Date fechaIngreso = this.ventanaAltaInstructor.getDateFechaIngreso().getDate();
 				Integer rol = new Integer(2);
-				System.out.println(rol);
 
 				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email,
 						new java.sql.Date(fechaIngreso.getTime()), null);

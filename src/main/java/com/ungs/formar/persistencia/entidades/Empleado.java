@@ -10,6 +10,7 @@ public class Empleado {
 	public Empleado(Integer empleadoID, Integer rol, String DNI, String nombre, String apellido, String telefono, String email,
 			Date fechaIngreso, Date fechaEgreso) {
 		this.empleadoID = empleadoID;
+		this.rol = rol;
 		this.DNI = DNI;
 		this.nombre = nombre;
 		this.apellido = apellido;
