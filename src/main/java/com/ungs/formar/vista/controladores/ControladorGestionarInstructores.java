@@ -106,7 +106,10 @@ public class ControladorGestionarInstructores implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un telefono valido");
 			} else if (!mEmail.matches() || this.ventanaAltaInstructor.getTxtEmail().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un email valido");
-			} else {
+			} else if(this.ventanaAltaInstructor.getDateFechaIngreso().getDate() == null){
+				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de ingreso valida");
+			}
+			else {
 				String dni = this.ventanaAltaInstructor.getTxtDni().getText();
 				String nombre = this.ventanaAltaInstructor.getTxtNombre().getText();
 				String apellido = this.ventanaAltaInstructor.getTxtApellido().getText();

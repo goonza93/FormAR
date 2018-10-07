@@ -52,7 +52,7 @@ public class ControladorSeleccionarDiaHorario implements ActionListener {
 			this.ventanaAltaModifDiaHorario.dispose();
 			this.controladorCrearCurso.inicializar();
 		} else if (e.getSource() == ventanaAltaModifDiaHorario.getBtnAgregar()) {
-			this.ventanaAltaModifDiaHorario.setVisible(false);
+			//this.ventanaAltaModifDiaHorario.setVisible(false);
 			//HorarioManager.crearHorario();
 			//ControladorCrearCurso.addHorario();
 			//this.controladorCrearCurso.inicializar();

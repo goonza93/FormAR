@@ -84,7 +84,7 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
 			} else if (this.responsable == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
-			} else if (this.horariosCursada.size() == 0) {
+			} else if (this.horariosCursada == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un horario de cursada");
 			}
 
@@ -159,7 +159,7 @@ public class ControladorCrearCurso implements ActionListener {
 	public void setInstructor(Empleado instructor) {
 		this.instructor = instructor;
 		this.ventanaCrearCurso.getTxtInstructor()
-				.setText(this.instructor.getNombre() + " " + this.instructor.getApellido());
+				.setText(this.instructor.getApellido() + " " + this.instructor.getNombre());
 	}
 
 	public Empleado getResponsable() {

@@ -42,7 +42,7 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		this.ventanaSeleccionarResponsable.getModelResponsables().setColumnCount(0);
 		this.ventanaSeleccionarResponsable.getModelResponsables().setColumnIdentifiers(this.ventanaSeleccionarResponsable.getNombreColumnas());
 		
-		this.responsables_en_tabla = EmpleadoManager.traerEmpleados();
+		this.responsables_en_tabla = EmpleadoManager.traerAdministrativos();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
@@ -60,9 +60,14 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnSeleccionar()) {
 			int fila_seleccionada = this.ventanaSeleccionarResponsable.getTablaResponsables().getSelectedRow();
 			if (fila_seleccionada != -1) {
-				// this.controladorCrearCurso.setResponsable(//Responsable EN
-				// FILA
-				// SELECCIONADA);
+				// ESTE ES EL FIX PARA QUE FUNCIONE TMB CON FILTROS...
+				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
+				int row = this.ventanaSeleccionarResponsable.getTablaResponsables().getSelectedRow(); // indice row de la tabla
+				int modelFila = this.ventanaSeleccionarResponsable.getTablaResponsables().convertRowIndexToModel(row); // indice row del model de la row de la tabla
+				
+				this.controladorCrearCurso.setResponsable(this.responsables_en_tabla.get(modelFila));
+				this.ventanaSeleccionarResponsable.dispose();
+				this.controladorCrearCurso.inicializar();
 			}
 		} else if (e.getSource() == this.ventanaSeleccionarResponsable.getBtnCancelar()) {
 			this.ventanaSeleccionarResponsable.dispose();

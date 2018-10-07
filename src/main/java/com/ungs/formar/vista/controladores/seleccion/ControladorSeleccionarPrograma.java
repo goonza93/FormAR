@@ -64,8 +64,14 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 		if (e.getSource() == ventanaSeleccionarPrograma.getBtnSeleccionar()) {
 			int fila_seleccionada = this.ventanaSeleccionarPrograma.getTablaProgramas().getSelectedRow();
 			if (fila_seleccionada != -1) {
-				// this.controladorCrearCurso.setPrograma(//PROGRAMA EN FILA
-				// SELECCIONADA);
+				// ESTE ES EL FIX PARA QUE FUNCIONE TMB CON FILTROS...
+				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
+				int row = this.ventanaSeleccionarPrograma.getTablaProgramas().getSelectedRow(); // indice row de la tabla
+				int modelFila = this.ventanaSeleccionarPrograma.getTablaProgramas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
+				
+				this.controladorCrearCurso.setPrograma(this.programas_en_tabla.get(modelFila));
+				this.ventanaSeleccionarPrograma.dispose();
+				this.controladorCrearCurso.inicializar();
 			}
 		} else if (e.getSource() == ventanaSeleccionarPrograma.getBtnCancelar()) {
 			this.ventanaSeleccionarPrograma.dispose();
