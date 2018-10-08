@@ -85,43 +85,47 @@ public class ControladorGestionarCurso implements ActionListener {
 			
 		// BOTON BORRAR CURSO
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnBorrar()) {
-			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
-			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-			CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
-			llenarTablaCursos();
 			
+			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
+			if (row != -1) {
+				int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
+				CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
+				llenarTablaCursos();
+			}
 		// BOTON EDITAR CURSO
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnEditar()) {
+			
 			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
-			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-			
-			Curso curso = this.cursos_en_tabla.get(modelFila);
-			this.a_editar = curso;
-			Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
-			Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
-			Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
-			List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
-			
-			ventanaCrearCurso = new CrearCurso();
-			ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());
-			ventanaCrearCurso.getCupoMaximo().setText(curso.getCupoMaximo().toString());
-			ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
-			ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
-			ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
-			ventanaCrearCurso.getInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
-			ventanaCrearCurso.getPrograma().setText(programa.getNombre());
-			ventanaCrearCurso.getResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
-			ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
-			
-			ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
-			controladorCursoEdicion.setIdEdicion(curso.getCursoID());
-			controladorCursoEdicion.setInstructor(instructor);
-			controladorCursoEdicion.setPrograma(programa);
-			controladorCursoEdicion.setResponsable(responsable);
-			controladorCursoEdicion.setHorarios(horariosCursada);
-			controladorCursoEdicion.inicializar();
-			this.ventanaGestionarCursos.ocultar();					
-
+			if (row != -1) {
+				int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
+				
+				Curso curso = this.cursos_en_tabla.get(modelFila);
+				this.a_editar = curso;
+				Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
+				Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
+				Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
+				List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
+				
+				ventanaCrearCurso = new CrearCurso();
+				ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());
+				ventanaCrearCurso.getCupoMaximo().setText(curso.getCupoMaximo().toString());
+				ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
+				ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
+				ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
+				ventanaCrearCurso.getInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
+				ventanaCrearCurso.getPrograma().setText(programa.getNombre());
+				ventanaCrearCurso.getResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
+				ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
+				
+				ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
+				controladorCursoEdicion.setIdEdicion(curso.getCursoID());
+				controladorCursoEdicion.setInstructor(instructor);
+				controladorCursoEdicion.setPrograma(programa);
+				controladorCursoEdicion.setResponsable(responsable);
+				controladorCursoEdicion.setHorarios(horariosCursada);
+				controladorCursoEdicion.inicializar();
+				this.ventanaGestionarCursos.ocultar();					
+			}
 		// BOTON CANCELAR
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnCancelar()) {
 			controladorPantallaPrincipal.inicializar();

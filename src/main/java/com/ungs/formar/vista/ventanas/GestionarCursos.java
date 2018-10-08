@@ -45,6 +45,7 @@ public class GestionarCursos {
 		frame.setBounds(100, 100, 1375, 497);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Gestion de cursos");
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1359, 458);

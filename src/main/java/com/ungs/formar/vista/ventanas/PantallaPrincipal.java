@@ -29,6 +29,8 @@ public class PantallaPrincipal {
 		frame.setBounds(100, 100, 485, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		frame.setTitle("Sistema para administracion de cursos");
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 469, 262);

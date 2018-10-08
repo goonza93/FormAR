@@ -36,6 +36,7 @@ public class GestionarInstructores {
 		frame.setBounds(100, 100, 740, 369);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Gestion de instructores");
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 724, 330);

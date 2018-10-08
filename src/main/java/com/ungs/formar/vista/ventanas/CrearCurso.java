@@ -35,6 +35,7 @@ public class CrearCurso extends JFrame {
 		panelprincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelprincipal);
 		panelprincipal.setLayout(null);
+		setTitle("Ingreso/edicion de curso");
 		
 		JLabel lblCupoMinimo = new JLabel("CUPO MINIMO:");
 		lblCupoMinimo.setFont(new Font("Arial", Font.PLAIN, 12));

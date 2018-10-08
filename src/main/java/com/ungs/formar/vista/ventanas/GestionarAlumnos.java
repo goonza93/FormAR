@@ -42,6 +42,7 @@ public class GestionarAlumnos {
 		frame.setBounds(100, 100, 645, 369);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Gestion de alumnos");
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 629, 330);
