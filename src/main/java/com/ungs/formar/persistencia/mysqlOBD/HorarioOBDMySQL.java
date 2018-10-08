@@ -102,11 +102,17 @@ public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 		return ret;
 	}
 
-	public void delete(Horario horario) {
+	public void update(Horario horario) {
 		String condicion = "horario_id = "+horario.getHorarioID();
 		String consulta = "update "+tabla+" set dia = "+horario.getDia()+", hora_inicio = "+horario.getHoraInicio()+
 				", hora_fin = "+horario.getHoraFin()+", minuto_inicio = "+horario.getMinutoInicio()+
 				", minuto_fin = "+horario.getMinutoFin()+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+	
+	public void delete(Horario horario) {
+		String condicion = "horario_id = "+horario.getHorarioID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
 	

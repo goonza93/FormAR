@@ -9,10 +9,12 @@ public interface HorarioOBD {
 	
 	public List<Horario> select();
 	
-	public void delete(Horario horario);
+	public void update(Horario horario);
 
 	public Horario selectByID(Integer ID);
 	
 	public Integer selectIDMasReciente();
+
+	public void delete(Horario horario);
 	
 }

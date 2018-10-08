@@ -8,12 +8,14 @@ public interface HorarioCursadaOBD {
 	
 	public void insert(HorarioCursada horarioCursada);
 	
-	public void delete(HorarioCursada horarioCursada);
+	public void update(HorarioCursada horarioCursada);
 	
 	public List<HorarioCursada> select();
 	
 	public List<HorarioCursada> selectBySala(Integer sala);
 	
 	public List<HorarioCursada> selectByCurso(Curso curso);
+
+	public void delete(HorarioCursada horarioCursada);
 	
 }
