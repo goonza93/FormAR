@@ -1,0 +1,21 @@
+-- Inserto empleados administrativos
+insert into for_empleados(DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso)
+values("001", 1, "Carlos", "Administrativo", "123", "a@a.com", '2011/03/13 02:53:50', null);
+
+insert into for_empleados(DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso)
+values("002", 1, "Gonzalo", "Administrativo", "123", "a@a.com", '2011/03/13 02:53:50', null);
+
+insert into for_empleados(DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso)
+values("003", 1, "Franco", "Administrativo", "123", "a@a.com", '2011/03/13 02:53:50', null);
+
+-- Inserto instructores
+insert into for_empleados(DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso)
+values("004", 2, "Franco", "Instructor", "123", "a@a.com", '2011/03/13 02:53:50', null);
+
+insert into for_empleados(DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso)
+values("005", 2, "Benito", "Instructor", "123", "a@a.com", '2011/03/13 02:53:50', null);
+
+insert into for_empleados(DNI, rol, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso)
+values("006", 2, "Gonzalo", "Instructor", "123", "a@a.com", '2011/03/13 02:53:50', null);
+
+

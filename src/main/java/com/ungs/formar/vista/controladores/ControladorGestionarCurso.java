@@ -98,18 +98,18 @@ public class ControladorGestionarCurso implements ActionListener {
 			Programa programa = ProgramaManager.traerProgramaSegunID(cursoEdicion.getCursoID());
 			
 			this.ventanaCrearCurso = new CrearCurso();
-			this.ventanaCrearCurso.getTxtCupoMinimo().setText(cursoEdicion.getCupoMinimo().toString());
-			this.ventanaCrearCurso.getTxtCupoMaximo().setText(cursoEdicion.getCupoMaximo().toString());
-			this.ventanaCrearCurso.getDateFechaInicio().setDate(cursoEdicion.getFechaInicio());
-			this.ventanaCrearCurso.getDateFechaFin().setDate(cursoEdicion.getFechaFin());
-			this.ventanaCrearCurso.getTxtHorasTotalesClases().setText(cursoEdicion.getHoras().toString());
-			this.ventanaCrearCurso.getTxtInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
-			this.ventanaCrearCurso.getTxtPrograma().setText(programa.getNombre());
-			this.ventanaCrearCurso.getTxtResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
-			this.ventanaCrearCurso.getTxtProgramaEspecifico().setText(cursoEdicion.getContenido());
+			this.ventanaCrearCurso.getCupoMinimo().setText(cursoEdicion.getCupoMinimo().toString());
+			this.ventanaCrearCurso.getCupoMaximo().setText(cursoEdicion.getCupoMaximo().toString());
+			this.ventanaCrearCurso.getFechaInicio().setDate(cursoEdicion.getFechaInicio());
+			this.ventanaCrearCurso.getFechaFin().setDate(cursoEdicion.getFechaFin());
+			this.ventanaCrearCurso.getHoras().setText(cursoEdicion.getHoras().toString());
+			this.ventanaCrearCurso.getInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
+			this.ventanaCrearCurso.getPrograma().setText(programa.getNombre());
+			this.ventanaCrearCurso.getResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
+			this.ventanaCrearCurso.getContenidoEspecifico().setText(cursoEdicion.getContenido());
 			
 			ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
-			controladorCursoEdicion.setIdEdicion(cursoEdicion.getCursoID());
+			//controladorCursoEdicion.setIdEdicion(cursoEdicion.getCursoID());
 			controladorCursoEdicion.inicializar();
 			this.ventanaGestionarCursos.ocultar();					
 

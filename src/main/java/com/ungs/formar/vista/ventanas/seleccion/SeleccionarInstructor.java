@@ -1,8 +1,5 @@
 package com.ungs.formar.vista.ventanas.seleccion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,17 +11,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 
 public class SeleccionarInstructor extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel modelInstructores;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI" };
@@ -130,8 +124,5 @@ public class SeleccionarInstructor extends JFrame {
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
-	
-	
-
 	
 }

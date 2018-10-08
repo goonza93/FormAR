@@ -9,25 +9,30 @@ import java.util.concurrent.TimeUnit;
 
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
 
 public class CursoManager {
 	
 	public static Integer crearCurso(
-			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Integer estado,Integer responsable,
-			Integer instructor, Integer programa, 
-			String contenido, Date fechaInicio, Date fechaFin) {
-		
+			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
+			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
+			Date fechaInicio, Date fechaFin) {
+		/*
 		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, 
-				contenido, fechaInicio, fechaFin, instructor, programa, estado, responsable);
+				contenido, fechaInicio, fechaFin, instructor, programa, 1, responsable);
 		
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
 		// falta implementar que busque el id del insertado
+		
+		
+		*/
 		return null;
 	}
 	
