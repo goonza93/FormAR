@@ -98,7 +98,7 @@ public class ControladorCrearCurso implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
 			} else if (this.responsable == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
-			} else if (this.horarios== null) {
+			} else if (this.horarios == null || this.horarios.size() == 0) {
 				JOptionPane.showMessageDialog(null, "Por favor, seleccione un horario de cursada");
 			}
 
