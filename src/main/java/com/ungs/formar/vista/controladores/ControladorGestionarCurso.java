@@ -2,6 +2,7 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.EstadoCursoManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.ProgramaManager;
+import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
@@ -50,7 +52,6 @@ public class ControladorGestionarCurso implements ActionListener {
 				.setColumnIdentifiers(this.ventanaGestionarCursos.getNombreColumnas());
 
 		this.cursos_en_tabla = CursoManager.traerCursos();
-		System.out.println("TAMANO"+this.cursos_en_tabla.size());
 		/*
 		 * Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>()
 		 * { public int compare(PersonaDTO obj1, PersonaDTO obj2) { return
@@ -69,11 +70,12 @@ public class ControladorGestionarCurso implements ActionListener {
 			Date fechaFin = this.cursos_en_tabla.get(i).getFechaFin();
 			Empleado instructor = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getInstructor());
 			Empleado responsable = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getResponsable());
-			List<HorarioCursada> horarios = 	HorarioCursadaManager.traerHorariosCursada(this.cursos_en_tabla.get(i).getCursoID());
-			
+			List<HorarioCursada> horarios = CursoManager.obtenerHorariosDeCursada(this.cursos_en_tabla.get(i));
+			String horariosString = HorarioCursadaManager.obtenerVistaDeHorariosYSalas(horarios);
+	
 			Object[] fila = { nombre, area, estado, cupoMinimo, cupoMaximo, fechaInicio, fechaFin, 
 					instructor.getApellido()+" "+instructor.getNombre(), 
-					responsable.getApellido()+" "+responsable.getNombre(), /*horarios*/};
+					responsable.getApellido()+" "+responsable.getNombre(), horariosString};
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 		}
 

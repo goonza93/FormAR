@@ -39,18 +39,18 @@ public class HorarioCursadaManager {
 	}
 	
 	public static String obtenerVistaDeHorariosYSalas(List<HorarioCursada> horarios) {
-		String ret = "";
+		String ret = "<html>";
 		for (HorarioCursada horarioCursada : horarios) {
 			String dia = obtenerDia(horarioCursada);
 			String sala = obtenerSala(horarioCursada);
 			Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
 			String nuevo = dia +" de "+horario.getHoraInicio()+":"+horario.getMinutoInicio();
-			nuevo += " a "+horario.getHoraFin()+":"+horario.getMinutoFin()+"("+sala+")\n";
+			nuevo += " a "+horario.getHoraFin()+":"+horario.getMinutoFin()+"("+sala+")<br>";
 			
 			ret += nuevo;
 		}
 		
-		return ret;
+		return ret += "</html>";
 	}
 	
 	
