@@ -43,13 +43,7 @@ public class SeleccionarSala extends JFrame {
 		contentPane.add(spInstructores);
 
 		modelSalas = new DefaultTableModel(null, nombreColumnas);
-		tablaSalas = new JTable(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Numero", "Nombre", "Capacidad", "Disponible"
-			}
-		));
+		tablaSalas = new JTable(modelSalas);
 		tablaSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelSalas);
 	    tablaSalas.setRowSorter(sorter);
