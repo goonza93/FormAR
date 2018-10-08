@@ -1,13 +1,13 @@
 USE formar;
 
 -- INSERTAR DIAS DE LA SEMANA
+INSERT INTO for_dias (descripcion) VALUES ("Domingo");
 INSERT INTO for_dias (descripcion) VALUES ("Lunes");
 INSERT INTO for_dias (descripcion) VALUES ("Martes");
 INSERT INTO for_dias (descripcion) VALUES ("Miercoles");
 INSERT INTO for_dias (descripcion) VALUES ("Jueves");
 INSERT INTO for_dias (descripcion) VALUES ("Viernes");
 INSERT INTO for_dias (descripcion) VALUES ("Sabado");
-INSERT INTO for_dias (descripcion) VALUES ("Domingo");
 
 -- INSERTAR AULAS DE PRUEBA
 INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("Aula Magna", 1015, 300);
