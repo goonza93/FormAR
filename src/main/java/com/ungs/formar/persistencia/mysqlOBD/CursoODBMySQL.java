@@ -96,6 +96,12 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 			
 		return ret;
 	}
+
+	public void delete(Curso curso) {
+		String condicion = "curso_ID = "+curso.getCursoID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
 	
 	
 }

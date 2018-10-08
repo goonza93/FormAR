@@ -53,16 +53,17 @@ public class HorarioCursadaManager {
 		return ret += "</html>";
 	}
 	
+	public static void eliminarHorarioDeCursada(HorarioCursada horarioCursada) {
+		// elimino sus horarios relacionados y luego el horario cursada en si
+		Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
+		FactoryODB.crearHorarioOBD().delete(horario);
+		FactoryODB.crearHorarioCursada().delete(horarioCursada);
+	}
 	
 	
 	public static void crearHorarioCursada(HorarioCursada horarioCursada) {
 		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
 		obd.insert(horarioCursada);
-	}
-	
-	public static List<HorarioCursada> traerHorariosCursada(int idCurso) {
-		//Si queda Modelado asi, nos faltaria un HorarioManager, que pasando un Id, devuelva un horario
-		return null;
 	}
 	
 	public static Integer crearHorario(Dia dia, Integer horaI, Integer horaF, Integer minutoI, Integer minutoFin){

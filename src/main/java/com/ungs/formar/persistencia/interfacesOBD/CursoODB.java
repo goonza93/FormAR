@@ -7,6 +7,8 @@ public interface CursoODB {
 
 	public void insert(Curso curso);
 	
+	public void delete(Curso curso);
+	
 	public List<Curso> select();
 	
 	public Integer selectIDMasReciente();

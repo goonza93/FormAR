@@ -59,8 +59,14 @@ public class CursoManager {
 		return obd.selectByID(ID);
 	}
 
-	public static void borrarCurso(Integer idCurso){
+	public static void borrarCurso(Curso curso){
+		// elimino sus horarios de cursada y luego al curso en si
+		List<HorarioCursada> horarioCursadas = CursoManager.obtenerHorariosDeCursada(curso);
+		for (HorarioCursada horarioCursada : horarioCursadas)
+			HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
 		
+		CursoODB odb = FactoryODB.crearCursoODB();
+		odb.delete(curso);
 	}
 	
 	public static void updateCurso(/*idCursoAmodificar, cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 

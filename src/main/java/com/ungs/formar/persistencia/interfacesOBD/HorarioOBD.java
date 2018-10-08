@@ -8,6 +8,8 @@ public interface HorarioOBD {
 	public void insert(Horario horario);
 	
 	public List<Horario> select();
+	
+	public void delete(Horario horario);
 
 	public Horario selectByID(Integer ID);
 	
