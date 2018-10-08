@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.EstadoCursoManager;
@@ -43,16 +42,14 @@ public class ControladorGestionarCurso implements ActionListener {
 	}
 
 	private void llenarTablaCursos() {
-		this.ventanaGestionarCursos.getModelCursos().setRowCount(0); // Para
-																		// vaciar
-																		// la
-																		// tabla
-		this.ventanaGestionarCursos.getModelCursos().setColumnCount(0);
-		this.ventanaGestionarCursos.getModelCursos()
-				.setColumnIdentifiers(this.ventanaGestionarCursos.getNombreColumnas());
+		ventanaGestionarCursos.getModelCursos().setRowCount(0);
+		ventanaGestionarCursos.getModelCursos().setColumnCount(0);
+		ventanaGestionarCursos.getModelCursos().setColumnIdentifiers(ventanaGestionarCursos.getNombreColumnas());
 
 		this.cursos_en_tabla = CursoManager.traerCursos();
+
 		/*
+		 * Borrar si no van a usar
 		 * Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>()
 		 * { public int compare(PersonaDTO obj1, PersonaDTO obj2) { return
 		 * obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().
