@@ -2,14 +2,11 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.print.DocFlavor.URL;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -53,7 +50,7 @@ public class PantallaPrincipal {
 		btnGestionarCursos.setBounds(240, 192, 220, 59);
 		panel.add(btnGestionarCursos);
 		
-		lblLogo = new JLabel("ACA VA EL LOGO DE FORMAR");
+		lblLogo = new JLabel(new ImageIcon("imagenes/logo.png"));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setBounds(10, 11, 450, 92);
 		panel.add(lblLogo);
