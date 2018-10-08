@@ -23,7 +23,7 @@ public class SeleccionarSala extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel modelSalas;
-	private String[] nombreColumnas = { "Numero", "Nombre", "Capacidad" };
+	private String[] nombreColumnas = { "Numero", "Nombre", "Capacidad", "Disponible" };
 	private JTable tablaSalas;
 	private JLabel lblSalas;
 	private JButton btnSeleccionar;
@@ -43,7 +43,14 @@ public class SeleccionarSala extends JFrame {
 		contentPane.add(spInstructores);
 
 		modelSalas = new DefaultTableModel(null, nombreColumnas);
-		tablaSalas = new JTable(modelSalas);
+		tablaSalas = new JTable(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Numero", "Nombre", "Capacidad", "Disponible"
+			}
+		));
+		tablaSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelSalas);
 	    tablaSalas.setRowSorter(sorter);
 	    tablaSalas.setDefaultEditor(Object.class, null);
