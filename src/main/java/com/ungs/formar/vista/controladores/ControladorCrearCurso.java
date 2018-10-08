@@ -163,9 +163,21 @@ public class ControladorCrearCurso implements ActionListener {
 			
 		// BOTON BORRAR HORARIO
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
-			// int fila = this.ventanaCrearCurso.getHorarios().getSelectedRow();
-			// this.agenda.borrarPersona(this.personas_en_tabla.get(fila));
-			// this.llenarTablaDiasHorarios();
+			int fila = this.ventanaCrearCurso.getHorarios().getSelectedRow();
+			if(this.idEdicion != -1){
+				if(this.horarios.get(fila).getHorarioID() == -1){
+					HorarioCursadaManager.eliminarHorario(this.horarios.get(fila));
+					this.horarios.remove(fila);
+				}
+				else{
+					HorarioCursadaManager.eliminarHorarioDeCursada(this.horarios.get(fila));
+					this.horarios.remove(fila);
+				}
+			}
+			else{
+				this.horarios.remove(fila);
+			}
+			this.llenarTablaHorarios();
 		}
 	}
 
@@ -194,7 +206,6 @@ public class ControladorCrearCurso implements ActionListener {
 			fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
 		}
 		
-
 		System.out.println("ElTamano de horarios es"+horarios.size());
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor, this.programa, 
 				contenido, this.horarios, fechaInicio, fechaFin);

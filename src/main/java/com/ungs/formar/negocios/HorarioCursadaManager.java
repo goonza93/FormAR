@@ -93,6 +93,19 @@ public class HorarioCursadaManager {
 		FactoryODB.crearHorarioCursada().delete(horarioCursada);
 	}
 	
+	public static void actualizarHorarioDeCursada(HorarioCursada horarioCursada) {
+		// elimino sus horarios relacionados y luego el horario cursada en si
+		Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
+		FactoryODB.crearHorarioOBD().update(horario);
+		FactoryODB.crearHorarioCursada().update(horarioCursada);
+	}
+	
+	
+	public static void eliminarHorario(HorarioCursada horarioCursada) {
+		// elimino sus horarios relacionados y luego el horario cursada en si
+		Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
+		FactoryODB.crearHorarioOBD().delete(horario);
+	}
 	
 	public static void crearHorarioCursada(HorarioCursada horarioCursada) {
 		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();

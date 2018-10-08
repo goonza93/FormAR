@@ -68,7 +68,7 @@ public class CursoManager {
 				HorarioCursadaManager.crearHorarioCursada(horarioCursada);
 			}
 			else{
-				HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
+				HorarioCursadaManager.actualizarHorarioDeCursada(horarioCursada);
 			}
 		}
 		
