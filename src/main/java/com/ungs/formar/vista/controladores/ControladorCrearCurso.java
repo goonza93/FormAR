@@ -178,6 +178,7 @@ public class ControladorCrearCurso implements ActionListener {
 				this.horarios.remove(fila);
 			}
 			this.llenarTablaHorarios();
+			this.actualizarFechaFin();
 		}
 	}
 
@@ -261,6 +262,17 @@ public class ControladorCrearCurso implements ActionListener {
 		this.horarios = horarios;
 	}
 
-	
+	public void actualizarFechaFin(){
+		Integer horas = Integer.parseInt(this.ventanaCrearCurso.getHoras().getText());
+		Date fechaInicio = new Date(ventanaCrearCurso.getFechaInicio().getDate().getTime());
+		Date fechaFin;
+		if(this.horarios==null || this.horarios.size() ==0){
+			fechaFin = null;
+		}
+		else{
+			fechaFin = CursoManager.calcularFechaFin(this.horarios, horas, fechaInicio);
+		}
+		this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);
+	}
 	
 }
