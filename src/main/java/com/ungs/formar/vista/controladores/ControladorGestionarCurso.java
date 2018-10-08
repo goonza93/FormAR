@@ -2,18 +2,14 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
-import com.ungs.formar.negocios.EstadoCursoManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.ProgramaManager;
-import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.ventanas.CrearCurso;
@@ -25,8 +21,7 @@ public class ControladorGestionarCurso implements ActionListener {
 	private CrearCurso ventanaCrearCurso;
 	private List<Curso> cursos_en_tabla;
 
-	public ControladorGestionarCurso(GestionarCursos ventanaGestionarCursos,
-			ControladorPantallaPrincipal controladorPantallaPrincipal) {
+	public ControladorGestionarCurso(GestionarCursos ventanaGestionarCursos, ControladorPantallaPrincipal controladorPantallaPrincipal) {
 		this.ventanaGestionarCursos = ventanaGestionarCursos;
 		this.controladorPantallaPrincipal = controladorPantallaPrincipal;
 		this.ventanaGestionarCursos.getBtnAgregar().addActionListener(this);
@@ -79,46 +74,55 @@ public class ControladorGestionarCurso implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
+		// BOTON AGREGAR CURSO
 		if (e.getSource() == this.ventanaGestionarCursos.getBtnAgregar()) {
 			this.ventanaCrearCurso = new CrearCurso();
 			this.ventanaCrearCurso.setVisible(true);
 			this.ventanaGestionarCursos.ocultar();
 			new ControladorCrearCurso(this.ventanaCrearCurso, this);
+			
+		// BOTON BORRAR CURSO
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnBorrar()) {
 			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
 			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-			
 			CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
-			this.llenarTablaCursos();
+			llenarTablaCursos();
+			
+		// BOTON EDITAR CURSO
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnEditar()) {
 			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
 			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
 			
-			Curso cursoEdicion = CursoManager.traerCursoPorId((this.cursos_en_tabla.get(modelFila).getCursoID()));
-			Empleado instructor = EmpleadoManager.traerEmpleado(cursoEdicion.getInstructor());
-			Empleado responsable = EmpleadoManager.traerEmpleado(cursoEdicion.getResponsable());
-			Programa programa = ProgramaManager.traerProgramaSegunID(cursoEdicion.getCursoID());
+			Curso curso = this.cursos_en_tabla.get(modelFila);
+			Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
+			Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
+			Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
 			
-			this.ventanaCrearCurso = new CrearCurso();
-			this.ventanaCrearCurso.getCupoMinimo().setText(cursoEdicion.getCupoMinimo().toString());
-			this.ventanaCrearCurso.getCupoMaximo().setText(cursoEdicion.getCupoMaximo().toString());
-			this.ventanaCrearCurso.getFechaInicio().setDate(cursoEdicion.getFechaInicio());
-			this.ventanaCrearCurso.getFechaFin().setDate(cursoEdicion.getFechaFin());
-			this.ventanaCrearCurso.getHoras().setText(cursoEdicion.getHoras().toString());
-			this.ventanaCrearCurso.getInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
-			this.ventanaCrearCurso.getPrograma().setText(programa.getNombre());
-			this.ventanaCrearCurso.getResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
-			this.ventanaCrearCurso.getContenidoEspecifico().setText(cursoEdicion.getContenido());
+			ventanaCrearCurso = new CrearCurso();
+			ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());
+			ventanaCrearCurso.getCupoMaximo().setText(curso.getCupoMaximo().toString());
+			ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
+			ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
+			ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
+			ventanaCrearCurso.getInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
+			ventanaCrearCurso.getPrograma().setText(programa.getNombre());
+			ventanaCrearCurso.getResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
+			ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
 			
 			ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
-			controladorCursoEdicion.setIdEdicion(cursoEdicion.getCursoID());
+			controladorCursoEdicion.setIdEdicion(curso.getCursoID());
+			controladorCursoEdicion.setInstructor(instructor);
+			controladorCursoEdicion.setPrograma(programa);
+			controladorCursoEdicion.setResponsable(responsable);
 			controladorCursoEdicion.inicializar();
 			this.ventanaGestionarCursos.ocultar();					
 
+		// BOTON CANCELAR
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnCancelar()) {
-			this.controladorPantallaPrincipal.inicializar();
-			this.ventanaGestionarCursos.ocultar();
+			controladorPantallaPrincipal.inicializar();
+			ventanaGestionarCursos.ocultar();
 		}
-
 	}
+
 }

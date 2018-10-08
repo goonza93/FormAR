@@ -102,6 +102,24 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		String consulta = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
-	
-	
+
+	public void update(Curso curso) {
+		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
+		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
+		
+		String consulta = "update "+tabla;
+		consulta += "set cupo_minimo = "+curso.getCupoMinimo();
+		consulta += ", cupo_maximo = "+curso.getCupoMaximo();
+		consulta += ", fecha_inicio = "+fInicio;
+		consulta += ", fecha_fin = "+fFin;
+		consulta += ", contenido = "+curso.getContenido();
+		consulta += ", horas = "+curso.getHoras();
+		consulta += ", instructor = "+curso.getInstructor();
+		consulta += ", responsable = "+curso.getResponsable();
+		consulta += ", programa = "+curso.getPrograma();
+		consulta += ", estado = "+curso.getEstado();
+		consulta += " where curso_ID = "+curso.getCursoID()+";";
+		ejecutarSQL(consulta);
+	}
+		
 }

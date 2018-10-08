@@ -24,7 +24,6 @@ import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;
-import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorCrearCurso implements ActionListener {
 	private CrearCurso ventanaCrearCurso;
@@ -114,8 +113,7 @@ public class ControladorCrearCurso implements ActionListener {
 					crearCurso();
 				}
 				else{
-					/*CursoManager.updateCurso(this.idEdicion, cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 
-						new java.sql.Date(fechaInicio.getTime()), new java.sql.Date(fechaFin.getTime()));*/
+					actualizarCurso();
 				}
 				this.ventanaCrearCurso.dispose();
 				this.controladorGestionarCurso.inicializar();
@@ -170,11 +168,7 @@ public class ControladorCrearCurso implements ActionListener {
 	}
 
 	
-	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO
-	private void crearCurso()  {
-		System.out.println("Creando un curso");
-		
-		// CONSIGO LOS DATOS NECESARIOS PARA CREA UN CURSO
+	private void actualizarCurso() {
 		JTextField inCupoMinimo = ventanaCrearCurso.getCupoMinimo();
 		Integer cupoMinimo = Integer.decode(inCupoMinimo.getText());
 		
@@ -190,7 +184,26 @@ public class ControladorCrearCurso implements ActionListener {
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
 
-		System.out.println("Antes de llamar a crear curso");
+		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);
+	}
+
+	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO
+	private void crearCurso()  {
+		JTextField inCupoMinimo = ventanaCrearCurso.getCupoMinimo();
+		Integer cupoMinimo = Integer.decode(inCupoMinimo.getText());
+		
+		JTextField inCupoMaximo = ventanaCrearCurso.getCupoMaximo();
+		Integer cupoMaximo = Integer.decode(inCupoMaximo.getText());
+		
+		JTextField inHoras = ventanaCrearCurso.getHoras();
+		Integer horas = Integer.decode(inHoras.getText());
+		
+		String contenido = ventanaCrearCurso.getContenidoEspecifico().getText();
+		
+		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
+		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
+		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
+
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);
 	}
 	

@@ -9,6 +9,8 @@ public interface CursoODB {
 	
 	public void delete(Curso curso);
 	
+	public void update(Curso curso);
+	
 	public List<Curso> select();
 	
 	public Integer selectIDMasReciente();

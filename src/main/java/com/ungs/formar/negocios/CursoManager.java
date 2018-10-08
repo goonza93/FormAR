@@ -19,7 +19,7 @@ import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 
 public class CursoManager {
-	
+
 	public static void crearCurso(
 			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
@@ -42,6 +42,28 @@ public class CursoManager {
 			HorarioCursadaManager.crearHorarioCursada(horarioCursada);
 		}
 		
+	}
+
+	public static void actualizarCurso(Integer ID,
+			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
+			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
+			Date fechaInicio, Date fechaFin) {
+		
+		// Actualizao el curso
+		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, horas, contenido, fechaInicio, fechaFin,
+				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
+		
+		CursoODB odb = FactoryODB.crearCursoODB();
+		odb.update(curso);
+		
+		// Elimino los horario cursada y los vuelo a insertar
+		for (HorarioCursada horarioCursada : hc)
+			HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
+		
+		for (HorarioCursada horarioCursada : hc) {
+			horarioCursada.setCurso(curso.getCursoID());
+			HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+		}
 	}
 	
 	public static List<Curso> traerCursos() {
@@ -67,11 +89,6 @@ public class CursoManager {
 		
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.delete(curso);
-	}
-	
-	public static void updateCurso(/*idCursoAmodificar, cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, 
-			fechaInicio, fechaFin*/){
-		
 	}
 	
 	public static Curso traerCursoPorId(Integer idCurso){
