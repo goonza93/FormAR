@@ -15,7 +15,21 @@ public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 
 	public void insert(Horario horario) {
 		String campos = "dia, hora_inicio, hora_fin, minuto_inicio, minuto_fin";
+		if(horario.getMinutoInicio().toString().length()==1){
+			horario.setMinutoInicio(Integer.parseInt("0"+horario.getMinutoInicio().toString()));
+		}
+		if(horario.getMinutoFin().toString().length()==1){
+			horario.setMinutoFin(Integer.parseInt("0"+horario.getMinutoFin().toString()));
+		}
+		if(horario.getHoraInicio().toString().length()==1){
+			horario.setHoraInicio(Integer.parseInt("0"+horario.getHoraInicio().toString()));
+		}
+		if(horario.getHoraFin().toString().length()==1){
+			horario.setHoraFin(Integer.parseInt("0"+horario.getHoraFin().toString()));
+		}
 		String values = horario.getDia()+", "+horario.getHoraInicio()+", "+horario.getHoraFin()+", "+horario.getMinutoInicio()+", "+horario.getMinutoFin();
+		
+		
 		String sql = "insert into "+tabla+"("+campos+") values ("+values+");";
 		ejecutarSQL(sql);
 	}
