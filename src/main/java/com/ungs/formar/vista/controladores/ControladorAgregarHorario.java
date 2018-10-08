@@ -69,6 +69,8 @@ public class ControladorAgregarHorario implements ActionListener {
 			} else if (!mMinutosFin.matches()
 					|| this.ventanaAgregarHorario.getTxtMinutosFin().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese minutos de fin validos");
+			}else if (this.sala == null) {
+				JOptionPane.showMessageDialog(null, "Por favor, seleccione una sala");
 			}
 
 			// Validaciones Logicas
@@ -80,7 +82,17 @@ public class ControladorAgregarHorario implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de inicio valida");
 			} else if (Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText()) > 23) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de fin valida");
-			} else {
+			} else if ((Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) > 
+				Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText())) 
+					|| 
+					(Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) ==
+							Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText()) 
+							&& 
+							Integer.parseInt(this.ventanaAgregarHorario.getTxtMinutosInicio().getText()) >=
+							Integer.parseInt(this.ventanaAgregarHorario.getTxtMinutosFin().getText()))) {
+				JOptionPane.showMessageDialog(null, "Por favor, ingrese nuevamente los horarios. El horario fin debe"
+						+ " \nser posterior al horario de inicio");
+			}else {
 				// PASO LAS VALIDACIONES ASI QUE EL HORARIO SE AGREGA
 				agregarHorario();
 			}
