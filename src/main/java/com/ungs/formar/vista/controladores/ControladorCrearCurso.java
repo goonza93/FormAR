@@ -186,17 +186,18 @@ public class ControladorCrearCurso implements ActionListener {
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
-		/*
-		horarios = CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
+		
+		//horarios = CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
 		if(horarios.size()>0){
 			fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
-		}else {*/
-		fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
-		//}
+		}else {
+			fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
+		}
 		
 
-		System.out.println("Entrada 4");
-		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);
+		System.out.println("ElTamano de horarios es"+horarios.size());
+		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor, this.programa, 
+				contenido, this.horarios, fechaInicio, fechaFin);
 		System.out.println("Entrada 5");
 	}
 
@@ -245,5 +246,10 @@ public class ControladorCrearCurso implements ActionListener {
 		this.idEdicion = idEdicion;
 	}
 
+	public void setHorarios(List<HorarioCursada> horarios) {
+		this.horarios = horarios;
+	}
+
+	
 	
 }

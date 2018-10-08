@@ -57,12 +57,19 @@ public class CursoManager {
 		odb.update(curso);
 		
 		// Elimino los horario cursada y los vuelo a insertar
-		for (HorarioCursada horarioCursada : hc)
+		/*for (HorarioCursada horarioCursada : hc){
 			HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
-		
+		}
+		*/
 		for (HorarioCursada horarioCursada : hc) {
-			horarioCursada.setCurso(curso.getCursoID());
-			HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+			
+			if(horarioCursada.getHorarioID() == -1){
+				horarioCursada.setCurso(curso.getCursoID());
+				HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+			}
+			else{
+				HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
+			}
 		}
 		
 		System.out.println("Entrada 6");

@@ -74,7 +74,9 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 
 	public void delete(HorarioCursada horarioCursada) {
 		String condicion = "horario_id = "+horarioCursada.getHorarioID();
-		String sql = "delete from "+tabla+" where ("+condicion+");";
+		String sql = "update "+tabla+" set curso = "+horarioCursada.getCurso()+
+				", horario = "+horarioCursada.getHorario()+", sala = "+ horarioCursada.getSala()
+				+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}
 

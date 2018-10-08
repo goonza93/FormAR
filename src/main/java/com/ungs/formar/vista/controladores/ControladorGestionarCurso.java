@@ -100,7 +100,7 @@ public class ControladorGestionarCurso implements ActionListener {
 			Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
 			Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
 			Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
-			this.
+			List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
 			
 			ventanaCrearCurso = new CrearCurso();
 			ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());
@@ -118,6 +118,7 @@ public class ControladorGestionarCurso implements ActionListener {
 			controladorCursoEdicion.setInstructor(instructor);
 			controladorCursoEdicion.setPrograma(programa);
 			controladorCursoEdicion.setResponsable(responsable);
+			controladorCursoEdicion.setHorarios(horariosCursada);
 			controladorCursoEdicion.inicializar();
 			this.ventanaGestionarCursos.ocultar();					
 
