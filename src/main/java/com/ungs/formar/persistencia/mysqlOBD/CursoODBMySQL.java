@@ -108,11 +108,11 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
 		
 		String consulta = "update "+tabla;
-		consulta += "set cupo_minimo = "+curso.getCupoMinimo();
+		consulta += " set cupo_minimo = "+curso.getCupoMinimo();
 		consulta += ", cupo_maximo = "+curso.getCupoMaximo();
 		consulta += ", fecha_inicio = "+fInicio;
 		consulta += ", fecha_fin = "+fFin;
-		consulta += ", contenido = "+curso.getContenido();
+		consulta += ", contenido = '"+curso.getContenido()+"'";
 		consulta += ", horas = "+curso.getHoras();
 		consulta += ", instructor = "+curso.getInstructor();
 		consulta += ", responsable = "+curso.getResponsable();

@@ -74,7 +74,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		// BOTON CREAR CURSO
+		// BOTON AGREGAR
 		if (e.getSource() == ventanaCrearCurso.getBtnAgregar()) {
 
 			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
@@ -113,8 +113,10 @@ public class ControladorCrearCurso implements ActionListener {
 					crearCurso();
 				}
 				else{
+					System.out.println("Entrada 1");
 					actualizarCurso();
 				}
+				System.out.println("Entrada 2");
 				this.ventanaCrearCurso.dispose();
 				this.controladorGestionarCurso.inicializar();
 			}
@@ -169,6 +171,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 	
 	private void actualizarCurso() {
+		System.out.println("Entrada 3");
 		JTextField inCupoMinimo = ventanaCrearCurso.getCupoMinimo();
 		Integer cupoMinimo = Integer.decode(inCupoMinimo.getText());
 		
@@ -182,9 +185,12 @@ public class ControladorCrearCurso implements ActionListener {
 		
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
-		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
+//		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
+		Date fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
 
+		System.out.println("Entrada 4");
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);
+		System.out.println("Entrada 5");
 	}
 
 	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO

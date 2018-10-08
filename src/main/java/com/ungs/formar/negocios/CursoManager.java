@@ -48,7 +48,7 @@ public class CursoManager {
 			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin) {
-		
+		System.out.println("Entrada a manager");
 		// Actualizao el curso
 		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, horas, contenido, fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
@@ -64,6 +64,8 @@ public class CursoManager {
 			horarioCursada.setCurso(curso.getCursoID());
 			HorarioCursadaManager.crearHorarioCursada(horarioCursada);
 		}
+		
+		System.out.println("Entrada 6");
 	}
 	
 	public static List<Curso> traerCursos() {
