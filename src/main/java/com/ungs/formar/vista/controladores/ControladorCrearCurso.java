@@ -190,6 +190,7 @@ public class ControladorCrearCurso implements ActionListener {
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
 
+		System.out.println("Antes de llamar a crear curso");
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);
 	}
 	
