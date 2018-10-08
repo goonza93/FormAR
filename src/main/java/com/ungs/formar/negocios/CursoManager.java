@@ -16,6 +16,7 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
+import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 
 public class CursoManager {
 	
@@ -28,9 +29,13 @@ public class CursoManager {
 		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, contenido, fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 		
+		System.out.println("insertando un curso");
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
+		System.out.println("fin del insert");
 		Integer cursoID = odb.selectIDMasReciente();
+		System.out.println("fin de tra id");
+		
 		
 		for (HorarioCursada horarioCursada : hc) {
 			horarioCursada.setCurso(cursoID);
@@ -123,6 +128,13 @@ public class CursoManager {
 		cal.setTime(fechaInicio);
 		cal.add(Calendar.DATE, totalDias);
 		return new Date(cal.getTime().getTime()); // doble get time*** de Calendar -> util.date -> long para tener .sql.date
+	}
+	
+	
+	
+	public static List<HorarioCursada> obtenerHorariosDeCursada(Curso curso) {
+		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
+		return obd.selectByCurso(curso);
 	}
 	
 	

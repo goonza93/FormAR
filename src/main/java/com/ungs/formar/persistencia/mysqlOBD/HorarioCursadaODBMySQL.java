@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 
@@ -32,6 +33,11 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 		List<HorarioCursada> horarios = selectByCondicion(condicion);
 		return horarios;
 	}
+	
+	public List<HorarioCursada> selectByCurso(Curso curso) {
+		return selectByCondicion("curso="+curso.getCursoID());
+	}
+	
 	
 	private List<HorarioCursada> selectByCondicion(String condicion) {
 		List<HorarioCursada> estados = new ArrayList<HorarioCursada>();
@@ -64,5 +70,8 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 			
 		return estados;
 	}
+
+
+
 
 }
