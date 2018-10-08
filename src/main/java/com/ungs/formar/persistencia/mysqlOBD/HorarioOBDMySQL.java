@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
 

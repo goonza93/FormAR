@@ -94,8 +94,8 @@ public class CursoManager {
 	}
 	
 	public static Curso traerCursoPorId(Integer idCurso){
-		
-		return null;
+		CursoODB odb = FactoryODB.crearCursoODB();
+		return odb.selectByID(idCurso);
 	}
 	
 	public static Date calcularFechaFin(List<HorarioCursada> hc, Integer horas, Date fechaInicio){
@@ -151,7 +151,7 @@ public class CursoManager {
 		
 		// reseteo el cal denuevo para reusarlo en el calculo final
 		cal.setTime(fechaInicio);
-		cal.add(Calendar.DATE, totalDias);
+		cal.add(Calendar.DATE, totalDias-1);
 		return new Date(cal.getTime().getTime()); // doble get time*** de Calendar -> util.date -> long para tener .sql.date
 	}
 	

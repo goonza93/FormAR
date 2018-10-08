@@ -20,6 +20,7 @@ public class ControladorGestionarCurso implements ActionListener {
 	private ControladorPantallaPrincipal controladorPantallaPrincipal;
 	private CrearCurso ventanaCrearCurso;
 	private List<Curso> cursos_en_tabla;
+	public Curso a_editar;
 
 	public ControladorGestionarCurso(GestionarCursos ventanaGestionarCursos, ControladorPantallaPrincipal controladorPantallaPrincipal) {
 		this.ventanaGestionarCursos = ventanaGestionarCursos;
@@ -95,9 +96,11 @@ public class ControladorGestionarCurso implements ActionListener {
 			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
 			
 			Curso curso = this.cursos_en_tabla.get(modelFila);
+			this.a_editar = curso;
 			Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
 			Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
 			Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
+			this.
 			
 			ventanaCrearCurso = new CrearCurso();
 			ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());

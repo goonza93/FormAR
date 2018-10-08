@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
@@ -32,6 +33,16 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		String condicion = "1=1";
 		List<Curso> cursos = selectByCondicion(condicion);
 		return cursos;
+	}
+	
+	public Curso selectByID(Integer id){
+		String condicion = "curso_ID = '"+id+"'";
+		List<Curso> cursos = selectByCondicion(condicion);
+		Curso curso = null;
+		if (cursos.size()>0)
+			curso = cursos.get(0); 
+		
+		return curso;
 	}
 
 	private List<Curso> selectByCondicion(String condicion) {

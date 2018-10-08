@@ -185,8 +185,15 @@ public class ControladorCrearCurso implements ActionListener {
 		
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
-//		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
-		Date fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
+		Date fechaFin = null;
+		/*
+		horarios = CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
+		if(horarios.size()>0){
+			fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
+		}else {*/
+		fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
+		//}
+		
 
 		System.out.println("Entrada 4");
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);

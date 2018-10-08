@@ -2,6 +2,7 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -12,7 +13,11 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -30,6 +35,7 @@ public class GestionarAlumnos {
 	private JTextField txtFiltro;
 	private JLabel lblAlumnos;
 	private JButton btnCancelar;
+	public JTextField txtFiltro2;
 
 	public GestionarAlumnos() {
 		frame = new JFrame();
@@ -69,7 +75,7 @@ public class GestionarAlumnos {
 		txtFiltro = new JTextField();
 		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtFiltro.setColumns(10);
-		txtFiltro.setBounds(126, 11, 205, 20);
+		txtFiltro.setBounds(136, 48, 86, 20);
 		panel.add(txtFiltro);
 
 		lblAlumnos = new JLabel("ALUMNOS:");
@@ -82,29 +88,50 @@ public class GestionarAlumnos {
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(499, 296, 120, 23);
 		panel.add(btnCancelar);
-
-		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+		
+		txtFiltro2 = new JTextField();
+		txtFiltro2.setBounds(10, 49, 86, 20);
+		panel.add(txtFiltro2);
+		txtFiltro2.setColumns(10);
+				
+		DocumentListener dl = new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
-				if (txtFiltro.getText().trim().length() == 0) {
+				if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() == 0) {
 					sorter.setRowFilter(null);
+				} else if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() != 0){
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText(),1));
+				} else if (txtFiltro2.getText().trim().length() != 0 && txtFiltro.getText().trim().length() == 0){
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(),0));
 				} else {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+					List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
+					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro.getText(), 1));
+					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(), 0));
+					sorter.setRowFilter(RowFilter.andFilter(filters));
 				}
 			}
 
 			public void removeUpdate(DocumentEvent e) {
-				if (txtFiltro.getText().trim().length() == 0) {
+				if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() == 0) {
 					sorter.setRowFilter(null);
+				} else if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() != 0){
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText(),1));
+				} else if (txtFiltro2.getText().trim().length() != 0 && txtFiltro.getText().trim().length() == 0){
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(),0));
 				} else {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+					List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
+					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro.getText(), 1));
+					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(), 0));
+					sorter.setRowFilter(RowFilter.andFilter(filters));
 				}
 			}
 
 			public void changedUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 			}
-		});
-
+		};
+		txtFiltro2.getDocument().addDocumentListener(dl);
+		txtFiltro.getDocument().addDocumentListener(dl);
+		
 	}
 
 	public void mostrar() {
@@ -134,5 +161,4 @@ public class GestionarAlumnos {
 	public JTable getTablaAlumnos() {
 		return tablaAlumnos;
 	}
-
 }
