@@ -11,5 +11,10 @@ public class DiaManager {
 		DiaOBD odb = FactoryODB.crearDiaOBD();
 		return odb.select();
 	}
+	
+	public static Dia traerDiaSegunID(Integer ID) {
+		DiaOBD obd = FactoryODB.crearDiaOBD();
+		return obd.selectByID(ID);
+	}
 
 }

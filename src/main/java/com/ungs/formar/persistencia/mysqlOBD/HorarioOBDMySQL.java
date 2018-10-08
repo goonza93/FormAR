@@ -13,6 +13,13 @@ import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
 public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 	private final String tabla = "for_horarios";
 
+	public void insert(Horario horario) {
+		String campos = "dia, hora_inicio, hora_fin, minuto_inicio, minuto_fin";
+		String values = horario.getDia()+", "+horario.getHoraInicio()+", "+horario.getHoraFin()+", "+horario.getMinutoInicio()+", "+horario.getMinutoFin();
+		String sql = "insert into "+tabla+"("+campos+") values ("+values+");";
+		ejecutarSQL(sql);
+	}
+	
 	public List<Horario> select() {
 		return selectByCondicion("1=1");
 	}
@@ -53,6 +60,30 @@ public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 		}
 			
 		return horarios;
+	}
+
+	public Integer selectIDMasReciente() {
+		String sql = "select horario_id from for_horarios order by horario_id desc limit 1";
+		Integer ret = null;
+		try { 
+			Class.forName(driver); 
+			Connection conexion = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD); 
+			Statement sentencia = conexion.createStatement ();
+			ResultSet resultados = sentencia.executeQuery(sql);			
+	
+			if (resultados.next())
+				ret = resultados.getInt("horario_id");
+				
+			resultados.close();
+			sentencia.close();
+			conexion.close();
+			
+		}catch(Exception e) {
+			System.out.println(sql);
+			e.printStackTrace();
+		}
+			
+		return ret;
 	}
 	
 }

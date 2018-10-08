@@ -19,6 +19,10 @@ public class DiaODBMySQL extends ODB implements DiaOBD{
 		return dias;
 	}
 
+	public Dia selectByID(Integer ID) {
+		return selectByCondicion("dia_ID="+ID).get(0);
+	}
+	
 	private List<Dia> selectByCondicion(String condicion) {
 		List<Dia> dias = new ArrayList<Dia>();
 		String campos = "dia_ID, descripcion";

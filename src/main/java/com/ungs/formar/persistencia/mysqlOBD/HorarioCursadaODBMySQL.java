@@ -13,6 +13,14 @@ import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	private final String tabla = "for_horarios_cursada";
 
+	public void insert(HorarioCursada horarioCursada) {
+		String campos = "curso, horario, sala";
+		String valores = horarioCursada.getCurso()+", "+horarioCursada.getHorario()+", "+horarioCursada.getSala(); 
+		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
+		ejecutarSQL(sql);
+	}
+
+	
 	public List<HorarioCursada> select() {
 		String condicion = "1=1";
 		List<HorarioCursada> horarios = selectByCondicion(condicion);

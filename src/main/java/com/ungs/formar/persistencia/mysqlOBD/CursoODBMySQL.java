@@ -71,5 +71,30 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 			
 		return cursos;
 	}
+
+	public Integer selectIDMasReciente() {
+		String sql = "select curso_id from for_cursos order by curso_id desc limit 1;";
+		Integer ret = null;
+		try { 
+			Class.forName(driver); 
+			Connection conexion = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD); 
+			Statement sentencia = conexion.createStatement ();
+			ResultSet resultados = sentencia.executeQuery(sql);			
+	
+			if (resultados.next())
+				ret = resultados.getInt("curso_id");
+				
+			resultados.close();
+			sentencia.close();
+			conexion.close();
+			
+		}catch(Exception e) {
+			System.out.println(sql);
+			e.printStackTrace();
+		}
+			
+		return ret;
+	}
+	
 	
 }

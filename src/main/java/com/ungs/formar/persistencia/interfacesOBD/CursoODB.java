@@ -9,4 +9,6 @@ public interface CursoODB {
 	
 	public List<Curso> select();
 	
+	public Integer selectIDMasReciente();
+	
 }

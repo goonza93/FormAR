@@ -19,21 +19,24 @@ import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
 
 public class CursoManager {
 	
-	public static Integer crearCurso(
+	public static void crearCurso(
 			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin) {
-		/*
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, 
-				contenido, fechaInicio, fechaFin, instructor, programa, 1, responsable);
+		
+		// INSERTO EL CURSO EN LA BD
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, contenido, fechaInicio, fechaFin,
+				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 		
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
-		// falta implementar que busque el id del insertado
+		Integer cursoID = odb.selectIDMasReciente();
 		
+		for (HorarioCursada horarioCursada : hc) {
+			horarioCursada.setCurso(cursoID);
+			HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+		}
 		
-		*/
-		return null;
 	}
 	
 	public static List<Curso> traerCursos() {

@@ -31,7 +31,6 @@ public class ControladorCrearCurso implements ActionListener {
 	private SeleccionarInstructor ventanaSeleccionarInstructor;
 	private SeleccionarPrograma ventanaSeleccionarPrograma;
 	private SeleccionarResponsable ventanaSeleccionarResponsable;
-	private SeleccionarSala ventanaSeleccionarSala;
 	private ABMHorario ventanaABMHorario;
 	private ControladorGestionarCurso controladorGestionarCurso;
 	private Empleado instructor, responsable;
@@ -65,10 +64,10 @@ public class ControladorCrearCurso implements ActionListener {
 
 		for (int i = 0; i < horarios.size(); i ++) {
 			Object[] fila = {
-					HorarioCursadaManager.obtenerDia(horarios.get(i)), // dia
-					HorarioCursadaManager.obtenerHoraInicio(horarios.get(i)), // hora inicio
-					HorarioCursadaManager.obtenerHoraFin(horarios.get(i)), // hora fin
-					HorarioCursadaManager.obtenerSala(horarios.get(i)), // sala
+					HorarioCursadaManager.obtenerDia(horarios.get(i)),
+					HorarioCursadaManager.obtenerHoraInicio(horarios.get(i)),
+					HorarioCursadaManager.obtenerHoraFin(horarios.get(i)),
+					HorarioCursadaManager.obtenerSala(horarios.get(i)),
 					};
 			modelo.addRow(fila);		
 		}

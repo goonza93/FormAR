@@ -5,6 +5,8 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 
 public interface HorarioCursadaOBD {
 	
+	public void insert(HorarioCursada horarioCursada);
+	
 	public List<HorarioCursada> select();
 	
 	public List<HorarioCursada> selectBySala(Integer sala);

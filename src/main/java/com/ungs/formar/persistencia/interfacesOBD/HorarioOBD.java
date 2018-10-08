@@ -5,8 +5,12 @@ import com.ungs.formar.persistencia.entidades.Horario;
 
 public interface HorarioOBD {
 	
+	public void insert(Horario horario);
+	
 	public List<Horario> select();
 
 	public Horario selectByID(Integer ID);
+	
+	public Integer selectIDMasReciente();
 	
 }

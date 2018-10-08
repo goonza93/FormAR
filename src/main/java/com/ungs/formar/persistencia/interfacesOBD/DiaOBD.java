@@ -7,4 +7,6 @@ public interface DiaOBD {
 	
 	public List<Dia> select();
 	
+	public Dia selectByID(Integer ID);
+	
 }

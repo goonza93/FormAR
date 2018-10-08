@@ -7,38 +7,40 @@ import com.ungs.formar.persistencia.entidades.Dia;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Sala;
+import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
 import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 
 public class HorarioCursadaManager {
 	
 	public static String obtenerDia(HorarioCursada hc) {
-		return null;
+		Integer horarioID = hc.getHorario();
+		HorarioOBD obd = FactoryODB.crearHorarioOBD();
+		Horario horario = obd.selectByID(horarioID);
+		Dia dia = DiaManager.traerDiaSegunID(horario.getDia());
+		return dia.getDescripcion();
 	}
 	
 	public static String obtenerHoraInicio(HorarioCursada hc) {
-		return null;
+		Horario horario = traerHorarioSegunID(hc.getHorario());
+		return horario.getHoraInicio()+":"+horario.getMinutoInicio();
 	}
 	
 	public static String obtenerHoraFin(HorarioCursada hc) {
-		return null;
+		Horario horario = traerHorarioSegunID(hc.getHorario());
+		return horario.getHoraFin()+":"+horario.getMinutoFin();
 	}
 	
 	public static String obtenerSala(HorarioCursada hc) {
 		Integer salaID = hc.getSala();
 		SalaODB odb = FactoryODB.crearSalaODB();
 		Sala sala = odb.selectByID(salaID);
-		
-		
-		return null;
+		return sala.getNumero().toString();
 	}
 	
-	
-	
-	
-	
-	public static void crearHorarioCursada() {
-			
+	public static void crearHorarioCursada(HorarioCursada horarioCursada) {
+		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
+		obd.insert(horarioCursada);
 	}
 	
 	public static List<HorarioCursada> traerHorariosCursada(int idCurso) {
@@ -47,8 +49,10 @@ public class HorarioCursadaManager {
 	}
 	
 	public static Integer crearHorario(Dia dia, Integer horaI, Integer horaF, Integer minutoI, Integer minutoFin){
-		// implementar ambas, el crear y el devolver el int del id del creado.
-		return null;
+		Horario horario = new Horario(-1, dia.getDiaID(), horaI, horaF, minutoI, minutoFin);
+		HorarioOBD obd = FactoryODB.crearHorarioOBD();
+		obd.insert(horario);
+		return obd.selectIDMasReciente();
 	}
 
 	public static Horario traerHorarioSegunID(Integer ID) {
