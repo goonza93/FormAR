@@ -38,6 +38,23 @@ public class HorarioCursadaManager {
 		return sala.getNumero().toString();
 	}
 	
+	public static String obtenerVistaDeHorariosYSalas(List<HorarioCursada> horarios) {
+		String ret = "";
+		for (HorarioCursada horarioCursada : horarios) {
+			String dia = obtenerDia(horarioCursada);
+			String sala = obtenerSala(horarioCursada);
+			Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
+			String nuevo = dia +" de "+horario.getHoraInicio()+":"+horario.getMinutoInicio();
+			nuevo += " a "+horario.getHoraFin()+":"+horario.getMinutoFin()+"("+sala+")\n";
+			
+			ret += nuevo;
+		}
+		
+		return ret;
+	}
+	
+	
+	
 	public static void crearHorarioCursada(HorarioCursada horarioCursada) {
 		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
 		obd.insert(horarioCursada);
