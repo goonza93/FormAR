@@ -9,10 +9,9 @@ public class AreaOBDTest {
 
 	public static void selectTest() {
 		System.out.println("___ Select test");
-		
 		AreaOBD obd = FactoryODB.crearAreaOBD();
 		List<Area> areas = obd.select();
-		System.out.println("Cantidad:"+areas.size());
+		System.out.println("Cantidad: "+areas.size());
 		for (Area area: areas)
 			System.out.println(area.getNombre());
 	}
