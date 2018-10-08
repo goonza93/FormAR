@@ -56,7 +56,9 @@ public class GestionarInstructores {
 		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
 		spInstructores.setViewportView(tablaInstructores);
 		tablaInstructores.setDefaultEditor(Object.class, null);
+		tablaInstructores.getTableHeader().setReorderingAllowed(false);
 
+		
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelInstructores);
 		tablaInstructores.setRowSorter(sorter);
 		

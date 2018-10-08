@@ -23,7 +23,7 @@ public class GestionarAlumnos {
 	private JFrame frame;
 	private JButton btnAgregar;
 	private DefaultTableModel modelAlumnos;
-	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "Email", "Telefono"};
+	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "Email", "Telefono" };
 	private JScrollPane spAlumnos;
 	private JTable tablaAlumnos;
 	private JLabel lblFiltrar;
@@ -46,75 +46,79 @@ public class GestionarAlumnos {
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAgregar.setBounds(10, 296, 120, 23);
 		panel.add(btnAgregar);
-		
+
 		spAlumnos = new JScrollPane();
 		spAlumnos.setBounds(10, 79, 609, 206);
 		panel.add(spAlumnos);
-		
+
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
 		tablaAlumnos = new JTable(modelAlumnos);
 		tablaAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
 		spAlumnos.setViewportView(tablaAlumnos);
-
+		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
+		tablaAlumnos.setDefaultEditor(Object.class, null);
+		
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelAlumnos);
 		tablaAlumnos.setRowSorter(sorter);
-		
+
 		lblFiltrar = new JLabel("FILTRAR:");
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblFiltrar.setBounds(10, 14, 106, 14);
 		panel.add(lblFiltrar);
-		
+
 		txtFiltro = new JTextField();
 		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtFiltro.setColumns(10);
 		txtFiltro.setBounds(126, 11, 205, 20);
 		panel.add(txtFiltro);
-		
+
 		lblAlumnos = new JLabel("ALUMNOS:");
 		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblAlumnos.setBounds(10, 46, 609, 14);
 		panel.add(lblAlumnos);
-		
+
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(499, 296, 120, 23);
 		panel.add(btnCancelar);
-		
-		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
-            public void insertUpdate(DocumentEvent e) {
-                if (txtFiltro.getText().trim().length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
-                }
-            }
-            public void removeUpdate(DocumentEvent e) {
-                if (txtFiltro.getText().trim().length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
-                }
-            }
+
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				if (txtFiltro.getText().trim().length() == 0) {
+					sorter.setRowFilter(null);
+				} else {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+				}
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				if (txtFiltro.getText().trim().length() == 0) {
+					sorter.setRowFilter(null);
+				} else {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+				}
+			}
+
 			public void changedUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 			}
-        });
-		
+		});
+
 	}
-	
-	public void mostrar(){
+
+	public void mostrar() {
 		this.frame.setVisible(true);
 	}
-	
-	public void ocultar(){
+
+	public void ocultar() {
 		this.frame.setVisible(false);
 	}
 
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
-	
+
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
@@ -130,6 +134,5 @@ public class GestionarAlumnos {
 	public JTable getTablaAlumnos() {
 		return tablaAlumnos;
 	}
-	
-	
+
 }

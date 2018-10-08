@@ -46,6 +46,8 @@ public class SeleccionarSala extends JFrame {
 		tablaSalas = new JTable(modelSalas);
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelSalas);
 	    tablaSalas.setRowSorter(sorter);
+	    tablaSalas.setDefaultEditor(Object.class, null);
+	    tablaSalas.getTableHeader().setReorderingAllowed(false);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);

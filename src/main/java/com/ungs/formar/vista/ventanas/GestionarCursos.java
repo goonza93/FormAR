@@ -68,6 +68,8 @@ public class GestionarCursos {
 		tablaCursos = new JTable(modelCursos);
 		tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
 		spCursos.setViewportView(tablaCursos);
+		tablaCursos.setDefaultEditor(Object.class, null);
+		tablaCursos.getTableHeader().setReorderingAllowed(false);
 
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
 		tablaCursos.setRowSorter(sorter);

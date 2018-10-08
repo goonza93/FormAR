@@ -52,6 +52,8 @@ public class SeleccionarResponsable extends JFrame {
 		tablaAdministrativos.setFont(new Font("Arial", Font.PLAIN, 12));
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelResponsables);
 	    tablaAdministrativos.setRowSorter(sorter);
+	    tablaAdministrativos.setDefaultEditor(Object.class, null);
+	    tablaAdministrativos.getTableHeader().setReorderingAllowed(false);
 		/*
 		tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
