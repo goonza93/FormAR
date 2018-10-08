@@ -23,12 +23,28 @@ public class HorarioCursadaManager {
 	
 	public static String obtenerHoraInicio(HorarioCursada hc) {
 		Horario horario = traerHorarioSegunID(hc.getHorario());
-		return horario.getHoraInicio()+":"+horario.getMinutoInicio();
+		String horaInicio = "";
+		String minutoInicio = "";
+		if(horario.getHoraInicio().toString().length()==1){
+			horaInicio += "0";
+		}
+		if(horario.getMinutoInicio().toString().length()==1){
+			minutoInicio += "0";
+		}
+		return horaInicio+horario.getHoraInicio().toString()+":"+minutoInicio+horario.getMinutoInicio().toString();
 	}
 	
 	public static String obtenerHoraFin(HorarioCursada hc) {
 		Horario horario = traerHorarioSegunID(hc.getHorario());
-		return horario.getHoraFin()+":"+horario.getMinutoFin();
+		String horaFin = "";
+		String minutoFin = "";
+		if(horario.getHoraFin().toString().length()==1){
+			horaFin += "0";
+		}
+		if(horario.getMinutoFin().toString().length()==1){
+			minutoFin += "0";
+		}
+		return horaFin+horario.getHoraFin()+":"+minutoFin+horario.getMinutoFin();
 	}
 	
 	public static String obtenerSala(HorarioCursada hc) {
@@ -44,8 +60,25 @@ public class HorarioCursadaManager {
 			String dia = obtenerDia(horarioCursada);
 			String sala = obtenerSala(horarioCursada);
 			Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
-			String nuevo = dia +" de "+horario.getHoraInicio()+":"+horario.getMinutoInicio();
-			nuevo += " a "+horario.getHoraFin()+":"+horario.getMinutoFin()+"("+sala+")<br>";
+			String horaInicio = "";
+			String horaFin = "";
+			String minutoInicio = "";
+			String minutoFin = "";
+			if(horario.getHoraInicio().toString().length()==1){
+				horaInicio += "0";
+			}
+			if(horario.getMinutoInicio().toString().length()==1){
+				minutoInicio += "0";
+			}
+			if(horario.getHoraFin().toString().length()==1){
+				horaFin += "0";
+			}
+			if(horario.getMinutoFin().toString().length()==1){
+				minutoFin += "0";
+			}
+		
+			String nuevo = dia +" de "+horaInicio+horario.getHoraInicio()+":"+minutoInicio+horario.getMinutoInicio();
+			nuevo += " a "+horaFin+horario.getHoraFin()+":"+minutoFin+horario.getMinutoFin()+"("+sala+")<br>";
 			
 			ret += nuevo;
 		}
