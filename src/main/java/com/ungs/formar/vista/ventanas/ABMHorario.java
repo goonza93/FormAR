@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,105 +14,100 @@ import javax.swing.JTextField;
 
 public class ABMHorario extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField txtSala;
-	private JButton btnAgregar;
-	private JButton btnCancelar;
-	private JButton btnSeleccionarSala;
-	private JTextField txtHorasInicio;
-	private JTextField txtMinutosInicio;
-	private JTextField txtMinutosFin;
-	private JTextField txtHorasFin;
+	private JPanel panelPrincipal;
+	private JComboBox<Dia> dias;
+	private JTextField inSala, inHoraInicio, inMinutoInicio, inMinutoFin, inHoraFin;
+	private JButton btnAgregar, btnCancelar, btnSeleccionarSala;
 
 	public ABMHorario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 458, 280);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		panelPrincipal = new JPanel();
+		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(panelPrincipal);
+		panelPrincipal.setLayout(null);
 
 		JLabel lblDia = new JLabel("DIA:");
 		lblDia.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblDia.setBounds(10, 11, 146, 14);
-		contentPane.add(lblDia);
+		panelPrincipal.add(lblDia);
 
-		contentPane.add(crearListaDias());
+		panelPrincipal.add(dias = crearListaDias());
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAgregar.setBounds(10, 207, 101, 23);
-		contentPane.add(btnAgregar);
+		panelPrincipal.add(btnAgregar);
 
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(331, 207, 101, 23);
-		contentPane.add(btnCancelar);
+		panelPrincipal.add(btnCancelar);
 
 		JLabel lblHoraInicio = new JLabel("HORA INICIO:");
 		lblHoraInicio.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblHoraInicio.setBounds(10, 39, 146, 14);
-		contentPane.add(lblHoraInicio);
+		panelPrincipal.add(lblHoraInicio);
 
 		JLabel lblHoraFin = new JLabel("HORA FIN:");
 		lblHoraFin.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblHoraFin.setBounds(10, 67, 146, 14);
-		contentPane.add(lblHoraFin);
+		panelPrincipal.add(lblHoraFin);
 
 		btnSeleccionarSala = new JButton("...");
 		btnSeleccionarSala.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnSeleccionarSala.setBounds(400, 96, 35, 23);
-		contentPane.add(btnSeleccionarSala);
+		panelPrincipal.add(btnSeleccionarSala);
 
-		txtSala = new JTextField();
-		txtSala.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtSala.setEditable(false);
-		txtSala.setColumns(10);
-		txtSala.setBounds(166, 97, 224, 20);
-		contentPane.add(txtSala);
+		inSala = new JTextField();
+		inSala.setFont(new Font("Arial", Font.PLAIN, 12));
+		inSala.setEditable(false);
+		inSala.setColumns(10);
+		inSala.setBounds(166, 97, 224, 20);
+		panelPrincipal.add(inSala);
 
 		JLabel lblSala = new JLabel("SALA:");
 		lblSala.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblSala.setBounds(10, 99, 146, 14);
-		contentPane.add(lblSala);
+		panelPrincipal.add(lblSala);
 		
-		txtHorasInicio = new JTextField();
-		txtHorasInicio.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtHorasInicio.setText("Horas");
-		txtHorasInicio.setBounds(166, 39, 107, 20);
-		contentPane.add(txtHorasInicio);
-		txtHorasInicio.setColumns(10);
+		inHoraInicio = new JTextField();
+		inHoraInicio.setFont(new Font("Arial", Font.PLAIN, 12));
+		inHoraInicio.setText("0");
+		inHoraInicio.setBounds(166, 39, 107, 20);
+		panelPrincipal.add(inHoraInicio);
+		inHoraInicio.setColumns(10);
 		
-		txtMinutosInicio = new JTextField();
-		txtMinutosInicio.setText("Minutos");
-		txtMinutosInicio.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtMinutosInicio.setColumns(10);
-		txtMinutosInicio.setBounds(289, 39, 101, 20);
-		contentPane.add(txtMinutosInicio);
+		inMinutoInicio = new JTextField();
+		inMinutoInicio.setText("0");
+		inMinutoInicio.setFont(new Font("Arial", Font.PLAIN, 12));
+		inMinutoInicio.setColumns(10);
+		inMinutoInicio.setBounds(289, 39, 101, 20);
+		panelPrincipal.add(inMinutoInicio);
 		
 		JLabel lbl = new JLabel(":");
 		lbl.setFont(new Font("Arial", Font.BOLD, 18));
 		lbl.setBounds(277, 41, 16, 14);
-		contentPane.add(lbl);
+		panelPrincipal.add(lbl);
 		
-		txtMinutosFin = new JTextField();
-		txtMinutosFin.setText("Minutos");
-		txtMinutosFin.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtMinutosFin.setColumns(10);
-		txtMinutosFin.setBounds(289, 67, 101, 20);
-		contentPane.add(txtMinutosFin);
+		inMinutoFin = new JTextField();
+		inMinutoFin.setText("0");
+		inMinutoFin.setFont(new Font("Arial", Font.PLAIN, 12));
+		inMinutoFin.setColumns(10);
+		inMinutoFin.setBounds(289, 67, 101, 20);
+		panelPrincipal.add(inMinutoFin);
 		
 		JLabel label = new JLabel(":");
 		label.setFont(new Font("Arial", Font.BOLD, 18));
 		label.setBounds(277, 69, 16, 14);
-		contentPane.add(label);
+		panelPrincipal.add(label);
 		
-		txtHorasFin = new JTextField();
-		txtHorasFin.setText("Horas");
-		txtHorasFin.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtHorasFin.setColumns(10);
-		txtHorasFin.setBounds(166, 67, 107, 20);
-		contentPane.add(txtHorasFin);
+		inHoraFin = new JTextField();
+		inHoraFin.setText("0");
+		inHoraFin.setFont(new Font("Arial", Font.PLAIN, 12));
+		inHoraFin.setColumns(10);
+		inHoraFin.setBounds(166, 67, 107, 20);
+		panelPrincipal.add(inHoraFin);
 	}
 
 	private JComboBox<Dia> crearListaDias() {
@@ -128,11 +122,11 @@ public class ABMHorario extends JFrame {
 	}
 
 	public JTextField getTxtSala() {
-		return txtSala;
+		return inSala;
 	}
 
 	public JComboBox<Dia> getComboDias() {
-		return crearListaDias();
+		return dias;
 	}
 
 	public JButton getBtnAgregar() {
@@ -147,25 +141,20 @@ public class ABMHorario extends JFrame {
 		return btnSeleccionarSala;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public JTextField getTxtHorasInicio() {
-		return txtHorasInicio;
+		return inHoraInicio;
 	}
 
 	public JTextField getTxtMinutosInicio() {
-		return txtMinutosInicio;
+		return inMinutoInicio;
 	}
 
 	public JTextField getTxtMinutosFin() {
-		return txtMinutosFin;
+		return inMinutoFin;
 	}
 
 	public JTextField getTxtHorasFin() {
-		return txtHorasFin;
+		return inHoraFin;
 	}
-	
-	
+		
 }

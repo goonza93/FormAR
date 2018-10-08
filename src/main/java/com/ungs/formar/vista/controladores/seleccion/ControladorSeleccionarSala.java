@@ -8,15 +8,15 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.controladores.ControladorCrearCurso;
-import com.ungs.formar.vista.controladores.ControladorCrearDiaHorario;
+import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarSala implements ActionListener {
 	private SeleccionarSala ventana;
-	private ControladorCrearDiaHorario controlador;
+	private ControladorAgregarHorario controlador;
 	private List<Sala> salas_en_tabla;
 
-	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorCrearDiaHorario controlador) {
+	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorAgregarHorario controlador) {
 		this.ventana = ventana;
 		this.controlador = controlador;
 		this.ventana.getBtnCancelar().addActionListener(this);

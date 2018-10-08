@@ -16,7 +16,7 @@ public class CursoManagerTest {
 			Date fechaInicio, Date fechaFin) {
 		
 		System.out.println("___ Crear curso Test");
-		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, fechaInicio, fechaFin);
+		//CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, estado, responsable, instructor, programa, contenido, fechaInicio, fechaFin);
 		
 	}
 	
