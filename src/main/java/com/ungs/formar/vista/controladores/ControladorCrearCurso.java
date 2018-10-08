@@ -200,12 +200,12 @@ public class ControladorCrearCurso implements ActionListener {
 		Date fechaFin = null;
 		
 		//horarios = CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
-		if(horarios.size()>0){
+		//if(horarios.size()>0){
 			fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
-		}else {
+		/*}else {
 			fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
 		}
-		
+		*/
 		System.out.println("ElTamano de horarios es"+horarios.size());
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor, this.programa, 
 				contenido, this.horarios, fechaInicio, fechaFin);
