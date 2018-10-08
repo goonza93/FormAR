@@ -37,6 +37,7 @@ public class SeleccionarSala extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setTitle("Seleccion de sala");
 
 		JScrollPane spInstructores = new JScrollPane();
 		spInstructores.setBounds(10, 61, 482, 206);

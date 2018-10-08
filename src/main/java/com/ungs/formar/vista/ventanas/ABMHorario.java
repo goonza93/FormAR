@@ -26,6 +26,7 @@ public class ABMHorario extends JFrame {
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
+		setTitle("Ingreso de horario y sala");
 
 		JLabel lblDia = new JLabel("DIA:");
 		lblDia.setFont(new Font("Arial", Font.PLAIN, 12));

@@ -34,6 +34,7 @@ public class SeleccionarInstructor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setTitle("Seleccion de Instructor");
 
 		JScrollPane spInstructores = new JScrollPane();
 		spInstructores.setBounds(10, 74, 482, 206);

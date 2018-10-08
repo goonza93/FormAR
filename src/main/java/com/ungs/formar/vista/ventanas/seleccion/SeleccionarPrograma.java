@@ -42,6 +42,7 @@ public class SeleccionarPrograma extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setTitle("Seleccion de programa");
 
 		JScrollPane spProgramas = new JScrollPane();
 		spProgramas.setBounds(10, 64, 482, 206);

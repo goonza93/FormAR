@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.negocios.CursoManager;
+import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
@@ -249,9 +252,18 @@ public class ControladorCrearCurso implements ActionListener {
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
 	}
 	
-	public void agregarHorarioDeCursada(HorarioCursada hc) {
-		horarios.add(hc);
-		llenarTablaHorarios();
+	public boolean agregarHorarioDeCursada(HorarioCursada hc) {
+		boolean ret = false;
+		List<HorarioCursada> testear = new ArrayList<HorarioCursada>(horarios);
+		testear.add(hc);
+		if(DiaManager.horariosCompatiblesEntreSi(testear)){
+			horarios.add(hc);
+			llenarTablaHorarios();
+			ret = true;
+		} else {
+			JOptionPane.showMessageDialog(null, "El horario no es compatible con los otros.");
+		}
+		return ret;
 	}
 
 	public void setIdEdicion(Integer idEdicion) {

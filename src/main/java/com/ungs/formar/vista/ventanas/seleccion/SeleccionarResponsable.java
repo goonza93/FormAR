@@ -42,6 +42,7 @@ public class SeleccionarResponsable extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setTitle("Seleccion de responsable");
 		
 		JScrollPane spAdministrativos = new JScrollPane();
 		spAdministrativos.setBounds(10, 64, 482, 206);
