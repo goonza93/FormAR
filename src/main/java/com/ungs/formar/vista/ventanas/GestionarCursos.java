@@ -7,11 +7,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -36,32 +42,32 @@ public class GestionarCursos {
 
 	public GestionarCursos() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1375, 369);
+		frame.setBounds(100, 100, 1375, 497);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1359, 330);
+		panel.setBounds(0, 0, 1359, 458);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregar.setBounds(10, 296, 120, 23);
+		btnAgregar.setBounds(10, 424, 120, 23);
 		panel.add(btnAgregar);
 
 		btnEditar = new JButton("EDITAR");
 		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEditar.setBounds(140, 296, 120, 23);
+		btnEditar.setBounds(140, 424, 120, 23);
 		panel.add(btnEditar);
 
 		btnBorrar = new JButton("BORRAR");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnBorrar.setBounds(270, 296, 120, 23);
+		btnBorrar.setBounds(270, 424, 120, 23);
 		panel.add(btnBorrar);
 
 		spCursos = new JScrollPane();
-		spCursos.setBounds(10, 79, 1339, 206);
+		spCursos.setBounds(10, 79, 1339, 334);
 		panel.add(spCursos);
 
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
@@ -74,6 +80,7 @@ public class GestionarCursos {
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
 		tablaCursos.setRowSorter(sorter);
 		
+		
 		tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
@@ -83,8 +90,18 @@ public class GestionarCursos {
 		tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(50);
-		
+		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(150);
+		tablaCursos.setRowHeight(75);
+		//tablaCursos.setAlignmentY(SwingConstants.CENTER);
+		//tablaCursos.setAlignmentX(SwingConstants.CENTER);
+		/*
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+		tcr.setVerticalAlignment(SwingConstants.CENTER);
+		for(int i = 0; i< tablaCursos.getColumnCount(); i++){
+			tablaCursos.getColumnModel().getColumn(i).setCellRenderer(tcr);
+		}
+		*/
 		lblFiltrar = new JLabel("FILTRAR:");
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblFiltrar.setBounds(10, 14, 106, 14);
@@ -104,7 +121,7 @@ public class GestionarCursos {
 
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(400, 296, 120, 23);
+		btnCancelar.setBounds(400, 424, 120, 23);
 		panel.add(btnCancelar);
 
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
