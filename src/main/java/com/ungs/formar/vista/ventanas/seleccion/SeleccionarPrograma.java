@@ -52,6 +52,8 @@ public class SeleccionarPrograma extends JFrame {
 		tablaProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelProgramas);
 	    tablaProgramas.setRowSorter(sorter);
+	    tablaProgramas.setDefaultEditor(Object.class, null);
+	    tablaProgramas.getTableHeader().setReorderingAllowed(false);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);

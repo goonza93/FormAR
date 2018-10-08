@@ -182,6 +182,8 @@ public class CrearCurso extends JFrame {
 		tablaHorarios = new JTable(modeloHorarios);
 		tablaHorarios.setFont(new Font("Arial", Font.PLAIN, 12));
 		spHorarios.setViewportView(tablaHorarios);
+		tablaHorarios.setDefaultEditor(Object.class, null);
+		tablaHorarios.getTableHeader().setReorderingAllowed(false);
 		
 		btnBorrarHorario = new JButton("BORRAR DIA");
 		btnBorrarHorario.setFont(new Font("Arial", Font.PLAIN, 12));

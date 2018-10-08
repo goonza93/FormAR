@@ -44,6 +44,8 @@ public class SeleccionarInstructor extends JFrame {
 		tablaInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelInstructores);
 		tablaInstructores.setRowSorter(sorter);
+		tablaInstructores.setDefaultEditor(Object.class, null);
+		tablaInstructores.getTableHeader().setReorderingAllowed(false);
 		/*
 		 * tablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(100);
 		 * tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
