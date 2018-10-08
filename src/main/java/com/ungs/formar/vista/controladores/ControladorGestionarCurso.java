@@ -88,7 +88,7 @@ public class ControladorGestionarCurso implements ActionListener {
 			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
 			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row); // indice row del model de la row de la tabla
 			
-			CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila).getCursoID());
+			CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
 			this.llenarTablaCursos();
 		} else if (e.getSource() == this.ventanaGestionarCursos.getBtnEditar()) {
 			int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // indice row de la tabla
