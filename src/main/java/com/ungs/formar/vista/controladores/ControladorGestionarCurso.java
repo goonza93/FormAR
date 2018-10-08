@@ -109,7 +109,7 @@ public class ControladorGestionarCurso implements ActionListener {
 			this.ventanaCrearCurso.getContenidoEspecifico().setText(cursoEdicion.getContenido());
 			
 			ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
-			//controladorCursoEdicion.setIdEdicion(cursoEdicion.getCursoID());
+			controladorCursoEdicion.setIdEdicion(cursoEdicion.getCursoID());
 			controladorCursoEdicion.inicializar();
 			this.ventanaGestionarCursos.ocultar();					
 

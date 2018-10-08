@@ -36,26 +36,31 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 		this.inicializar();
 	}
 
-	public void inicializar() {		
+	public void inicializar() {
 		llenarTablaProgramas();
 		this.ventanaSeleccionarPrograma.setVisible(true);
 	}
 
 	private void llenarTablaProgramas() {
-		this.ventanaSeleccionarPrograma.getModelTemas().setRowCount(0); //Para vaciar la tabla
+		this.ventanaSeleccionarPrograma.getModelTemas().setRowCount(0); // Para
+																		// vaciar
+																		// la
+																		// tabla
 		this.ventanaSeleccionarPrograma.getModelTemas().setColumnCount(0);
-		this.ventanaSeleccionarPrograma.getModelTemas().setColumnIdentifiers(this.ventanaSeleccionarPrograma.getNombreColumnas());
-		
+		this.ventanaSeleccionarPrograma.getModelTemas()
+				.setColumnIdentifiers(this.ventanaSeleccionarPrograma.getNombreColumnas());
+
 		this.programas_en_tabla = ProgramaManager.traerProgramas();
-		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
-			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
-			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
-			   }
-			});
-		*/
-		for (int i = 0; i < this.programas_en_tabla.size(); i ++){
-			Object[] fila = {this.programas_en_tabla.get(i).getNombre(), this.programas_en_tabla.get(i).getAreaID(),
-					this.programas_en_tabla.get(i).getFechaAprobacion()};
+		/*
+		 * Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>()
+		 * { public int compare(PersonaDTO obj1, PersonaDTO obj2) { return
+		 * obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().
+		 * toUpperCase()); } });
+		 */
+		for (int i = 0; i < this.programas_en_tabla.size(); i++) {
+			Object[] fila = { this.programas_en_tabla.get(i).getNombre(),
+					ProgramaManager.traerAreaSegunID(this.programas_en_tabla.get(i).getAreaID()).getNombre(),
+					this.programas_en_tabla.get(i).getFechaAprobacion() };
 			this.ventanaSeleccionarPrograma.getModelTemas().addRow(fila);
 		}
 	}
@@ -65,10 +70,11 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 			int fila_seleccionada = this.ventanaSeleccionarPrograma.getTablaProgramas().getSelectedRow();
 			if (fila_seleccionada != -1) {
 				// ESTE ES EL FIX PARA QUE FUNCIONE TMB CON FILTROS...
-				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
-				int row = this.ventanaSeleccionarPrograma.getTablaProgramas().getSelectedRow(); // indice row de la tabla
-				int modelFila = this.ventanaSeleccionarPrograma.getTablaProgramas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-				
+				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL
+				// MODEL QUE EL CORRESPONDE
+				int row = this.ventanaSeleccionarPrograma.getTablaProgramas().getSelectedRow(); 
+				int modelFila = this.ventanaSeleccionarPrograma.getTablaProgramas().convertRowIndexToModel(row); 
+
 				this.controladorCrearCurso.setPrograma(this.programas_en_tabla.get(modelFila));
 				this.ventanaSeleccionarPrograma.dispose();
 				this.controladorCrearCurso.inicializar();
