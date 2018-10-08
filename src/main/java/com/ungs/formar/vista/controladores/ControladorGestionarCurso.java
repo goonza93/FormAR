@@ -32,6 +32,7 @@ public class ControladorGestionarCurso implements ActionListener {
 		this.ventanaGestionarCursos.getBtnBorrar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnEditar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnCancelar().addActionListener(this);
+		this.inicializar();
 	}
 
 	public void inicializar() {
@@ -49,6 +50,7 @@ public class ControladorGestionarCurso implements ActionListener {
 				.setColumnIdentifiers(this.ventanaGestionarCursos.getNombreColumnas());
 
 		this.cursos_en_tabla = CursoManager.traerCursos();
+		System.out.println("TAMANO"+this.cursos_en_tabla.size());
 		/*
 		 * Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>()
 		 * { public int compare(PersonaDTO obj1, PersonaDTO obj2) { return
@@ -56,10 +58,11 @@ public class ControladorGestionarCurso implements ActionListener {
 		 * toUpperCase()); } });
 		 */
 
-		/*for (int i = 0; i < this.cursos_en_tabla.size(); i++) {
+		for (int i = 0; i < this.cursos_en_tabla.size(); i++) {
 			String nombre = ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getNombre();
-			String area =  ProgramaManager.traerAreaSegunID(ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getAreaID()).getDescripcion();
-			String estado = EstadoCursoManager.traerEstadoCurso(this.cursos_en_tabla.get(i).getEstado()).getDescripcion();
+			String area =  ProgramaManager.traerAreaSegunID(ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i)
+					.getPrograma()).getAreaID()).getNombre();
+			String estado = CursoManager.traerEstadoSegunID(this.cursos_en_tabla.get(i).getEstado()).getDescripcion();
 			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
 			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
 			Date fechaInicio = this.cursos_en_tabla.get(i).getFechaInicio();
@@ -70,9 +73,9 @@ public class ControladorGestionarCurso implements ActionListener {
 			
 			Object[] fila = { nombre, area, estado, cupoMinimo, cupoMaximo, fechaInicio, fechaFin, 
 					instructor.getApellido()+" "+instructor.getNombre(), 
-					responsable.getApellido()+" "+responsable.getNombre(), horarios};
+					responsable.getApellido()+" "+responsable.getNombre(), /*horarios*/};
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
-		}*/
+		}
 
 	}
 
