@@ -215,4 +215,9 @@ public class ControladorCrearCurso implements ActionListener {
 		llenarTablaHorarios();
 	}
 
+	public void setIdEdicion(Integer idEdicion) {
+		this.idEdicion = idEdicion;
+	}
+
+	
 }
