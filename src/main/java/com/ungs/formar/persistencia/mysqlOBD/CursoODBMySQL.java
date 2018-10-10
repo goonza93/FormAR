@@ -22,7 +22,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		
 		String valores = curso.getCupoMinimo()+", "+curso.getCupoMaximo()+", ";
 		valores += fInicio+", "+fFin+", '"+curso.getContenido()+"', ";
-		valores += 10 +", "+curso.getInstructor()+", "+1+", "+curso.getPrograma()+", "+curso.getEstado();
+		valores += curso.getHoras() +", "+curso.getInstructor()+", "+curso.getResponsable()+", "+curso.getPrograma()+", "+curso.getEstado();
 		
 		String consulta = "insert into "+tabla+" ("+campos+") values ("+valores+");";
 		System.out.println(consulta);
