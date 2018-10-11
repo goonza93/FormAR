@@ -48,12 +48,6 @@ public class ControladorGestionarAlumnos implements ActionListener {
 				cerrarVentanaGestionarAlumno();
 			}
 		});
-		this.ventanaAltaAlumno.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				cerrarVentanaAltaAlumno();
-			}
-		});
 		this.inicializar();
 	}
 
@@ -87,6 +81,12 @@ public class ControladorGestionarAlumnos implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ventanaGestionarAlumnos.getBtnAgregar()) {
 			this.ventanaAltaAlumno = new AltaAlumno(this);
+			this.ventanaAltaAlumno.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					cerrarVentanaAltaAlumno();
+				}
+			});
 			this.ventanaAltaAlumno.mostrar();
 			this.ventanaGestionarAlumnos.getFrame().setEnabled(false);
 		}
