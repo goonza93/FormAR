@@ -27,7 +27,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -58,9 +57,10 @@ public class GestionarAlumnos {
 	public GestionarAlumnos() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 730, 524);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setTitle("Gestion de alumnos");
 		frame.setLocationRelativeTo(null);
-
+		
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
 
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelAlumnos);
@@ -288,13 +288,6 @@ public class GestionarAlumnos {
 		txtDNI.getDocument().addDocumentListener(dl);
 		txtEmail.getDocument().addDocumentListener(dl);
 		txtTelefono.getDocument().addDocumentListener(dl);
-		
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
 
 	}
 
@@ -324,5 +317,9 @@ public class GestionarAlumnos {
 
 	public JTable getTablaAlumnos() {
 		return tablaAlumnos;
+	}
+	
+	public JFrame getFrame() {
+		return this.frame;
 	}
 }

@@ -2,6 +2,8 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
@@ -39,6 +42,12 @@ public class ControladorGestionarAlumnos implements ActionListener {
 		this.controladorPantallaPrincipal = controladorPantallaPrincipal;
 		this.ventanaGestionarAlumnos.getBtnCancelar().addActionListener(this);
 		this.ventanaGestionarAlumnos.getBtnAgregar().addActionListener(this);
+		this.ventanaGestionarAlumnos.getFrame().addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaGestionarAlumno();
+			}
+		});
 		this.inicializar();
 	}
 
@@ -72,13 +81,18 @@ public class ControladorGestionarAlumnos implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ventanaGestionarAlumnos.getBtnAgregar()) {
 			this.ventanaAltaAlumno = new AltaAlumno(this);
+			this.ventanaAltaAlumno.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					cerrarVentanaAltaAlumno();
+				}
+			});
 			this.ventanaAltaAlumno.mostrar();
-			this.ventanaGestionarAlumnos.ocultar();
+			this.ventanaGestionarAlumnos.getFrame().setEnabled(false);
 		}
 
 		else if (e.getSource() == ventanaGestionarAlumnos.getBtnCancelar()) {
-			this.ventanaGestionarAlumnos.ocultar();
-			this.controladorPantallaPrincipal.inicializar();
+			cerrarVentanaGestionarAlumno();
 		}
 
 		else if (e.getActionCommand() == "AgregarAlumno") {
@@ -89,8 +103,18 @@ public class ControladorGestionarAlumnos implements ActionListener {
 
 		else if (e.getActionCommand() == "CancelarAgregarAlumno") {
 			this.ventanaAltaAlumno.dispose();
-			this.ventanaGestionarAlumnos.mostrar();
+			this.ventanaGestionarAlumnos.getFrame().setEnabled(true);
 		}
+	}
+	
+	public void cerrarVentanaGestionarAlumno(){
+		this.ventanaGestionarAlumnos.ocultar();
+		this.controladorPantallaPrincipal.inicializar();
+	}
+	
+	private void cerrarVentanaAltaAlumno(){
+		this.ventanaAltaAlumno.dispose();
+		this.ventanaGestionarAlumnos.getFrame().setEnabled(true);
 	}
 	
 	private boolean validacionCampos(){
@@ -138,6 +162,7 @@ public class ControladorGestionarAlumnos implements ActionListener {
 			String email = this.ventanaAltaAlumno.getTxtEmail().getText();
 			AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
 			this.ventanaAltaAlumno.dispose();
-			this.inicializar();
+			this.llenarTablaAlumnos();
+			this.ventanaGestionarAlumnos.getFrame().setEnabled(true);
 	}
 }
