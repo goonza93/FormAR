@@ -122,7 +122,6 @@ public class ControladorAgregarHorario implements ActionListener {
 		Integer minutoInicio = Integer.decode(minI);
 
 		Integer minutoFin = Integer.decode(minF);
-		
 		// GUARDO EL HORARIO EN LA BD Y OBTENGO EL ID
 		Integer horarioID = HorarioCursadaManager.crearHorario(dia, horaInicio, horaFin, minutoInicio, minutoFin);
 		
