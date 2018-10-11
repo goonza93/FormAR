@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -23,6 +24,11 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GestionarAlumnos {
 	private JFrame frame;
@@ -31,108 +37,258 @@ public class GestionarAlumnos {
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "Email", "Telefono" };
 	private JScrollPane spAlumnos;
 	private JTable tablaAlumnos;
-	private JLabel lblFiltrar;
-	private JTextField txtFiltro;
+	private JLabel lblFiltros;
+	private JTextField txtApellido;
 	private JLabel lblAlumnos;
 	private JButton btnCancelar;
-	public JTextField txtFiltro2;
+	private JButton btnEditar;
+	private JButton btnBorrar;
+	private JLabel lblApellido;
+	private JLabel lblNombre;
+	private JTextField txtNombre;
+	private JLabel lblEmail;
+	private JTextField txtEmail;
+	private JTextField txtDNI;
+	private JLabel lblDNI;
+	private JLabel lblTelefono;
+	private JTextField txtTelefono;
+	private JButton btnInscribir;
 
 	public GestionarAlumnos() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 645, 369);
+		frame.setBounds(100, 100, 730, 524);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		frame.setTitle("Gestion de alumnos");
+		frame.setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 629, 330);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
+
+		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelAlumnos);
+
+		lblApellido = new JLabel("APELLIDO");
+		lblApellido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblApellido.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		lblFiltros = new JLabel("FILTROS:");
+		lblFiltros.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFiltros.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		txtApellido = new JTextField();
+		txtApellido.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtApellido.setColumns(10);
+
+		lblAlumnos = new JLabel("ALUMNOS:");
+		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregar.setBounds(10, 296, 120, 23);
-		panel.add(btnAgregar);
+
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnBorrar = new JButton("BORRAR");
+		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		spAlumnos = new JScrollPane();
-		spAlumnos.setBounds(10, 79, 609, 206);
-		panel.add(spAlumnos);
-
-		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
 		tablaAlumnos = new JTable(modelAlumnos);
 		tablaAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
 		spAlumnos.setViewportView(tablaAlumnos);
 		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
 		tablaAlumnos.setDefaultEditor(Object.class, null);
-		
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelAlumnos);
 		tablaAlumnos.setRowSorter(sorter);
-
-		lblFiltrar = new JLabel("FILTRAR:");
-		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltrar.setBounds(10, 14, 106, 14);
-		panel.add(lblFiltrar);
-
-		txtFiltro = new JTextField();
-		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFiltro.setColumns(10);
-		txtFiltro.setBounds(136, 48, 86, 20);
-		panel.add(txtFiltro);
-
-		lblAlumnos = new JLabel("ALUMNOS:");
-		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblAlumnos.setBounds(10, 46, 609, 14);
-		panel.add(lblAlumnos);
-
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(499, 296, 120, 23);
-		panel.add(btnCancelar);
 		
-		txtFiltro2 = new JTextField();
-		txtFiltro2.setBounds(10, 49, 86, 20);
-		panel.add(txtFiltro2);
-		txtFiltro2.setColumns(10);
-				
+		lblNombre = new JLabel("NOMBRE");
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtNombre.setColumns(10);
+		
+		lblEmail = new JLabel("EMAIL");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtEmail.setColumns(10);
+		
+		txtDNI = new JTextField();
+		txtDNI.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtDNI.setColumns(10);
+		
+		lblDNI = new JLabel("DNI");
+		lblDNI.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDNI.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		lblTelefono = new JLabel("TELEFONO");
+		lblTelefono.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		txtTelefono = new JTextField();
+		txtTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtTelefono.setColumns(10);
+		
+		btnInscribir = new JButton("INSCRIBIR");
+		btnInscribir.setFont(new Font("Arial", Font.PLAIN, 12));
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+						.addComponent(txtApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+						.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblDNI, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+						.addComponent(txtDNI, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+						.addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(txtTelefono, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+						.addComponent(lblTelefono, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblAlumnos, GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(spAlumnos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnInscribir, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+							.addGap(141)
+							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblFiltros, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblApellido)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+							.addGap(6)
+							.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(21)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblTelefono, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtTelefono, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblAlumnos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(spAlumnos, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnEditar)
+						.addComponent(btnAgregar)
+						.addComponent(btnBorrar)
+						.addComponent(btnCancelar)
+						.addComponent(btnInscribir))
+					.addContainerGap())
+		);
+		frame.getContentPane().setLayout(groupLayout);
+
 		DocumentListener dl = new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
-				if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() == 0) {
+				List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
+				RowFilter nombre = RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1);
+				RowFilter apellido = RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0);
+				RowFilter dni = RowFilter.regexFilter("(?i)" + txtDNI.getText(), 2);
+				RowFilter email = RowFilter.regexFilter("(?i)" + txtEmail.getText(), 3);
+				RowFilter telefono = RowFilter.regexFilter("(?i)" + txtTelefono.getText(), 4);
+				
+				filters.add(nombre);
+				filters.add(apellido);
+				filters.add(dni);
+				filters.add(email);
+				filters.add(telefono);
+				/*if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() == 0) {
 					sorter.setRowFilter(null);
-				} else if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() != 0){
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText(),1));
-				} else if (txtFiltro2.getText().trim().length() != 0 && txtFiltro.getText().trim().length() == 0){
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(),0));
+				} else if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() != 0) {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
+				} else if (txtApellido.getText().trim().length() != 0 && txtNombre.getText().trim().length() == 0) {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
 				} else {
-					List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
-					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro.getText(), 1));
-					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(), 0));
-					sorter.setRowFilter(RowFilter.andFilter(filters));
-				}
+					List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
+					filters.add(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
+					filters.add(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
+					*/sorter.setRowFilter(RowFilter.andFilter(filters));
+				//}
 			}
 
 			public void removeUpdate(DocumentEvent e) {
-				if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() == 0) {
+				List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
+				RowFilter nombre = RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1);
+				RowFilter apellido = RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0);
+				RowFilter dni = RowFilter.regexFilter("(?i)" + txtDNI.getText(), 2);
+				RowFilter email = RowFilter.regexFilter("(?i)" + txtEmail.getText(), 3);
+				RowFilter telefono = RowFilter.regexFilter("(?i)" + txtTelefono.getText(), 4);
+				
+				filters.add(nombre);
+				filters.add(apellido);
+				filters.add(dni);
+				filters.add(email);
+				filters.add(telefono);
+				/*if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() == 0) {
 					sorter.setRowFilter(null);
-				} else if (txtFiltro2.getText().trim().length() == 0 && txtFiltro.getText().trim().length() != 0){
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText(),1));
-				} else if (txtFiltro2.getText().trim().length() != 0 && txtFiltro.getText().trim().length() == 0){
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(),0));
+				} else if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() != 0) {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
+				} else if (txtApellido.getText().trim().length() != 0 && txtNombre.getText().trim().length() == 0) {
+					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
 				} else {
-					List<RowFilter<Object,Object>> filters = new ArrayList<RowFilter<Object,Object>>(2);
-					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro.getText(), 1));
-					filters.add(RowFilter.regexFilter("(?i)" + txtFiltro2.getText(), 0));
+					List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
+					
+					//filters.add(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
+					*///filters.add(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
 					sorter.setRowFilter(RowFilter.andFilter(filters));
-				}
+				//}
 			}
 
 			public void changedUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 			}
 		};
-		txtFiltro2.getDocument().addDocumentListener(dl);
-		txtFiltro.getDocument().addDocumentListener(dl);
-		
+		txtApellido.getDocument().addDocumentListener(dl);
+		txtNombre.getDocument().addDocumentListener(dl);
+		txtDNI.getDocument().addDocumentListener(dl);
+		txtEmail.getDocument().addDocumentListener(dl);
+		txtTelefono.getDocument().addDocumentListener(dl);
+
 	}
 
 	public void mostrar() {
