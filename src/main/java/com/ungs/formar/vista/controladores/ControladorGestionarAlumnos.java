@@ -82,46 +82,8 @@ public class ControladorGestionarAlumnos implements ActionListener {
 		}
 
 		else if (e.getActionCommand() == "AgregarAlumno") {
-
-			Pattern patronLetras = Pattern.compile("^[a-zA-Z ]*$");
-			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
-			Pattern patronEmail = Pattern
-					.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@" + "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$");
-
-			Matcher mDni = patronNumeros.matcher(this.ventanaAltaAlumno.getTxtDni().getText());
-			Matcher mNombre = patronLetras.matcher(this.ventanaAltaAlumno.getTxtNombre().getText());
-			Matcher mApellido = patronLetras.matcher(this.ventanaAltaAlumno.getTxtApellido().getText());
-			Matcher mTelefono = patronNumeros.matcher(this.ventanaAltaAlumno.getTxtTelefono().getText());
-			Matcher mEmail = patronEmail.matcher(this.ventanaAltaAlumno.getTxtEmail().getText());
-
-			String errores = " ";
-			// Validaciones de null, y de tipos de datos validos
-			if (!mDni.matches() || this.ventanaAltaAlumno.getTxtDni().getText().isEmpty()) {
-				errores += " - Por favor, ingrese un DNI valido\n";
-			}
-			if (!mNombre.matches() || this.ventanaAltaAlumno.getTxtNombre().getText().isEmpty()) {
-				errores += " - Por favor, ingrese un nombre valido\n";
-			}
-			if (!mApellido.matches() || this.ventanaAltaAlumno.getTxtApellido().getText().isEmpty()) {
-				errores += " - Por favor, ingrese un apellido valido\n";
-			}
-			if (!mTelefono.matches() || this.ventanaAltaAlumno.getTxtTelefono().getText().isEmpty()) {
-				errores += " - Por favor, ingrese un telefono valido\n";
-			}
-			if (!mEmail.matches() || this.ventanaAltaAlumno.getTxtEmail().getText().isEmpty()) {
-				errores += " - Por favor, ingrese un email valido\n";
-			}
-			if (errores.length() != 1) {
-				JOptionPane.showMessageDialog(null, errores);
-			} else {
-				Integer dni = Integer.valueOf(this.ventanaAltaAlumno.getTxtDni().getText());
-				String nombre = this.ventanaAltaAlumno.getTxtNombre().getText();
-				String apellido = this.ventanaAltaAlumno.getTxtApellido().getText();
-				String telefono = this.ventanaAltaAlumno.getTxtTelefono().getText();
-				String email = this.ventanaAltaAlumno.getTxtEmail().getText();
-				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
-				this.ventanaAltaAlumno.dispose();
-				this.inicializar();
+			if(validacionCampos()){
+				agregarAlumno();
 			}
 		}
 
@@ -129,5 +91,53 @@ public class ControladorGestionarAlumnos implements ActionListener {
 			this.ventanaAltaAlumno.dispose();
 			this.ventanaGestionarAlumnos.mostrar();
 		}
+	}
+	
+	private boolean validacionCampos(){
+
+		Pattern patronLetras = Pattern.compile("^[a-zA-Z ]*$");
+		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+		Pattern patronEmail = Pattern
+				.compile("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@" + "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$");
+
+		Matcher mDni = patronNumeros.matcher(this.ventanaAltaAlumno.getTxtDni().getText());
+		Matcher mNombre = patronLetras.matcher(this.ventanaAltaAlumno.getTxtNombre().getText());
+		Matcher mApellido = patronLetras.matcher(this.ventanaAltaAlumno.getTxtApellido().getText());
+		Matcher mTelefono = patronNumeros.matcher(this.ventanaAltaAlumno.getTxtTelefono().getText());
+		Matcher mEmail = patronEmail.matcher(this.ventanaAltaAlumno.getTxtEmail().getText());
+
+		String errores = " ";
+		// Validaciones de null, y de tipos de datos validos
+		if (!mDni.matches() || this.ventanaAltaAlumno.getTxtDni().getText().isEmpty()) {
+			errores += " - Por favor, ingrese un DNI valido\n";
+		}
+		if (!mNombre.matches() || this.ventanaAltaAlumno.getTxtNombre().getText().isEmpty()) {
+			errores += " - Por favor, ingrese un nombre valido\n";
+		}
+		if (!mApellido.matches() || this.ventanaAltaAlumno.getTxtApellido().getText().isEmpty()) {
+			errores += " - Por favor, ingrese un apellido valido\n";
+		}
+		if (!mTelefono.matches() || this.ventanaAltaAlumno.getTxtTelefono().getText().isEmpty()) {
+			errores += " - Por favor, ingrese un telefono valido\n";
+		}
+		if (!mEmail.matches() || this.ventanaAltaAlumno.getTxtEmail().getText().isEmpty()) {
+			errores += " - Por favor, ingrese un email valido\n";
+		}
+		if (errores.length() != 1) {
+			JOptionPane.showMessageDialog(null, errores);
+			return false;
+		}
+		return true;
+	}
+	
+	private void agregarAlumno(){
+			Integer dni = Integer.valueOf(this.ventanaAltaAlumno.getTxtDni().getText());
+			String nombre = this.ventanaAltaAlumno.getTxtNombre().getText();
+			String apellido = this.ventanaAltaAlumno.getTxtApellido().getText();
+			String telefono = this.ventanaAltaAlumno.getTxtTelefono().getText();
+			String email = this.ventanaAltaAlumno.getTxtEmail().getText();
+			AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
+			this.ventanaAltaAlumno.dispose();
+			this.inicializar();
 	}
 }
