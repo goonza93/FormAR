@@ -3,12 +3,18 @@ package com.ungs.formar.vista.ventanas;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.persistencia.entidades.Dia;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -20,13 +26,13 @@ public class ABMHorario extends JFrame {
 	private JButton btnAgregar, btnCancelar, btnSeleccionarSala;
 
 	public ABMHorario() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 458, 280);
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		setTitle("Ingreso de horario y sala");
+		setLocationRelativeTo(null);
 
 		JLabel lblDia = new JLabel("DIA:");
 		lblDia.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -109,6 +115,14 @@ public class ABMHorario extends JFrame {
 		inHoraFin.setColumns(10);
 		inHoraFin.setBounds(166, 67, 107, 20);
 		panelPrincipal.add(inHoraFin);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
+		
 	}
 
 	private JComboBox<Dia> crearListaDias() {

@@ -18,6 +18,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -32,6 +34,7 @@ public class GestionarUsuarios extends JFrame {
 	private  String[] nombreColumnas = {"Nombre", "Rol", "Ultima Conexion"};
 	private JTable tablaUsuarios;
 	private JTextField txtFiltro;
+	private JButton btnCancelar;
 
 	
 	/**
@@ -54,12 +57,18 @@ public class GestionarUsuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public GestionarUsuarios() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 685, 409);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 		
 		JScrollPane spUsuarios = new JScrollPane();
 		spUsuarios.setBounds(10, 119, 646, 206);
@@ -91,7 +100,7 @@ public class GestionarUsuarios extends JFrame {
 		btnAgregarUsuario.setBounds(10, 336, 154, 23);
 		contentPane.add(btnAgregarUsuario);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(502, 336, 154, 23);
 		contentPane.add(btnCancelar);

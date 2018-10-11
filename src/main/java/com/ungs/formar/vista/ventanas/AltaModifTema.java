@@ -7,13 +7,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 
 public class AltaModifTema extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNombre;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -42,6 +47,13 @@ public class AltaModifTema extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 		
 		JLabel lblNombre = new JLabel("NOMBRE TEMA:");
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -59,7 +71,7 @@ public class AltaModifTema extends JFrame {
 		btnGuardar.setBounds(10, 68, 98, 23);
 		contentPane.add(btnGuardar);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(301, 68, 98, 23);
 		contentPane.add(btnCancelar);

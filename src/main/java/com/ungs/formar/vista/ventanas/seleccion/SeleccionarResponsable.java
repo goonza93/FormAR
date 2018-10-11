@@ -18,6 +18,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -32,17 +34,23 @@ public class SeleccionarResponsable extends JFrame {
 	private  String[] nombreColumnas = {"Nombre", "Apellido", "DNI"};
 	private JTable tablaAdministrativos;
 	private JTextField txtFiltro;
-	JButton btnCancelar;
-	JButton btnSeleccionar;
+	private JButton btnCancelar;
+	private JButton btnSeleccionar;
 	
 	public SeleccionarResponsable() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 518, 354);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Seleccion de responsable");
+		setLocationRelativeTo(null);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 		
 		JScrollPane spAdministrativos = new JScrollPane();
 		spAdministrativos.setBounds(10, 64, 482, 206);

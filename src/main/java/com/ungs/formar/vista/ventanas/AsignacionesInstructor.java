@@ -16,6 +16,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -36,6 +38,7 @@ public class AsignacionesInstructor extends JFrame {
 	private  String[] nombreColumnas = {"Curso", "Dia", "Hora Inicio", "Hora Fin"};
 	private JTextField txtFiltro;
 	private JTable tablaInstructores;
+	private JButton btnCancelar;
 
 	
 	/**
@@ -58,12 +61,12 @@ public class AsignacionesInstructor extends JFrame {
 	 * Create the frame.
 	 */
 	public AsignacionesInstructor() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 518, 511);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JScrollPane spInstructores = new JScrollPane();
 		spInstructores.setBounds(10, 198, 482, 231);
@@ -162,10 +165,17 @@ public class AsignacionesInstructor extends JFrame {
 		lblAsignacionesActuales.setBounds(10, 173, 482, 14);
 		contentPane.add(lblAsignacionesActuales);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(138, 440, 199, 23);
 		contentPane.add(btnCancelar);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 		
 		modelInstructores = new DefaultTableModel(null,nombreColumnas);
 	}

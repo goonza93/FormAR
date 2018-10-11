@@ -18,6 +18,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JComboBox;
@@ -32,6 +34,7 @@ public class ConsultarInteresTema extends JFrame {
 	private  String[] nombreColumnas = {"Nombre"};
 	private JTable tablaTemas;
 	private JTextField txtFiltro;
+	private JButton btnCancelar;
 
 	
 	/**
@@ -54,12 +57,12 @@ public class ConsultarInteresTema extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultarInteresTema() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 371, 381);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JScrollPane spTemas = new JScrollPane();
 		spTemas.setBounds(10, 95, 332, 206);
@@ -82,11 +85,7 @@ public class ConsultarInteresTema extends JFrame {
 		btnConsultarInteres.setBounds(10, 312, 161, 23);
 		contentPane.add(btnConsultarInteres);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(181, 312, 161, 23);
 		contentPane.add(btnCancelar);
@@ -136,6 +135,15 @@ public class ConsultarInteresTema extends JFrame {
 		label_2.setFont(new Font("Arial", Font.PLAIN, 12));
 		label_2.setBounds(10, 70, 319, 14);
 		contentPane.add(label_2);
+		
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
+		
 	}
 
 }

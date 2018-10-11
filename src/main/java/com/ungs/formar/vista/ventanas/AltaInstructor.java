@@ -13,6 +13,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -45,13 +47,13 @@ public class AltaInstructor extends JFrame {
 	public AltaInstructor(ControladorGestionarInstructores controlador) {
 		this.controlador = controlador;
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 391, 262);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Ingreso de instructor");
+		setLocationRelativeTo(null);
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -130,6 +132,14 @@ public class AltaInstructor extends JFrame {
 		dateFechaIngreso = new JDateChooser();
 		dateFechaIngreso.setBounds(151, 154, 205, 20);
 		contentPane.add(dateFechaIngreso);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
+		
 	}
 
 	public void mostrar() {

@@ -6,11 +6,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
+
 import javax.swing.JButton;
+
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
+
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
@@ -29,13 +35,13 @@ public class CrearCurso extends JFrame {
 	private JButton btnCrearCurso, btnCancelar, btnAgregarHorario, btnBorrarHorario, btnSelInstructor, btnSelPrograma, btnSelResponsable;
 	
 	public CrearCurso() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 504, 624);
 		panelprincipal = new JPanel();
 		panelprincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelprincipal);
 		panelprincipal.setLayout(null);
 		setTitle("Ingreso/edicion de curso");
+		setLocationRelativeTo(null);
 		
 		JLabel lblCupoMinimo = new JLabel("CUPO MINIMO:");
 		lblCupoMinimo.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -190,6 +196,15 @@ public class CrearCurso extends JFrame {
 		btnBorrarHorario.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBorrarHorario.setBounds(343, 355, 129, 23);
 		panelprincipal.add(btnBorrarHorario);
+		
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
+		
 	}
 	
 

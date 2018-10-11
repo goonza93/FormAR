@@ -14,6 +14,8 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -32,12 +34,12 @@ public class SeleccionarDiaHorario extends JFrame {
 	private JTextField txtFiltro;
 
 	public SeleccionarDiaHorario() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 518, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
 		JScrollPane spDiasHorarios = new JScrollPane();
 		spDiasHorarios.setBounds(10, 68, 482, 206);
@@ -104,6 +106,13 @@ public class SeleccionarDiaHorario extends JFrame {
 				// TODO Auto-generated method stub
 			}
         });
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 	}
 
 	public JButton getBtnAgregar() {

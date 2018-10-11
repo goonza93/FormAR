@@ -2,6 +2,7 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -12,7 +13,9 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -34,9 +37,9 @@ public class GestionarInstructores {
 	public GestionarInstructores() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 740, 369);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Gestion de instructores");
+		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 724, 330);
@@ -104,6 +107,13 @@ public class GestionarInstructores {
 				// TODO Auto-generated method stub
 			}
         });
+		
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 		
 	}
 	

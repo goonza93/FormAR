@@ -10,8 +10,11 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 public class ConsultarAsignacionesInstructor extends JFrame {
@@ -20,6 +23,7 @@ public class ConsultarAsignacionesInstructor extends JFrame {
 	private DefaultTableModel modelTemas;
 	private  String[] nombreColumnas = {"Nombre", "Apellido", "Legajo"};
 	private JTable tablaTemas;
+	private JButton btnCancelar;
 
 	
 	/**
@@ -42,12 +46,12 @@ public class ConsultarAsignacionesInstructor extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultarAsignacionesInstructor() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 518, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JScrollPane spInstructores = new JScrollPane();
 		spInstructores.setBounds(10, 10, 482, 206);
@@ -67,10 +71,18 @@ public class ConsultarAsignacionesInstructor extends JFrame {
 		btnConsultarAsignacion.setBounds(10, 227, 199, 23);
 		contentPane.add(btnConsultarAsignacion);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(293, 228, 199, 23);
 		contentPane.add(btnCancelar);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
+		
 	}
 
 }

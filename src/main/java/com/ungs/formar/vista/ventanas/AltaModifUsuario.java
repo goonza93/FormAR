@@ -9,7 +9,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
@@ -19,6 +23,7 @@ public class AltaModifUsuario extends JFrame {
 	private JTextField txtNombreUsuario;
 	private JPasswordField txtContraseña;
 	private JPasswordField txtRepetirContraseña;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -40,12 +45,18 @@ public class AltaModifUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public AltaModifUsuario() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 458, 258);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 		
 		JLabel lblTipoDeUsuario = new JLabel("TIPO DE USUARIO:");
 		lblTipoDeUsuario.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -103,7 +114,7 @@ public class AltaModifUsuario extends JFrame {
 		btnAgregar.setBounds(10, 185, 101, 23);
 		contentPane.add(btnAgregar);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(331, 185, 101, 23);
 		contentPane.add(btnCancelar);

@@ -13,6 +13,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -41,13 +43,13 @@ public class AltaAlumno extends JFrame {
 	public AltaAlumno(ControladorGestionarAlumnos controlador) {
 		this.controlador = controlador;
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 391, 262);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Ingreso de alumno");
+		setLocationRelativeTo(null);
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -117,6 +119,14 @@ public class AltaAlumno extends JFrame {
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(151, 123, 205, 20);
 		contentPane.add(txtTelefono);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
+		
 	}
 
 	public void mostrar(){

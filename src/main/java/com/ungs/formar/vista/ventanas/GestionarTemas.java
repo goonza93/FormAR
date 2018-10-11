@@ -18,6 +18,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JComboBox;
@@ -32,6 +34,7 @@ public class GestionarTemas extends JFrame {
 	private  String[] nombreColumnas = {"Nombre"};
 	private JTable tablaTemas;
 	private JTextField txtFiltro;
+	private JButton btnCancelar;
 
 	
 	/**
@@ -60,6 +63,7 @@ public class GestionarTemas extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JScrollPane spTemas = new JScrollPane();
 		spTemas.setBounds(10, 95, 530, 205);
@@ -92,7 +96,7 @@ public class GestionarTemas extends JFrame {
 		btnAgregarTema.setBounds(10, 311, 125, 23);
 		contentPane.add(btnAgregarTema);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBounds(415, 311, 125, 23);
 		contentPane.add(btnCancelar);
@@ -142,6 +146,13 @@ public class GestionarTemas extends JFrame {
 		lblTemas.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblTemas.setBounds(10, 70, 530, 14);
 		contentPane.add(lblTemas);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 	}
 
 }
