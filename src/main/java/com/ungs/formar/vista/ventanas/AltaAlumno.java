@@ -48,6 +48,7 @@ public class AltaAlumno extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Ingreso de alumno");
+		setLocationRelativeTo(null);	
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));

@@ -60,7 +60,7 @@ public class GestionarAlumnos {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setTitle("Gestion de alumnos");
 		frame.setLocationRelativeTo(null);
-
+		
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
 
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelAlumnos);
@@ -317,5 +317,9 @@ public class GestionarAlumnos {
 
 	public JTable getTablaAlumnos() {
 		return tablaAlumnos;
+	}
+	
+	public JFrame getFrame() {
+		return this.frame;
 	}
 }
