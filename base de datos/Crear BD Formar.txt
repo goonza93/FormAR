@@ -155,3 +155,35 @@ CREATE TABLE for_horarios_cursada (
     sala INT(4) NOT NULL, -- FK SALAS
 	PRIMARY KEY (horario_ID)
 );
+
+-- ESQUEMA USUARIOS
+CREATE TABLE for_usuarios (
+	usuario_ID INT(4) AUTO_INCREMENT,
+	usuario VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL,
+    empleado INT(4) NOT NULL, -- FK EMPLEADOS
+	PRIMARY KEY (usuario_ID)
+);
+
+-- INSERT DE DATOS PREDEFINIDOS
+
+-- INSERTAR DIAS DE LA SEMANA
+INSERT INTO for_dias (descripcion) VALUES ("Domingo");
+INSERT INTO for_dias (descripcion) VALUES ("Lunes");
+INSERT INTO for_dias (descripcion) VALUES ("Martes");
+INSERT INTO for_dias (descripcion) VALUES ("Miércoles");
+INSERT INTO for_dias (descripcion) VALUES ("Jueves");
+INSERT INTO for_dias (descripcion) VALUES ("Viernes");
+INSERT INTO for_dias (descripcion) VALUES ("Sábado");
+
+-- INSERTAR ESTADOS DE CURSO
+INSERT INTO for_estados_curso (descripcion) VALUES ("Creado");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Abierto");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Cursando");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Cerrado");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Cancelado");
+
+-- INSERTAR ROLES DE EMPLEADO
+INSERT INTO for_roles_empleado (descripcion) VALUES ('ADMINISTRATIVO');
+INSERT INTO for_roles_empleado (descripcion) VALUES ('INSTRUCTOR');
+INSERT INTO for_roles_empleado (descripcion) VALUES ('SUPERVISOR');
