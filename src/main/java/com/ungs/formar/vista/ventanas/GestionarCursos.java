@@ -26,6 +26,9 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class GestionarCursos {
 	private JFrame frame;
@@ -45,87 +48,103 @@ public class GestionarCursos {
 	public GestionarCursos() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1375, 497);
-		frame.getContentPane().setLayout(null);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setTitle("Gestion de cursos");
 		frame.setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1359, 458);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-
-		btnAgregar = new JButton("AGREGAR");
-		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregar.setBounds(10, 424, 120, 23);
-		panel.add(btnAgregar);
-
-		btnEditar = new JButton("EDITAR");
-		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEditar.setBounds(140, 424, 120, 23);
-		panel.add(btnEditar);
-
-		btnBorrar = new JButton("BORRAR");
-		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnBorrar.setBounds(270, 424, 120, 23);
-		panel.add(btnBorrar);
-
-		spCursos = new JScrollPane();
-		spCursos.setBounds(10, 79, 1339, 334);
-		panel.add(spCursos);
-
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
-		tablaCursos = new JTable(modelCursos);
-		tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
-		spCursos.setViewportView(tablaCursos);
-		tablaCursos.setDefaultEditor(Object.class, null);
-		tablaCursos.getTableHeader().setReorderingAllowed(false);
 
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
-		tablaCursos.setRowSorter(sorter);
-		
-		
-		tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(3).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(4).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(5).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
-		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(150);
-		tablaCursos.setRowHeight(75);
-		//tablaCursos.setAlignmentY(SwingConstants.CENTER);
-		//tablaCursos.setAlignmentX(SwingConstants.CENTER);
-		/*
-		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-		tcr.setHorizontalAlignment(SwingConstants.CENTER);
-		tcr.setVerticalAlignment(SwingConstants.CENTER);
-		for(int i = 0; i< tablaCursos.getColumnCount(); i++){
-			tablaCursos.getColumnModel().getColumn(i).setCellRenderer(tcr);
-		}
-		*/
 		lblFiltrar = new JLabel("FILTRAR:");
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltrar.setBounds(10, 14, 106, 14);
-		panel.add(lblFiltrar);
-
-		txtFiltro = new JTextField();
-		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFiltro.setColumns(10);
-		txtFiltro.setBounds(126, 11, 310, 20);
-		panel.add(txtFiltro);
-
-		lblCursos = new JLabel("CURSOS:");
-		lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblCursos.setBounds(10, 46, 1339, 14);
-		panel.add(lblCursos);
-
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(400, 424, 120, 23);
-		panel.add(btnCancelar);
+		
+				txtFiltro = new JTextField();
+				txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+				txtFiltro.setColumns(10);
+				
+						btnAgregar = new JButton("AGREGAR");
+						btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
+						
+								btnEditar = new JButton("EDITAR");
+								btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+								
+										btnBorrar = new JButton("BORRAR");
+										btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
+										
+												btnCancelar = new JButton("CANCELAR");
+												btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
+												
+														lblCursos = new JLabel("CURSOS:");
+														lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
+														lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+														
+																spCursos = new JScrollPane();
+																tablaCursos = new JTable(modelCursos);
+																tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+																spCursos.setViewportView(tablaCursos);
+																tablaCursos.setDefaultEditor(Object.class, null);
+																tablaCursos.getTableHeader().setReorderingAllowed(false);
+																tablaCursos.setRowSorter(sorter);
+																
+																
+																tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(3).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(4).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(5).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
+																tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(150);
+																tablaCursos.setRowHeight(75);
+																GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+																groupLayout.setHorizontalGroup(
+																	groupLayout.createParallelGroup(Alignment.LEADING)
+																		.addGroup(groupLayout.createSequentialGroup()
+																			.addContainerGap()
+																			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																				.addGroup(groupLayout.createSequentialGroup()
+																					.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+																					.addGap(18)
+																					.addComponent(txtFiltro, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+																					.addGap(936))
+																				.addGroup(groupLayout.createSequentialGroup()
+																					.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+																					.addPreferredGap(ComponentPlacement.RELATED)
+																					.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+																					.addPreferredGap(ComponentPlacement.RELATED)
+																					.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+																					.addGap(847)
+																					.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+																					.addContainerGap())
+																				.addGroup(groupLayout.createSequentialGroup()
+																					.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE)
+																					.addGap(21))
+																				.addGroup(groupLayout.createSequentialGroup()
+																					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
+																					.addGap(10))))
+																);
+																groupLayout.setVerticalGroup(
+																	groupLayout.createParallelGroup(Alignment.LEADING)
+																		.addGroup(groupLayout.createSequentialGroup()
+																			.addGap(11)
+																			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																				.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+																				.addComponent(txtFiltro, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+																			.addPreferredGap(ComponentPlacement.UNRELATED)
+																			.addComponent(lblCursos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+																			.addGap(12)
+																			.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+																			.addPreferredGap(ComponentPlacement.RELATED)
+																			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																				.addComponent(btnAgregar)
+																				.addComponent(btnEditar)
+																				.addComponent(btnBorrar)
+																				.addComponent(btnCancelar))
+																			.addGap(7))
+																);
+																frame.getContentPane().setLayout(groupLayout);
 
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
