@@ -147,10 +147,14 @@ public class ControladorGestionarAlumnos implements ActionListener {
 		if (!mEmail.matches() || this.ventanaAltaAlumno.getTxtEmail().getText().isEmpty()) {
 			errores += " - Por favor, ingrese un email valido\n";
 		}
+		if(AlumnoManager.existePorDNI(this.ventanaAltaAlumno.getTxtDni().getText())){
+			errores += " - Por favor, ingrese un dni nuevo. El dni ingresado ya existe\n";
+		}
 		if (errores.length() != 1) {
 			JOptionPane.showMessageDialog(null, errores);
 			return false;
 		}
+		
 		return true;
 	}
 	

@@ -11,5 +11,6 @@ public interface AlumnoODB {
 	public List<Alumno> select();
 	public Alumno selectByNombre(String nombre);
 	public Alumno selectByID(Integer id);
+	public boolean selectByDNI(String dni);
 	
 }

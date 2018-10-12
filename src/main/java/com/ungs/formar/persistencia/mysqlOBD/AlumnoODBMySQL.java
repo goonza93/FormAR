@@ -96,5 +96,13 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 		return alumnos;
 	}
 
+	public boolean selectByDNI(String dni) {
+		String condicion = "dni = '"+dni+"'";
+		List<Alumno> alumnos = selectByCondicion(condicion);
+		if (alumnos.size()>0)
+			return true;
+		
+		return false;
+	}
 	
 }
