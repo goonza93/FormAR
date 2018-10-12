@@ -12,9 +12,15 @@ import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 public class CursoODBTest {
 
 	public static void insertTest(Curso curso) {
-		System.out.println("___ Insert test: Curso ID:"+curso.getCursoID());
+		System.out.println("___ Insert test");
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
+	}
+
+	public static void selectIDMasRecienteTest() {
+		System.out.println("___ Select ID mas reciente test");
+		CursoODB odb = FactoryODB.crearCursoODB();
+		System.out.println(odb.selectIDMasReciente());
 	}
 
 	public static void selectTest() {
@@ -27,23 +33,13 @@ public class CursoODBTest {
 	}
 	
 	public static void main(String[] args) throws ParseException {
-		
 		DateFormat formato = new SimpleDateFormat("MM-dd-yyyy");
 		Date sqlDate = new Date(formato.parse("02-04-2015").getTime());
+		Curso curso = new Curso(-1, 10, 50, 15, "AAAAA","", sqlDate, sqlDate, 1, 1, 1, 1);
 		
-		Curso curso = new Curso(-1, 10, 50, 15, "AAAAA", sqlDate, sqlDate, 1, 1, 1, 1);
-		
-		
-		
-		System.out.println("insertando un curso");
-		CursoODB odb = FactoryODB.crearCursoODB();
-		odb.insert(curso);
-		System.out.println("fin del insert");
-		Integer cursoID = odb.selectIDMasReciente();
-		System.out.println("fin de tra id");
-		
-		//insertTest(curso);
+		insertTest(curso);
 		selectTest();
+		selectIDMasRecienteTest();
 	}
 
 }

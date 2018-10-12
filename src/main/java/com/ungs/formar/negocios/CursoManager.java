@@ -26,7 +26,7 @@ public class CursoManager {
 			Date fechaInicio, Date fechaFin) {
 		
 		// INSERTO EL CURSO EN LA BD
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, contenido, fechaInicio, fechaFin,
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, contenido, "CH",fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 		
 		System.out.println("insertando un curso");
@@ -50,7 +50,7 @@ public class CursoManager {
 			Date fechaInicio, Date fechaFin) {
 		System.out.println("Entrada a manager");
 		// Actualizao el curso
-		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, horas, contenido, fechaInicio, fechaFin,
+		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, horas, contenido, "CH",fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 		
 		CursoODB odb = FactoryODB.crearCursoODB();

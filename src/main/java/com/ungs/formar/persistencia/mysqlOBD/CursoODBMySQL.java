@@ -6,37 +6,72 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
+	private final String campos = "cupo_minimo, cupo_maximo, comision, fecha_inicio, fecha_fin, contenido, horas, instructor, responsable, programa, estado";
 	private final String tabla = "for_cursos";
+	private final String ID = "curso_ID";
 	
 	public void insert (Curso curso) {
-		String campos = "cupo_minimo, cupo_maximo, fecha_inicio, fecha_fin, contenido, horas, instructor, responsable, programa, estado";
-		
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
 		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
+		String contenido = curso.getContenido() == null ? null : "'"+curso.getContenido()+"'"; 
+		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
 		
-		String valores = curso.getCupoMinimo()+", "+curso.getCupoMaximo()+", ";
-		valores += fInicio+", "+fFin+", '"+curso.getContenido()+"', ";
-		valores += curso.getHoras() +", "+curso.getInstructor()+", "+curso.getResponsable()+", "+curso.getPrograma()+", "+curso.getEstado();
+		String valores = curso.getCupoMinimo()
+				+", "+ curso.getCupoMaximo()
+				+", "+ comision
+				+", "+ fInicio
+				+", "+ fFin
+				+", "+ contenido
+				+", "+ curso.getHoras()
+				+", "+ curso.getInstructor()
+				+", "+ curso.getResponsable()
+				+", "+ curso.getPrograma()
+				+", "+ curso.getEstado();
 		
 		String consulta = "insert into "+tabla+" ("+campos+") values ("+valores+");";
-		System.out.println(consulta);
 		ejecutarSQL(consulta);
 	}
 
+	public void delete(Curso curso) {
+		String condicion = ID + "=" + curso.getCursoID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+
+	public void update(Curso curso) {
+		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
+		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
+		String contenido = curso.getContenido() == null ? null : "'"+curso.getContenido()+"'"; 
+		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
+		String condicion = ID+" = "+curso.getCursoID();
+		
+		String consulta = "update "+ tabla
+				+" set cupo_minimo = "+curso.getCupoMinimo()
+				+ ", cupo_maximo = "+curso.getCupoMaximo()
+				+ ", comision = "+comision
+				+ ", fecha_inicio = "+fInicio
+				+ ", fecha_fin = "+fFin
+				+ ", contenido = "+contenido
+				+ ", horas = "+curso.getHoras()
+				+ ", instructor = "+curso.getInstructor()
+				+ ", responsable = "+curso.getResponsable()
+				+ ", programa = "+curso.getPrograma()
+				+ ", estado = "+curso.getEstado()
+				+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+		
 	public List<Curso> select() {
-		String condicion = "1=1";
-		List<Curso> cursos = selectByCondicion(condicion);
-		return cursos;
+		return selectByCondicion("1=1");
 	}
 	
-	public Curso selectByID(Integer id){
-		String condicion = "curso_ID = '"+id+"'";
+	public Curso selectByID(Integer ID){
+		String condicion = this.ID+" = "+ID;
 		List<Curso> cursos = selectByCondicion(condicion);
 		Curso curso = null;
 		if (cursos.size()>0)
@@ -47,8 +82,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 
 	private List<Curso> selectByCondicion(String condicion) {
 		List<Curso> cursos = new ArrayList<Curso>();
-		String campos = "curso_ID, cupo_minimo, cupo_maximo, fecha_inicio, fecha_fin, contenido, horas, instructor, responsable, programa, estado";
-		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";
+		String comandoSQL = "select "+ID + ", "+campos+" from "+tabla+" where ("+condicion+");";
 				
 		try { 
 			Class.forName(driver); 
@@ -63,6 +97,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 						resultados.getInt("cupo_maximo"),
 						resultados.getInt("horas"),
 						resultados.getString("contenido"),
+						resultados.getString("comision"),
 						resultados.getDate("fecha_inicio"),
 						resultados.getDate("fecha_fin"),
 						resultados.getInt("instructor"),
@@ -85,52 +120,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	}
 
 	public Integer selectIDMasReciente() {
-		String sql = "select curso_id from for_cursos order by curso_id desc limit 1;";
-		Integer ret = null;
-		try { 
-			Class.forName(driver); 
-			Connection conexion = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD); 
-			Statement sentencia = conexion.createStatement ();
-			ResultSet resultados = sentencia.executeQuery(sql);			
-	
-			if (resultados.next())
-				ret = resultados.getInt("curso_id");
-				
-			resultados.close();
-			sentencia.close();
-			conexion.close();
-			
-		}catch(Exception e) {
-			System.out.println(sql);
-			e.printStackTrace();
-		}
-			
-		return ret;
+		return selectLastID(ID, tabla);
 	}
 
-	public void delete(Curso curso) {
-		String condicion = "curso_ID = "+curso.getCursoID();
-		String consulta = "delete from "+tabla+" where ("+condicion+");";
-		ejecutarSQL(consulta);
-	}
-
-	public void update(Curso curso) {
-		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
-		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
-		
-		String consulta = "update "+tabla;
-		consulta += " set cupo_minimo = "+curso.getCupoMinimo();
-		consulta += ", cupo_maximo = "+curso.getCupoMaximo();
-		consulta += ", fecha_inicio = "+fInicio;
-		consulta += ", fecha_fin = "+fFin;
-		consulta += ", contenido = '"+curso.getContenido()+"'";
-		consulta += ", horas = "+curso.getHoras();
-		consulta += ", instructor = "+curso.getInstructor();
-		consulta += ", responsable = "+curso.getResponsable();
-		consulta += ", programa = "+curso.getPrograma();
-		consulta += ", estado = "+curso.getEstado();
-		consulta += " where curso_ID = "+curso.getCursoID()+";";
-		ejecutarSQL(consulta);
-	}
-		
 }

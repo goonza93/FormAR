@@ -28,7 +28,7 @@ public class ODB {
 	}
 	
 	public Integer selectLastID(String ID, String tabla) {
-		String sql = "select "+ID+" from "+tabla+" order by "+tabla+" desc limit 1";
+		String sql = "select "+ID+" from "+tabla+" order by "+ID+" desc limit 1";
 		Integer ret = null;
 		try { 
 			Class.forName(driver); 
