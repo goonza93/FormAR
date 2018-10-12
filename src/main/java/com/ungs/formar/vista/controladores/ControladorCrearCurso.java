@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
@@ -258,7 +259,7 @@ public class ControladorCrearCurso implements ActionListener {
 		boolean ret = false;
 		List<HorarioCursada> testear = new ArrayList<HorarioCursada>(horarios);
 		testear.add(hc);
-		if(DiaManager.horariosCompatiblesEntreSi(testear)){
+		if(Almanaque.horariosCompatiblesEntreSi(testear)){
 			horarios.add(hc);
 			llenarTablaHorarios();
 			ret = true;
