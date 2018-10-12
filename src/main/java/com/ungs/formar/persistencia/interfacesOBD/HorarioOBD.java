@@ -7,14 +7,14 @@ public interface HorarioOBD {
 	
 	public void insert(Horario horario);
 	
+	public void update(Horario horario);
+	
+	public void delete(Horario horario);
+	
 	public List<Horario> select();
 	
-	public void update(Horario horario);
-
 	public Horario selectByID(Integer ID);
 	
 	public Integer selectIDMasReciente();
-
-	public void delete(Horario horario);
 	
 }
