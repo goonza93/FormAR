@@ -1,4 +1,4 @@
-USE formar;
+﻿USE formar;
 
 -- INSERTAR SALAS
 INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("Aula Magna", 1015, 300);
@@ -14,14 +14,14 @@ INSERT INTO for_areas (nombre, descripcion) values ("Contabilidad", "Cursos sobr
 INSERT INTO for_areas (nombre, descripcion) values ("Decoración", "Cursos sobre decoracion de interiores y exteriores");
 
 -- INSERTAR PROGRAMAS
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (1, "Java I", '2016-05-15',"Introduccion al lenguaje java y estructuras basicas de datos ");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (1, "Python I", '2016-05-18',"Introduccion al lenguaje python y estructuras basicas de datos ");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (2, "Golf", '2016-11-20',"Reglas basicas de golf y tecnicas de golpeo");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (2, "Squash", '2018-09-21',"Reglas del squash, y practica para novatos");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (3, "Contabilidad I", '2016-11-20',"Introduccion a la contabilidad");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (3, "Contabilidad II", '2018-09-21',"Contabilidad avanzada");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (4, "Decoracion de Interiores", '2016-11-20',"Como decorar interiores");
-INSERT INTO for_programas (area, nombre, fecha_aprobacion, descripcion) values (4, "Decoracion de Exteriores", '2018-09-21',"Como decorar exteriores");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (1, "Java I", 10, '2016-05-15',"Introduccion al lenguaje java y estructuras basicas de datos ");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (1, "Python I", 20, '2016-05-18',"Introduccion al lenguaje python y estructuras basicas de datos ");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (2, "Golf", 30, '2016-11-20',"Reglas basicas de golf y tecnicas de golpeo");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (2, "Squash", 40, '2018-09-21',"Reglas del squash, y practica para novatos");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (3, "Contabilidad I", 50, '2016-11-20',"Introduccion a la contabilidad");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (3, "Contabilidad II", 60, '2018-09-21',"Contabilidad avanzada");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (4, "Decoracion de Interiores", 70, '2016-11-20',"Como decorar interiores");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (4, "Decoracion de Exteriores", 80, '2018-09-21',"Como decorar exteriores");
 
 -- INSERTAR EMPLEADOS
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )

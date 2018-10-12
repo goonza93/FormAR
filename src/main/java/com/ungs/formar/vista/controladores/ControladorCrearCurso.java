@@ -250,6 +250,8 @@ public class ControladorCrearCurso implements ActionListener {
 	public void setPrograma(Programa seleccion) {
 		programa = seleccion;
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
+		// Al elegir un programa se carga automaticamente su carga horaria
+		ventanaCrearCurso.getHoras().setText(seleccion.getHoras().toString());
 	}
 	
 	public boolean agregarHorarioDeCursada(HorarioCursada hc) {

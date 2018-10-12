@@ -71,6 +71,7 @@ CREATE TABLE for_programas (
 	nombre VARCHAR(50) NOT NULL,
 	fecha_aprobacion DATE DEFAULT NULL,
 	descripcion VARCHAR(500) NOT NULL,
+	horas INT(4) NOT NULL;
 	PRIMARY KEY (programa_ID)
 );
 

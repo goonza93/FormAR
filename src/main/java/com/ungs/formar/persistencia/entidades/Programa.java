@@ -3,13 +3,14 @@ package com.ungs.formar.persistencia.entidades;
 import java.sql.Date;
 
 public class Programa {
-	private Integer programaID, areaID;
+	private Integer programaID, areaID, horas;
 	private String nombre, descripcion;
 	private Date fechaAprobacion;
 	
-	public Programa(Integer programaID, Integer areaID, String nombre, String descripcion, Date fechaAprobacion) {
+	public Programa(Integer programaID, Integer areaID, Integer horas, String nombre, String descripcion, Date fechaAprobacion) {
 		this.programaID = programaID;
 		this.areaID = areaID;
+		this.horas = horas;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fechaAprobacion = fechaAprobacion;
@@ -53,6 +54,14 @@ public class Programa {
 
 	public void setFechaAprobacion(Date fechaAprobacion) {
 		this.fechaAprobacion = fechaAprobacion;
+	}
+
+	public Integer getHoras() {
+		return horas;
+	}
+
+	public void setHoras(Integer horas) {
+		this.horas = horas;
 	}
 	
 }
