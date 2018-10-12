@@ -17,4 +17,9 @@ public class AlumnoManager {
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		odb.insert(aInsertar);
 	}
+	
+	public static boolean existePorDNI(String dni){
+		AlumnoODB odb = FactoryODB.crearAlumnoODB();
+		return odb.selectByDNI(dni);
+	}
 }
