@@ -117,7 +117,7 @@ public class ControladorAgregarHorario implements ActionListener {
 		Integer horaInicio = Integer.decode(inHoraInicio.getText());
 		
 		JTextField inHoraFin = ventanaAgregarHorario.getTxtHorasFin();
-		Integer horaFin = Integer.decode(inHoraFin.getText());
+		Integer horaFin = Integer.parseInt(inHoraFin.getText());
 
 		Integer minutoInicio = Integer.decode(minI);
 

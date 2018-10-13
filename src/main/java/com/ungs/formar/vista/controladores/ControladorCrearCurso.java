@@ -153,11 +153,14 @@ public class ControladorCrearCurso implements ActionListener {
 			
 			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
 			Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
+			Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
 			
 			if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese un cupo maximo");
 			} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
 				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese una fecha de inicio");
+			} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
 			} 
 			else{
 				this.ventanaABMHorario = new ABMHorario();

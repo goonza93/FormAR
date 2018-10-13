@@ -36,8 +36,8 @@ public class GestionarCursos {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelCursos;
-	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio", "Fecha fin",
-			"Instructor", "Responsable", "Salas, Dias y Horarios" };
+	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
+			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JScrollPane spCursos;
 	private JTable tablaCursos;
 	private JLabel lblFiltrar;
@@ -55,96 +55,83 @@ public class GestionarCursos {
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
 
 		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modelCursos);
+
 		lblFiltrar = new JLabel("FILTRAR:");
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		
-				txtFiltro = new JTextField();
-				txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-				txtFiltro.setColumns(10);
-				
-						btnAgregar = new JButton("AGREGAR");
-						btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-						
-								btnEditar = new JButton("EDITAR");
-								btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
-								
-										btnBorrar = new JButton("BORRAR");
-										btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-										
-												btnCancelar = new JButton("CANCELAR");
-												btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-												
-														lblCursos = new JLabel("CURSOS:");
-														lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
-														lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
-														
-																spCursos = new JScrollPane();
-																tablaCursos = new JTable(modelCursos);
-																tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
-																spCursos.setViewportView(tablaCursos);
-																tablaCursos.setDefaultEditor(Object.class, null);
-																tablaCursos.getTableHeader().setReorderingAllowed(false);
-																tablaCursos.setRowSorter(sorter);
-																
-																
-																tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(3).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(4).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(5).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
-																tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(150);
-																tablaCursos.setRowHeight(75);
-																GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-																groupLayout.setHorizontalGroup(
-																	groupLayout.createParallelGroup(Alignment.LEADING)
-																		.addGroup(groupLayout.createSequentialGroup()
-																			.addContainerGap()
-																			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																				.addGroup(groupLayout.createSequentialGroup()
-																					.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-																					.addGap(18)
-																					.addComponent(txtFiltro, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-																					.addGap(936))
-																				.addGroup(groupLayout.createSequentialGroup()
-																					.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-																					.addPreferredGap(ComponentPlacement.RELATED)
-																					.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-																					.addPreferredGap(ComponentPlacement.RELATED)
-																					.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-																					.addGap(847)
-																					.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-																					.addContainerGap())
-																				.addGroup(groupLayout.createSequentialGroup()
-																					.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE)
-																					.addGap(21))
-																				.addGroup(groupLayout.createSequentialGroup()
-																					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
-																					.addGap(10))))
-																);
-																groupLayout.setVerticalGroup(
-																	groupLayout.createParallelGroup(Alignment.LEADING)
-																		.addGroup(groupLayout.createSequentialGroup()
-																			.addGap(11)
-																			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																				.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(txtFiltro, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-																			.addPreferredGap(ComponentPlacement.UNRELATED)
-																			.addComponent(lblCursos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-																			.addGap(12)
-																			.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-																			.addPreferredGap(ComponentPlacement.RELATED)
-																			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-																				.addComponent(btnAgregar)
-																				.addComponent(btnEditar)
-																				.addComponent(btnBorrar)
-																				.addComponent(btnCancelar))
-																			.addGap(7))
-																);
-																frame.getContentPane().setLayout(groupLayout);
+
+		txtFiltro = new JTextField();
+		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFiltro.setColumns(10);
+
+		btnAgregar = new JButton("AGREGAR");
+		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnBorrar = new JButton("BORRAR");
+		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		lblCursos = new JLabel("CURSOS:");
+		lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		spCursos = new JScrollPane();
+		tablaCursos = new JTable(modelCursos);
+		tablaCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+		spCursos.setViewportView(tablaCursos);
+		tablaCursos.setDefaultEditor(Object.class, null);
+		tablaCursos.getTableHeader().setReorderingAllowed(false);
+		tablaCursos.setRowSorter(sorter);
+
+		tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(3).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(4).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(5).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(6).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
+		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(200);
+		tablaCursos.setRowHeight(75);
+
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup().addContainerGap()
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE).addGap(18)
+								.addComponent(txtFiltro, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE).addGap(936))
+						.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE).addGap(847)
+								.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+								.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE).addGap(21))
+						.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE).addGap(10)))));
+		groupLayout
+				.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+						.createSequentialGroup()
+						.addGap(11).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtFiltro, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(lblCursos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE).addGap(12)
+						.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(btnAgregar)
+								.addComponent(btnEditar).addComponent(btnBorrar).addComponent(btnCancelar))
+						.addGap(7)));
+		frame.getContentPane().setLayout(groupLayout);
 
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
@@ -167,15 +154,14 @@ public class GestionarCursos {
 				// TODO Auto-generated method stub
 			}
 		});
-		
-		
+
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				btnCancelar.doClick();
 			}
 		});
-		
+
 	}
 
 	public void mostrar() {
