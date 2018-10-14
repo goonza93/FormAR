@@ -23,6 +23,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		this.ventanaAlumnoABM.getCancelar().addActionListener(this);
 		this.ventanaAlumnoABM.getAgregar().addActionListener(this);
 		this.ventanaAlumnoABM.getEditar().addActionListener(this);
+		this.ventanaAlumnoABM.getBorrar().addActionListener(this);
 		this.ventanaAlumnoABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -61,7 +62,7 @@ public class ControladorAlumnoABM implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaAlumnoABM.getAgregar())
-			abrirAlumnoAM();
+			abrirAlumnoAlta();
 		
 		// BOTON CANCELAR DEL ABM
 		else if (e.getSource() == ventanaAlumnoABM.getCancelar())
@@ -69,7 +70,11 @@ public class ControladorAlumnoABM implements ActionListener {
 		
 		// BOTON EDITAR DEL ABM
 		else if (e.getSource() == ventanaAlumnoABM.getEditar())
-			abrirAlumnoAMEditar();
+			abrirAlumnoModificacion();
+		
+		// BOTON BORRAR DEL ABM
+		else if (e.getSource() == ventanaAlumnoABM.getBorrar())
+			borrarAlumno();
 		
 		else if (ventanaAlumnoAM != null) {
 			// BOTON ACEPTAR DEL AM
@@ -82,16 +87,14 @@ public class ControladorAlumnoABM implements ActionListener {
 		}
 	}
 	
-	private void abrirAlumnoAMEditar() {
-		int registroTabla = ventanaAlumnoABM.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
-		
-		// No habia ningun registro seleccionado
-		if (registroTabla == -1)
-			return;
-			
-		int registro = ventanaAlumnoABM.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
-		Alumno alumno = alumnos.get(registro);
-		
+	private void borrarAlumno() {
+		Alumno alumno = obtenerAlumnoSeleccionado();
+		AlumnoManager.eliminarAlumno(alumno);
+		llenarTabla();
+	}
+
+	private void abrirAlumnoModificacion() {
+		Alumno alumno = obtenerAlumnoSeleccionado();
 		ventanaAlumnoAM = new VentanaAlumnoAM(alumno);
 		ventanaAlumnoAM.getAceptar().addActionListener(this);
 		ventanaAlumnoAM.getCancelar().addActionListener(this);
@@ -106,7 +109,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		ventanaAlumnoABM.getVentana().setEnabled(false);
 	}
 
-	private void abrirAlumnoAM() {
+	private void abrirAlumnoAlta() {
 		ventanaAlumnoAM = new VentanaAlumnoAM();
 		ventanaAlumnoAM.getAceptar().addActionListener(this);
 		ventanaAlumnoAM.getCancelar().addActionListener(this);
@@ -220,6 +223,17 @@ public class ControladorAlumnoABM implements ActionListener {
 			JOptionPane.showMessageDialog(null, mensaje);
 			
 		return isOk;
+	}
+
+	private Alumno obtenerAlumnoSeleccionado() {
+		int registroTabla = ventanaAlumnoABM.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
+		
+		// No habia ningun registro seleccionado
+		if (registroTabla == -1)
+			return null;
+		
+		int registro = ventanaAlumnoABM.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+		return alumnos.get(registro);
 	}
 	
 }

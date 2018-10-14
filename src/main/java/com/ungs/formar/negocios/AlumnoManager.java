@@ -18,6 +18,11 @@ public class AlumnoManager {
 		odb.update(alumno);
 	}
 	
+	public static void eliminarAlumno(Alumno alumno) {
+		AlumnoODB odb = FactoryODB.crearAlumnoODB();
+		odb.delete(alumno);
+	}
+	
 	public static List<Alumno> traerAlumnos() {
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		return odb.select();

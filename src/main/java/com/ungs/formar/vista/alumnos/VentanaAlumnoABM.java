@@ -284,6 +284,10 @@ public class VentanaAlumnoABM {
 		return btnEditar;
 	}
 
+	public JButton getBorrar() {
+		return btnBorrar;
+	}
+
 	public DefaultTableModel getModeloAlumnos() {
 		return modeloAlumnos;
 	}
