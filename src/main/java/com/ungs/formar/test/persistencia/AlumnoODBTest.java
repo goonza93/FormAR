@@ -8,7 +8,7 @@ import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 
 public class AlumnoODBTest {
 	static AlumnoODB odb = FactoryODB.crearAlumnoODB();
-	static Alumno test = new Alumno(-1, 37905622, "gonzalo", "bruckmann", "1531769550", "goonza.93@live.com.ar");
+	static Alumno test = new Alumno(-1, "37905622", "gonzalo", "bruckmann", "1531769550", "goonza.93@live.com.ar");
 	
 	public static void main(String[] args) {
 		//testInsert();
