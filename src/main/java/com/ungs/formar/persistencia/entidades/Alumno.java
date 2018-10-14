@@ -1,14 +1,14 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Alumno {
-	private int clienteID;
-	private int dni;
+	private Integer clienteID;
+	private String dni;
 	private String nombre;
 	private String apellido;
 	private String telefono;
 	private String email;
 	
-	public Alumno(int clienteID, int dni, String nombre, String apellido, String telefono, String email){
+	public Alumno(int clienteID, String dni, String nombre, String apellido, String telefono, String email){
 		this.clienteID = clienteID;
 		this.dni = dni;
 		this.nombre = nombre;
@@ -25,11 +25,11 @@ public class Alumno {
 		this.clienteID = clienteID;
 	}
 
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 

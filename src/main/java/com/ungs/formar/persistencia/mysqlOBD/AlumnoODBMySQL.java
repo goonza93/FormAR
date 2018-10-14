@@ -76,7 +76,7 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 			while (resultados.next()) {
 				alumnos.add(new Alumno(
 						resultados.getInt("cliente_ID"),
-						resultados.getInt("dni"),
+						resultados.getString("dni"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),
