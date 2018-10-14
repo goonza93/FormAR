@@ -102,7 +102,7 @@ public class ControladorGestionarInstructores implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre valido");
 			} else if (!mApellido.matches() || this.ventanaAltaInstructor.getTxtApellido().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un apellido valido");
-			} else if (!mTelefono.matches() || this.ventanaAltaInstructor.getTxtTelefono().getText().isEmpty()) {
+			} else if (!mTelefono.matches()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un telefono valido");
 			} else if (!mEmail.matches() || this.ventanaAltaInstructor.getTxtEmail().getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Por favor, ingrese un email valido");

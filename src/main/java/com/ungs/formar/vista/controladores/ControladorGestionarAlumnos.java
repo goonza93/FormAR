@@ -141,7 +141,7 @@ public class ControladorGestionarAlumnos implements ActionListener {
 		if (!mApellido.matches() || this.ventanaAltaAlumno.getTxtApellido().getText().isEmpty()) {
 			errores += " - Por favor, ingrese un apellido valido\n";
 		}
-		if (!mTelefono.matches() || this.ventanaAltaAlumno.getTxtTelefono().getText().isEmpty()) {
+		if (!mTelefono.matches()) {
 			errores += " - Por favor, ingrese un telefono valido\n";
 		}
 		if (!mEmail.matches() || this.ventanaAltaAlumno.getTxtEmail().getText().isEmpty()) {
