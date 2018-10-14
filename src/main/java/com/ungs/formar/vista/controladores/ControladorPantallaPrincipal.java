@@ -6,8 +6,9 @@ import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Horario;
+import com.ungs.formar.vista.alumnos.ControladorAlumnoABM;
+import com.ungs.formar.vista.alumnos.VentanaAlumnoABM;
 import com.ungs.formar.vista.ventanas.CrearCurso;
-import com.ungs.formar.vista.ventanas.GestionarAlumnos;
 import com.ungs.formar.vista.ventanas.GestionarCursos;
 import com.ungs.formar.vista.ventanas.GestionarInstructores;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
@@ -15,7 +16,7 @@ import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 public class ControladorPantallaPrincipal implements ActionListener{
 		private PantallaPrincipal ventanaPantallaPrincipal;
 		private GestionarCursos ventanaGestionarCursos;
-		private GestionarAlumnos ventanaGestionarAlumnos;
+		private VentanaAlumnoABM ventanaGestionarAlumnos;
 		private GestionarInstructores ventanaGestionarInstructores;
 		
 		public ControladorPantallaPrincipal(PantallaPrincipal ventanaPantallaPrincipal)
@@ -33,10 +34,10 @@ public class ControladorPantallaPrincipal implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == this.ventanaPantallaPrincipal.getBtnGestionarAlumnos()){
-				this.ventanaGestionarAlumnos = new GestionarAlumnos();
+				this.ventanaGestionarAlumnos = new VentanaAlumnoABM();
 				this.ventanaGestionarAlumnos.mostrar();
 				this.ventanaPantallaPrincipal.ocultar();
-				new ControladorGestionarAlumnos(this.ventanaGestionarAlumnos, this);
+				new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);
 				}
 			else if(e.getSource() == this.ventanaPantallaPrincipal.getBtnGestionarCursos())
 			{

@@ -22,7 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.ungs.formar.vista.controladores.ControladorGestionarAlumnos;
+import com.ungs.formar.vista.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.controladores.ControladorGestionarInstructores;
 import com.toedter.calendar.JDateChooser;
 
