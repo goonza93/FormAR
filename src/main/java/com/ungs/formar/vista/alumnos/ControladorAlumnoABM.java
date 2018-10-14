@@ -14,16 +14,16 @@ import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 public class ControladorAlumnoABM implements ActionListener {
 	private VentanaAlumnoABM ventanaAlumnoABM;
 	private VentanaAlumnoAM ventanaAlumnoAM;
-	private ControladorPantallaPrincipal controladorPantallaPrincipal;
+	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
 
-	public ControladorAlumnoABM(VentanaAlumnoABM ventanaGestionarAlumnos,
-			ControladorPantallaPrincipal controladorPantallaPrincipal) {
-		this.ventanaAlumnoABM = ventanaGestionarAlumnos;
-		this.controladorPantallaPrincipal = controladorPantallaPrincipal;
-		this.ventanaAlumnoABM.getBtnCancelar().addActionListener(this);
-		this.ventanaAlumnoABM.getBtnAgregar().addActionListener(this);
-		this.ventanaAlumnoABM.getFrame().addWindowListener(new WindowAdapter() {
+	public ControladorAlumnoABM(VentanaAlumnoABM ventanaAlumnoABM, ControladorPantallaPrincipal controlador) {
+		this.ventanaAlumnoABM = ventanaAlumnoABM;
+		this.controlador = controlador;
+		this.ventanaAlumnoABM.getCancelar().addActionListener(this);
+		this.ventanaAlumnoABM.getAgregar().addActionListener(this);
+		this.ventanaAlumnoABM.getEditar().addActionListener(this);
+		this.ventanaAlumnoABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				cerrarAlumnoABM();
@@ -33,15 +33,15 @@ public class ControladorAlumnoABM implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.llenarTabla();
-		this.ventanaAlumnoABM.mostrar();
+		llenarTabla();
+		ventanaAlumnoABM.mostrar();
 	}
 
 	private void llenarTabla() {
 		// Reinicio completamente la tabla
-		ventanaAlumnoABM.getModelAlumnos().setRowCount(0);
-		ventanaAlumnoABM.getModelAlumnos().setColumnCount(0);
-		ventanaAlumnoABM.getModelAlumnos().setColumnIdentifiers(ventanaAlumnoABM.getNombreColumnas());
+		ventanaAlumnoABM.getModeloAlumnos().setRowCount(0);
+		ventanaAlumnoABM.getModeloAlumnos().setColumnCount(0);
+		ventanaAlumnoABM.getModeloAlumnos().setColumnIdentifiers(ventanaAlumnoABM.getNombreColumnas());
 
 		// Por cada alumno en mi lista agrego un registro a la tabla
 		alumnos = AlumnoManager.traerAlumnos();
@@ -53,19 +53,23 @@ public class ControladorAlumnoABM implements ActionListener {
 					alumno.getEmail(),
 					alumno.getTelefono()
 					};
-			ventanaAlumnoABM.getModelAlumnos().addRow(fila);
+			ventanaAlumnoABM.getModeloAlumnos().addRow(fila);
 		}
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaAlumnoABM.getBtnAgregar())
+		if (e.getSource() == ventanaAlumnoABM.getAgregar())
 			abrirAlumnoAM();
 		
 		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaAlumnoABM.getBtnCancelar())
+		else if (e.getSource() == ventanaAlumnoABM.getCancelar())
 			cerrarAlumnoABM();
+		
+		// BOTON EDITAR DEL ABM
+		else if (e.getSource() == ventanaAlumnoABM.getEditar())
+			abrirAlumnoAMEditar();
 		
 		else if (ventanaAlumnoAM != null) {
 			// BOTON ACEPTAR DEL AM
@@ -78,6 +82,30 @@ public class ControladorAlumnoABM implements ActionListener {
 		}
 	}
 	
+	private void abrirAlumnoAMEditar() {
+		int registroTabla = ventanaAlumnoABM.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
+		
+		// No habia ningun registro seleccionado
+		if (registroTabla == -1)
+			return;
+			
+		int registro = ventanaAlumnoABM.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+		Alumno alumno = alumnos.get(registro);
+		
+		ventanaAlumnoAM = new VentanaAlumnoAM(alumno);
+		ventanaAlumnoAM.getAceptar().addActionListener(this);
+		ventanaAlumnoAM.getCancelar().addActionListener(this);
+		
+		ventanaAlumnoAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarAlumnoAM();
+			}
+		});
+		ventanaAlumnoAM.mostrar();
+		ventanaAlumnoABM.getVentana().setEnabled(false);
+	}
+
 	private void abrirAlumnoAM() {
 		ventanaAlumnoAM = new VentanaAlumnoAM();
 		ventanaAlumnoAM.getAceptar().addActionListener(this);
@@ -90,32 +118,47 @@ public class ControladorAlumnoABM implements ActionListener {
 			}
 		});
 		ventanaAlumnoAM.mostrar();
-		ventanaAlumnoABM.getFrame().setEnabled(false);
+		ventanaAlumnoABM.getVentana().setEnabled(false);
 	}
 
 	public void cerrarAlumnoABM(){
-		ventanaAlumnoABM.ocultar();
-		controladorPantallaPrincipal.inicializar();
+		ventanaAlumnoABM.getVentana().dispose();
+		ventanaAlumnoABM = null;
+		controlador.inicializar();
 	}
 	
 	private void aceptarAM() {
 		if (validarCampos()) {
-			String dni = ventanaAlumnoAM.getDNI().getText();
-			String nombre = ventanaAlumnoAM.getNombre().getText();
 			String apellido = ventanaAlumnoAM.getApellido().getText();
+			String nombre = ventanaAlumnoAM.getNombre().getText();
+			String dni = ventanaAlumnoAM.getDNI().getText();
 			String telefono = ventanaAlumnoAM.getTelefono().getText();
 			String email = ventanaAlumnoAM.getEmail().getText();
 			
-			AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
+			Alumno alumno = ventanaAlumnoAM.getAlumno();
+			// Crear un nuevo alumno
+			if (alumno == null)
+				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
+			
+			// Editar un alumno existente
+			else {
+				alumno.setApellido(apellido);
+				alumno.setNombre(nombre);
+				alumno.setDni(dni);
+				alumno.setTelefono(telefono);
+				alumno.setEmail(email);
+				AlumnoManager.editarAlumno(alumno);
+			}
+			
 			llenarTabla();
 			ventanaAlumnoAM.dispose();
-			ventanaAlumnoABM.getFrame().setEnabled(true);
+			ventanaAlumnoABM.getVentana().setEnabled(true);
 		}	
 	}
 
 	private void cerrarAlumnoAM(){
 		ventanaAlumnoAM.dispose();
-		ventanaAlumnoABM.getFrame().setEnabled(true);
+		ventanaAlumnoABM.getVentana().setEnabled(true);
 	}
 	
 	private boolean validarCampos(){

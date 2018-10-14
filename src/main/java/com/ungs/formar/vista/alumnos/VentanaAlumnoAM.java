@@ -31,7 +31,7 @@ public class VentanaAlumnoAM extends JFrame {
 		this.alumno = alumno;
 		inNombre.setText(alumno.getNombre());
 		inApellido.setText(alumno.getApellido());
-		inDni.setText(null);
+		inDni.setText(alumno.getDni());
 		inTelefono.setText(alumno.getTelefono());
 		inEmail.setText(alumno.getEmail());
 	}

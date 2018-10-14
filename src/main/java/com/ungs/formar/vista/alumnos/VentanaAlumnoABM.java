@@ -272,15 +272,19 @@ public class VentanaAlumnoABM {
 		this.ventana.setVisible(false);
 	}
 
-	public JButton getBtnAgregar() {
+	public JButton getAgregar() {
 		return btnAgregar;
 	}
 
-	public JButton getBtnCancelar() {
+	public JButton getCancelar() {
 		return btnCancelar;
 	}
 
-	public DefaultTableModel getModelAlumnos() {
+	public JButton getEditar() {
+		return btnEditar;
+	}
+
+	public DefaultTableModel getModeloAlumnos() {
 		return modeloAlumnos;
 	}
 
@@ -292,7 +296,8 @@ public class VentanaAlumnoABM {
 		return tablaAlumnos;
 	}
 	
-	public JFrame getFrame() {
+	public JFrame getVentana() {
 		return this.ventana;
 	}
+	
 }

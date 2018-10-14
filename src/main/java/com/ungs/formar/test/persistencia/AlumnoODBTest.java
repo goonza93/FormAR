@@ -34,7 +34,7 @@ public class AlumnoODBTest {
 		List<Alumno> lista = odb.select(); // traigo todos
 		Alumno aEditar = lista.get(0);     // quiero editar el primero
 		aEditar.setEmail("gonbruck1993@gmail.com");
-		odb.edit(aEditar);
+		odb.update(aEditar);
 		Alumno editado = odb.selectByID(aEditar.getClienteID());
 		System.out.println(editado.getEmail());
 	}

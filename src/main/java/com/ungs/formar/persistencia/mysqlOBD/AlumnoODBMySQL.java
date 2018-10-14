@@ -11,28 +11,48 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 
 public class AlumnoODBMySQL extends ODB implements AlumnoODB{
+	private final String campos = "dni, nombre, apellido, telefono, email";
 	private final String tabla = "for_clientes";
+	private final String ID = "cliente_ID";
 	
 	public void insert (Alumno alumno) {
-		String consulta = "insert into "+tabla+" (dni, nombre, apellido, telefono, email) ";
-		String valores = "'"+ alumno.getDni() +"', '"+ alumno.getNombre() +"', '"
-		+ alumno.getApellido() +"', '"+ alumno.getTelefono() +"', '"+ alumno.getEmail() +"'";
-		consulta += "values ("+valores+");";
+		String dni = "'"+alumno.getDni()+"'";
+		String nombre = "'"+alumno.getNombre()+"'";
+		String apellido = "'"+alumno.getApellido()+"'";
+		String telefono = alumno.getTelefono() == null ? null :"'"+alumno.getTelefono()+"'"; // El telefono es opcional
+		String mail = "'"+alumno.getEmail()+"'";
+		
+		String valores = dni
+				+", "+nombre
+				+", "+apellido
+				+", "+telefono
+				+", "+mail;
+				
+		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(consulta);
 	}
 	
-	public void edit(Alumno alumno) {
-		String consulta = "update "+tabla+" set ";
-		String valores = "dni = '"+ alumno.getDni() +"', nombre = '"+ alumno.getNombre() +"', apellido = '"
-		+ alumno.getApellido() +"', telefono = '"+ alumno.getTelefono() +"', email = '"+ alumno.getEmail() +"'";
-		consulta += valores+" where cliente_ID = '"+alumno.getClienteID() +"';";
+	public void update(Alumno alumno) {
+		String dni = "'"+alumno.getDni()+"'";
+		String nombre = "'"+alumno.getNombre()+"'";
+		String apellido = "'"+alumno.getApellido()+"'";
+		String telefono = alumno.getTelefono() == null ? null :"'"+alumno.getTelefono()+"'"; // El telefono es opcional
+		String mail = "'"+alumno.getEmail()+"'";
+		String condicion = ID+"="+alumno.getClienteID();
+		
+		String consulta = "update " + tabla
+				+" set dni = "+dni
+				+", nombre = "+nombre
+				+", apellido = "+apellido
+				+", telefono = "+telefono
+				+", email = "+ mail
+				+"  where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
 	
 	public void delete(Alumno alumno){
-		String consulta = "delete from "+tabla+" where ";
-		String valor = "cliente_ID = '"+alumno.getClienteID()+"'";
-		consulta += valor+";";
+		String condicion = ID+"="+alumno.getClienteID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
 
@@ -53,7 +73,7 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 	}
 	
 	public Alumno selectByID(Integer id) {
-		String condicion = "cliente_ID = '"+id+"'";
+		String condicion = ID+" = "+id;
 		List<Alumno> alumnos = selectByCondicion(condicion);
 		Alumno alumno = null;
 		if (alumnos.size()>0)
@@ -62,10 +82,19 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 		return alumno;
 	}
 
+	public Alumno selectByDNI(String dni) {
+		String condicion = "dni = '"+dni+"'";
+		List<Alumno> alumnos = selectByCondicion(condicion);
+		Alumno alumno = null;
+		if (alumnos.size()>0)
+			alumno = alumnos.get(0);
+		
+		return alumno;
+	}
+	
 	private List<Alumno> selectByCondicion(String condicion) {
 		List<Alumno> alumnos = new ArrayList<Alumno>();
-		String campos = "cliente_ID, dni, nombre, apellido, telefono, email";
-		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select "+ID+", "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 
@@ -94,15 +123,6 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 		}
 			
 		return alumnos;
-	}
-
-	public boolean selectByDNI(String dni) {
-		String condicion = "dni = '"+dni+"'";
-		List<Alumno> alumnos = selectByCondicion(condicion);
-		if (alumnos.size()>0)
-			return true;
-		
-		return false;
 	}
 	
 }
