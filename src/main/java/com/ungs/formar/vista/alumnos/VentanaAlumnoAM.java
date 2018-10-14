@@ -1,19 +1,18 @@
 package com.ungs.formar.vista.alumnos;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import com.ungs.formar.persistencia.entidades.Alumno;
-
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
 import javax.swing.JButton;
-import java.awt.Font;
+import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaAlumnoAM extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel panelPrincipal;
+	private PanelVertical panelPrincipal;
 	private JButton btnAceptar, btnCancelar;
 	private JTextField inNombre, inApellido, inDni, inEmail, inTelefono;
 	private Alumno alumno = null;
@@ -37,77 +36,66 @@ public class VentanaAlumnoAM extends JFrame {
 	}
 	
 	private void cargarComponentes() {
-		setBounds(100, 100, 391, 262);
-		panelPrincipal = new JPanel();
-		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(panelPrincipal);
-		panelPrincipal.setLayout(null);
-		setLocationRelativeTo(null);	
+		setBounds(100, 100, 400, 300);
 
-		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAceptar.setBounds(10, 188, 165, 23);
-		panelPrincipal.add(btnAceptar);
-
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(191, 188, 165, 23);
-		panelPrincipal.add(btnCancelar);
-
+		// AGREGO LAS ETIQUETAS
 		JLabel lblNombre = new JLabel("Nombre: ");
-		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblNombre.setBounds(10, 14, 131, 14);
-		panelPrincipal.add(lblNombre);
-
-		inNombre = new JTextField();
-		inNombre.setFont(new Font("Arial", Font.PLAIN, 12));
-		inNombre.setBounds(151, 11, 205, 20);
-		panelPrincipal.add(inNombre);
-		inNombre.setColumns(10);
-		
 		JLabel lblApellido = new JLabel("Apellido: ");
-		lblApellido.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblApellido.setBounds(10, 42, 131, 14);
-		panelPrincipal.add(lblApellido);
-		
-		inApellido = new JTextField();
-		inApellido.setFont(new Font("Arial", Font.PLAIN, 12));
-		inApellido.setColumns(10);
-		inApellido.setBounds(151, 39, 205, 20);
-		panelPrincipal.add(inApellido);
-		
 		JLabel lblDni = new JLabel("DNI: ");
-		lblDni.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblDni.setBounds(10, 70, 131, 14);
-		panelPrincipal.add(lblDni);
-		
-		inDni = new JTextField();
-		inDni.setFont(new Font("Arial", Font.PLAIN, 12));
-		inDni.setColumns(10);
-		inDni.setBounds(151, 67, 205, 20);
-		panelPrincipal.add(inDni);
-		
 		JLabel lblEmail = new JLabel("E-Mail: ");
-		lblEmail.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblEmail.setBounds(10, 98, 131, 14);
-		panelPrincipal.add(lblEmail);
-		
-		inEmail = new JTextField();
-		inEmail.setFont(new Font("Arial", Font.PLAIN, 12));
-		inEmail.setColumns(10);
-		inEmail.setBounds(151, 95, 205, 20);
-		panelPrincipal.add(inEmail);
-		
 		JLabel lblTelefono = new JLabel("Telefono: ");
-		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblTelefono.setBounds(10, 126, 131, 14);
-		panelPrincipal.add(lblTelefono);
 		
+		EmptyBorder bordeEtiqueta = new EmptyBorder(5, 50, 5, 50);
+		lblNombre.setBorder(bordeEtiqueta);
+		lblApellido.setBorder(bordeEtiqueta);
+		lblDni.setBorder(bordeEtiqueta);
+		lblTelefono.setBorder(bordeEtiqueta);
+		lblEmail.setBorder(bordeEtiqueta);
+		
+		PanelVertical panelEtiquetas = new PanelVertical();
+		panelEtiquetas.add(lblNombre);
+		panelEtiquetas.add(lblApellido);
+		panelEtiquetas.add(lblDni);
+		panelEtiquetas.add(lblEmail);
+		panelEtiquetas.add(lblTelefono);
+
+		// AGREGO LAS ENTRADAS
+		inNombre = new JTextField();
+		inApellido = new JTextField();
+		inDni = new JTextField();
+		inEmail = new JTextField();
 		inTelefono = new JTextField();
-		inTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
-		inTelefono.setColumns(10);
-		inTelefono.setBounds(151, 123, 205, 20);
-		panelPrincipal.add(inTelefono);
+
+		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
+		inNombre.setMaximumSize(largoEntrada);
+		inApellido.setMaximumSize(largoEntrada);
+		inDni.setMaximumSize(largoEntrada);
+		inEmail.setMaximumSize(largoEntrada);
+		inTelefono.setMaximumSize(largoEntrada);
+		
+		PanelVertical panelEntradas = new PanelVertical();
+		panelEntradas.add(inNombre);
+		panelEntradas.add(inApellido);
+		panelEntradas.add(inDni);
+		panelEntradas.add(inEmail);
+		panelEntradas.add(inTelefono);
+		
+		// AGREGO LOS BOTONES
+		btnAceptar = new JButton("Aceptar");
+		btnCancelar = new JButton("Cancelar");
+		PanelHorizontal panelBotones = new PanelHorizontal();
+		panelBotones.add(btnAceptar);
+		panelBotones.add(btnCancelar);
+
+		// ORGANIZO LOS PANELES
+		panelPrincipal = new PanelVertical();
+		setContentPane(panelPrincipal);
+
+		PanelHorizontal panelH = new PanelHorizontal();
+		panelH.agregarComponente(panelEtiquetas);
+		panelH.agregarComponente(panelEntradas);
+		panelPrincipal.add(panelH);
+		panelPrincipal.add(panelBotones);
 	}
 
 	public void mostrar(){
@@ -129,7 +117,6 @@ public class VentanaAlumnoAM extends JFrame {
 	public JTextField getNombre() {
 		return inNombre;
 	}
-
 
 	public JTextField getApellido() {
 		return inApellido;
