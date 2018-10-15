@@ -27,7 +27,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		this.ventanaAlumnoABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				cerrarAlumnoABM();
+				cerrarVentanaABM();
 			}
 		});
 		this.inicializar();
@@ -35,16 +35,14 @@ public class ControladorAlumnoABM implements ActionListener {
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaAlumnoABM.mostrar();
+		ventanaAlumnoABM.getVentana().setVisible(true);
 	}
 
 	private void llenarTabla() {
-		// Reinicio completamente la tabla
 		ventanaAlumnoABM.getModeloAlumnos().setRowCount(0);
 		ventanaAlumnoABM.getModeloAlumnos().setColumnCount(0);
 		ventanaAlumnoABM.getModeloAlumnos().setColumnIdentifiers(ventanaAlumnoABM.getNombreColumnas());
 
-		// Por cada alumno en mi lista agrego un registro a la tabla
 		alumnos = AlumnoManager.traerAlumnos();
 		for (Alumno alumno: alumnos) {
 			Object[] fila = {
@@ -56,25 +54,24 @@ public class ControladorAlumnoABM implements ActionListener {
 					};
 			ventanaAlumnoABM.getModeloAlumnos().addRow(fila);
 		}
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaAlumnoABM.getAgregar())
-			abrirAlumnoAlta();
+			abrirVentanaAlta();
 		
 		// BOTON CANCELAR DEL ABM
 		else if (e.getSource() == ventanaAlumnoABM.getCancelar())
-			cerrarAlumnoABM();
+			cerrarVentanaABM();
 		
 		// BOTON EDITAR DEL ABM
 		else if (e.getSource() == ventanaAlumnoABM.getEditar())
-			abrirAlumnoModificacion();
+			abrirVentanaModificacion();
 		
 		// BOTON BORRAR DEL ABM
 		else if (e.getSource() == ventanaAlumnoABM.getBorrar())
-			borrarAlumno();
+			eliminarSeleccion();
 		
 		else if (ventanaAlumnoAM != null) {
 			// BOTON ACEPTAR DEL AM
@@ -83,17 +80,17 @@ public class ControladorAlumnoABM implements ActionListener {
 		
 			// BOTON CANCELAR DEL AM
 			else if (e.getSource() == ventanaAlumnoAM.getCancelar())
-				cerrarAlumnoAM();
+				cancelarAM();
 		}
 	}
 	
-	private void borrarAlumno() {
+	private void eliminarSeleccion() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		AlumnoManager.eliminarAlumno(alumno);
 		llenarTabla();
 	}
 
-	private void abrirAlumnoModificacion() {
+	private void abrirVentanaModificacion() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		ventanaAlumnoAM = new VentanaAlumnoAM(alumno);
 		ventanaAlumnoAM.getAceptar().addActionListener(this);
@@ -102,14 +99,14 @@ public class ControladorAlumnoABM implements ActionListener {
 		ventanaAlumnoAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				cerrarAlumnoAM();
+				cancelarAM();
 			}
 		});
-		ventanaAlumnoAM.mostrar();
-		ventanaAlumnoABM.getVentana().setEnabled(false);
+		ventanaAlumnoAM.setVisible(true);
+		ventanaAlumnoABM.getVentana().setVisible(false);
 	}
 
-	private void abrirAlumnoAlta() {
+	private void abrirVentanaAlta() {
 		ventanaAlumnoAM = new VentanaAlumnoAM();
 		ventanaAlumnoAM.getAceptar().addActionListener(this);
 		ventanaAlumnoAM.getCancelar().addActionListener(this);
@@ -117,14 +114,14 @@ public class ControladorAlumnoABM implements ActionListener {
 		ventanaAlumnoAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				cerrarAlumnoAM();
+				cancelarAM();
 			}
 		});
-		ventanaAlumnoAM.mostrar();
-		ventanaAlumnoABM.getVentana().setEnabled(false);
+		ventanaAlumnoAM.setVisible(true);
+		ventanaAlumnoABM.getVentana().setVisible(false);
 	}
 
-	public void cerrarAlumnoABM(){
+	public void cerrarVentanaABM(){
 		ventanaAlumnoABM.getVentana().dispose();
 		ventanaAlumnoABM = null;
 		controlador.inicializar();
@@ -132,13 +129,13 @@ public class ControladorAlumnoABM implements ActionListener {
 	
 	private void aceptarAM() {
 		if (validarCampos()) {
+			Alumno alumno = ventanaAlumnoAM.getAlumno();
 			String apellido = ventanaAlumnoAM.getApellido().getText();
 			String nombre = ventanaAlumnoAM.getNombre().getText();
 			String dni = ventanaAlumnoAM.getDNI().getText();
 			String telefono = ventanaAlumnoAM.getTelefono().getText();
 			String email = ventanaAlumnoAM.getEmail().getText();
 			
-			Alumno alumno = ventanaAlumnoAM.getAlumno();
 			// Crear un nuevo alumno
 			if (alumno == null)
 				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
@@ -155,13 +152,13 @@ public class ControladorAlumnoABM implements ActionListener {
 			
 			llenarTabla();
 			ventanaAlumnoAM.dispose();
-			ventanaAlumnoABM.getVentana().setEnabled(true);
+			ventanaAlumnoABM.getVentana().setVisible(true);
 		}	
 	}
 
-	private void cerrarAlumnoAM(){
+	private void cancelarAM(){
 		ventanaAlumnoAM.dispose();
-		ventanaAlumnoABM.getVentana().setEnabled(true);
+		ventanaAlumnoABM.getVentana().setVisible(true);
 	}
 	
 	private boolean validarCampos(){

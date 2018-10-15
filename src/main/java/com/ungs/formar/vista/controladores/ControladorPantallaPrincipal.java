@@ -37,7 +37,7 @@ public class ControladorPantallaPrincipal implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == this.ventanaPantallaPrincipal.getBtnGestionarAlumnos()){
 				this.ventanaGestionarAlumnos = new VentanaAlumnoABM();
-				this.ventanaGestionarAlumnos.mostrar();
+				this.ventanaGestionarAlumnos.getVentana().setVisible(true);
 				this.ventanaPantallaPrincipal.ocultar();
 				new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);
 				}

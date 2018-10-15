@@ -20,6 +20,7 @@ public class PantallaPrincipal {
 	private JButton btnGestionarInstructores;
 	private JButton btnGestionarCursos;
 	private JButton btnGestionarAlumnos;
+	private JButton btnGestionarSalas;
 	private JLabel lblLogo;
 
 	public PantallaPrincipal() {
@@ -48,6 +49,9 @@ public class PantallaPrincipal {
 
 		btnGestionarCursos = new JButton("GESTIONAR CURSOS");
 		btnGestionarCursos.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnGestionarSalas = new JButton("GESTIONAR SALAS");
+		btnGestionarSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		lblLogo = new JLabel(new ImageIcon("imagenes/logo.png"));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);

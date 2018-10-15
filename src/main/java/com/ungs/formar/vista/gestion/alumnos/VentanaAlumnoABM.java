@@ -264,14 +264,6 @@ public class VentanaAlumnoABM {
 
 	}
 
-	public void mostrar() {
-		this.ventana.setVisible(true);
-	}
-
-	public void ocultar() {
-		this.ventana.setVisible(false);
-	}
-
 	public JButton getAgregar() {
 		return btnAgregar;
 	}

@@ -98,14 +98,6 @@ public class VentanaAlumnoAM extends JFrame {
 		panelPrincipal.add(panelBotones);
 	}
 
-	public void mostrar(){
-		this.setVisible(true);
-	}
-	
-	public void ocultar(){
-		this.setVisible(false);
-	}
-
 	public JButton getAceptar() {
 		return btnAceptar;
 	}
