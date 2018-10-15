@@ -8,15 +8,15 @@ public class Validador {
 	}
 
 	private static boolean formatoLetra(String texto) {
-		return texto.matches("[a-zA-Z]+");
+		return texto.matches("[a-zA-ZÀ-ÿ\\u00f1\\u00d1]+");
 	}
 
 	private static boolean formatoLetraEspacio(String texto) {
-		return texto.matches("[a-zA-Z\\s]+");
+		return texto.matches("[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+");
 	}
 	
 	private static boolean formatoNumeroLetraEspacio(String texto) {
-		return texto.matches("[a-zA-Z0-9\\s]+");
+		return texto.matches("[a-zA-ZÀ-ÿ0-9\\u00f1\\u00d1\\s]+");
 	}
 	
 	
@@ -42,8 +42,9 @@ public class Validador {
 	}
 		
 	public static void main(String[] args) {
-		formatoLetra("hola");
-		formatoNumeroLetraEspacio("prueba");
+		System.out.println(formatoLetra("TamóÑ"));
+		System.out.println(formatoNumeroLetraEspacio("45 XCarlós Ñ ñ"));
+		
 	}
 			
 }
