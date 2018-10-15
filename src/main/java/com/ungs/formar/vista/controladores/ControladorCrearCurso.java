@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -56,6 +58,23 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void inicializar() {
 		llenarTablaHorarios();
+		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener(){
+			private Object ventanaCrearCurso;
+
+			public void changedUpdate(DocumentEvent arg0) {
+				if(arg0.getDocument().getLength()>=0){
+					actualizarFechaFin();
+				}
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				changedUpdate(arg0);
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				changedUpdate(arg0);
+			}
+		});
 		this.ventanaCrearCurso.setVisible(true);
 	}
 
@@ -81,49 +100,7 @@ public class ControladorCrearCurso implements ActionListener {
 		// BOTON AGREGAR
 		if (e.getSource() == ventanaCrearCurso.getBtnAgregar()) {
 
-			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
-
-			Matcher mcupoMinimo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMinimo().getText());
-			Matcher mcupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
-			Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
-
-			// Validaciones de null, y de tipos de datos validos
-			if (!mcupoMinimo.matches() || this.ventanaCrearCurso.getCupoMinimo().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo minimo valido");
-			} else if (!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo maximo valido");
-			} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
-			} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
-			} else if (this.instructor == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, seleccione un instructor");
-			}else if (this.programa == null) {
-				JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
-			} else if (this.responsable == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
-			} else if (this.horarios == null || this.horarios.size() == 0) {
-				JOptionPane.showMessageDialog(null, "Por favor, seleccione un horario de cursada");
-			}
-
-			// validaciones logicas
-			else if (Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()) < Integer
-					.parseInt(this.ventanaCrearCurso.getCupoMinimo().getText())) {
-				JOptionPane.showMessageDialog(null, "El cupo maximo no puede ser menor que el cupo minimo");
-			}
-			else{
-				// El agregar paso todas las validadciones
-				if(this.idEdicion == -1){
-					crearCurso();
-				}
-				else{
-					System.out.println("Entrada 1");
-					actualizarCurso();
-				}
-				System.out.println("Entrada 2");
-				this.ventanaCrearCurso.dispose();
-				this.controladorGestionarCurso.inicializar();
-			}
+			seApretoAgregarCurso();
 
 		// BOTON CANCELAR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {
@@ -151,22 +128,7 @@ public class ControladorCrearCurso implements ActionListener {
 		// BOTON AGREGAR HORARIO
 		} else if (e.getSource() == ventanaCrearCurso.getBtnAgregarDia()) {
 			
-			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
-			Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
-			Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
-			
-			if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese un cupo maximo");
-			} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, primero ingrese una fecha de inicio");
-			} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
-			} 
-			else{
-				this.ventanaABMHorario = new ABMHorario();
-				this.ventanaCrearCurso.setVisible(false);
-				new ControladorAgregarHorario(this.ventanaABMHorario, this);
-			}
+			seApretoAgregarDia();
 			
 		// BOTON BORRAR HORARIO
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
@@ -186,6 +148,71 @@ public class ControladorCrearCurso implements ActionListener {
 			}
 			this.llenarTablaHorarios();
 			this.actualizarFechaFin();
+		}
+	}
+
+	private void seApretoAgregarDia() {
+		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+		Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
+		Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
+		
+		if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Por favor, primero ingrese un cupo maximo");
+		} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
+			JOptionPane.showMessageDialog(null, "Por favor, primero ingrese una fecha de inicio");
+		} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
+		} 
+		else{
+			this.ventanaABMHorario = new ABMHorario();
+			this.ventanaCrearCurso.setVisible(false);
+			new ControladorAgregarHorario(this.ventanaABMHorario, this);
+		}
+	}
+
+	private void seApretoAgregarCurso() {
+		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+
+		Matcher mcupoMinimo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMinimo().getText());
+		Matcher mcupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
+		Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
+
+		// Validaciones de null, y de tipos de datos validos
+		if (!mcupoMinimo.matches() || this.ventanaCrearCurso.getCupoMinimo().getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo minimo valido");
+		} else if (!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Por favor, ingrese un cupo maximo valido");
+		} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
+			JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha de inicio valida");
+		} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
+		} else if (this.instructor == null) {
+			JOptionPane.showMessageDialog(null, "Por favor, seleccione un instructor");
+		}else if (this.programa == null) {
+			JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
+		} else if (this.responsable == null) {
+			JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
+		} else if (this.horarios == null || this.horarios.size() == 0) {
+			JOptionPane.showMessageDialog(null, "Por favor, seleccione un horario de cursada");
+		}
+
+		// validaciones logicas
+		else if (Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()) < Integer
+				.parseInt(this.ventanaCrearCurso.getCupoMinimo().getText())) {
+			JOptionPane.showMessageDialog(null, "El cupo maximo no puede ser menor que el cupo minimo");
+		}
+		else{
+			// El agregar paso todas las validadciones
+			if(this.idEdicion == -1){
+				crearCurso();
+			}
+			else{
+				System.out.println("Entrada 1");
+				actualizarCurso();
+			}
+			System.out.println("Entrada 2");
+			this.ventanaCrearCurso.dispose();
+			this.controladorGestionarCurso.inicializar();
 		}
 	}
 
@@ -256,6 +283,8 @@ public class ControladorCrearCurso implements ActionListener {
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
 		// Al elegir un programa se carga automaticamente su carga horaria
 		ventanaCrearCurso.getHoras().setText(seleccion.getHoras().toString());
+		// y se actualiza la fecha fin
+		actualizarFechaFin();
 	}
 	
 	public boolean agregarHorarioDeCursada(HorarioCursada hc) {
@@ -281,16 +310,15 @@ public class ControladorCrearCurso implements ActionListener {
 	}
 
 	public void actualizarFechaFin(){
-		Integer horas = Integer.parseInt(this.ventanaCrearCurso.getHoras().getText());
 		Date fechaInicio = new Date(ventanaCrearCurso.getFechaInicio().getDate().getTime());
-		Date fechaFin;
-		if(this.horarios==null || this.horarios.size() ==0){
-			fechaFin = null;
+		if(this.horarios==null || this.horarios.size() ==0 || this.ventanaCrearCurso.getHoras().getText().isEmpty()){
+			((JTextField)this.ventanaCrearCurso.getDateFechaFin().getDateEditor().getUiComponent()).setText("");
 		}
 		else{
-			fechaFin = CursoManager.calcularFechaFin(this.horarios, horas, fechaInicio);
+			Integer horas = Integer.parseInt(this.ventanaCrearCurso.getHoras().getText());
+			Date fechaFin = CursoManager.calcularFechaFin(this.horarios, horas, fechaInicio);
+			this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);
 		}
-		this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);
 	}
 	
 }
