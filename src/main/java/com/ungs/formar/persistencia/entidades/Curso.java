@@ -3,18 +3,19 @@ package com.ungs.formar.persistencia.entidades;
 import java.sql.Date;
 
 public class Curso {
-	private Integer cursoID, cupoMinimo, cupoMaximo, horas;
+	private Integer cursoID, cupoMinimo, cupoMaximo, precio, horas;
 	private String contenido, comision;
 	private Date fechaInicio, fechaFin;
 	private Integer instructor, programa, estado, responsable;
 	
-	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer horas,
+	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer precio, Integer horas,
 			String contenido, String comision, Date fechaInicio, Date fechaFin,
 			Integer instructor, Integer programa, Integer estado,
 			Integer responsable) {
 		this.cursoID = cursoID;
 		this.cupoMinimo = cupoMinimo;
 		this.cupoMaximo = cupoMaximo;
+		this.precio = precio;
 		this.horas = horas;
 		this.contenido = contenido;
 		this.comision = comision;
@@ -120,6 +121,14 @@ public class Curso {
 
 	public void setComision(String comision) {
 		this.comision = comision;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 	
 }

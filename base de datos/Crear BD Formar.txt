@@ -105,6 +105,7 @@ CREATE TABLE for_cursos (
 	curso_ID INT(4) AUTO_INCREMENT,
 	cupo_minimo INT(3) DEFAULT 1,
 	cupo_maximo INT(3) DEFAULT 999,
+	precio INT(5),
 	fecha_inicio DATE NOT NULL,
 	fecha_fin DATE NOT NULL,
 	contenido VARCHAR(500) DEFAULT NULL,

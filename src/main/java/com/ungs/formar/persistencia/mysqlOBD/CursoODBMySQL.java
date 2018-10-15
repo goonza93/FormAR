@@ -11,7 +11,7 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
-	private final String campos = "cupo_minimo, cupo_maximo, comision, fecha_inicio, fecha_fin, contenido, horas, instructor, responsable, programa, estado";
+	private final String campos = "cupo_minimo, cupo_maximo, precio, comision, fecha_inicio, fecha_fin, contenido, horas, instructor, responsable, programa, estado";
 	private final String tabla = "for_cursos";
 	private final String ID = "curso_ID";
 	
@@ -23,6 +23,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		
 		String valores = curso.getCupoMinimo()
 				+", "+ curso.getCupoMaximo()
+				+", "+curso.getPrecio()
 				+", "+ comision
 				+", "+ fInicio
 				+", "+ fFin
@@ -51,8 +52,9 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		String condicion = ID+" = "+curso.getCursoID();
 		
 		String consulta = "update "+ tabla
-				+" set cupo_minimo = "+curso.getCupoMinimo()
+				+ " set cupo_minimo = "+curso.getCupoMinimo()
 				+ ", cupo_maximo = "+curso.getCupoMaximo()
+				+ ", precio = "+curso.getPrecio()
 				+ ", comision = "+comision
 				+ ", fecha_inicio = "+fInicio
 				+ ", fecha_fin = "+fFin
@@ -62,7 +64,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+ ", responsable = "+curso.getResponsable()
 				+ ", programa = "+curso.getPrograma()
 				+ ", estado = "+curso.getEstado()
-				+" where ("+condicion+");";
+				+ " where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
 		
@@ -95,6 +97,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 						resultados.getInt("curso_ID"),
 						resultados.getInt("cupo_minimo"),
 						resultados.getInt("cupo_maximo"),
+						resultados.getInt("precio"),
 						resultados.getInt("horas"),
 						resultados.getString("contenido"),
 						resultados.getString("comision"),

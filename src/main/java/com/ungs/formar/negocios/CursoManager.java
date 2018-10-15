@@ -26,16 +26,12 @@ public class CursoManager {
 			Date fechaInicio, Date fechaFin) {
 		
 		// INSERTO EL CURSO EN LA BD
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, horas, contenido, "CH",fechaInicio, fechaFin,
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, 999, horas, contenido, "CH",fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 		
-		System.out.println("insertando un curso");
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
-		System.out.println("fin del insert");
 		Integer cursoID = odb.selectIDMasReciente();
-		System.out.println("fin de tra id");
-		
 		
 		for (HorarioCursada horarioCursada : hc) {
 			horarioCursada.setCurso(cursoID);
@@ -48,9 +44,8 @@ public class CursoManager {
 			Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin) {
-		System.out.println("Entrada a manager");
 		// Actualizao el curso
-		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, horas, contenido, "CH",fechaInicio, fechaFin,
+		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, 999, horas, contenido, "CH",fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 		
 		CursoODB odb = FactoryODB.crearCursoODB();
@@ -72,7 +67,6 @@ public class CursoManager {
 			}
 		}
 		
-		System.out.println("Entrada 6");
 	}
 	
 	public static List<Curso> traerCursos() {
