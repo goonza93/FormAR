@@ -58,23 +58,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void inicializar() {
 		llenarTablaHorarios();
-		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener(){
-			private Object ventanaCrearCurso;
-
-			public void changedUpdate(DocumentEvent arg0) {
-				if(arg0.getDocument().getLength()>=0){
-					actualizarFechaFin();
-				}
-			}
-
-			public void insertUpdate(DocumentEvent arg0) {
-				changedUpdate(arg0);
-			}
-
-			public void removeUpdate(DocumentEvent arg0) {
-				changedUpdate(arg0);
-			}
-		});
+		iniciarDocumentListener();
 		this.ventanaCrearCurso.setVisible(true);
 	}
 
@@ -319,6 +303,24 @@ public class ControladorCrearCurso implements ActionListener {
 			Date fechaFin = CursoManager.calcularFechaFin(this.horarios, horas, fechaInicio);
 			this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);
 		}
+	}
+	
+	private void iniciarDocumentListener() {
+		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener(){
+			public void changedUpdate(DocumentEvent arg0) {
+				if(arg0.getDocument().getLength()>=0){
+					actualizarFechaFin();
+				}
+			}
+
+			public void insertUpdate(DocumentEvent arg0) {
+				changedUpdate(arg0);
+			}
+
+			public void removeUpdate(DocumentEvent arg0) {
+				changedUpdate(arg0);
+			}
+		});
 	}
 	
 }
