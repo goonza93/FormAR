@@ -6,22 +6,51 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 
 public class SalaODBMySQL extends ODB implements SalaODB{
+	private final String campos = "numero, nombre, capacidad";
 	private final String tabla = "for_salas";
+	private final String ID = "sala_ID";
 
+	public void insert(Sala sala) {
+		String nombre = sala.getNombre() == null ? null : "'"+sala.getNombre()+"'";
+		String valores =
+				sala.getNumero()
+				+", "+nombre
+				+", "+sala.getCapacidad();
+				
+		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
+		ejecutarSQL(sql);
+	}
+	
+	public void update(Sala sala) {
+		String condicion = ID+"="+sala.getSalaID();
+		String nombre = sala.getNombre() == null ? null : "'"+sala.getNombre()+"'";
+		String sql = "update "+tabla
+				+" set numero = "+sala.getNumero()
+				+" nombre = "+nombre
+				+" capacidad = "+sala.getCapacidad()
+				+" where ("+condicion+");";
+		ejecutarSQL(sql);
+	}
+	
+	public void delete(Sala sala) {
+		String condicion = ID+"="+sala.getSalaID();
+		String sql = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(sql);
+	}
+	
 	public List<Sala> select() {
 		String condicion = "1=1";
-		List<Sala> empleados = selectByCondicion(condicion);
-		return empleados;
+		List<Sala> salas = selectByCondicion(condicion);
+		return salas;
 	}
 	
 	public Sala selectByID(Integer id){
-		String condicion = "sala_ID = '"+id+"'";
+		String condicion = ID+" = "+id;
 		List<Sala> salas = selectByCondicion(condicion);
 		Sala sala = null;
 		if (salas.size()>0)
@@ -32,8 +61,7 @@ public class SalaODBMySQL extends ODB implements SalaODB{
 
 	private List<Sala> selectByCondicion(String condicion) {
 		List<Sala> salas = new ArrayList<Sala>();
-		String campos = "sala_ID, nombre, numero, capacidad";
-		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select "+ID+", "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 

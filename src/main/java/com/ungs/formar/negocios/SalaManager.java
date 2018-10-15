@@ -11,15 +11,37 @@ import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 
 public class SalaManager {
 	
-	public static List<Sala> traerSalas() {
+	public static void crear(Integer numero, String nombre, Integer capacidad) {
+		Sala sala = new Sala(-1, numero, capacidad, nombre);
+		SalaODB odb = FactoryODB.crearSalaODB();
+		odb.insert(sala);
+	}
+
+	public static void modificar(Sala sala) {
+		SalaODB odb = FactoryODB.crearSalaODB();
+		odb.update(sala);
+	}
+	
+	public static void eliminar(Sala sala) {
+		SalaODB odb = FactoryODB.crearSalaODB();
+		odb.delete(sala);
+	}
+	
+	public static List<Sala> traerTodo() {
 		SalaODB odb = FactoryODB.crearSalaODB();
 		return odb.select();
 	}
 	
-	public static Sala traerSala(Integer id){
+	public static Sala traerSegunID(Integer id){
 		SalaODB odb = FactoryODB.crearSalaODB();
 		return odb.selectByID(id);
 	}
+	
+	
+	
+	
+	
+	
 	
 	public static boolean validarHorarioDeCursada(HorarioCursada nuevo) {
 		// Traigo los horario que ocupan la misma sala
@@ -39,6 +61,8 @@ public class SalaManager {
 		
 		return valido;
 	}
+	
+	
 	
 	public static boolean horariosSupuerpuestos(Horario horario1, Horario horario2) {
 		// Si no son el mismo dia no pueden superponerse

@@ -34,7 +34,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 		this.ventana.getModelSalas().setColumnCount(0);
 		this.ventana.getModelSalas().setColumnIdentifiers(this.ventana.getNombreColumnas());
 		
-		this.salas_en_tabla = SalaManager.traerSalas();
+		this.salas_en_tabla = SalaManager.traerTodo();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());

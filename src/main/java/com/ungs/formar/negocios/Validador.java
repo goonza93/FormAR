@@ -40,7 +40,11 @@ public class Validador {
 	public static boolean validarTelefono(String texto) {
 		return (formatoNumero(texto));
 	}
-		
+	
+	public static boolean validarNumero(String texto) {
+		return (formatoNumero(texto));
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(formatoLetra("TamóÑ"));
 		System.out.println(formatoNumeroLetraEspacio("45 XCarlós Ñ ñ"));

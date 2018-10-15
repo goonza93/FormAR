@@ -9,7 +9,7 @@ public class SalaManagerTest {
 
 	public static void traerSalasTest() {
 		System.out.println("___ Traer salas Test");
-		List<Sala> salas = SalaManager.traerSalas();
+		List<Sala> salas = SalaManager.traerTodo();
 		for (Sala sala: salas)
 			System.out.println(sala.getNumero());
 		System.out.println("Cantidad de salas:"+salas.size());
