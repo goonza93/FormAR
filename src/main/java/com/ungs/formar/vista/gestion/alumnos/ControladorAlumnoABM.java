@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.alumnos;
+package com.ungs.formar.vista.gestion.alumnos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

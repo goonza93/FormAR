@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.alumnos;
+package com.ungs.formar.vista.gestion.alumnos;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
