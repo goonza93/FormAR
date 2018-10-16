@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.prueba.seleccion.empleado;
+package com.ungs.formar.vista.seleccion.empleado;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

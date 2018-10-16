@@ -12,17 +12,21 @@ import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
+import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
+import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
 import com.ungs.formar.vista.ventanas.VentanaProgramaAM;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
-import com.ungs.formar.vista.ventanas.seleccion.SeleccionarArea;
 
-public class ControladorProgramaABM implements ActionListener{
+public class ControladorProgramaABM implements ActionListener, AreaSeleccionable{
 	private VentanaProgramaGestion ventanaProgramaGestion;
 	private VentanaProgramaAM ventanaProgramaAM;
-	private SeleccionarArea ventanaSeleccionarArea;
+	private VentanaSeleccionarArea ventanaSeleccionarArea;
 	private ControladorPantallaPrincipal controladorPrincipal;
 	private List<Programa> programas;
+	private Area area;
 	
 	public ControladorProgramaABM(VentanaProgramaGestion ventanaProgramaABM, ControladorPantallaPrincipal controladorPrincipal){
 		this.ventanaProgramaGestion = ventanaProgramaABM;
@@ -84,14 +88,34 @@ public class ControladorProgramaABM implements ActionListener{
 		else if (e.getActionCommand() == "cancelar"){
 			cancelarAM();
 		}
+		else if (e.getActionCommand().equals("seleccionarArea")){
+			mostrarSeleccionarArea();
+		}		
 	}
 
+	private void mostrarSeleccionarArea() {
+		ventanaSeleccionarArea = new VentanaSeleccionarArea();
+		ventanaSeleccionarArea.getSeleccionar().addActionListener(this);
+		ventanaSeleccionarArea.getCancelar().addActionListener(this);
+		ventanaSeleccionarArea.addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ventanaSeleccionarArea.getCancelar().doClick();
+			}
+		});
+		
+		new ControladorSeleccionarArea(ventanaSeleccionarArea, this);
+		
+		ventanaSeleccionarArea.setVisible(true);
+		ventanaProgramaGestion.setEnabled(false);
+	}
+	
 	private void iniciarAlta() {
 		// TODO Auto-generated method stub
 		ventanaProgramaAM = new VentanaProgramaAM();
 		this.ventanaProgramaAM.getBtnCancelar().addActionListener(this);
 		this.ventanaProgramaAM.getBtnAceptar().addActionListener(this);
-		
+		ventanaProgramaAM.getBtnSeleccionArea().addActionListener(this);
 		this.ventanaProgramaAM.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -197,6 +221,13 @@ public class ControladorProgramaABM implements ActionListener{
 			JOptionPane.showMessageDialog(null, mensaje);
 		}
 		return isOk;
+	}
+
+	
+	public void setArea(Area area) {
+		// Esta es el area seleccionada, colocarla donde corresponda
+		this.area = area;
+		ventanaProgramaAM.getTxtArea().setText(area.getNombre());
 	}
 
 }

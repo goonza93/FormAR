@@ -79,6 +79,7 @@ public class VentanaProgramaAM extends JFrame {
 		txtArea.setColumns(10);
 		
 		btnSeleccionArea = new JButton("Seleccionar Area");
+		btnSeleccionArea.setActionCommand("seleccionarArea");
 		
 		txtCargaHoraria = new JTextField();
 		txtCargaHoraria.setColumns(10);

@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.prueba.seleccion.empleado;
+package com.ungs.formar.vista.seleccion.empleado;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

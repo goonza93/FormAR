@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.prueba.seleccion.empleado;
+package com.ungs.formar.vista.seleccion.empleado;
 
 import com.ungs.formar.persistencia.entidades.Empleado;
 
