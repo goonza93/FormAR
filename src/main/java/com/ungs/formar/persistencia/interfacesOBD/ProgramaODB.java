@@ -9,5 +9,11 @@ public interface ProgramaODB {
 	public List<Programa> select();
 
 	public Programa selectByID(Integer id);
+
+	public void insert(Programa programa);
+
+	public void update(Programa programa);
+
+	public void delete(Programa programa);
 	
 }
