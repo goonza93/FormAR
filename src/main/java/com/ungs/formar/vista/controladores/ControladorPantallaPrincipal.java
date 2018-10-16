@@ -14,12 +14,14 @@ import com.ungs.formar.vista.gestion.empleados.VentanaEmpleadoABM;
 import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.GestionarCursos;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
+import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
 public class ControladorPantallaPrincipal implements ActionListener{
 		private PantallaPrincipal ventanaPantallaPrincipal;
 		private GestionarCursos ventanaGestionarCursos;
 		private VentanaAlumnoABM ventanaGestionarAlumnos;
 		private VentanaEmpleadoABM ventanaGestionarInstructores;
+		private VentanaProgramaGestion ventanaGestionarProgramas;
 		
 		public ControladorPantallaPrincipal(PantallaPrincipal ventanaPantallaPrincipal)
 		{
@@ -27,6 +29,7 @@ public class ControladorPantallaPrincipal implements ActionListener{
 			this.ventanaPantallaPrincipal.getBtnGestionarAlumnos().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarCursos().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarInstructores().addActionListener(this);
+			this.ventanaPantallaPrincipal.getBtnGestionarProgramas().addActionListener(this);
 		}
 		
 		public void inicializar()
@@ -53,6 +56,12 @@ public class ControladorPantallaPrincipal implements ActionListener{
 				this.ventanaGestionarInstructores.mostrar();
 				this.ventanaPantallaPrincipal.ocultar();
 				new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.INSTRUCTOR);
+			}
+			else if(e.getSource() == this.ventanaPantallaPrincipal.getBtnGestionarProgramas()){
+				this.ventanaGestionarProgramas = new VentanaProgramaGestion();
+				this.ventanaGestionarProgramas.mostrar();
+				this.ventanaPantallaPrincipal.ocultar();
+				new ControladorProgramaABM(this.ventanaGestionarProgramas, this);
 			}
 		}
 }

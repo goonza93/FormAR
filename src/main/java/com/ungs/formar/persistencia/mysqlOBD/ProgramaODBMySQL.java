@@ -6,13 +6,58 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 
 public class ProgramaODBMySQL extends ODB implements ProgramaODB{
+	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas";
 	private final String tabla = "for_programas";
+	private final String ID = "programa_ID";
 
+	public void insert (Programa programa) {
+		String area = "'"+programa.getAreaID()+"'";
+		String nombre = "'"+programa.getNombre()+"'";
+		String fechaAprobacion = "'"+programa.getFechaAprobacion()+"'";
+		String descripcion ="'"+programa.getDescripcion()+"'";
+		String cargaHoraria = "'"+programa.getHoras()+"'";
+		
+		String valores = area
+				+", "+nombre
+				+", "+fechaAprobacion
+				+", "+descripcion
+				+", "+cargaHoraria;
+				
+		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
+		ejecutarSQL(consulta);
+	}
+	
+	public void update(Programa programa) {
+		String area = "'"+programa.getAreaID()+"'";
+		String nombre = "'"+programa.getNombre()+"'";
+		String fechaAprobacion = "'"+programa.getFechaAprobacion()+"'";
+		String descripcion ="'"+programa.getDescripcion()+"'";
+		String cargaHoraria = "'"+programa.getHoras()+"'";
+		String condicion = ID+"="+programa.getProgramaID();
+		
+		String consulta = "update " + tabla
+				+" set area = "+area
+				+", nombre = "+nombre
+				+", fecha_aprobacion = "+fechaAprobacion
+				+", descripcion = "+descripcion
+				+", horas = "+cargaHoraria
+				+"  where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+	
+	public void delete(Programa programa){
+		String condicion = ID+"="+programa.getProgramaID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+	
+	
 	public List<Programa> select() {
 		String condicion = "1=1";
 		List<Programa> programas= selectByCondicion(condicion);

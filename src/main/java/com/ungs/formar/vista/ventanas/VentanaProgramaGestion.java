@@ -18,24 +18,23 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class VentanaGestionPrograma {
-	private JFrame ventana;
+public class VentanaProgramaGestion extends JFrame{
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modeloProgramas;
 	private String[] nombreColumnas = { "Area", "Nombre", "Fecha aprobacion", "Descripcion", "Carga horaria"};
 	private JTable tablaProgramas;
 	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
 	private JTextField txtFiltro;
 
-	public VentanaGestionPrograma() {
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 740, 369);
-		ventana.getContentPane().setLayout(null);
-		ventana.setTitle("Gestion de programas");
-		ventana.setLocationRelativeTo(null);
+	public VentanaProgramaGestion() {
+		setBounds(100, 100, 740, 369);
+		getContentPane().setLayout(null);
+		setTitle("Gestion de programas");
+		setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 724, 330);
-		ventana.getContentPane().add(panel);
+		getContentPane().add(panel);
 		panel.setLayout(null);
 
 		btnAgregar = new JButton("Agregar");
@@ -110,7 +109,7 @@ public class VentanaGestionPrograma {
 			}
         });
 		
-		ventana.addWindowListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				btnCancelar.doClick();
@@ -120,47 +119,27 @@ public class VentanaGestionPrograma {
 	}
 	
 	public void mostrar(){
-		ventana.setVisible(true);
+		setVisible(true);
 	}
 	
 	public void ocultar(){
-		ventana.setVisible(false);
+		setVisible(false);
 	}
 	
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
 
-	public void setBtnAgregar(JButton btnAgregar) {
-		this.btnAgregar = btnAgregar;
-	}
-
 	public JButton getBtnCancelar() {
 		return btnCancelar;
-	}
-
-	public void setBtnCancelar(JButton btnCancelar) {
-		this.btnCancelar = btnCancelar;
 	}
 
 	public JButton getBtnEditar() {
 		return btnEditar;
 	}
 
-	public void setBtnEditar(JButton btnEditar) {
-		this.btnEditar = btnEditar;
-	}
-
 	public JButton getBtnBorrar() {
 		return btnBorrar;
-	}
-
-	public void setBtnBorrar(JButton btnBorrar) {
-		this.btnBorrar = btnBorrar;
-	}
-	
-	public JFrame getVentana() {
-		return ventana;
 	}
 	
 	public DefaultTableModel getModeloProgramas() {
