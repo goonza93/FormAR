@@ -294,11 +294,13 @@ public class ControladorCrearCurso implements ActionListener {
 	}
 
 	public void actualizarFechaFin(){
-		Date fechaInicio = new Date(ventanaCrearCurso.getFechaInicio().getDate().getTime());
-		if(this.horarios==null || this.horarios.size() ==0 || this.ventanaCrearCurso.getHoras().getText().isEmpty()){
+		if(this.horarios==null || this.horarios.size() == 0 
+				|| this.ventanaCrearCurso.getHoras().getText().isEmpty() 
+				|| this.ventanaCrearCurso.getFechaInicio().getDate()==null){
 			((JTextField)this.ventanaCrearCurso.getDateFechaFin().getDateEditor().getUiComponent()).setText("");
 		}
 		else{
+			Date fechaInicio = new Date(ventanaCrearCurso.getFechaInicio().getDate().getTime());
 			Integer horas = Integer.parseInt(this.ventanaCrearCurso.getHoras().getText());
 			Date fechaFin = CursoManager.calcularFechaFin(this.horarios, horas, fechaInicio);
 			this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);

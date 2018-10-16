@@ -58,13 +58,13 @@ public class ControladorSeleccionarArea implements ActionListener {
 			
 			invocador.setArea(areas.get(modelFila));
 			ventana.dispose();
-			invocador.inicializar();
+			invocador.enableAM();
 		}
 	}
 
 	private void cancelar() {
 		ventana.dispose();
-		invocador.inicializar();
+		invocador.enableAM();
 	}
 		
 }

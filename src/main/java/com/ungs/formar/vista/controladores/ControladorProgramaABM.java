@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -107,11 +108,10 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		new ControladorSeleccionarArea(ventanaSeleccionarArea, this);
 		
 		ventanaSeleccionarArea.setVisible(true);
-		ventanaProgramaGestion.setEnabled(false);
+		ventanaProgramaAM.setEnabled(false);
 	}
 	
 	private void iniciarAlta() {
-		// TODO Auto-generated method stub
 		ventanaProgramaAM = new VentanaProgramaAM();
 		this.ventanaProgramaAM.getBtnCancelar().addActionListener(this);
 		this.ventanaProgramaAM.getBtnAceptar().addActionListener(this);
@@ -127,13 +127,49 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	}
 
 	private void iniciarBaja() {
-		// TODO Auto-generated method stub
+		List<Programa> lista = obtenerProgramasSeleccionados();
+		if (lista.size()==0){
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para borrar seleccione al menos un programa.");
+		} else {
+			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar lo seleccionado!?",
+					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (confirm == 0) {
+				for(Programa actual : lista){
+					ProgramaManager.eliminarPrograma(actual);
+				}
+				llenarTabla();
+			}
+			
+		}
 		
 	}
 
 	private void iniciarModificacion() {
-		// TODO Auto-generated method stub
-		
+		List<Programa> lista = obtenerProgramasSeleccionados();
+		if (lista.size()!=1){
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para editar seleccione exactamente un programa.");
+		} else {
+			Programa aEditar = lista.get(0);
+			this.ventanaProgramaAM = new VentanaProgramaAM(aEditar);
+			this.area = ProgramaManager.traerAreaSegunID(aEditar.getAreaID());
+			this.ventanaProgramaAM.getTxtNombre().setText(aEditar.getNombre());
+			this.ventanaProgramaAM.getTxtCargaHoraria().setText(String.valueOf(aEditar.getHoras()));
+			this.ventanaProgramaAM.getTxtArea().setText(area.getNombre());
+			this.ventanaProgramaAM.getTxtDescripcion().setText(aEditar.getDescripcion());
+			this.ventanaProgramaAM.getDateChooserAprobacion().setDate(aEditar.getFechaAprobacion());
+			
+			this.ventanaProgramaAM.getBtnCancelar().addActionListener(this);
+			this.ventanaProgramaAM.getBtnAceptar().addActionListener(this);
+			this.ventanaProgramaAM.getBtnSeleccionArea().addActionListener(this);
+			this.ventanaProgramaAM.addWindowListener(new WindowAdapter(){
+				@Override
+				public void windowClosing(WindowEvent e) {
+					ventanaProgramaAM.getBtnCancelar().doClick();
+				}
+			});
+			this.ventanaProgramaAM.setVisible(true);
+			this.ventanaProgramaGestion.setEnabled(false);
+		}
 	}
 
 	private void retroceder() {
@@ -161,6 +197,11 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 				programa.setFechaAprobacion(new java.sql.Date(fechaAprobacion.getTime()));
 				ProgramaManager.editarPrograma(programa);
 			}
+			
+			llenarTabla();
+			ventanaProgramaAM.dispose();
+			ventanaProgramaGestion.setEnabled(true);
+			ventanaProgramaGestion.setVisible(true);
 		}
 		
 	}
@@ -184,12 +225,12 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 
 		boolean isOk = true;
 		String mensaje = "Se encontraron los siguientes errores:\n";
-/*
+
 		if (areaNombre.equals("")) {
 			isOk = false;
 			mensaje += "    -Por favor seleccione un Area.\n";
 		
-		}*/
+		}
 		if (nombre.equals("")) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el Nombre.\n";
@@ -228,6 +269,23 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		// Esta es el area seleccionada, colocarla donde corresponda
 		this.area = area;
 		ventanaProgramaAM.getTxtArea().setText(area.getNombre());
+	}
+	
+	private List<Programa> obtenerProgramasSeleccionados() {
+		List<Programa> ret = new ArrayList<Programa>();
+		int[] registroTabla = ventanaProgramaGestion.getTablaProgramas().getSelectedRows(); //Indice de la tabla
+		// No habia ningun registro seleccionado
+		for (int fila : registroTabla) {
+			int registro = ventanaProgramaGestion.getTablaProgramas().convertRowIndexToModel(fila); // Fix para el filtro
+			ret.add(programas.get(registro));
+		}
+		return ret;
+	}
+	
+	public void enableAM(){
+		ventanaProgramaAM.setEnabled(true);
+		ventanaProgramaGestion.toFront();
+		ventanaProgramaAM.toFront();
 	}
 
 }

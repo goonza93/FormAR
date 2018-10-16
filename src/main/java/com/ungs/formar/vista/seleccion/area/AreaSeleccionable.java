@@ -6,6 +6,6 @@ public interface AreaSeleccionable {
 	
 	public void setArea(Area area);
 
-	public void inicializar();
+	public void enableAM();
 	
 }
