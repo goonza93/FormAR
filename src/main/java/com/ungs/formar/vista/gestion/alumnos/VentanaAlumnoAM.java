@@ -8,11 +8,11 @@ import javax.swing.JButton;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 public class VentanaAlumnoAM extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private PanelVertical panelPrincipal;
 	private JButton btnAceptar, btnCancelar;
 	private JTextField inNombre, inApellido, inDni, inEmail, inTelefono;
 	private Alumno alumno = null;
@@ -37,6 +37,7 @@ public class VentanaAlumnoAM extends JFrame {
 	
 	private void cargarComponentes() {
 		setBounds(100, 100, 400, 300);
+		setLocationRelativeTo(null); // Centrar pantalla
 
 		// AGREGO LAS ETIQUETAS
 		JLabel lblNombre = new JLabel("Nombre: ");
@@ -45,7 +46,7 @@ public class VentanaAlumnoAM extends JFrame {
 		JLabel lblEmail = new JLabel("E-Mail: ");
 		JLabel lblTelefono = new JLabel("Telefono: ");
 		
-		EmptyBorder bordeEtiqueta = new EmptyBorder(5, 50, 5, 50);
+		EmptyBorder bordeEtiqueta = new EmptyBorder(5, 0, 5, 50);
 		lblNombre.setBorder(bordeEtiqueta);
 		lblApellido.setBorder(bordeEtiqueta);
 		lblDni.setBorder(bordeEtiqueta);
@@ -88,12 +89,18 @@ public class VentanaAlumnoAM extends JFrame {
 		panelBotones.add(btnCancelar);
 
 		// ORGANIZO LOS PANELES
-		panelPrincipal = new PanelVertical();
+		PanelVertical panelPrincipal = new PanelVertical();
 		setContentPane(panelPrincipal);
+		Border bordePrincipal = new EmptyBorder(10, 10, 10, 10);
+		panelPrincipal.setBorder(bordePrincipal);
 
 		PanelHorizontal panelH = new PanelHorizontal();
 		panelH.agregarComponente(panelEtiquetas);
 		panelH.agregarComponente(panelEntradas);
+		
+		Border bordeBotones = new EmptyBorder(50, 0, 50, 0);
+		panelBotones.setBorder(bordeBotones);
+		
 		panelPrincipal.add(panelH);
 		panelPrincipal.add(panelBotones);
 	}

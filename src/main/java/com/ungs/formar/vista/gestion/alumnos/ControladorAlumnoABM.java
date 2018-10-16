@@ -10,21 +10,25 @@ import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.PanelHorizontal;
 
 public class ControladorAlumnoABM implements ActionListener {
-	private VentanaAlumnoABM ventanaAlumnoABM;
-	private VentanaAlumnoAM ventanaAlumnoAM;
+	private VentanaAlumnoABM ventanaABM;
+	private VentanaAlumnoAM ventanaAM;
 	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
 
-	public ControladorAlumnoABM(VentanaAlumnoABM ventanaAlumnoABM, ControladorPantallaPrincipal controlador) {
-		this.ventanaAlumnoABM = ventanaAlumnoABM;
+	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPantallaPrincipal controlador) {
+		this.ventanaABM = ventanaABM;
 		this.controlador = controlador;
-		this.ventanaAlumnoABM.getCancelar().addActionListener(this);
-		this.ventanaAlumnoABM.getAgregar().addActionListener(this);
-		this.ventanaAlumnoABM.getEditar().addActionListener(this);
-		this.ventanaAlumnoABM.getBorrar().addActionListener(this);
-		this.ventanaAlumnoABM.getVentana().addWindowListener(new WindowAdapter() {
+		this.ventanaABM.getCancelar().addActionListener(this);
+		this.ventanaABM.getAgregar().addActionListener(this);
+		this.ventanaABM.getEditar().addActionListener(this);
+		this.ventanaABM.getBorrar().addActionListener(this);
+		this.ventanaABM.getMostrar().addActionListener(this);
+		this.ventanaABM.getOcultar().addActionListener(this);
+		
+		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				cerrarVentanaABM();
@@ -35,13 +39,13 @@ public class ControladorAlumnoABM implements ActionListener {
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaAlumnoABM.getVentana().setVisible(true);
+		ventanaABM.getVentana().setVisible(true);
 	}
 
 	private void llenarTabla() {
-		ventanaAlumnoABM.getModeloAlumnos().setRowCount(0);
-		ventanaAlumnoABM.getModeloAlumnos().setColumnCount(0);
-		ventanaAlumnoABM.getModeloAlumnos().setColumnIdentifiers(ventanaAlumnoABM.getNombreColumnas());
+		ventanaABM.getModeloAlumnos().setRowCount(0);
+		ventanaABM.getModeloAlumnos().setColumnCount(0);
+		ventanaABM.getModeloAlumnos().setColumnIdentifiers(ventanaABM.getNombreColumnas());
 
 		alumnos = AlumnoManager.traerAlumnos();
 		for (Alumno alumno: alumnos) {
@@ -52,89 +56,105 @@ public class ControladorAlumnoABM implements ActionListener {
 					alumno.getEmail(),
 					alumno.getTelefono()
 					};
-			ventanaAlumnoABM.getModeloAlumnos().addRow(fila);
+			ventanaABM.getModeloAlumnos().addRow(fila);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaAlumnoABM.getAgregar())
+		if (e.getSource() == ventanaABM.getAgregar())
 			abrirVentanaAlta();
 		
 		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaAlumnoABM.getCancelar())
+		else if (e.getSource() == ventanaABM.getCancelar())
 			cerrarVentanaABM();
 		
 		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaAlumnoABM.getEditar())
+		else if (e.getSource() == ventanaABM.getEditar())
 			abrirVentanaModificacion();
 		
 		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaAlumnoABM.getBorrar())
+		else if (e.getSource() == ventanaABM.getBorrar())
 			eliminarSeleccion();
-		
-		else if (ventanaAlumnoAM != null) {
+
+		// BOTON MOSTRAR FILTROS
+		else if (e.getSource() == ventanaABM.getMostrar())
+			mostrarFiltros();
+
+		// BOTON OCULTAR FILTROS
+		else if (e.getSource() == ventanaABM.getOcultar())
+			ocultarFiltros();
+				
+		else if (ventanaAM != null) {
 			// BOTON ACEPTAR DEL AM
-			if (e.getSource() == ventanaAlumnoAM.getAceptar())
+			if (e.getSource() == ventanaAM.getAceptar())
 				aceptarAM();
 		
 			// BOTON CANCELAR DEL AM
-			else if (e.getSource() == ventanaAlumnoAM.getCancelar())
+			else if (e.getSource() == ventanaAM.getCancelar())
 				cancelarAM();
 		}
 	}
 	
 	private void eliminarSeleccion() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
-		AlumnoManager.eliminarAlumno(alumno);
-		llenarTabla();
+		if (alumno != null) {
+			AlumnoManager.eliminarAlumno(alumno);
+			llenarTabla();
+			
+		} else
+			JOptionPane.showMessageDialog(null, "Seleccione un alumno");
 	}
 
 	private void abrirVentanaModificacion() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
-		ventanaAlumnoAM = new VentanaAlumnoAM(alumno);
-		ventanaAlumnoAM.getAceptar().addActionListener(this);
-		ventanaAlumnoAM.getCancelar().addActionListener(this);
+		if (alumno != null) {
+			ventanaAM = new VentanaAlumnoAM(alumno);
+			ventanaAM.getAceptar().addActionListener(this);
+			ventanaAM.getCancelar().addActionListener(this);
+			
+			ventanaAM.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					cancelarAM();
+				}
+			});
+			ventanaAM.setVisible(true);
+			ventanaABM.getVentana().setEnabled(false);		
 		
-		ventanaAlumnoAM.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				cancelarAM();
-			}
-		});
-		ventanaAlumnoAM.setVisible(true);
-		ventanaAlumnoABM.getVentana().setVisible(false);
+		} else
+			JOptionPane.showMessageDialog(null, "Seleccione un alumno");
 	}
 
 	private void abrirVentanaAlta() {
-		ventanaAlumnoAM = new VentanaAlumnoAM();
-		ventanaAlumnoAM.getAceptar().addActionListener(this);
-		ventanaAlumnoAM.getCancelar().addActionListener(this);
+		ventanaAM = new VentanaAlumnoAM();
+		ventanaAM.getAceptar().addActionListener(this);
+		ventanaAM.getCancelar().addActionListener(this);
 		
-		ventanaAlumnoAM.addWindowListener(new WindowAdapter() {
+		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				cancelarAM();
 			}
 		});
-		ventanaAlumnoAM.setVisible(true);
-		ventanaAlumnoABM.getVentana().setVisible(false);
+		ventanaAM.setVisible(true);
+		ventanaABM.getVentana().setEnabled(false);
 	}
 
 	public void cerrarVentanaABM(){
-		ventanaAlumnoABM.getVentana().dispose();
-		ventanaAlumnoABM = null;
+		ventanaABM.getVentana().dispose();
+		ventanaABM = null;
 		controlador.inicializar();
 	}
 	
 	private void aceptarAM() {
 		if (validarCampos()) {
-			Alumno alumno = ventanaAlumnoAM.getAlumno();
-			String apellido = ventanaAlumnoAM.getApellido().getText();
-			String nombre = ventanaAlumnoAM.getNombre().getText();
-			String dni = ventanaAlumnoAM.getDNI().getText();
-			String telefono = ventanaAlumnoAM.getTelefono().getText();
-			String email = ventanaAlumnoAM.getEmail().getText();
+			Alumno alumno = ventanaAM.getAlumno();
+			String apellido = ventanaAM.getApellido().getText();
+			String nombre = ventanaAM.getNombre().getText();
+			String dni = ventanaAM.getDNI().getText();
+			String telefono = ventanaAM.getTelefono().getText();
+			String email = ventanaAM.getEmail().getText();
 			
 			// Crear un nuevo alumno
 			if (alumno == null)
@@ -151,22 +171,24 @@ public class ControladorAlumnoABM implements ActionListener {
 			}
 			
 			llenarTabla();
-			ventanaAlumnoAM.dispose();
-			ventanaAlumnoABM.getVentana().setVisible(true);
+			ventanaAM.dispose();
+			ventanaABM.getVentana().setEnabled(true);
+			ventanaABM.getVentana().setVisible(true);
 		}	
 	}
 
 	private void cancelarAM(){
-		ventanaAlumnoAM.dispose();
-		ventanaAlumnoABM.getVentana().setVisible(true);
+		ventanaAM.dispose();
+		ventanaABM.getVentana().setEnabled(true);
+		ventanaABM.getVentana().setVisible(true);
 	}
 	
 	private boolean validarCampos(){
-		String apellido = ventanaAlumnoAM.getApellido().getText();
-		String nombre = ventanaAlumnoAM.getNombre().getText();
-		String dni = ventanaAlumnoAM.getDNI().getText();
-		String telefono = ventanaAlumnoAM.getTelefono().getText();
-		String email = ventanaAlumnoAM.getEmail().getText();
+		String apellido = ventanaAM.getApellido().getText();
+		String nombre = ventanaAM.getNombre().getText();
+		String dni = ventanaAM.getDNI().getText();
+		String telefono = ventanaAM.getTelefono().getText();
+		String email = ventanaAM.getEmail().getText();
 
 		boolean isOk = true;
 		String mensaje = "Se encontraron los siguientes errores:\n";
@@ -223,14 +245,29 @@ public class ControladorAlumnoABM implements ActionListener {
 	}
 
 	private Alumno obtenerAlumnoSeleccionado() {
-		int registroTabla = ventanaAlumnoABM.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
+		int registroTabla = ventanaABM.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
 		
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
 		
-		int registro = ventanaAlumnoABM.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+		int registro = ventanaABM.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
 		return alumnos.get(registro);
+	}
+	
+	private void mostrarFiltros() {
+		PanelHorizontal panel = ventanaABM.getPanelFiltrar();
+		panel.removeAll();
+		panel.agregarComponente(ventanaABM.getPanelConFiltros());
+		panel.agregarComponente(ventanaABM.getOcultar());
+		panel.revalidate();
+	}
+	
+	private void ocultarFiltros() {
+		PanelHorizontal panel = ventanaABM.getPanelFiltrar();
+		panel.removeAll();
+		panel.agregarComponente(ventanaABM.getMostrar());
+		panel.revalidate();
 	}
 	
 }

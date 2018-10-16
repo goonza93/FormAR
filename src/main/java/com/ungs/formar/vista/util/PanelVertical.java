@@ -1,10 +1,10 @@
 package com.ungs.formar.vista.util;
 
 import java.awt.Component;
-import java.awt.Panel;
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
-public class PanelVertical extends Panel{
+public class PanelVertical extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	public PanelVertical() {
@@ -14,5 +14,5 @@ public class PanelVertical extends Panel{
 	public void agregarComponente(Component componente) {
 		add(componente);
 	}
-
+	
 }

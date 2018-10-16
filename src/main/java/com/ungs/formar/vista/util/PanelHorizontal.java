@@ -1,10 +1,10 @@
 package com.ungs.formar.vista.util;
 
 import java.awt.Component;
-import java.awt.Panel;
 import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
-public class PanelHorizontal extends Panel{
+public class PanelHorizontal extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	public PanelHorizontal() {

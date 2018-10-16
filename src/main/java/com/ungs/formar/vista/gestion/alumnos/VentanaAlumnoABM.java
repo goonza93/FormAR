@@ -6,264 +6,156 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaAlumnoABM {
 	private JFrame ventana;
 	private JTable tablaAlumnos;
 	private DefaultTableModel modeloAlumnos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono" };
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnInscribir;
+	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnMostrar, btnOcultar;
 	private JTextField inApellido, inNombre, inEmail, inDNI, inTelefono;
-
+	private PanelHorizontal panelConFiltros, panelFiltrar;
+	private final TableRowSorter<TableModel> filtro;
+	
 	public VentanaAlumnoABM() {
+		
+		// PROPIEDADES DE LA VENTANA
 		ventana = new JFrame();
-		ventana.setBounds(100, 100, 730, 524);
+		ventana.setBounds(100, 100, 750, 600);
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.setTitle("Gestion de alumnos");
-		ventana.setLocationRelativeTo(null);
+		ventana.setLocationRelativeTo(null); // Centrar ventana
 		
+		// CREO LA TABLA DE ALUMNOS
 		modeloAlumnos = new DefaultTableModel(null, nombreColumnas);
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloAlumnos);
-
-		JLabel lblApellido = new JLabel("APELLIDO");
-		lblApellido.setHorizontalAlignment(SwingConstants.CENTER);
-		lblApellido.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		JLabel lblFiltros = new JLabel("FILTROS:");
-		lblFiltros.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFiltros.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		inApellido = new JTextField();
-		inApellido.setFont(new Font("Arial", Font.PLAIN, 12));
-		inApellido.setColumns(10);
-
-		JLabel lblAlumnos = new JLabel("ALUMNOS:");
-		lblAlumnos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		btnAgregar = new JButton("AGREGAR");
-		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		btnEditar = new JButton("EDITAR");
-		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		btnBorrar = new JButton("BORRAR");
-		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		JScrollPane spAlumnos = new JScrollPane();
 		tablaAlumnos = new JTable(modeloAlumnos);
-		tablaAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
-		spAlumnos.setViewportView(tablaAlumnos);
+		JScrollPane panelAlumnos = new JScrollPane();
+		panelAlumnos.setViewportView(tablaAlumnos);
+		
+		// CREO LOS FILTROS PARA LA TABLA
+		inApellido = new JTextField();
+		inNombre = new JTextField();
+		inEmail = new JTextField();
+		inDNI = new JTextField();
+		inTelefono = new JTextField();
+		
+		// ALTURA MAXIMA DE 25 PARA LAS ENTRADAS
+		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
+		inApellido.setMaximumSize(largoEntrada);
+		inNombre.setMaximumSize(largoEntrada);
+		inEmail.setMaximumSize(largoEntrada);
+		inDNI.setMaximumSize(largoEntrada);
+		inTelefono.setMaximumSize(largoEntrada);
+		
+		filtro = new TableRowSorter<TableModel>(modeloAlumnos);
 		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
 		tablaAlumnos.setDefaultEditor(Object.class, null);
-		tablaAlumnos.setRowSorter(sorter);
+		tablaAlumnos.setRowSorter(filtro);
 		
-		JLabel lblNombre = new JLabel("NOMBRE");
-		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		DocumentListener listener = crearFiltroListener();
+		inApellido.getDocument().addDocumentListener(listener);
+		inNombre.getDocument().addDocumentListener(listener);
+		inDNI.getDocument().addDocumentListener(listener);
+		inEmail.getDocument().addDocumentListener(listener);
+		inTelefono.getDocument().addDocumentListener(listener);
 		
-		inNombre = new JTextField();
-		inNombre.setFont(new Font("Arial", Font.PLAIN, 12));
-		inNombre.setColumns(10);
+		// UBICO LOS FILTROS EN PANELES PARA FACIL MANIPULACION
+		PanelVertical filtroApellido = new PanelVertical();
+		filtroApellido.agregarComponente(new JLabel("Apellido"));
+		filtroApellido.agregarComponente(inApellido);
 		
-		JLabel lblEmail = new JLabel("EMAIL");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail.setFont(new Font("Arial", Font.PLAIN, 12));
+		PanelVertical filtroNombre = new PanelVertical();
+		filtroNombre.agregarComponente(new JLabel("Nombre"));
+		filtroNombre.agregarComponente(inNombre);
 		
-		inEmail = new JTextField();
-		inEmail.setFont(new Font("Arial", Font.PLAIN, 12));
-		inEmail.setColumns(10);
+		PanelVertical filtroDNI = new PanelVertical();
+		filtroDNI.agregarComponente(new JLabel("DNI"));
+		filtroDNI.agregarComponente(inDNI);
 		
-		inDNI = new JTextField();
-		inDNI.setFont(new Font("Arial", Font.PLAIN, 12));
-		inDNI.setColumns(10);
+		PanelVertical filtroEmail = new PanelVertical();
+		filtroEmail.agregarComponente(new JLabel("E-Mail"));
+		filtroEmail.agregarComponente(inEmail);
 		
-		JLabel lblDNI = new JLabel("DNI");
-		lblDNI.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDNI.setFont(new Font("Arial", Font.PLAIN, 12));
+		PanelVertical filtroTelefono = new PanelVertical();
+		filtroTelefono.agregarComponente(new JLabel("Telefono"));
+		filtroTelefono.agregarComponente(inTelefono);
 		
-		JLabel lblTelefono = new JLabel("TELEFONO");
-		lblTelefono.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
+		panelConFiltros = new PanelHorizontal();
+		panelConFiltros.agregarComponente(filtroApellido);
+		panelConFiltros.agregarComponente(filtroNombre);
+		panelConFiltros.agregarComponente(filtroDNI);
+		panelConFiltros.agregarComponente(filtroEmail);
+		panelConFiltros.agregarComponente(filtroTelefono);
 		
-		inTelefono = new JTextField();
-		inTelefono.setFont(new Font("Arial", Font.PLAIN, 12));
-		inTelefono.setColumns(10);
-		
-		btnInscribir = new JButton("INSCRIBIR");
-		btnInscribir.setFont(new Font("Arial", Font.PLAIN, 12));
-		GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-						.addComponent(inApellido, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-						.addComponent(inNombre, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDNI, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-						.addComponent(inDNI, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(inEmail, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-						.addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(inTelefono, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-						.addComponent(lblTelefono, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblAlumnos, GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(spAlumnos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnInscribir, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-							.addGap(141)
-							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblFiltros, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblApellido)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(inApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
-							.addGap(6)
-							.addComponent(inNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(21)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(inEmail, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblTelefono, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(inTelefono, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblAlumnos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spAlumnos, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnEditar)
-						.addComponent(btnAgregar)
-						.addComponent(btnBorrar)
-						.addComponent(btnCancelar)
-						.addComponent(btnInscribir))
-					.addContainerGap())
-		);
-		ventana.getContentPane().setLayout(groupLayout);
+		// CREO LOS BOTONES
+		btnAgregar = new JButton("Agregar");
+		btnEditar = new JButton("Modificar");
+		btnBorrar = new JButton("Borrar");
+		btnCancelar = new JButton("Volver");
+		btnMostrar =  new JButton("Mostrar filtros");
+		btnOcultar =  new JButton("Ocultar filtros");
 
-		DocumentListener dl = new DocumentListener() {
-			public void insertUpdate(DocumentEvent e) {
-				List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
-				RowFilter nombre = RowFilter.regexFilter("(?i)" + inNombre.getText(), 1);
-				RowFilter apellido = RowFilter.regexFilter("(?i)" + inApellido.getText(), 0);
-				RowFilter dni = RowFilter.regexFilter("(?i)" + inDNI.getText(), 2);
-				RowFilter email = RowFilter.regexFilter("(?i)" + inEmail.getText(), 3);
-				RowFilter telefono = RowFilter.regexFilter("(?i)" + inTelefono.getText(), 4);
-				
-				filters.add(nombre);
-				filters.add(apellido);
-				filters.add(dni);
-				filters.add(email);
-				filters.add(telefono);
-				/*if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() == 0) {
-					sorter.setRowFilter(null);
-				} else if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() != 0) {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
-				} else if (txtApellido.getText().trim().length() != 0 && txtNombre.getText().trim().length() == 0) {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
-				} else {
-					List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
-					filters.add(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
-					filters.add(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
-					*/sorter.setRowFilter(RowFilter.andFilter(filters));
-				//}
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
-				RowFilter nombre = RowFilter.regexFilter("(?i)" + inNombre.getText(), 1);
-				RowFilter apellido = RowFilter.regexFilter("(?i)" + inApellido.getText(), 0);
-				RowFilter dni = RowFilter.regexFilter("(?i)" + inDNI.getText(), 2);
-				RowFilter email = RowFilter.regexFilter("(?i)" + inEmail.getText(), 3);
-				RowFilter telefono = RowFilter.regexFilter("(?i)" + inTelefono.getText(), 4);
-				
-				filters.add(nombre);
-				filters.add(apellido);
-				filters.add(dni);
-				filters.add(email);
-				filters.add(telefono);
-				/*if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() == 0) {
-					sorter.setRowFilter(null);
-				} else if (txtApellido.getText().trim().length() == 0 && txtNombre.getText().trim().length() != 0) {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
-				} else if (txtApellido.getText().trim().length() != 0 && txtNombre.getText().trim().length() == 0) {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
-				} else {
-					List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
-					
-					//filters.add(RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1));
-					*///filters.add(RowFilter.regexFilter("(?i)" + txtApellido.getText(), 0));
-					sorter.setRowFilter(RowFilter.andFilter(filters));
-				//}
-			}
-
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-			}
-		};
-		inApellido.getDocument().addDocumentListener(dl);
-		inNombre.getDocument().addDocumentListener(dl);
-		inDNI.getDocument().addDocumentListener(dl);
-		inEmail.getDocument().addDocumentListener(dl);
-		inTelefono.getDocument().addDocumentListener(dl);
+		PanelHorizontal panelBotones = new PanelHorizontal();
+		panelBotones.agregarComponente(btnAgregar);
+		panelBotones.agregarComponente(btnEditar);
+		panelBotones.agregarComponente(btnBorrar);
+		panelBotones.agregarComponente(btnCancelar);
+		
+		// COMPONENTE QUE SE PUEDE MOSTRAR U OCULTAR
+		EmptyBorder bordeSimple = new EmptyBorder(10, 10, 10, 10);
+		panelFiltrar = new PanelHorizontal();
+		panelFiltrar.agregarComponente(btnMostrar);
+		panelFiltrar.setBorder(bordeSimple);
+		
+		// ACOMODO LOS PANELES
+		PanelVertical panelPrincipal = new PanelVertical();
+		ventana.setContentPane(panelPrincipal);
+		panelPrincipal.setBorder(bordeSimple);
+		
+		panelPrincipal.agregarComponente(panelFiltrar);
+		panelPrincipal.agregarComponente(panelAlumnos);
+		panelPrincipal.agregarComponente(panelBotones);
 
 	}
 
+	public List<RowFilter<Object, Object>> crearFiltros() {
+		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
+		filtros.add(RowFilter.regexFilter("(?i)" + inApellido.getText(), 0));
+		filtros.add(RowFilter.regexFilter("(?i)" + inNombre.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + inDNI.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + inEmail.getText(), 3));
+		filtros.add(RowFilter.regexFilter("(?i)" + inTelefono.getText(), 4));
+		return filtros;
+	}
+	
+	public DocumentListener crearFiltroListener() {
+		DocumentListener ret = new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void changedUpdate(DocumentEvent e) {}
+		};
+		
+		return ret;
+	}
+	
 	public JButton getAgregar() {
 		return btnAgregar;
 	}
@@ -280,6 +172,14 @@ public class VentanaAlumnoABM {
 		return btnBorrar;
 	}
 
+	public JButton getMostrar() {
+		return btnMostrar;
+	}
+
+	public JButton getOcultar() {
+		return btnOcultar;
+	}
+
 	public DefaultTableModel getModeloAlumnos() {
 		return modeloAlumnos;
 	}
@@ -294,6 +194,14 @@ public class VentanaAlumnoABM {
 	
 	public JFrame getVentana() {
 		return this.ventana;
+	}
+
+	public PanelHorizontal getPanelConFiltros() {
+		return panelConFiltros;
+	}
+
+	public PanelHorizontal getPanelFiltrar() {
+		return panelFiltrar;
 	}
 	
 }
