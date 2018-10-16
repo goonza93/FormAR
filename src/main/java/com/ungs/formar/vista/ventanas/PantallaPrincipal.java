@@ -133,7 +133,7 @@ public class PantallaPrincipal {
 	}
 
 	public JButton getBtnGestionarSalas() {
-		return btnGestionarCursos;
+		return btnGestionarSalas;
 	}
 	
 	public void ocultar() {
