@@ -233,7 +233,7 @@ public class ControladorAlumnoABM implements ActionListener {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el E-MAIL.\n";
 		
-		} else if (!Validador.validarDNI(dni)){
+		} else if (!Validador.validarEmail(dni)){
 			isOk = false;
 			mensaje += "    -El E-MAIL debe tener el formato NL + @ + NL + . +NL (Siendo NL uno o mas numeros o letras).\n";
 		}
