@@ -22,7 +22,7 @@ public class Validador {
 	
 	// METODOS QUE USAN LOS DEMAS PARA VALIDAR CAMPOS
 	public static boolean validarEmail(String texto) {
-		return texto.matches("[a-zA-Z0-9]+@[a-zA-Z0-9]+[.][a-zA-Z0-9]+") || texto.equals("-");
+		return texto.matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@" + "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$");
 	}
 	
 	public static boolean validarApellido(String texto) {
@@ -38,7 +38,7 @@ public class Validador {
 	}
 	
 	public static boolean validarTelefono(String texto) {
-		return (formatoNumero(texto));
+		return (formatoNumero(texto) || texto.isEmpty());
 	}
 	
 	public static boolean validarNumero(String texto) {
