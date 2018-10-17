@@ -4,19 +4,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.AlumnoManager;
+import com.ungs.formar.negocios.AreaManager;
+import com.ungs.formar.negocios.CursoManager;
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.Formato;
+import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.InscripcionManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionesDeAlumno;
 import com.ungs.formar.vista.util.PanelHorizontal;
 
 public class ControladorAlumnoABM implements ActionListener {
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
+	private VentanaInscripcionesDeAlumno ventanaInscripciones;
 	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
+	private List<Curso> cursosInscriptos;
 
 	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPantallaPrincipal controlador) {
 		this.ventanaABM = ventanaABM;
@@ -27,6 +41,8 @@ public class ControladorAlumnoABM implements ActionListener {
 		this.ventanaABM.getBorrar().addActionListener(this);
 		this.ventanaABM.getMostrar().addActionListener(this);
 		this.ventanaABM.getOcultar().addActionListener(this);
+		this.ventanaABM.getBtnInscripciones().addActionListener(this);
+		
 		
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
@@ -60,6 +76,33 @@ public class ControladorAlumnoABM implements ActionListener {
 		}
 	}
 
+	private void llenarTablaInscripciones(Alumno alumno) {
+		ventanaInscripciones.getModeloCursos().setRowCount(0);
+		ventanaInscripciones.getModeloCursos().setColumnCount(0);
+		ventanaInscripciones.getModeloCursos().setColumnIdentifiers(ventanaInscripciones.getNombreColumnas());
+
+		cursosInscriptos = InscripcionManager.traerCursosInscriptos(alumno);
+		for (Curso curso : cursosInscriptos) {
+			Object[] fila = {
+					Formato.nombre(curso),
+					Formato.area(curso),
+					Formato.estado(curso),
+					curso.getCupoMinimo(),
+					curso.getCupoMaximo(),
+					curso.getFechaInicio(),
+					curso.getFechaFin(),
+					Formato.instructor(curso),
+					Formato.responsable(curso),
+					Formato.horarios(curso),
+			};
+			ventanaInscripciones.getModeloCursos().addRow(fila);
+		}
+	}
+
+	
+	
+	
+	
 	public void actionPerformed(ActionEvent e) {
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaABM.getAgregar())
@@ -76,6 +119,10 @@ public class ControladorAlumnoABM implements ActionListener {
 		// BOTON BORRAR DEL ABM
 		else if (e.getSource() == ventanaABM.getBorrar())
 			eliminarSeleccion();
+		
+		// BOTON VER INSCRIPCIONES DEL ABM
+		else if (e.getSource() == ventanaABM.getBtnInscripciones())
+			mostrarInscripciones();
 
 		// BOTON MOSTRAR FILTROS
 		else if (e.getSource() == ventanaABM.getMostrar())
@@ -96,6 +143,24 @@ public class ControladorAlumnoABM implements ActionListener {
 		}
 	}
 	
+	private void mostrarInscripciones() {
+		Alumno alumno = obtenerAlumnoSeleccionado();
+		if (alumno != null) {			
+			ventanaInscripciones = new VentanaInscripcionesDeAlumno();
+			ventanaInscripciones.getBtnBaja().addActionListener(this);
+			ventanaInscripciones.getBtnVolver().addActionListener(this);
+			ventanaInscripciones.getVentana().addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					//cancelarAM();
+				}
+			});
+			ventanaInscripciones.getVentana().setVisible(true);
+			ventanaABM.getVentana().setEnabled(false);
+			llenarTablaInscripciones(alumno);
+		}
+	}
+
 	private void eliminarSeleccion() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		if (alumno != null) {

@@ -24,7 +24,7 @@ public class VentanaAlumnoABM {
 	private JTable tablaAlumnos;
 	private DefaultTableModel modeloAlumnos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono" };
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnMostrar, btnOcultar;
+	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnMostrar, btnOcultar, btnInscripciones;
 	private JTextField inApellido, inNombre, inEmail, inDNI, inTelefono;
 	private PanelHorizontal panelConFiltros, panelFiltrar;
 	private final TableRowSorter<TableModel> filtro;
@@ -106,12 +106,14 @@ public class VentanaAlumnoABM {
 		btnCancelar = new JButton("Volver");
 		btnMostrar =  new JButton("Mostrar filtros");
 		btnOcultar =  new JButton("Ocultar filtros");
-
+		btnInscripciones = new JButton("Ver inscripciones");
+		
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.agregarComponente(btnAgregar);
 		panelBotones.agregarComponente(btnEditar);
 		panelBotones.agregarComponente(btnBorrar);
 		panelBotones.agregarComponente(btnCancelar);
+		panelBotones.agregarComponente(btnInscripciones);
 		
 		// COMPONENTE QUE SE PUEDE MOSTRAR U OCULTAR
 		EmptyBorder bordeSimple = new EmptyBorder(10, 10, 10, 10);
@@ -178,6 +180,10 @@ public class VentanaAlumnoABM {
 
 	public JButton getOcultar() {
 		return btnOcultar;
+	}
+
+	public JButton getBtnInscripciones() {
+		return btnInscripciones;
 	}
 
 	public DefaultTableModel getModeloAlumnos() {

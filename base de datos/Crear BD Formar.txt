@@ -143,8 +143,9 @@ CREATE TABLE for_examenes (
 CREATE TABLE for_inscripciones (
 	inscripcion_ID INT(4) AUTO_INCREMENT,
 	cliente INT(4) NOT NULL, -- FK CLIENTES
+	empleado INT(4) NOT NULL, -- FK EMPLEADOS
 	curso INT(4) NOT  NULL, -- FK CURSOS
-	estado INT(4) NOT NULL, -- FK ESTADOS DE INSCRIPCION
+	estado INT(4) DEFAULT NULL, -- FK ESTADOS DE INSCRIPCION
 	fecha DATE NOT NULL,
 	nota DECIMAL(10,0) DEFAULT NULL,
 	PRIMARY KEY (inscripcion_ID)

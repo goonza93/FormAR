@@ -8,6 +8,7 @@ import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
 import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
+import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 import com.ungs.formar.persistencia.mysqlOBD.AlumnoODBMySQL;
@@ -61,6 +62,10 @@ public class FactoryODB {
 	
 	public static HorarioOBD crearHorarioOBD() {
 		return new HorarioOBDMySQL();
+	}
+	
+	public static InscripcionOBD crearInscripcionOBD() {
+		return null;
 	}
 	
 }
