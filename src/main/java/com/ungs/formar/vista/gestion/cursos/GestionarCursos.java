@@ -98,7 +98,8 @@ public class GestionarCursos {
 		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(200);
 		tablaCursos.setRowHeight(75);
-
+		tablaCursos.setSelectionMode(0);
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
 				.createSequentialGroup().addContainerGap()

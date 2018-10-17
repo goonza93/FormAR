@@ -19,6 +19,7 @@ import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
@@ -226,8 +227,9 @@ public class ControladorCrearCurso implements ActionListener {
 		}
 		*/
 		System.out.println("ElTamano de horarios es"+horarios.size());
+		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor, this.programa, 
-				contenido, this.horarios, fechaInicio, fechaFin);
+				contenido, this.horarios, fechaInicio, fechaFin, CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()));
 		System.out.println("Entrada 5");
 	}
 
