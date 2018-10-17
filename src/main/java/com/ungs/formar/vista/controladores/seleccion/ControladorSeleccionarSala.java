@@ -7,8 +7,8 @@ import java.util.List;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Sala;
-import com.ungs.formar.vista.controladores.ControladorCrearCurso;
 import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
+import com.ungs.formar.vista.gestion.cursos.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarSala implements ActionListener {

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.vista.controladores.ControladorCrearCurso;
+import com.ungs.formar.vista.gestion.cursos.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
 
 public class ControladorSeleccionarInstructor implements ActionListener {

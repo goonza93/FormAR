@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.ventanas;
+package com.ungs.formar.vista.gestion.cursos;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

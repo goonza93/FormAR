@@ -12,6 +12,7 @@ import com.ungs.formar.persistencia.entidades.Dia;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarSala;
+import com.ungs.formar.vista.gestion.cursos.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.ABMHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 

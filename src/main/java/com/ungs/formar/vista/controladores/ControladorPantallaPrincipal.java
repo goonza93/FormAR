@@ -9,12 +9,13 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
+import com.ungs.formar.vista.gestion.cursos.ControladorGestionarCurso;
+import com.ungs.formar.vista.gestion.cursos.CrearCurso;
+import com.ungs.formar.vista.gestion.cursos.GestionarCursos;
 import com.ungs.formar.vista.gestion.empleados.ControladorEmpleadoABM;
 import com.ungs.formar.vista.gestion.empleados.VentanaEmpleadoABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
-import com.ungs.formar.vista.ventanas.CrearCurso;
-import com.ungs.formar.vista.ventanas.GestionarCursos;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 

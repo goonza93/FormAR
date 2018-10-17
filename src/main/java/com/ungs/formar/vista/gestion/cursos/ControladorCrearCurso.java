@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.controladores;
+package com.ungs.formar.vista.gestion.cursos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +22,11 @@ import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarInstructor;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarResponsable;
 import com.ungs.formar.vista.ventanas.ABMHorario;
-import com.ungs.formar.vista.ventanas.CrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarResponsable;

@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.controladores;
+package com.ungs.formar.vista.gestion.cursos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +12,7 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.vista.ventanas.CrearCurso;
-import com.ungs.formar.vista.ventanas.GestionarCursos;
+import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 
 public class ControladorGestionarCurso implements ActionListener {
 	private GestionarCursos ventanaGestionarCursos;

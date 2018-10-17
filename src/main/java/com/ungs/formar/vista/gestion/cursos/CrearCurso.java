@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.ventanas;
+package com.ungs.formar.vista.gestion.cursos;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
