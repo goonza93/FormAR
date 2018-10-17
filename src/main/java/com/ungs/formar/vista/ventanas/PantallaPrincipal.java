@@ -25,6 +25,7 @@ public class PantallaPrincipal {
 	private JLabel lblLogo;
 	private JButton btnGestionarProgramas;
 	private JButton btnGestionarSalas;
+	private JButton btnGestionarInscripciones;
 
 	public PantallaPrincipal() {
 		super();
@@ -62,6 +63,9 @@ public class PantallaPrincipal {
 		btnGestionarSalas = new JButton("GESTIONAR SALAS");
 		btnGestionarSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 		
+		btnGestionarInscripciones = new JButton("GESTIONAR INSCRIPCIONES");
+		btnGestionarInscripciones.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -72,8 +76,9 @@ public class PantallaPrincipal {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnGestionarAlumnos, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+								.addComponent(btnGestionarInscripciones, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnGestionarSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
 								.addComponent(btnGestionarProgramas, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
@@ -86,7 +91,9 @@ public class PantallaPrincipal {
 					.addGap(28)
 					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
 					.addGap(18)
-					.addComponent(btnGestionarSalas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnGestionarSalas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnGestionarInscripciones, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnGestionarAlumnos, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
@@ -134,6 +141,10 @@ public class PantallaPrincipal {
 
 	public JButton getBtnGestionarSalas() {
 		return btnGestionarSalas;
+	}
+	
+	public JButton getBtnGestionarInscripciones(){
+		return btnGestionarInscripciones;
 	}
 	
 	public void ocultar() {
