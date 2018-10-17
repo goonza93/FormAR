@@ -1,31 +1,34 @@
-package com.ungs.formar.vista.gestion.inscripciones;
+package com.ungs.formar.vista.gestion.alumnos;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.table.DefaultTableModel;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
-public class VentanaInscripcionesDeAlumno {
+public class VentanaInscripciones {
 	private JFrame ventana;
-	private JButton btnVolver, btnBaja;
+	private JButton btnVolver;
 	private DefaultTableModel modeloCursos;
 	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
 			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JTable tablaCursos;
 
-	public VentanaInscripcionesDeAlumno() {
+	public VentanaInscripciones() {
 		initialize();
 	}
 
 	private void initialize() {
+		
+		
 		
 		// PROPIEDADES DE LA VENTANA
 		ventana = new JFrame();
@@ -35,6 +38,16 @@ public class VentanaInscripcionesDeAlumno {
 		ventana.setLocationRelativeTo(null);
 		PanelVertical panelPrincipal = new PanelVertical();
 		ventana.setContentPane(panelPrincipal);
+		
+		
+		
+		ventana.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnVolver.doClick();
+			}
+		});
+
 		
 		// CREO LA TABLA DE CURSOS
 		modeloCursos = new DefaultTableModel(null, nombreColumnas);
@@ -46,11 +59,8 @@ public class VentanaInscripcionesDeAlumno {
 		
 		// CREO LOS BOTONES
 		btnVolver = new JButton("Volver");
-		btnBaja = new JButton("Baja");
-		PanelHorizontal panelBotones = new PanelHorizontal();
-		
+		PanelHorizontal panelBotones = new PanelHorizontal();		
 		panelBotones.add(btnVolver);		
-		panelBotones.add(btnBaja);
 		
 		// CONFIGURO LOS PANALES
 		Border borde = new EmptyBorder(10, 10, 10, 10);
@@ -67,10 +77,6 @@ public class VentanaInscripcionesDeAlumno {
 
 	public JButton getBtnVolver() {
 		return btnVolver;
-	}
-
-	public JButton getBtnBaja() {
-		return btnBaja;
 	}
 
 	public DefaultTableModel getModeloCursos() {

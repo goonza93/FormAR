@@ -21,13 +21,12 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
-import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionesDeAlumno;
 import com.ungs.formar.vista.util.PanelHorizontal;
 
 public class ControladorAlumnoABM implements ActionListener {
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
-	private VentanaInscripcionesDeAlumno ventanaInscripciones;
+	private VentanaInscripciones ventanaInscripciones;
 	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
 	private List<Curso> cursosInscriptos;
@@ -141,24 +140,31 @@ public class ControladorAlumnoABM implements ActionListener {
 			else if (e.getSource() == ventanaAM.getCancelar())
 				cancelarAM();
 		}
+		
+		else if (ventanaInscripciones != null) {
+			// BOTON VOLVER DE INSCRIPCIONES
+			if (e.getSource() == ventanaInscripciones.getBtnVolver())
+				cerrarVentanaInscripciones();
+		}
+		
 	}
 	
 	private void mostrarInscripciones() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		if (alumno != null) {			
-			ventanaInscripciones = new VentanaInscripcionesDeAlumno();
-			ventanaInscripciones.getBtnBaja().addActionListener(this);
+			ventanaInscripciones = new VentanaInscripciones();
 			ventanaInscripciones.getBtnVolver().addActionListener(this);
 			ventanaInscripciones.getVentana().addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {
-					//cancelarAM();
+					cerrarVentanaInscripciones();
 				}
 			});
 			ventanaInscripciones.getVentana().setVisible(true);
 			ventanaABM.getVentana().setEnabled(false);
 			llenarTablaInscripciones(alumno);
-		}
+		} else
+			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 alumno para a que cursos esta inscripto.");
 	}
 
 	private void eliminarSeleccion() {
@@ -244,6 +250,12 @@ public class ControladorAlumnoABM implements ActionListener {
 
 	private void cancelarAM(){
 		ventanaAM.dispose();
+		ventanaABM.getVentana().setEnabled(true);
+		ventanaABM.getVentana().setVisible(true);
+	}
+
+	private void cerrarVentanaInscripciones(){
+		ventanaInscripciones.getVentana().dispose();
 		ventanaABM.getVentana().setEnabled(true);
 		ventanaABM.getVentana().setVisible(true);
 	}

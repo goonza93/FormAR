@@ -19,6 +19,7 @@ import com.ungs.formar.persistencia.mysqlOBD.EmpleadoODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.EstadoCursoODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.HorarioCursadaODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.HorarioOBDMySQL;
+import com.ungs.formar.persistencia.mysqlOBD.InscripcionOBDMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.ProgramaODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.SalaODBMySQL;
 
@@ -65,7 +66,7 @@ public class FactoryODB {
 	}
 	
 	public static InscripcionOBD crearInscripcionOBD() {
-		return null;
+		return new InscripcionOBDMySQL();
 	}
 	
 }
