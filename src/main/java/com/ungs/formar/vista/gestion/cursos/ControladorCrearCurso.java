@@ -19,8 +19,10 @@ import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
@@ -53,6 +55,7 @@ public class ControladorCrearCurso implements ActionListener {
 		this.ventanaCrearCurso.getBtnSeleccionarResponsable().addActionListener(this);
 		this.ventanaCrearCurso.getBtnAgregarDia().addActionListener(this);
 		this.ventanaCrearCurso.getBtnBorrarDia().addActionListener(this);
+		this.ventanaCrearCurso.getBtnEditarDia().addActionListener(this);
 		this.controladorGestionarCurso = controladorGestionarCurso;
 		horarios = new ArrayList<HorarioCursada>();
 	}
@@ -69,70 +72,73 @@ public class ControladorCrearCurso implements ActionListener {
 		modelo.setColumnCount(0);
 		modelo.setColumnIdentifiers(ventanaCrearCurso.getColumnasHorarios());
 
-		for (int i = 0; i < horarios.size(); i ++) {
-			Object[] fila = {
-					HorarioCursadaManager.obtenerDia(horarios.get(i)),
+		for (int i = 0; i < horarios.size(); i++) {
+			Object[] fila = { HorarioCursadaManager.obtenerDia(horarios.get(i)),
 					HorarioCursadaManager.obtenerHoraInicio(horarios.get(i)),
 					HorarioCursadaManager.obtenerHoraFin(horarios.get(i)),
-					HorarioCursadaManager.obtenerSala(horarios.get(i)),
-					};
-			modelo.addRow(fila);		
+					HorarioCursadaManager.obtenerSala(horarios.get(i)), };
+			modelo.addRow(fila);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		// BOTON AGREGAR
 		if (e.getSource() == ventanaCrearCurso.getBtnAgregar()) {
 
 			seApretoAgregarCurso();
 
-		// BOTON CANCELAR
+			// BOTON CANCELAR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {
 			this.ventanaCrearCurso.dispose();
 			this.controladorGestionarCurso.inicializar();
-		
-		// BOTON SELECCIONAR INSTRUCTOR
+
+			// BOTON SELECCIONAR INSTRUCTOR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarInstructor()) {
 			this.ventanaSeleccionarInstructor = new SeleccionarInstructor();
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarInstructor(this.ventanaSeleccionarInstructor, this);
-		
-		// BOTON SELECCIONAR PROGRAMA
+
+			// BOTON SELECCIONAR PROGRAMA
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarPrograma()) {
 			this.ventanaSeleccionarPrograma = new SeleccionarPrograma();
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarPrograma(this.ventanaSeleccionarPrograma, this);
-		
-		// BOTON SELECCIONAR RESPONSABLE
+
+			// BOTON SELECCIONAR RESPONSABLE
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarResponsable()) {
 			this.ventanaSeleccionarResponsable = new SeleccionarResponsable();
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorSeleccionarResponsable(this.ventanaSeleccionarResponsable, this);
-		
-		// BOTON AGREGAR HORARIO
+
+			// BOTON AGREGAR HORARIO
 		} else if (e.getSource() == ventanaCrearCurso.getBtnAgregarDia()) {
-			
 			seApretoAgregarDia();
-			
-		// BOTON BORRAR HORARIO
+
+			// BOTON BORRAR HORARIO
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
 			int fila = this.ventanaCrearCurso.getHorarios().getSelectedRow();
-			if(this.idEdicion != -1){
-				if(this.horarios.get(fila).getHorarioID() == -1){
+			if (this.idEdicion != -1) {
+				if (this.horarios.get(fila).getHorarioID() == -1) {
 					HorarioCursadaManager.eliminarHorario(this.horarios.get(fila));
 					this.horarios.remove(fila);
-				}
-				else{
+				} else {
 					HorarioCursadaManager.eliminarHorarioDeCursada(this.horarios.get(fila));
 					this.horarios.remove(fila);
 				}
-			}
-			else{
+			} else {
 				this.horarios.remove(fila);
 			}
 			this.llenarTablaHorarios();
 			this.actualizarFechaFin();
+		}
+
+		// BOTON EDITAR HORARIO
+		else if (e.getSource() == ventanaCrearCurso.getBtnEditarDia()) {
+			int fila = this.ventanaCrearCurso.getHorarios().getSelectedRow();
+			if (fila != -1) {
+				seApretoEditarDia(this.horarios.get(fila), fila);
+			}
 		}
 	}
 
@@ -140,18 +146,73 @@ public class ControladorCrearCurso implements ActionListener {
 		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
 		Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
 		Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
-		
+
 		if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Por favor, primero ingrese un cupo maximo");
 		} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Por favor, primero ingrese una fecha de inicio");
 		} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
-		} 
-		else{
+		}
+		//
+		else {
 			this.ventanaABMHorario = new ABMHorario();
 			this.ventanaCrearCurso.setVisible(false);
 			new ControladorAgregarHorario(this.ventanaABMHorario, this);
+		}
+	}
+
+	private void seApretoEditarDia(HorarioCursada horarioSeleccionado, int indiceEnHorarios) {
+		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+		Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
+		Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
+
+		String msjError = "";
+		if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
+			msjError += "Por favor, primero ingrese un cupo maximo\n";
+		} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
+			msjError += "Por favor, primero ingrese una fecha de inicio\n";
+		} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
+			msjError += "Por favor, ingrese una cantidad total de horas valida/n";
+		}
+		// Si no hay msj error, cargo los valores para editar
+		if (msjError.isEmpty()) {
+			this.ventanaABMHorario = new ABMHorario();
+			Horario horarioAeditar = HorarioCursadaManager.traerHorarioSegunID(horarioSeleccionado.getHorario());
+			this.ventanaABMHorario.getComboDias().setSelectedIndex(horarioAeditar.getDia() - 1);
+			this.ventanaABMHorario.getTxtHorasInicio().setText(horarioAeditar.getHoraInicio().toString());
+			this.ventanaABMHorario.getTxtHorasFin().setText(horarioAeditar.getHoraFin().toString());
+			this.ventanaABMHorario.getTxtMinutosInicio().setText(horarioAeditar.getMinutoInicio().toString());
+			this.ventanaABMHorario.getTxtMinutosFin().setText(horarioAeditar.getMinutoFin().toString());
+			verificarEdicionDiasHorarios();// Decidir si habilito el editar dias
+											// y horarios o solo sala
+			this.ventanaCrearCurso.setVisible(false);
+
+			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
+			controlador.esEdicion = true;
+			controlador.indiceHorarioEdicion = indiceEnHorarios;
+			controlador.setSala(SalaManager.traerSegunID(horarioSeleccionado.getSala()));
+		} else {
+			JOptionPane.showMessageDialog(null, msjError);
+		}
+	}
+
+	// Este metodo verifica si se puede editar dias y horarios o solo la sala.
+	private void verificarEdicionDiasHorarios() {
+		// Si es edicion de un curso, ver el estado para saber que puedo editar
+		// Si no es edicion de un curso, puedo editar cualquier cosa
+		if (this.idEdicion != -1) {
+			Curso aEditar = CursoManager.traerCursoPorId(idEdicion);
+			// Si no es el estado CREADO, unicamente puedo editar sala, por lo
+			// tanto
+			// No dejo editar horas ni minutos.
+			if (aEditar.getEstado() != 1) {
+				this.ventanaABMHorario.getComboDias().setEnabled(false);
+				this.ventanaABMHorario.getTxtHorasInicio().setEditable(false);
+				this.ventanaABMHorario.getTxtHorasFin().setEditable(false);
+				this.ventanaABMHorario.getTxtMinutosInicio().setEditable(false);
+				this.ventanaABMHorario.getTxtMinutosFin().setEditable(false);
+			}
 		}
 	}
 
@@ -173,7 +234,7 @@ public class ControladorCrearCurso implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Por favor, ingrese una cantidad total de horas valida");
 		} else if (this.instructor == null) {
 			JOptionPane.showMessageDialog(null, "Por favor, seleccione un instructor");
-		}else if (this.programa == null) {
+		} else if (this.programa == null) {
 			JOptionPane.showMessageDialog(null, "Por favor,  seleccione un programa");
 		} else if (this.responsable == null) {
 			JOptionPane.showMessageDialog(null, "Por favor, seleccione un responsable");
@@ -185,13 +246,11 @@ public class ControladorCrearCurso implements ActionListener {
 		else if (Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()) < Integer
 				.parseInt(this.ventanaCrearCurso.getCupoMinimo().getText())) {
 			JOptionPane.showMessageDialog(null, "El cupo maximo no puede ser menor que el cupo minimo");
-		}
-		else{
+		} else {
 			// El agregar paso todas las validadciones
-			if(this.idEdicion == -1){
+			if (this.idEdicion == -1) {
 				crearCurso();
-			}
-			else{
+			} else {
 				System.out.println("Entrada 1");
 				actualizarCurso();
 			}
@@ -201,67 +260,70 @@ public class ControladorCrearCurso implements ActionListener {
 		}
 	}
 
-	
 	private void actualizarCurso() {
 		System.out.println("Entrada 3");
 		JTextField inCupoMinimo = ventanaCrearCurso.getCupoMinimo();
 		Integer cupoMinimo = Integer.decode(inCupoMinimo.getText());
-		
+
 		JTextField inCupoMaximo = ventanaCrearCurso.getCupoMaximo();
 		Integer cupoMaximo = Integer.decode(inCupoMaximo.getText());
-		
+
 		JTextField inHoras = ventanaCrearCurso.getHoras();
 		Integer horas = Integer.decode(inHoras.getText());
-		
+
 		String contenido = ventanaCrearCurso.getContenidoEspecifico().getText();
-		
+
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
-		
-		//horarios = CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
-		//if(horarios.size()>0){
-			fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
-		/*}else {
-			fechaFin = fechaInicio; // el metodo tiene ciclos infinitos, para que compile
-		}
-		*/
-		System.out.println("ElTamano de horarios es"+horarios.size());
+
+		// horarios =
+		// CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
+		// if(horarios.size()>0){
+		fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
+		/*
+		 * }else { fechaFin = fechaInicio; // el metodo tiene ciclos infinitos,
+		 * para que compile }
+		 */
+		System.out.println("ElTamano de horarios es" + horarios.size());
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
-		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor, this.programa, 
-				contenido, this.horarios, fechaInicio, fechaFin, CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()));
+		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
+				this.programa, contenido, this.horarios, fechaInicio, fechaFin,
+				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()));
 		System.out.println("Entrada 5");
 	}
 
 	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO
-	private void crearCurso()  {
+	private void crearCurso() {
 		JTextField inCupoMinimo = ventanaCrearCurso.getCupoMinimo();
 		Integer cupoMinimo = Integer.decode(inCupoMinimo.getText());
-		
+
 		JTextField inCupoMaximo = ventanaCrearCurso.getCupoMaximo();
 		Integer cupoMaximo = Integer.decode(inCupoMaximo.getText());
-		
+
 		JTextField inHoras = ventanaCrearCurso.getHoras();
 		Integer horas = Integer.decode(inHoras.getText());
-		
+
 		String contenido = ventanaCrearCurso.getContenidoEspecifico().getText();
-		
+
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = CursoManager.calcularFechaFin(horarios, horas, fechaInicio);
 
-		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios, fechaInicio, fechaFin);
+		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido, horarios,
+				fechaInicio, fechaFin);
 	}
-	
-	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS QUE ELIGIO EL USUARIO
+
+	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS
+	// QUE ELIGIO EL USUARIO
 	public void setInstructor(Empleado seleccion) {
 		instructor = seleccion;
-		ventanaCrearCurso.getInstructor().setText(instructor.getApellido()+" "+instructor.getNombre());
+		ventanaCrearCurso.getInstructor().setText(instructor.getApellido() + " " + instructor.getNombre());
 	}
 
 	public void setResponsable(Empleado seleccion) {
 		responsable = seleccion;
-		ventanaCrearCurso.getResponsable().setText(responsable.getApellido()+" "+responsable.getNombre());
+		ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
 	}
 
 	public void setPrograma(Programa seleccion) {
@@ -272,12 +334,12 @@ public class ControladorCrearCurso implements ActionListener {
 		// y se actualiza la fecha fin
 		actualizarFechaFin();
 	}
-	
-	public boolean agregarHorarioDeCursada(HorarioCursada hc) {
+
+public boolean agregarHorarioDeCursada(HorarioCursada hc) {
 		boolean ret = false;
 		List<HorarioCursada> testear = new ArrayList<HorarioCursada>(horarios);
 		testear.add(hc);
-		if(Almanaque.horariosCompatiblesEntreSi(testear)){
+		if (Almanaque.horariosCompatiblesEntreSi(testear)) {
 			horarios.add(hc);
 			llenarTablaHorarios();
 			ret = true;
@@ -287,7 +349,15 @@ public class ControladorCrearCurso implements ActionListener {
 		return ret;
 	}
 
-	public void setIdEdicion(Integer idEdicion) {
+	public HorarioCursada getHorarioCursada(int indice){
+		return this.horarios.get(indice);
+	}
+	
+	public void actualizarHorarioCursada(int indice, HorarioCursada horarioCursada){
+		this.horarios.set(indice, horarioCursada);
+	}
+	
+ 	public void setIdEdicion(Integer idEdicion) {
 		this.idEdicion = idEdicion;
 	}
 
@@ -295,24 +365,22 @@ public class ControladorCrearCurso implements ActionListener {
 		this.horarios = horarios;
 	}
 
-	public void actualizarFechaFin(){
-		if(this.horarios==null || this.horarios.size() == 0 
-				|| this.ventanaCrearCurso.getHoras().getText().isEmpty() 
-				|| this.ventanaCrearCurso.getFechaInicio().getDate()==null){
-			((JTextField)this.ventanaCrearCurso.getDateFechaFin().getDateEditor().getUiComponent()).setText("");
-		}
-		else{
+	public void actualizarFechaFin() {
+		if (this.horarios == null || this.horarios.size() == 0 || this.ventanaCrearCurso.getHoras().getText().isEmpty()
+				|| this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
+			((JTextField) this.ventanaCrearCurso.getDateFechaFin().getDateEditor().getUiComponent()).setText("");
+		} else {
 			Date fechaInicio = new Date(ventanaCrearCurso.getFechaInicio().getDate().getTime());
 			Integer horas = Integer.parseInt(this.ventanaCrearCurso.getHoras().getText());
 			Date fechaFin = CursoManager.calcularFechaFin(this.horarios, horas, fechaInicio);
 			this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);
 		}
 	}
-	
+
 	private void iniciarDocumentListener() {
-		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener(){
+		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {
-				if(arg0.getDocument().getLength()>=0){
+				if (arg0.getDocument().getLength() >= 0) {
 					actualizarFechaFin();
 				}
 			}
@@ -326,5 +394,5 @@ public class ControladorCrearCurso implements ActionListener {
 			}
 		});
 	}
-	
+
 }

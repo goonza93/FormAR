@@ -118,6 +118,10 @@ public class HorarioCursadaManager {
 		obd.insert(horario);
 		return obd.selectIDMasReciente();
 	}
+	
+	public static void actualizarHorario(Horario horario){
+		FactoryODB.crearHorarioOBD().update(horario);
+	}
 
 	public static Horario traerHorarioSegunID(Integer ID) {
 		HorarioOBD obd = FactoryODB.crearHorarioOBD();

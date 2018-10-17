@@ -179,6 +179,7 @@ public class ControladorGestionarCurso implements ActionListener {
 		completarVentanaEdicion(curso);
 		
 		ventanaCrearCurso.getBtnAgregarDia().setEnabled(false);
+		ventanaCrearCurso.getBtnBorrarDia().setEnabled(false);
 		ventanaCrearCurso.getCupoMaximo().setEditable(false);
 		ventanaCrearCurso.getBtnSeleccionarPrograma().setEnabled(false);
 		ventanaCrearCurso.getHoras().setEditable(false);
@@ -191,6 +192,7 @@ public class ControladorGestionarCurso implements ActionListener {
 		completarVentanaEdicion(curso);
 		
 		ventanaCrearCurso.getBtnAgregarDia().setEnabled(false);
+		ventanaCrearCurso.getBtnBorrarDia().setEnabled(false);
 		ventanaCrearCurso.getCupoMaximo().setEditable(false);
 		ventanaCrearCurso.getBtnSeleccionarPrograma().setEnabled(false);
 		ventanaCrearCurso.getHoras().setEditable(false);

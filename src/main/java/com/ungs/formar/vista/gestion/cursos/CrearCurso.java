@@ -38,6 +38,7 @@ public class CrearCurso extends JFrame {
 	private JTextField txtComision;
 	private JTextField txtPrecio;
 	private JLabel lblPrecio;
+	private JButton btnEditarDia;
 	
 	public CrearCurso() {
 		setBounds(100, 100, 504, 713);
@@ -237,6 +238,11 @@ public class CrearCurso extends JFrame {
 		lblCierreDeInscripciones.setBounds(10, 240, 188, 14);
 		panelprincipal.add(lblCierreDeInscripciones);
 		
+		btnEditarDia = new JButton("EDITAR DIA");
+		btnEditarDia.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnEditarDia.setBounds(179, 444, 129, 23);
+		panelprincipal.add(btnEditarDia);
+		
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -337,6 +343,10 @@ public class CrearCurso extends JFrame {
 	
 	public  JTextField getTxtComision() {
 		return txtComision;
+	}
+	
+	public JButton getBtnEditarDia() {
+		return btnEditarDia;
 	}
 	
 }

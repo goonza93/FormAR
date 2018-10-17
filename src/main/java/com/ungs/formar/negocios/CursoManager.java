@@ -95,7 +95,7 @@ public class CursoManager {
 		}
 		//Si Tiene otro estado, el curso pasa a estar Cancelado
 		else{
-			curso.setEstado(4);
+			curso.setEstado(5);
 			actualizarCurso(curso.getCursoID(),
 					curso.getCupoMinimo(),
 					curso.getCupoMaximo(),
