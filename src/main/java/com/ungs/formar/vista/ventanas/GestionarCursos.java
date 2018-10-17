@@ -36,8 +36,8 @@ public class GestionarCursos {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelCursos;
-	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
-			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
+	private String[] nombreColumnas = { "Curso", "Comision","Area", "Estado", "Precio", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
+			"Fecha fin", "Cierre de inscripciones", "Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JScrollPane spCursos;
 	private JTable tablaCursos;
 	private JLabel lblFiltrar;

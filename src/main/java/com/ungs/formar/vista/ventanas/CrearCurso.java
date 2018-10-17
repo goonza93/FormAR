@@ -21,6 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CrearCurso extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -29,13 +31,16 @@ public class CrearCurso extends JFrame {
 	private DefaultTableModel modeloHorarios;
 	private  String[] columnasHorarios = {"Dia", "Hora Inicio", "Hora Fin", "Sala"};
 	private JTable tablaHorarios;
-	private JDateChooser inFechaInicio, inFechaFin;
+	private JDateChooser inFechaInicio, inFechaFin, dateCierreInscripciones;
 	private JTextArea inContenidoEspecifico;
 	private JTextField inCupoMinimo, inCupoMaximo, inHoras, inInstructor, inPrograma, inResponsable;
 	private JButton btnCrearCurso, btnCancelar, btnAgregarHorario, btnBorrarHorario, btnSelInstructor, btnSelPrograma, btnSelResponsable;
+	private JTextField txtComision;
+	private JTextField txtPrecio;
+	private JLabel lblPrecio;
 	
 	public CrearCurso() {
-		setBounds(100, 100, 504, 624);
+		setBounds(100, 100, 504, 713);
 		panelprincipal = new JPanel();
 		panelprincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelprincipal);
@@ -50,12 +55,12 @@ public class CrearCurso extends JFrame {
 		
 		JLabel lblFechaInicio = new JLabel("FECHA INICIO:");
 		lblFechaInicio.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFechaInicio.setBounds(10, 67, 188, 14);
+		lblFechaInicio.setBounds(10, 186, 188, 14);
 		panelprincipal.add(lblFechaInicio);
 		
 		JLabel lblInstructor = new JLabel("INSTRUCTOR:");
 		lblInstructor.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblInstructor.setBounds(10, 150, 188, 14);
+		lblInstructor.setBounds(10, 269, 188, 14);
 		panelprincipal.add(lblInstructor);
 		
 		inCupoMinimo = new JTextField();
@@ -65,13 +70,17 @@ public class CrearCurso extends JFrame {
 		inCupoMinimo.setColumns(10);
 		
 		btnCrearCurso = new JButton("AGREGAR");
+		btnCrearCurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCrearCurso.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCrearCurso.setBounds(10, 548, 101, 23);
+		btnCrearCurso.setBounds(10, 638, 101, 23);
 		panelprincipal.add(btnCrearCurso);
 		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(376, 548, 101, 23);
+		btnCancelar.setBounds(376, 638, 101, 23);
 		panelprincipal.add(btnCancelar);
 		
 		JLabel lblCupoMaximo = new JLabel("CUPO M\u00C1XIMO:");
@@ -86,78 +95,78 @@ public class CrearCurso extends JFrame {
 		panelprincipal.add(inCupoMaximo);
 		
 		inFechaInicio = new JDateChooser();
-		inFechaInicio.setBounds(208, 65, 269, 20);
+		inFechaInicio.setBounds(208, 184, 269, 20);
 		panelprincipal.add(inFechaInicio);
 		
 		JLabel lblFechaFin = new JLabel("FECHA FIN:");
 		lblFechaFin.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFechaFin.setBounds(10, 94, 188, 14);
+		lblFechaFin.setBounds(10, 213, 188, 14);
 		panelprincipal.add(lblFechaFin);
 		
 		inFechaFin = new JDateChooser();
-		inFechaFin.setBounds(208, 92, 269, 20);
+		inFechaFin.setBounds(208, 211, 269, 20);
 		panelprincipal.add(inFechaFin);
 		inFechaFin.setEnabled(false);
 		
 		inHoras = new JTextField();
 		inHoras.setFont(new Font("Arial", Font.PLAIN, 12));
 		inHoras.setColumns(10);
-		inHoras.setBounds(208, 119, 269, 20);
+		inHoras.setBounds(208, 99, 269, 20);
 		panelprincipal.add(inHoras);
 		
 		JLabel lblHorasTotalesClases = new JLabel("HORAS TOTALES DE CLASES:");
 		lblHorasTotalesClases.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblHorasTotalesClases.setBounds(10, 121, 188, 14);
+		lblHorasTotalesClases.setBounds(10, 101, 188, 14);
 		panelprincipal.add(lblHorasTotalesClases);
 		
 		inInstructor = new JTextField();
 		inInstructor.setEditable(false);
 		inInstructor.setFont(new Font("Arial", Font.PLAIN, 12));
 		inInstructor.setColumns(10);
-		inInstructor.setBounds(208, 148, 224, 20);
+		inInstructor.setBounds(208, 267, 224, 20);
 		panelprincipal.add(inInstructor);
 		
 		btnSelInstructor = new JButton("...");
 		btnSelInstructor.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSelInstructor.setBounds(442, 146, 35, 23);
+		btnSelInstructor.setBounds(442, 265, 35, 23);
 		panelprincipal.add(btnSelInstructor);
 		
 		btnSelPrograma = new JButton("...");
 		btnSelPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSelPrograma.setBounds(442, 175, 35, 23);
+		btnSelPrograma.setBounds(442, 65, 35, 23);
 		panelprincipal.add(btnSelPrograma);
 		
 		inPrograma = new JTextField();
 		inPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
 		inPrograma.setEditable(false);
 		inPrograma.setColumns(10);
-		inPrograma.setBounds(208, 177, 224, 20);
+		inPrograma.setBounds(208, 67, 224, 20);
 		panelprincipal.add(inPrograma);
 		
 		JLabel lblPrograma = new JLabel("PROGRAMA:");
 		lblPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblPrograma.setBounds(10, 179, 188, 14);
+		lblPrograma.setBounds(10, 69, 188, 14);
 		panelprincipal.add(lblPrograma);
 		
 		btnSelResponsable = new JButton("...");
 		btnSelResponsable.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnSelResponsable.setBounds(442, 204, 35, 23);
+		btnSelResponsable.setBounds(442, 294, 35, 23);
 		panelprincipal.add(btnSelResponsable);
 		
 		inResponsable = new JTextField();
 		inResponsable.setFont(new Font("Arial", Font.PLAIN, 12));
 		inResponsable.setEditable(false);
 		inResponsable.setColumns(10);
-		inResponsable.setBounds(208, 206, 224, 20);
+		inResponsable.setBounds(208, 296, 224, 20);
 		panelprincipal.add(inResponsable);
 		
 		JLabel lblResponsable = new JLabel("RESPONSABLE:");
 		lblResponsable.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblResponsable.setBounds(10, 208, 188, 14);
+		lblResponsable.setBounds(10, 298, 188, 14);
 		panelprincipal.add(lblResponsable);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 413, 467, 124);
+		scrollPane.setBounds(10, 503, 467, 124);
 		panelprincipal.add(scrollPane);
 		
 		inContenidoEspecifico = new JTextArea();
@@ -167,22 +176,22 @@ public class CrearCurso extends JFrame {
 		JLabel lblProgramaEspecifico = new JLabel("PROGRAMA ESPECIFICO:");
 		lblProgramaEspecifico.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramaEspecifico.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblProgramaEspecifico.setBounds(10, 388, 467, 14);
+		lblProgramaEspecifico.setBounds(10, 478, 467, 14);
 		panelprincipal.add(lblProgramaEspecifico);
 		
 		JLabel lblDiasYHorarios = new JLabel("DIAS Y HORARIOS:");
 		lblDiasYHorarios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDiasYHorarios.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblDiasYHorarios.setBounds(10, 238, 422, 14);
+		lblDiasYHorarios.setBounds(10, 328, 462, 14);
 		panelprincipal.add(lblDiasYHorarios);
 		
 		btnAgregarHorario = new JButton("AGREGAR DIA");
 		btnAgregarHorario.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregarHorario.setBounds(10, 354, 129, 23);
+		btnAgregarHorario.setBounds(15, 444, 129, 23);
 		panelprincipal.add(btnAgregarHorario);
 		
 		spHorarios = new JScrollPane();
-		spHorarios.setBounds(10, 263, 462, 80);
+		spHorarios.setBounds(10, 353, 462, 80);
 		panelprincipal.add(spHorarios);
 		
 		modeloHorarios = new DefaultTableModel(null,columnasHorarios);
@@ -194,8 +203,39 @@ public class CrearCurso extends JFrame {
 		
 		btnBorrarHorario = new JButton("BORRAR DIA");
 		btnBorrarHorario.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnBorrarHorario.setBounds(343, 355, 129, 23);
+		btnBorrarHorario.setBounds(348, 445, 129, 23);
 		panelprincipal.add(btnBorrarHorario);
+		
+		JLabel lblComision = new JLabel("COMISION:");
+		lblComision.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblComision.setBounds(10, 132, 188, 14);
+		panelprincipal.add(lblComision);
+		
+		txtComision = new JTextField();
+		txtComision.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtComision.setColumns(10);
+		txtComision.setBounds(208, 130, 269, 20);
+		panelprincipal.add(txtComision);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtPrecio.setColumns(10);
+		txtPrecio.setBounds(208, 157, 269, 20);
+		panelprincipal.add(txtPrecio);
+		
+		lblPrecio = new JLabel("PRECIO:");
+		lblPrecio.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblPrecio.setBounds(10, 159, 188, 14);
+		panelprincipal.add(lblPrecio);
+		
+		dateCierreInscripciones = new JDateChooser();
+		dateCierreInscripciones.setBounds(208, 238, 269, 20);
+		panelprincipal.add(dateCierreInscripciones);
+		
+		JLabel lblCierreDeInscripciones = new JLabel("CIERRE DE INSCRIPCIONES:");
+		lblCierreDeInscripciones.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblCierreDeInscripciones.setBounds(10, 240, 188, 14);
+		panelprincipal.add(lblCierreDeInscripciones);
 		
 		
 		addWindowListener(new WindowAdapter() {
@@ -285,6 +325,18 @@ public class CrearCurso extends JFrame {
 
 	public JButton getBtnSeleccionarPrograma() {
 		return btnSelPrograma;
+	}
+	
+	public JDateChooser getFechaCierreDeInscripcion(){
+		return this.dateCierreInscripciones;
+	}
+	
+	public  JTextField getTxtPrecio() {
+		return txtPrecio;
+	}
+	
+	public  JTextField getTxtComision() {
+		return txtComision;
 	}
 	
 }
