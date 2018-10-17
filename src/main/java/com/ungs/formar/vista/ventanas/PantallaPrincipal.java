@@ -51,10 +51,10 @@ public class PantallaPrincipal {
 		btnGestionarAlumnos = new JButton("GESTIONAR ALUMNOS");
 		btnGestionarAlumnos.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		btnGestionarCursos = new JButton("GESTIONAR CURSOS");
+		btnGestionarCursos = new JButton("GESTIONAR CURSADAS");
 		btnGestionarCursos.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		btnGestionarProgramas = new JButton("GESTIONAR PROGRAMAS");
+		btnGestionarProgramas = new JButton("GESTIONAR CURSOS");
 		btnGestionarProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		lblLogo = new JLabel(new ImageIcon("imagenes/logo.png"));

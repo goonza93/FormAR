@@ -45,7 +45,7 @@ public class CrearCurso extends JFrame {
 		panelprincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelprincipal);
 		panelprincipal.setLayout(null);
-		setTitle("Ingreso/edicion de curso");
+		setTitle("Ingreso/edicion de cursada");
 		setLocationRelativeTo(null);
 		
 		JLabel lblCupoMinimo = new JLabel("CUPO MINIMO:");
@@ -143,7 +143,7 @@ public class CrearCurso extends JFrame {
 		inPrograma.setBounds(208, 67, 224, 20);
 		panelprincipal.add(inPrograma);
 		
-		JLabel lblPrograma = new JLabel("PROGRAMA:");
+		JLabel lblPrograma = new JLabel("CURSO:");
 		lblPrograma.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblPrograma.setBounds(10, 69, 188, 14);
 		panelprincipal.add(lblPrograma);

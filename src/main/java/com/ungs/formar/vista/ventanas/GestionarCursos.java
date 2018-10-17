@@ -49,7 +49,7 @@ public class GestionarCursos {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1375, 497);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setTitle("Gestion de cursos");
+		frame.setTitle("Gestion de cursadas");
 		frame.setLocationRelativeTo(null);
 
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
@@ -75,7 +75,7 @@ public class GestionarCursos {
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		lblCursos = new JLabel("CURSOS:");
+		lblCursos = new JLabel("CURSADAS:");
 		lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCursos.setFont(new Font("Arial", Font.PLAIN, 12));
 
