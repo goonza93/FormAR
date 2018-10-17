@@ -182,9 +182,9 @@ INSERT INTO for_dias (descripcion) VALUES ("Sábado");
 
 -- INSERTAR ESTADOS DE CURSO
 INSERT INTO for_estados_curso (descripcion) VALUES ("Creado");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Abierto");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Cursando");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Cerrado");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Publicado");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Iniciado");
+INSERT INTO for_estados_curso (descripcion) VALUES ("Finalizado");
 INSERT INTO for_estados_curso (descripcion) VALUES ("Cancelado");
 
 -- INSERTAR ROLES DE EMPLEADO
