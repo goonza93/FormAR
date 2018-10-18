@@ -43,23 +43,24 @@ public class SalaManager {
 	
 	
 	
-	public static boolean validarHorarioDeCursada(HorarioCursada nuevo) {
+	public static boolean validarHorarioDeCursada(Horario horarioIngresado, Sala salaSeleccionada) {
 		// Traigo los horario que ocupan la misma sala
 		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
-		List<HorarioCursada> horarios = obd.selectBySala(nuevo.getSala());
+		List<HorarioCursada> horarios = obd.selectBySala(salaSeleccionada.getSalaID());
 		
 		// Comparo el nuevo Horario de cursada con los ya existentes para ver si alguno se superpone
 		// Si uno solo se superpone entonces el nuevo horario de cursada no es valido
 		// Tener en cuneta que un horario de cursada incluye la sala
 		HorarioOBD horarioOBD = FactoryODB.crearHorarioOBD();
-		boolean valido = true;
 		for (HorarioCursada horarioCursada : horarios) {
-			Horario horario1 = horarioOBD.selectByID(nuevo.getHorario());
+			Horario horario1 = horarioIngresado;
 			Horario horario2 = horarioOBD.selectByID(horarioCursada.getHorario());
-			valido = valido && !horariosSupuerpuestos(horario1, horario2);	
+			if(horariosSupuerpuestos(horario1, horario2)){
+				return false;
+			}
 		}
 		
-		return valido;
+		return true;
 	}
 	
 	

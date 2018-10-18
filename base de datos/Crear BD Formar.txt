@@ -111,8 +111,8 @@ CREATE TABLE for_cursos (
 	contenido VARCHAR(500) DEFAULT NULL,
     comision VARCHAR(10) NOT NULL,
 	horas INT(5) NOT NULL,
-	instructor INT(4) NOT NULL, -- FK EMPLEADOS
-	responsable INT(4) NOT NULL, -- FK EMPLEADOS
+	instructor INT(4), -- FK EMPLEADOS
+	responsable INT(4), -- FK EMPLEADOS
 	programa INT(4) NOT NULL, -- FK PROGRAMAS
 	estado INT(4) NOT NULL, -- FK ESTADOS DE CURSO
 	PRIMARY KEY (curso_ID)

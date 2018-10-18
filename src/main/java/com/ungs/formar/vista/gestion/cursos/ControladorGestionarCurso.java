@@ -75,10 +75,17 @@ public class ControladorGestionarCurso implements ActionListener {
 			// this.cursos_en_tabla.get(i).getFechaCierreInscripcion();
 			Integer precio = this.cursos_en_tabla.get(i).getPrecio();
 			String comision = this.cursos_en_tabla.get(i).getComision();
-
+			String nombreApellidoInstructor = "";
+			String nombreApellidoResponsable = "";
+			if(instructor!=null){
+				nombreApellidoInstructor = instructor.getApellido() + " " + instructor.getNombre();
+			}
+			if(responsable!=null){
+				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
+			}
 			Object[] fila = { nombre, comision, area, estado, precio, cupoMinimo, cupoMaximo, fechaInicio, fechaFin,
-					/* fechaCierreInscripcion */" ", instructor.getApellido() + " " + instructor.getNombre(),
-					responsable.getApellido() + " " + responsable.getNombre(), horariosString };
+					/* fechaCierreInscripcion */" ", nombreApellidoInstructor,
+					nombreApellidoResponsable, horariosString };
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 		}
 
@@ -232,19 +239,26 @@ public class ControladorGestionarCurso implements ActionListener {
 		ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
 		ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
 		ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
-		ventanaCrearCurso.getInstructor().setText(instructor.getApellido() + " " + instructor.getNombre());
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
-		ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
 		ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
 		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
 		ventanaCrearCurso.getTxtComision().setText(curso.getComision());
 		ventanaCrearCurso.getTxtPrecio().setText(curso.getPrecio().toString());
-
+		
 		ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
+		if(instructor!=null){
+			ventanaCrearCurso.getInstructor().setText(instructor.getApellido() + " " + instructor.getNombre());
+			controladorCursoEdicion.setInstructor(instructor);
+
+		}
+		if(responsable!=null){
+			ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
+			controladorCursoEdicion.setResponsable(responsable);
+		}
+
+		
 		controladorCursoEdicion.setIdEdicion(curso.getCursoID());
-		controladorCursoEdicion.setInstructor(instructor);
 		controladorCursoEdicion.setPrograma(programa);
-		controladorCursoEdicion.setResponsable(responsable);
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();
 		this.ventanaGestionarCursos.frame.setEnabled(false);
@@ -260,30 +274,34 @@ public class ControladorGestionarCurso implements ActionListener {
 
 			// Si el curso esta CREADO, puede pasar a PUBLICADO
 			if (aEditar.getEstado() == 1) {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres cambiar el estado /n" + "de CREADO a PUBLICADO!?", "Confirmacion",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					aEditar.setEstado(2);
-					CursoManager.cambiarEstadoCurso(aEditar);
+				if (validarCambioaPublicado(aEditar)) {
+					int confirm = JOptionPane.showOptionDialog(null,
+							"Estas seguro que queres cambiar el estado /n" + "de CREADO a PUBLICADO!?", "Confirmacion",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (confirm == 0) {
+						aEditar.setEstado(2);
+						CursoManager.cambiarEstadoCurso(aEditar);
+					}
 				}
 			}
 
 			// Si el curso esta PUBLICADO puede pasar a INICIADO
 			else if (aEditar.getEstado() == 2) {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?", "Confirmacion",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					aEditar.setEstado(3);
-					CursoManager.cambiarEstadoCurso(aEditar);
+				if (validarCambioaIniciado(aEditar)) {
+					int confirm = JOptionPane.showOptionDialog(null,
+							"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?",
+							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (confirm == 0) {
+						aEditar.setEstado(3);
+						CursoManager.cambiarEstadoCurso(aEditar);
+					}
 				}
 			}
 			// Si el curso esta INICIADO puede pasar a FINALIZADO
 			else if (aEditar.getEstado() == 3) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres cambiar el estado /n"
-						+ "de INICIADO a FINALIZADO!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Estas seguro que queres cambiar el estado /n" + "de INICIADO a FINALIZADO!?", "Confirmacion",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					aEditar.setEstado(4);
 					CursoManager.cambiarEstadoCurso(aEditar);
@@ -291,11 +309,11 @@ public class ControladorGestionarCurso implements ActionListener {
 			}
 			// Si el curso esta FINALIZADO no puede cambiar de estado
 			else if (aEditar.getEstado() == 4) {
-				JOptionPane.showMessageDialog(null, "La cursada Finalizo. No se peude cambiar su estado");
+				JOptionPane.showMessageDialog(null, "La cursada Finalizo. No se puede cambiar su estado");
 			}
 			// Si el curso esta CANCELADO no puede cambiar de estado
 			else if (aEditar.getEstado() == 5) {
-				JOptionPane.showMessageDialog(null, "La cursada fue Cancelada. No se peude cambiar su estado");
+				JOptionPane.showMessageDialog(null, "La cursada fue Cancelada. No se puede cambiar su estado");
 			}
 		}
 		// Si no selecciono nada, le aviso
@@ -303,6 +321,47 @@ public class ControladorGestionarCurso implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Seleccione una cursada para cambiar de estado");
 		}
 		this.llenarTablaCursos();
+	}
+
+	public boolean validarCambioaPublicado(Curso curso) {
+		// No se debe poder PUBLICAR sin horarios de cursada ni un responable
+		String msjError = "";
+		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
+		Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
+		if (horariosCursada == null || horariosCursada.isEmpty()) {
+			msjError += "- Por favor, agregue al menos un dia de cursada";
+		}
+		if (responsable == null) {
+			msjError += "- Por favor, seleccione un responsable";
+		}
+		if (!msjError.isEmpty()) {
+			JOptionPane.showMessageDialog(null, msjError);
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validarCambioaIniciado(Curso curso) {
+		// No se debe poder INICIAR sin salas asignadas a los horarios ni un
+		// Instructor
+		String msjError = "";
+		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
+		Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
+		for (HorarioCursada hcursada : horariosCursada) {
+			if (hcursada.getSala() == null) {
+				msjError += "- Por favor, agregue salas a los dias de cursada";
+				break;
+			}
+		}
+
+		if (instructor == null) {
+			msjError += "- Por favor, seleccione un instructor";
+		}
+		if (!msjError.isEmpty()) {
+			JOptionPane.showMessageDialog(null, msjError);
+			return false;
+		}
+		return true;
 	}
 
 }

@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class ODB {
 	protected String driver = "com.mysql.jdbc.Driver";
-	protected String cadenaConexion = "jdbc:mysql://localhost:3306/formar"; 
+	protected String cadenaConexion = "jdbc:mysql://localhost:3306/formar?autoReconnect=true&useSSL=false"; 
 	protected String usuarioBD = "root"; 
 	protected String passwordBD = "root";
 		

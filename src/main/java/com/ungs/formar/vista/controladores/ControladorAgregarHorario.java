@@ -7,7 +7,10 @@ import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Dia;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
@@ -44,9 +47,7 @@ public class ControladorAgregarHorario implements ActionListener {
 
 		// BOTON SELECCIONAR SALA
 		if (e.getSource() == this.ventanaAgregarHorario.getBtnSeleccionarSala()) {
-			this.ventanaSeleccionarSala = new SeleccionarSala();
-			new ControladorSeleccionarSala(ventanaSeleccionarSala, this);
-			this.ventanaAgregarHorario.setEnabled(false);
+			seleccionarSala();
 
 			// BOTON CANCELAR
 		} else if (e.getSource() == this.ventanaAgregarHorario.getBtnCancelar()) {
@@ -55,63 +56,53 @@ public class ControladorAgregarHorario implements ActionListener {
 
 			// BOTON AGREGAR HORARIO
 		} else if (e.getSource() == ventanaAgregarHorario.getBtnAgregar()) {
+			validarAgregarHorario();
+		}
+	}
 
-			String minI = this.ventanaAgregarHorario.getTxtMinutosInicio().getText();
-			String minF = this.ventanaAgregarHorario.getTxtMinutosFin().getText();
-			if (minI.isEmpty()) {
-				minI += "0";
-			}
-			if (minF.isEmpty()) {
-				minF += "0";
-			}
+	private void seleccionarSala() {
 
-			Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+		String msjError = obtenerMsjError();
+		// Si tengo horarios cargados y estan correctamente Dejo seleccionar
+		// sala
+		if (msjError.isEmpty()) {
+			this.ventanaSeleccionarSala = new SeleccionarSala();
+			ControladorSeleccionarSala controlador = new ControladorSeleccionarSala(ventanaSeleccionarSala, this);
 
-			Matcher mHoraInicio = patronNumeros.matcher(this.ventanaAgregarHorario.getTxtHorasInicio().getText());
-			Matcher mMinutosInicio = patronNumeros.matcher(minI);
-			Matcher mHoraFin = patronNumeros.matcher(this.ventanaAgregarHorario.getTxtHorasFin().getText());
-			Matcher mMinutosFin = patronNumeros.matcher(minF);
+			Horario horarioIngresado = crearHorarioIngresado();
+			controlador.setHorarioIngresado(horarioIngresado);
+			controlador.inicializar();
+			this.ventanaAgregarHorario.setEnabled(false);
+		} else {
+			JOptionPane.showMessageDialog(null, msjError);
+		}
+	}
 
-			// Validaciones de tipo y null
-			if (!mHoraInicio.matches() || this.ventanaAgregarHorario.getTxtHorasInicio().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de inicio valida");
-			} else if (!mMinutosInicio.matches()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese minutos de inicio validos");
-			} else if (!mHoraFin.matches() || this.ventanaAgregarHorario.getTxtHorasFin().getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de fin valida");
-			} else if (!mMinutosFin.matches()) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese minutos de fin validos");
-			} else if (this.sala == null) {
-				JOptionPane.showMessageDialog(null, "Por favor, seleccione una sala");
-			}
+	private Horario crearHorarioIngresado() {
+		// CONSIGO LOS DATOS PARA CREAR UN HORARIO
+		JComboBox<Dia> inDia = ventanaAgregarHorario.getComboDias();
+		Dia dia = (Dia) inDia.getSelectedItem();
 
-			// Validaciones Logicas
-			else if (Integer.parseInt(minF) > 59) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese minutos de fin validos");
-			} else if (Integer.parseInt(minI) > 59) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese minutos de inicio validos");
-			} else if (Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) > 23) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de inicio valida");
-			} else if (Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText()) > 23) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese una hora de fin valida");
-			} else if ((Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) > Integer
-					.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText()))
-					|| (Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) == Integer
-							.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText())
-							&& Integer.parseInt(minI) >= Integer.parseInt(minF))) {
-				JOptionPane.showMessageDialog(null, "Por favor, ingrese nuevamente los horarios. El horario fin debe"
-						+ " \nser posterior al horario de inicio");
-			} else {
-				// PASO LAS VALIDACIONES ASI QUE EL HORARIO SE AGREGA
-				// Si estoy editando, actualizo el horario, sino lo agrego
-				if (this.esEdicion) {
-					actualizarHorario(minI, minF);
-				} else {
-					agregarHorario(minI, minF);
-				}
-			}
+		JTextField inHoraInicio = ventanaAgregarHorario.getTxtHorasInicio();
+		Integer horaInicio = Integer.decode(inHoraInicio.getText());
+
+		JTextField inHoraFin = ventanaAgregarHorario.getTxtHorasFin();
+		Integer horaFin = Integer.parseInt(inHoraFin.getText());
+
+		String minI = this.ventanaAgregarHorario.getTxtMinutosInicio().getText();
+		String minF = this.ventanaAgregarHorario.getTxtMinutosFin().getText();
+		if (minI.isEmpty()) {
+			minI += "0";
+		}
+		if (minF.isEmpty()) {
+			minF += "0";
 		}
 
+		Integer minutoInicio = Integer.decode(minI);
+
+		Integer minutoFin = Integer.decode(minF);
+		// CREO EL HORARIO PARA VALIDAR CON LA SALA QUE ELIJA
+		return new Horario(-1, dia.getDiaID(), horaInicio, horaFin, minutoInicio, minutoFin);
 	}
 
 	private void agregarHorario(String minI, String minF) {
@@ -157,13 +148,13 @@ public class ControladorAgregarHorario implements ActionListener {
 		Integer minutoInicio = Integer.decode(minI);
 
 		Integer minutoFin = Integer.decode(minF);
-		
+
 		horarioEdicion.setDia(dia.getDiaID());
 		horarioEdicion.setHoraInicio(horaInicio);
 		horarioEdicion.setHoraFin(horaFin);
 		horarioEdicion.setMinutoInicio(minutoInicio);
 		horarioEdicion.setMinutoFin(minutoFin);
-		
+
 		HorarioCursadaManager.actualizarHorario(horarioEdicion);
 
 		controladorCrearCurso.actualizarHorarioCursada(indiceHorarioEdicion, horarioCursadaEdicion);
@@ -179,6 +170,83 @@ public class ControladorAgregarHorario implements ActionListener {
 	public void setSala(Sala seleccion) {
 		sala = seleccion;
 		ventanaAgregarHorario.getTxtSala().setText(sala.getNumero().toString());
+	}
+
+	private void validarAgregarHorario() {
+		String msjError = obtenerMsjError();
+
+		String minI = this.ventanaAgregarHorario.getTxtMinutosInicio().getText();
+		String minF = this.ventanaAgregarHorario.getTxtMinutosFin().getText();
+		if (minI.isEmpty()) {
+			minI += "0";
+		}
+		if (minF.isEmpty()) {
+			minF += "0";
+		}
+
+		if (msjError.isEmpty()) {
+			// PASO LAS VALIDACIONES ASI QUE EL HORARIO SE AGREGA
+			// Si estoy editando, actualizo el horario, sino lo agrego
+			if (this.esEdicion) {
+				actualizarHorario(minI, minF);
+			} else {
+				agregarHorario(minI, minF);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, msjError);
+		}
+	}
+
+	private String obtenerMsjError() {
+		String minI = this.ventanaAgregarHorario.getTxtMinutosInicio().getText();
+		String minF = this.ventanaAgregarHorario.getTxtMinutosFin().getText();
+		if (minI.isEmpty()) {
+			minI += "0";
+		}
+		if (minF.isEmpty()) {
+			minF += "0";
+		}
+
+		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
+
+		Matcher mHoraInicio = patronNumeros.matcher(this.ventanaAgregarHorario.getTxtHorasInicio().getText());
+		Matcher mMinutosInicio = patronNumeros.matcher(minI);
+		Matcher mHoraFin = patronNumeros.matcher(this.ventanaAgregarHorario.getTxtHorasFin().getText());
+		Matcher mMinutosFin = patronNumeros.matcher(minF);
+
+		String msjError = "";
+		// Validaciones Hora inicio
+		if (!mHoraInicio.matches() || this.ventanaAgregarHorario.getTxtHorasInicio().getText().isEmpty()
+				|| Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) > 23) {
+			msjError += "- Por favor, ingrese una hora de inicio valida\n";
+		}
+		// validaciones minutos inicio
+		if (!mMinutosInicio.matches() || Integer.parseInt(minI) > 59) {
+			msjError += "- Por favor, ingrese minutos de inicio validos\n";
+		}
+		// validaciones hora fin
+		if (!mHoraFin.matches() || this.ventanaAgregarHorario.getTxtHorasFin().getText().isEmpty()
+				|| Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText()) > 23) {
+			msjError += "- Por favor, ingrese una hora de fin valida\n";
+		}
+		// validaciones minutos fin
+		if (!mMinutosFin.matches() || Integer.parseInt(minF) > 59) {
+			msjError += "- Por favor, ingrese minutos de fin validos\n";
+		}
+		// validaciones entre hora inicio y hora fin
+		if ((Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) > Integer
+				.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText()))
+				|| (Integer.parseInt(this.ventanaAgregarHorario.getTxtHorasInicio().getText()) == Integer
+						.parseInt(this.ventanaAgregarHorario.getTxtHorasFin().getText())
+						&& Integer.parseInt(minI) >= Integer.parseInt(minF))) {
+			msjError += "- Por favor, ingrese nuevamente los horarios. El horario fin debe"
+					+ " \nser posterior al horario de inicio\n";
+		}
+		// Validaciones disponibilidad de la sala en el horario
+		if (!this.esEdicion && this.sala != null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala)) {
+			msjError += "- La sala no esta disponible en el horario ingresado, seleccione otra sala.\n";
+		}
+		return msjError;
 	}
 
 }
