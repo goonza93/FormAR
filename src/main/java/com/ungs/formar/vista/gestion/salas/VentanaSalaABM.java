@@ -43,12 +43,12 @@ public class VentanaSalaABM {
 		btnAgregar.setBounds(10, 296, 120, 23);
 		panel.add(btnAgregar);
 		
-		btnEditar = new JButton("Editar");
+		btnEditar = new JButton("EDITAR");
 		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnEditar.setBounds(150, 296, 120, 23);
 		panel.add(btnEditar);
 		
-		btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton("BORRAR");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnBorrar.setBounds(300, 296, 120, 23);
 		panel.add(btnBorrar);
@@ -79,11 +79,11 @@ public class VentanaSalaABM {
 		inFiltro.setBounds(126, 11, 205, 20);
 		panel.add(inFiltro);
 		
-		JLabel lblInstructores = new JLabel("INSTRUCTORES:");
-		lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInstructores.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblInstructores.setBounds(10, 46, 609, 14);
-		panel.add(lblInstructores);
+		JLabel lblSalas = new JLabel("SALAS:");
+		lblSalas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSalas.setFont(new Font("Arial", Font.BOLD, 12));
+		lblSalas.setBounds(10, 46, 704, 14);
+		panel.add(lblSalas);
 		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
