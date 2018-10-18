@@ -33,4 +33,9 @@ public class AlumnoManager {
 		return odb.selectByDNI(dni);
 	}
 
+	public static Alumno traerAlumnoSegunID(Integer ID){
+		AlumnoODB odb = FactoryODB.crearAlumnoODB();
+		return odb.selectByID(ID);
+	}
+
 }

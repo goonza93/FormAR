@@ -1,5 +1,6 @@
 package com.ungs.formar.negocios;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,10 @@ import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
 public class InscripcionManager {
 	
 	public static void inscribir(Curso curso, Alumno alumno, Empleado empleado) {
-		
+		Date fecha = Almanaque.hoy(); 
+		Inscripcion inscripcion = new Inscripcion(-1, alumno.getClienteID(), curso.getCursoID(), 1, fecha, 1.0);
+		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
+		obd.insert(inscripcion);
 	}
 	
 	public static void cancelarInscripcion(Inscripcion inscripcion) {
@@ -21,8 +25,8 @@ public class InscripcionManager {
 	}
 	
 	public static List<Inscripcion> traerInscripciones(Curso curso) {
-		
-		return null;
+		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
+		return obd.selectByCurso(curso);
 	}
 	
 	public static List<Inscripcion> traerInscripciones(Alumno alumno) {
@@ -40,7 +44,14 @@ public class InscripcionManager {
 		return cursos;
 	}
 	
+	public static List<Alumno> traerAlumnosInscriptos(Curso curso) {
+		List<Inscripcion> inscripciones = traerInscripciones(curso);
+		List<Alumno> alumnos = new ArrayList<Alumno>();
 
-	
+		for (Inscripcion inscripcion : inscripciones)
+			alumnos.add(AlumnoManager.traerAlumnoSegunID(inscripcion.getCliente()));
+		
+		return alumnos;
+	}
 
 }

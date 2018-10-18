@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.EstadoCurso;
@@ -180,6 +181,7 @@ public class CursoManager {
 		return obd.selectByCurso(curso);
 	}
 
+	
 	public static void cambiarEstadoCurso(Curso curso){
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.update(curso);

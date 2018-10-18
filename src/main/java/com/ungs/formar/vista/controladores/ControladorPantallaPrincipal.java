@@ -2,18 +2,15 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-
 import com.ungs.formar.persistencia.definidos.Rol;
-import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
 import com.ungs.formar.vista.gestion.cursos.ControladorGestionarCurso;
-import com.ungs.formar.vista.gestion.cursos.CrearCurso;
 import com.ungs.formar.vista.gestion.cursos.GestionarCursos;
 import com.ungs.formar.vista.gestion.empleados.ControladorEmpleadoABM;
 import com.ungs.formar.vista.gestion.empleados.VentanaEmpleadoABM;
+import com.ungs.formar.vista.gestion.inscripciones.ControladorInscripcionABM;
+import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
@@ -26,7 +23,7 @@ public class ControladorPantallaPrincipal implements ActionListener{
 		private VentanaEmpleadoABM ventanaGestionarInstructores;
 		private VentanaProgramaGestion ventanaGestionarProgramas;
 		private VentanaSalaABM ventanaGestionarSalas;
-
+		private VentanaInscripcionABM ventanaInscripcionABM;
 		
 		public ControladorPantallaPrincipal(PantallaPrincipal ventanaPantallaPrincipal)
 		{
@@ -36,6 +33,7 @@ public class ControladorPantallaPrincipal implements ActionListener{
 			this.ventanaPantallaPrincipal.getBtnGestionarInstructores().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarProgramas().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarSalas().addActionListener(this);
+			this.ventanaPantallaPrincipal.getBtnGestionarInscripciones().addActionListener(this);
 		}
 		
 		public void inicializar()
@@ -74,6 +72,14 @@ public class ControladorPantallaPrincipal implements ActionListener{
 				this.ventanaGestionarSalas.mostrar();
 				this.ventanaPantallaPrincipal.ocultar();
 				new ControladorSalaABM(this.ventanaGestionarSalas, this);
+			}
+			
+			// BOTON GESTIONAR INSCRIPCIONES
+			else if(e.getSource() == ventanaPantallaPrincipal.getBtnGestionarInscripciones()){
+				ventanaInscripcionABM = new VentanaInscripcionABM();
+				ventanaInscripcionABM.getVentana().setVisible(true);
+				ventanaPantallaPrincipal.ocultar();
+				new ControladorInscripcionABM(this, ventanaInscripcionABM);
 			}
 		}
 }

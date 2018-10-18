@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
 
@@ -15,6 +16,18 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	private final String campos = "curso, cliente, empleado, fecha, nota";
 	private final String tabla = "for_inscripciones";
 	private final String ID = "inscripcion_ID";
+	
+	public void insert(Inscripcion inscripcion) {
+		String fecha = inscripcion.getFecha() == null ? null: "'"+inscripcion.getFecha()+"'"; 
+		String valores = inscripcion.getCurso()
+				+", "+inscripcion.getCliente()
+				+", "+inscripcion.getEmpleado()
+				+", "+fecha
+				+", "+inscripcion.getNota();
+		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
+		ejecutarSQL(sql);
+	}
+	
 	
 	public List<Inscripcion> select() {
 		String condicion = "1=1";
@@ -57,5 +70,11 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 			
 		return inscripciones;
 	}
+
+	public List<Inscripcion> selectByCurso(Curso curso) {
+		String condicion = "curso = "+curso.getCursoID();
+		return selectByCondicion(condicion);
+	}
+
 
 }

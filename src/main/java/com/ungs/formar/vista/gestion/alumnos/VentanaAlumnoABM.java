@@ -73,31 +73,31 @@ public class VentanaAlumnoABM {
 		
 		// UBICO LOS FILTROS EN PANELES PARA FACIL MANIPULACION
 		PanelVertical filtroApellido = new PanelVertical();
-		filtroApellido.agregarComponente(new JLabel("Apellido"));
-		filtroApellido.agregarComponente(inApellido);
+		filtroApellido.add(new JLabel("Apellido"));
+		filtroApellido.add(inApellido);
 		
 		PanelVertical filtroNombre = new PanelVertical();
-		filtroNombre.agregarComponente(new JLabel("Nombre"));
-		filtroNombre.agregarComponente(inNombre);
+		filtroNombre.add(new JLabel("Nombre"));
+		filtroNombre.add(inNombre);
 		
 		PanelVertical filtroDNI = new PanelVertical();
-		filtroDNI.agregarComponente(new JLabel("DNI"));
-		filtroDNI.agregarComponente(inDNI);
+		filtroDNI.add(new JLabel("DNI"));
+		filtroDNI.add(inDNI);
 		
 		PanelVertical filtroEmail = new PanelVertical();
-		filtroEmail.agregarComponente(new JLabel("E-Mail"));
-		filtroEmail.agregarComponente(inEmail);
+		filtroEmail.add(new JLabel("E-Mail"));
+		filtroEmail.add(inEmail);
 		
 		PanelVertical filtroTelefono = new PanelVertical();
-		filtroTelefono.agregarComponente(new JLabel("Telefono"));
-		filtroTelefono.agregarComponente(inTelefono);
+		filtroTelefono.add(new JLabel("Telefono"));
+		filtroTelefono.add(inTelefono);
 		
 		panelConFiltros = new PanelHorizontal();
-		panelConFiltros.agregarComponente(filtroApellido);
-		panelConFiltros.agregarComponente(filtroNombre);
-		panelConFiltros.agregarComponente(filtroDNI);
-		panelConFiltros.agregarComponente(filtroEmail);
-		panelConFiltros.agregarComponente(filtroTelefono);
+		panelConFiltros.add(filtroApellido);
+		panelConFiltros.add(filtroNombre);
+		panelConFiltros.add(filtroDNI);
+		panelConFiltros.add(filtroEmail);
+		panelConFiltros.add(filtroTelefono);
 		
 		// CREO LOS BOTONES
 		btnAgregar = new JButton("Agregar");
@@ -109,16 +109,16 @@ public class VentanaAlumnoABM {
 		btnInscripciones = new JButton("Ver inscripciones");
 		
 		PanelHorizontal panelBotones = new PanelHorizontal();
-		panelBotones.agregarComponente(btnAgregar);
-		panelBotones.agregarComponente(btnEditar);
-		panelBotones.agregarComponente(btnBorrar);
-		panelBotones.agregarComponente(btnCancelar);
-		panelBotones.agregarComponente(btnInscripciones);
+		panelBotones.add(btnAgregar);
+		panelBotones.add(btnEditar);
+		panelBotones.add(btnBorrar);
+		panelBotones.add(btnCancelar);
+		panelBotones.add(btnInscripciones);
 		
 		// COMPONENTE QUE SE PUEDE MOSTRAR U OCULTAR
 		EmptyBorder bordeSimple = new EmptyBorder(10, 10, 10, 10);
 		panelFiltrar = new PanelHorizontal();
-		panelFiltrar.agregarComponente(btnMostrar);
+		panelFiltrar.add(btnMostrar);
 		panelFiltrar.setBorder(bordeSimple);
 		
 		// ACOMODO LOS PANELES
@@ -126,9 +126,9 @@ public class VentanaAlumnoABM {
 		ventana.setContentPane(panelPrincipal);
 		panelPrincipal.setBorder(bordeSimple);
 		
-		panelPrincipal.agregarComponente(panelFiltrar);
-		panelPrincipal.agregarComponente(panelAlumnos);
-		panelPrincipal.agregarComponente(panelBotones);
+		panelPrincipal.add(panelFiltrar);
+		panelPrincipal.add(panelAlumnos);
+		panelPrincipal.add(panelBotones);
 
 	}
 

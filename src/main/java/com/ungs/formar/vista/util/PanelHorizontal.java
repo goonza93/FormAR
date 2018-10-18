@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.util;
 
-import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -11,8 +10,4 @@ public class PanelHorizontal extends JPanel{
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 	}
 	
-	public void agregarComponente(Component componente) {
-		add(componente);
-	}
-
 }

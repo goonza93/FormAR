@@ -3,6 +3,7 @@ package com.ungs.formar.negocios;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Horario;
@@ -11,6 +12,10 @@ import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
 
 public class Almanaque {
+	
+	public static Date hoy() {
+		return new Date(new java.util.Date().getTime());
+	}
 
 	public static List<HorarioCursada> obtenerHorariosDeCursada(Curso curso) {
 		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();

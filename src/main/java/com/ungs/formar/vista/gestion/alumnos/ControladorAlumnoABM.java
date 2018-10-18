@@ -4,29 +4,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Date;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import com.ungs.formar.negocios.AlumnoManager;
-import com.ungs.formar.negocios.AreaManager;
-import com.ungs.formar.negocios.CursoManager;
-import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Formato;
-import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.InscripcionManager;
-import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.PanelHorizontal;
 
 public class ControladorAlumnoABM implements ActionListener {
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
-	private VentanaInscripciones ventanaInscripciones;
+	private VentanaCursosInscriptos ventanaInscripciones;
 	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
 	private List<Curso> cursosInscriptos;
@@ -152,7 +147,7 @@ public class ControladorAlumnoABM implements ActionListener {
 	private void mostrarInscripciones() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		if (alumno != null) {			
-			ventanaInscripciones = new VentanaInscripciones();
+			ventanaInscripciones = new VentanaCursosInscriptos();
 			ventanaInscripciones.getBtnVolver().addActionListener(this);
 			ventanaInscripciones.getVentana().addWindowListener(new WindowAdapter() {
 				@Override
@@ -164,7 +159,7 @@ public class ControladorAlumnoABM implements ActionListener {
 			ventanaABM.getVentana().setEnabled(false);
 			llenarTablaInscripciones(alumno);
 		} else
-			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 alumno para a que cursos esta inscripto.");
+			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 alumno para ver a que cursos esta inscripto.");
 	}
 
 	private void eliminarSeleccion() {
@@ -335,15 +330,15 @@ public class ControladorAlumnoABM implements ActionListener {
 	private void mostrarFiltros() {
 		PanelHorizontal panel = ventanaABM.getPanelFiltrar();
 		panel.removeAll();
-		panel.agregarComponente(ventanaABM.getPanelConFiltros());
-		panel.agregarComponente(ventanaABM.getOcultar());
+		panel.add(ventanaABM.getPanelConFiltros());
+		panel.add(ventanaABM.getOcultar());
 		panel.revalidate();
 	}
 	
 	private void ocultarFiltros() {
 		PanelHorizontal panel = ventanaABM.getPanelFiltrar();
 		panel.removeAll();
-		panel.agregarComponente(ventanaABM.getMostrar());
+		panel.add(ventanaABM.getMostrar());
 		panel.revalidate();
 	}
 	

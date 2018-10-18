@@ -84,12 +84,12 @@ public class VentanaEmpleadoAM extends JFrame {
 		lblFechaIngreso.setBorder(bordeEtiqueta);
 		
 		PanelVertical panelEtiquetas = new PanelVertical();
-		panelEtiquetas.agregarComponente(lblApellido);
-		panelEtiquetas.agregarComponente(lblNombre);
-		panelEtiquetas.agregarComponente(lblDni);
-		panelEtiquetas.agregarComponente(lblEmail);
-		panelEtiquetas.agregarComponente(lblTelefono);
-		panelEtiquetas.agregarComponente(lblFechaIngreso);
+		panelEtiquetas.add(lblApellido);
+		panelEtiquetas.add(lblNombre);
+		panelEtiquetas.add(lblDni);
+		panelEtiquetas.add(lblEmail);
+		panelEtiquetas.add(lblTelefono);
+		panelEtiquetas.add(lblFechaIngreso);
 		
 		// AGREGO LAS ENTRADAS
 		inApellido = new JTextField();
@@ -108,26 +108,26 @@ public class VentanaEmpleadoAM extends JFrame {
 		inIngreso.setMaximumSize(largoEntrada);
 		
 		PanelVertical panelEntradas = new PanelVertical();
-		panelEntradas.agregarComponente(inApellido);
-		panelEntradas.agregarComponente(inNombre);
-		panelEntradas.agregarComponente(inDNI);
-		panelEntradas.agregarComponente(inEmail);
-		panelEntradas.agregarComponente(inTelefono);
-		panelEntradas.agregarComponente(inIngreso);
+		panelEntradas.add(inApellido);
+		panelEntradas.add(inNombre);
+		panelEntradas.add(inDNI);
+		panelEntradas.add(inEmail);
+		panelEntradas.add(inTelefono);
+		panelEntradas.add(inIngreso);
 		
 		
 		// AGREGO LOS BOTONES
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
 		PanelHorizontal panelBotones = new PanelHorizontal();
-		panelBotones.agregarComponente(btnAceptar);
-		panelBotones.agregarComponente(btnCancelar);
+		panelBotones.add(btnAceptar);
+		panelBotones.add(btnCancelar);
 		
 		// ACOMODO LOS PANELES EN LA VENTANA
 		PanelHorizontal panelH = new PanelHorizontal();
-		panelH.agregarComponente(panelEtiquetas);
-		panelH.agregarComponente(panelEntradas);
-		panelPrincipal.agregarComponente(panelH);
+		panelH.add(panelEtiquetas);
+		panelH.add(panelEntradas);
+		panelPrincipal.add(panelH);
 		panelPrincipal.add(panelBotones);
 	}
 

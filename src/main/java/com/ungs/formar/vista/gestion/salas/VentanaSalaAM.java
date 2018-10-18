@@ -57,9 +57,9 @@ public class VentanaSalaAM extends JFrame {
 		lblCapacidad.setBorder(bordeEtiqueta);
 		
 		PanelVertical panelEtiquetas = new PanelVertical();
-		panelEtiquetas.agregarComponente(lblNumero);
-		panelEtiquetas.agregarComponente(lblNombre);
-		panelEtiquetas.agregarComponente(lblCapacidad);
+		panelEtiquetas.add(lblNumero);
+		panelEtiquetas.add(lblNombre);
+		panelEtiquetas.add(lblCapacidad);
 		
 		// AGREGO LAS ENTRADAS
 		inNumero = new JTextField();
@@ -72,23 +72,23 @@ public class VentanaSalaAM extends JFrame {
 		inCapacidad.setMaximumSize(largoEntrada);
 		
 		PanelVertical panelEntradas = new PanelVertical();
-		panelEntradas.agregarComponente(inNumero);
-		panelEntradas.agregarComponente(inNombre);
-		panelEntradas.agregarComponente(inCapacidad);
+		panelEntradas.add(inNumero);
+		panelEntradas.add(inNombre);
+		panelEntradas.add(inCapacidad);
 		
 		
 		// AGREGO LOS BOTONES
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
 		PanelHorizontal panelBotones = new PanelHorizontal();
-		panelBotones.agregarComponente(btnAceptar);
-		panelBotones.agregarComponente(btnCancelar);
+		panelBotones.add(btnAceptar);
+		panelBotones.add(btnCancelar);
 		
 		// ACOMODO LOS PANELES EN LA VENTANA
 		PanelHorizontal panelH = new PanelHorizontal();
-		panelH.agregarComponente(panelEtiquetas);
-		panelH.agregarComponente(panelEntradas);
-		panelPrincipal.agregarComponente(panelH);
+		panelH.add(panelEtiquetas);
+		panelH.add(panelEntradas);
+		panelPrincipal.add(panelH);
 		panelPrincipal.add(panelBotones);
 	}
 
