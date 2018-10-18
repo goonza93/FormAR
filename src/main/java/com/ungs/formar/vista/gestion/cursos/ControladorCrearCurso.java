@@ -261,8 +261,17 @@ public class ControladorCrearCurso implements ActionListener {
 				!(!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) &&
 				Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()) < Integer
 				.parseInt(this.ventanaCrearCurso.getCupoMinimo().getText())) {
-			msjError += "- El cupo maximo no puede ser menor que el cupo minimo/n";
+			msjError += "- El cupo maximo no puede ser menor que el cupo minimo\n";
 		} 
+		//Primero ver si la fecha Inicio y cierre de inscripcion estan bien.
+		//Si ambas estan bien, controlar si la fecha Inicio NO es anterior a la de inscripcion
+		if(!(this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate() == null) &&
+				!(this.ventanaCrearCurso.getFechaInicio().getDate() == null) &&
+				this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate().after
+						(this.ventanaCrearCurso.getFechaInicio().getDate())){
+			msjError += "- La fecha de Cierre de inscripcion no debe ser posterior a la de inicio\n";
+			
+		}
 		
 		if(!msjError.isEmpty()){
 			JOptionPane.showMessageDialog(null, msjError);

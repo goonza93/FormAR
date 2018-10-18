@@ -262,30 +262,34 @@ public class ControladorGestionarCurso implements ActionListener {
 
 			// Si el curso esta CREADO, puede pasar a PUBLICADO
 			if (aEditar.getEstado() == 1) {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres cambiar el estado /n" + "de CREADO a PUBLICADO!?", "Confirmacion",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					aEditar.setEstado(2);
-					CursoManager.cambiarEstadoCurso(aEditar);
+				if (validarCambioaPublicado(aEditar)) {
+					int confirm = JOptionPane.showOptionDialog(null,
+							"Estas seguro que queres cambiar el estado /n" + "de CREADO a PUBLICADO!?", "Confirmacion",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (confirm == 0) {
+						aEditar.setEstado(2);
+						CursoManager.cambiarEstadoCurso(aEditar);
+					}
 				}
 			}
 
 			// Si el curso esta PUBLICADO puede pasar a INICIADO
 			else if (aEditar.getEstado() == 2) {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?", "Confirmacion",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					aEditar.setEstado(3);
-					CursoManager.cambiarEstadoCurso(aEditar);
+				if (validarCambioaIniciado(aEditar)) {
+					int confirm = JOptionPane.showOptionDialog(null,
+							"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?",
+							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (confirm == 0) {
+						aEditar.setEstado(3);
+						CursoManager.cambiarEstadoCurso(aEditar);
+					}
 				}
 			}
 			// Si el curso esta INICIADO puede pasar a FINALIZADO
 			else if (aEditar.getEstado() == 3) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres cambiar el estado /n"
-						+ "de INICIADO a FINALIZADO!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Estas seguro que queres cambiar el estado /n" + "de INICIADO a FINALIZADO!?", "Confirmacion",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					aEditar.setEstado(4);
 					CursoManager.cambiarEstadoCurso(aEditar);
@@ -293,11 +297,11 @@ public class ControladorGestionarCurso implements ActionListener {
 			}
 			// Si el curso esta FINALIZADO no puede cambiar de estado
 			else if (aEditar.getEstado() == 4) {
-				JOptionPane.showMessageDialog(null, "La cursada Finalizo. No se peude cambiar su estado");
+				JOptionPane.showMessageDialog(null, "La cursada Finalizo. No se puede cambiar su estado");
 			}
 			// Si el curso esta CANCELADO no puede cambiar de estado
 			else if (aEditar.getEstado() == 5) {
-				JOptionPane.showMessageDialog(null, "La cursada fue Cancelada. No se peude cambiar su estado");
+				JOptionPane.showMessageDialog(null, "La cursada fue Cancelada. No se puede cambiar su estado");
 			}
 		}
 		// Si no selecciono nada, le aviso
@@ -305,6 +309,47 @@ public class ControladorGestionarCurso implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Seleccione una cursada para cambiar de estado");
 		}
 		this.llenarTablaCursos();
+	}
+
+	public boolean validarCambioaPublicado(Curso curso) {
+		// No se debe poder PUBLICAR sin horarios de cursada ni un responable
+		String msjError = "";
+		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
+		Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
+		if (horariosCursada == null || horariosCursada.isEmpty()) {
+			msjError += "- Por favor, agregue al menos un dia de cursada";
+		}
+		if (responsable == null) {
+			msjError += "- Por favor, seleccione un responsable";
+		}
+		if (!msjError.isEmpty()) {
+			JOptionPane.showMessageDialog(null, msjError);
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validarCambioaIniciado(Curso curso) {
+		// No se debe poder INICIAR sin salas asignadas a los horarios ni un
+		// Instructor
+		String msjError = "";
+		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
+		Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
+		for (HorarioCursada hcursada : horariosCursada) {
+			if (hcursada.getSala() == null) {
+				msjError += "- Por favor, agregue salas a los dias de cursada";
+				break;
+			}
+		}
+
+		if (instructor == null) {
+			msjError += "- Por favor, seleccione un instructor";
+		}
+		if (!msjError.isEmpty()) {
+			JOptionPane.showMessageDialog(null, msjError);
+			return false;
+		}
+		return true;
 	}
 
 }
