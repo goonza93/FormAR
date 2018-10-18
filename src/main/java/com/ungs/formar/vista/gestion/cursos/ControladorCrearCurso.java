@@ -64,6 +64,7 @@ public class ControladorCrearCurso implements ActionListener {
 		llenarTablaHorarios();
 		iniciarDocumentListener();
 		this.ventanaCrearCurso.setVisible(true);
+		this.ventanaCrearCurso.setEnabled(true);
 	}
 
 	public void llenarTablaHorarios() {
@@ -96,19 +97,19 @@ public class ControladorCrearCurso implements ActionListener {
 			// BOTON SELECCIONAR INSTRUCTOR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarInstructor()) {
 			this.ventanaSeleccionarInstructor = new SeleccionarInstructor();
-			this.ventanaCrearCurso.setVisible(false);
+			this.ventanaCrearCurso.setEnabled(false);
 			new ControladorSeleccionarInstructor(this.ventanaSeleccionarInstructor, this);
 
 			// BOTON SELECCIONAR PROGRAMA
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarPrograma()) {
 			this.ventanaSeleccionarPrograma = new SeleccionarPrograma();
-			this.ventanaCrearCurso.setVisible(false);
+			this.ventanaCrearCurso.setEnabled(false);
 			new ControladorSeleccionarPrograma(this.ventanaSeleccionarPrograma, this);
 
 			// BOTON SELECCIONAR RESPONSABLE
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarResponsable()) {
 			this.ventanaSeleccionarResponsable = new SeleccionarResponsable();
-			this.ventanaCrearCurso.setVisible(false);
+			this.ventanaCrearCurso.setEnabled(false);
 			new ControladorSeleccionarResponsable(this.ventanaSeleccionarResponsable, this);
 
 			// BOTON AGREGAR HORARIO
@@ -157,7 +158,7 @@ public class ControladorCrearCurso implements ActionListener {
 		//
 		else {
 			this.ventanaABMHorario = new ABMHorario();
-			this.ventanaCrearCurso.setVisible(false);
+			this.ventanaCrearCurso.setEnabled(false);
 			new ControladorAgregarHorario(this.ventanaABMHorario, this);
 		}
 	}
@@ -185,8 +186,8 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaABMHorario.getTxtMinutosInicio().setText(horarioAeditar.getMinutoInicio().toString());
 			this.ventanaABMHorario.getTxtMinutosFin().setText(horarioAeditar.getMinutoFin().toString());
 			verificarEdicionDiasHorarios();// Decidir si habilito el editar dias
-											// y horarios o solo sala
-			this.ventanaCrearCurso.setVisible(false);
+											// y horarios, o solo sala
+			this.ventanaCrearCurso.setEnabled(false);
 
 			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
 			controlador.esEdicion = true;

@@ -37,6 +37,7 @@ public class ControladorAgregarHorario implements ActionListener {
 
 	public void inicializar() {
 		this.ventanaAgregarHorario.setVisible(true);
+		this.ventanaAgregarHorario.setEnabled(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -45,7 +46,7 @@ public class ControladorAgregarHorario implements ActionListener {
 		if (e.getSource() == this.ventanaAgregarHorario.getBtnSeleccionarSala()) {
 			this.ventanaSeleccionarSala = new SeleccionarSala();
 			new ControladorSeleccionarSala(ventanaSeleccionarSala, this);
-			this.ventanaAgregarHorario.setVisible(false);
+			this.ventanaAgregarHorario.setEnabled(false);
 
 			// BOTON CANCELAR
 		} else if (e.getSource() == this.ventanaAgregarHorario.getBtnCancelar()) {

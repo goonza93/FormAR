@@ -53,7 +53,7 @@ public class ControladorPantallaPrincipal implements ActionListener{
 			else if(e.getSource() == this.ventanaPantallaPrincipal.getBtnGestionarCursos())
 			{
 				this.ventanaGestionarCursos = new GestionarCursos();
-				this.ventanaGestionarCursos.mostrar();
+				//this.ventanaGestionarCursos.f();
 				this.ventanaPantallaPrincipal.ocultar();
 				new ControladorGestionarCurso(this.ventanaGestionarCursos, this);
 			}

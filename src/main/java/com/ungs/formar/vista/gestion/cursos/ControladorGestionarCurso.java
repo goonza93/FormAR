@@ -32,12 +32,15 @@ public class ControladorGestionarCurso implements ActionListener {
 		this.ventanaGestionarCursos.getBtnBorrar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnEditar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnCancelar().addActionListener(this);
+		this.ventanaGestionarCursos.getBtnConsultarInscripciones().addActionListener(this);
+		this.ventanaGestionarCursos.getBtnCambiarEstado().addActionListener(this);
 		this.inicializar();
 	}
 
 	public void inicializar() {
 		llenarTablaCursos();
-		this.ventanaGestionarCursos.mostrar();
+		this.ventanaGestionarCursos.frame.setVisible(true);
+		this.ventanaGestionarCursos.frame.setEnabled(true);
 	}
 
 	private void llenarTablaCursos() {
@@ -90,7 +93,7 @@ public class ControladorGestionarCurso implements ActionListener {
 			this.ventanaCrearCurso = new CrearCurso();
 			this.ventanaCrearCurso.setVisible(true);
 			this.ventanaCrearCurso.setTitle("CREAR CURSADA");
-			this.ventanaGestionarCursos.ocultar();
+			this.ventanaGestionarCursos.frame.setEnabled(false);;
 			new ControladorCrearCurso(this.ventanaCrearCurso, this);
 		}
 
@@ -110,7 +113,17 @@ public class ControladorGestionarCurso implements ActionListener {
 		// BOTON CANCELAR
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnCancelar()) {
 			controladorPantallaPrincipal.inicializar();
-			ventanaGestionarCursos.ocultar();
+			ventanaGestionarCursos.frame.dispose();
+		}
+
+		// BOTON CAMBIAR ESTADO
+		else if (e.getSource() == this.ventanaGestionarCursos.getBtnCambiarEstado()) {
+			
+		}
+
+		// BOTON CONSULTAR INSCRIPCIONES
+		else if (e.getSource() == this.ventanaGestionarCursos.getBtnConsultarInscripciones()) {
+			
 		}
 	}
 
@@ -147,24 +160,24 @@ public class ControladorGestionarCurso implements ActionListener {
 		if (row != -1) {
 			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row);
 			Curso curso = this.cursos_en_tabla.get(modelFila);
-			
-			//Si el curso ya finalizo o esta cancelado, no se puede editar
-			if (curso.getEstado() == 4 || curso.getEstado() == 5){
+
+			// Si el curso ya finalizo o esta cancelado, no se puede editar
+			if (curso.getEstado() == 4 || curso.getEstado() == 5) {
 				JOptionPane.showMessageDialog(null, "La cursada seleccionada no esta disponible para edicion");
 			}
-			
-			//Si el curso esta Creado, puedo editar cualquier cosa
-			else if (curso.getEstado() == 1 ){
+
+			// Si el curso esta Creado, puedo editar cualquier cosa
+			else if (curso.getEstado() == 1) {
 				completarVentanaEdicion(curso);
 			}
-			
-			//Si el curso esta en estado publicado, puedo editar CIERTAS cosas
-			else if (curso.getEstado() == 2 ){
+
+			// Si el curso esta en estado publicado, puedo editar CIERTAS cosas
+			else if (curso.getEstado() == 2) {
 				editarPublicado(curso);
 			}
-			
-			//Si el curso esta en estado INICIADO, puedo editar CIERTAS cosas
-			else if (curso.getEstado() == 3 ){
+
+			// Si el curso esta en estado INICIADO, puedo editar CIERTAS cosas
+			else if (curso.getEstado() == 3) {
 				editarIniciado(curso);
 			}
 		}
@@ -177,7 +190,7 @@ public class ControladorGestionarCurso implements ActionListener {
 
 	private void editarPublicado(Curso curso) {
 		completarVentanaEdicion(curso);
-		
+
 		ventanaCrearCurso.getBtnAgregarDia().setEnabled(false);
 		ventanaCrearCurso.getBtnBorrarDia().setEnabled(false);
 		ventanaCrearCurso.getCupoMaximo().setEditable(false);
@@ -185,12 +198,12 @@ public class ControladorGestionarCurso implements ActionListener {
 		ventanaCrearCurso.getHoras().setEditable(false);
 		ventanaCrearCurso.getTxtPrecio().setEditable(false);
 		ventanaCrearCurso.getFechaInicio().setEnabled(false);
-		//DIAS NO SELECCIONABLES PERO SALAS SI.
+		// DIAS NO SELECCIONABLES PERO SALAS SI.
 	}
 
 	private void editarIniciado(Curso curso) {
 		completarVentanaEdicion(curso);
-		
+
 		ventanaCrearCurso.getBtnAgregarDia().setEnabled(false);
 		ventanaCrearCurso.getBtnBorrarDia().setEnabled(false);
 		ventanaCrearCurso.getCupoMaximo().setEditable(false);
@@ -202,17 +215,17 @@ public class ControladorGestionarCurso implements ActionListener {
 		ventanaCrearCurso.getTxtComision().setEditable(false);
 		ventanaCrearCurso.getCupoMinimo().setEditable(false);
 		ventanaCrearCurso.getFechaCierreDeInscripcion().setEnabled(false);
-		//DIAS NO SELECCIONABLES PERO SALAS SI.
+		// DIAS NO SELECCIONABLES PERO SALAS SI.
 	}
 
-	private void completarVentanaEdicion(Curso curso){
+	private void completarVentanaEdicion(Curso curso) {
 		this.a_editar = curso;
 		Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
 		Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
 		Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
 		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
 
-		//LLeno todos los campos del curso
+		// LLeno todos los campos del curso
 		ventanaCrearCurso = new CrearCurso();
 		ventanaCrearCurso.setTitle("EDITAR CURSADA");
 		ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());
@@ -224,10 +237,10 @@ public class ControladorGestionarCurso implements ActionListener {
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
 		ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
 		ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
-		//ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
+		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
 		ventanaCrearCurso.getTxtComision().setText(curso.getComision());
 		ventanaCrearCurso.getTxtPrecio().setText(curso.getPrecio().toString());
-		
+
 		ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
 		controladorCursoEdicion.setIdEdicion(curso.getCursoID());
 		controladorCursoEdicion.setInstructor(instructor);
@@ -235,7 +248,7 @@ public class ControladorGestionarCurso implements ActionListener {
 		controladorCursoEdicion.setResponsable(responsable);
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();
-		this.ventanaGestionarCursos.ocultar();
+		this.ventanaGestionarCursos.frame.setEnabled(false);
 	}
-	
+
 }

@@ -31,7 +31,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class GestionarCursos {
-	private JFrame frame;
+	public JFrame frame;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
 	private JButton btnEditar;
@@ -44,6 +44,8 @@ public class GestionarCursos {
 	private JTextField txtFiltro;
 	private JLabel lblCursos;
 	private JButton btnCancelar;
+	private JButton btnConsultarInscripciones;
+	private JButton btnCambiarEstado;
 
 	public GestionarCursos() {
 		frame = new JFrame();
@@ -100,38 +102,64 @@ public class GestionarCursos {
 		tablaCursos.setRowHeight(75);
 		tablaCursos.setSelectionMode(0);
 		
+		btnConsultarInscripciones = new JButton("CONSULTAR INSCRIPCIONES");
+		btnConsultarInscripciones.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		btnCambiarEstado = new JButton("CAMBIAR ESTADO");
+		btnCambiarEstado.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE).addGap(18)
-								.addComponent(txtFiltro, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE).addGap(936))
+							.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+							.addGap(18)
+							.addComponent(txtFiltro, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+							.addGap(936))
 						.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE).addGap(847)
-								.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-								.addContainerGap())
+							.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addGap(123)
+							.addComponent(btnConsultarInscripciones, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnCambiarEstado, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+							.addGap(308)
+							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE).addGap(21))
+							.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1328, Short.MAX_VALUE)
+							.addGap(21))
 						.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE).addGap(10)))));
-		groupLayout
-				.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-						.createSequentialGroup()
-						.addGap(11).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtFiltro, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(lblCursos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE).addGap(12)
-						.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(btnAgregar)
-								.addComponent(btnEditar).addComponent(btnBorrar).addComponent(btnCancelar))
-						.addGap(7)));
+							.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE)
+							.addGap(10))))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtFiltro, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblCursos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addGap(12)
+					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAgregar)
+						.addComponent(btnEditar)
+						.addComponent(btnBorrar)
+						.addComponent(btnCancelar)
+						.addComponent(btnConsultarInscripciones)
+						.addComponent(btnCambiarEstado))
+					.addGap(7))
+		);
 		frame.getContentPane().setLayout(groupLayout);
 
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
@@ -165,13 +193,13 @@ public class GestionarCursos {
 
 	}
 
-	public void mostrar() {
+	/*public void mostrar() {
 		this.frame.setVisible(true);
 	}
 
 	public void ocultar() {
 		this.frame.setVisible(false);
-	}
+	}*/
 
 	public JButton getBtnAgregar() {
 		return btnAgregar;
@@ -199,6 +227,14 @@ public class GestionarCursos {
 
 	public JTable getTablaCursos() {
 		return tablaCursos;
+	}
+	
+	public JButton getBtnConsultarInscripciones() {
+		return btnConsultarInscripciones;
+	}
+	
+	public JButton getBtnCambiarEstado() {
+		return btnCambiarEstado;
 	}
 
 }
