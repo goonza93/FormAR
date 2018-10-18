@@ -93,7 +93,8 @@ public class ControladorGestionarCurso implements ActionListener {
 			this.ventanaCrearCurso = new CrearCurso();
 			this.ventanaCrearCurso.setVisible(true);
 			this.ventanaCrearCurso.setTitle("CREAR CURSADA");
-			this.ventanaGestionarCursos.frame.setEnabled(false);;
+			this.ventanaGestionarCursos.frame.setEnabled(false);
+			;
 			new ControladorCrearCurso(this.ventanaCrearCurso, this);
 		}
 
@@ -118,12 +119,12 @@ public class ControladorGestionarCurso implements ActionListener {
 
 		// BOTON CAMBIAR ESTADO
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnCambiarEstado()) {
-			
+			cambiarEstado();
 		}
 
 		// BOTON CONSULTAR INSCRIPCIONES
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnConsultarInscripciones()) {
-			
+
 		}
 	}
 
@@ -249,6 +250,61 @@ public class ControladorGestionarCurso implements ActionListener {
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();
 		this.ventanaGestionarCursos.frame.setEnabled(false);
+	}
+
+	private void cambiarEstado() {
+		int row = this.ventanaGestionarCursos.getTablaCursos().getSelectedRow();
+
+		// Si selecciono un curso, paso a intentar cambiar de estado
+		if (row != -1) {
+			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row);
+			Curso aEditar = this.cursos_en_tabla.get(modelFila);
+
+			// Si el curso esta CREADO, puede pasar a PUBLICADO
+			if (aEditar.getEstado() == 1) {
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Estas seguro que queres cambiar el estado /n" + "de CREADO a PUBLICADO!?", "Confirmacion",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (confirm == 0) {
+					aEditar.setEstado(2);
+					CursoManager.cambiarEstadoCurso(aEditar);
+				}
+			}
+
+			// Si el curso esta PUBLICADO puede pasar a INICIADO
+			else if (aEditar.getEstado() == 2) {
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?", "Confirmacion",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (confirm == 0) {
+					aEditar.setEstado(3);
+					CursoManager.cambiarEstadoCurso(aEditar);
+				}
+			}
+			// Si el curso esta INICIADO puede pasar a FINALIZADO
+			else if (aEditar.getEstado() == 3) {
+				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres cambiar el estado /n"
+						+ "de INICIADO a FINALIZADO!?",
+						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (confirm == 0) {
+					aEditar.setEstado(4);
+					CursoManager.cambiarEstadoCurso(aEditar);
+				}
+			}
+			// Si el curso esta FINALIZADO no puede cambiar de estado
+			else if (aEditar.getEstado() == 4) {
+				JOptionPane.showMessageDialog(null, "La cursada Finalizo. No se peude cambiar su estado");
+			}
+			// Si el curso esta CANCELADO no puede cambiar de estado
+			else if (aEditar.getEstado() == 5) {
+				JOptionPane.showMessageDialog(null, "La cursada fue Cancelada. No se peude cambiar su estado");
+			}
+		}
+		// Si no selecciono nada, le aviso
+		else {
+			JOptionPane.showMessageDialog(null, "Seleccione una cursada para cambiar de estado");
+		}
+		this.llenarTablaCursos();
 	}
 
 }

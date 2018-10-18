@@ -180,4 +180,8 @@ public class CursoManager {
 		return obd.selectByCurso(curso);
 	}
 
+	public static void cambiarEstadoCurso(Curso curso){
+		CursoODB odb = FactoryODB.crearCursoODB();
+		odb.update(curso);
+	}
 }
