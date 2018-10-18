@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.gestion.alumnos;
+package com.ungs.formar.vista.consulta.cursos;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
-public class VentanaInscripciones {
+public class VentanaCursosInscriptos {
 	private JFrame ventana;
 	private JButton btnVolver;
 	private DefaultTableModel modeloCursos;
@@ -22,7 +22,7 @@ public class VentanaInscripciones {
 			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JTable tablaCursos;
 
-	public VentanaInscripciones() {
+	public VentanaCursosInscriptos() {
 		initialize();
 	}
 

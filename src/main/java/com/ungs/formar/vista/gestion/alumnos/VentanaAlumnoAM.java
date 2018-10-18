@@ -95,8 +95,8 @@ public class VentanaAlumnoAM extends JFrame {
 		panelPrincipal.setBorder(bordePrincipal);
 
 		PanelHorizontal panelH = new PanelHorizontal();
-		panelH.agregarComponente(panelEtiquetas);
-		panelH.agregarComponente(panelEntradas);
+		panelH.add(panelEtiquetas);
+		panelH.add(panelEntradas);
 		
 		Border bordeBotones = new EmptyBorder(50, 0, 50, 0);
 		panelBotones.setBorder(bordeBotones);
