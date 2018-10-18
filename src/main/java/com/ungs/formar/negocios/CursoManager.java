@@ -25,10 +25,10 @@ public class CursoManager {
 			Date fechaFin, Integer precio, String comision) {
 		Integer responsableID = null;
 		Integer instructorID = null;
-		if(responsable!= null){
+		if (responsable != null) {
 			responsableID = responsable.getEmpleadoID();
 		}
-		if(instructor!= null){
+		if (instructor != null) {
 			instructorID = instructor.getEmpleadoID();
 		}
 		// INSERTO EL CURSO EN LA BD
@@ -38,27 +38,29 @@ public class CursoManager {
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
 		Integer cursoID = odb.selectIDMasReciente();
-
-		for (HorarioCursada horarioCursada : hc) {
-			horarioCursada.setCurso(cursoID);
-			HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+		System.out.println("LLEGUE AL IF");
+		if (!hc.isEmpty()) {
+			for (HorarioCursada horarioCursada : hc) {
+				horarioCursada.setCurso(cursoID);
+				HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+			}
 		}
-
+		System.out.println("SALI DEL IF");
 	}
 
 	public static void actualizarCurso(Integer ID, Integer cupoMinimo, Integer cupoMaximo, Integer horas,
 			Empleado responsable, Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin, EstadoCurso estado, Integer precio, String comision) {
-		
+
 		Integer responsableID = null;
 		Integer instructorID = null;
-		if(responsable!= null){
+		if (responsable != null) {
 			responsableID = responsable.getEmpleadoID();
 		}
-		if(instructor!= null){
+		if (instructor != null) {
 			instructorID = instructor.getEmpleadoID();
 		}
-		
+
 		// Actualizao el curso
 		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
 				instructorID, programa.getProgramaID(), estado.getEstadoID(), responsableID);
@@ -71,16 +73,17 @@ public class CursoManager {
 		 * for (HorarioCursada horarioCursada : hc){
 		 * HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada); }
 		 */
-		for (HorarioCursada horarioCursada : hc) {
+		if (!hc.isEmpty()) {
+			for (HorarioCursada horarioCursada : hc) {
 
-			if (horarioCursada.getHorarioID() == -1) {
-				horarioCursada.setCurso(curso.getCursoID());
-				HorarioCursadaManager.crearHorarioCursada(horarioCursada);
-			} else {
-				HorarioCursadaManager.actualizarHorarioDeCursada(horarioCursada);
+				if (horarioCursada.getHorarioID() == -1) {
+					horarioCursada.setCurso(curso.getCursoID());
+					HorarioCursadaManager.crearHorarioCursada(horarioCursada);
+				} else {
+					HorarioCursadaManager.actualizarHorarioDeCursada(horarioCursada);
+				}
 			}
 		}
-
 	}
 
 	public static List<Curso> traerCursos() {
@@ -104,28 +107,23 @@ public class CursoManager {
 		if (curso.getEstado() == 1) {
 			// elimino sus horarios de cursada y luego al curso en si
 			List<HorarioCursada> horarioCursadas = CursoManager.obtenerHorariosDeCursada(curso);
-			for (HorarioCursada horarioCursada : horarioCursadas)
-				HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
+			if (!horarioCursadas.isEmpty()) {
+				for (HorarioCursada horarioCursada : horarioCursadas)
+					HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
 
-			CursoODB odb = FactoryODB.crearCursoODB();
-			odb.delete(curso);
+				CursoODB odb = FactoryODB.crearCursoODB();
+				odb.delete(curso);
+			}
 		}
-		//Si Tiene otro estado, el curso pasa a estar Cancelado
-		else{
+		// Si Tiene otro estado, el curso pasa a estar Cancelado
+		else {
 			curso.setEstado(5);
-			actualizarCurso(curso.getCursoID(),
-					curso.getCupoMinimo(),
-					curso.getCupoMaximo(),
-					curso.getHoras(),
+			actualizarCurso(curso.getCursoID(), curso.getCupoMinimo(), curso.getCupoMaximo(), curso.getHoras(),
 					EmpleadoManager.traerEmpleado(curso.getResponsable()),
 					EmpleadoManager.traerEmpleado(curso.getInstructor()),
-					ProgramaManager.traerProgramaSegunID(curso.getPrograma()),
-					curso.getContenido(),
-					obtenerHorariosDeCursada(curso),
-					curso.getFechaInicio(), curso.getFechaFin(),
-					traerEstadoSegunID(curso.getEstado()),
-					curso.getPrecio(),
-					curso.getComision());
+					ProgramaManager.traerProgramaSegunID(curso.getPrograma()), curso.getContenido(),
+					obtenerHorariosDeCursada(curso), curso.getFechaInicio(), curso.getFechaFin(),
+					traerEstadoSegunID(curso.getEstado()), curso.getPrecio(), curso.getComision());
 		}
 	}
 
@@ -199,7 +197,7 @@ public class CursoManager {
 		return obd.selectByCurso(curso);
 	}
 
-	public static void cambiarEstadoCurso(Curso curso){
+	public static void cambiarEstadoCurso(Curso curso) {
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.update(curso);
 	}

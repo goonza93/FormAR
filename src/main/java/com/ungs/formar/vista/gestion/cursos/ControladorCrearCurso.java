@@ -82,7 +82,7 @@ public class ControladorCrearCurso implements ActionListener {
 			Object[] fila = { HorarioCursadaManager.obtenerDia(horariosCursada.get(i)),
 					HorarioCursadaManager.obtenerHoraInicio(horariosCursada.get(i)),
 					HorarioCursadaManager.obtenerHoraFin(horariosCursada.get(i)),
-					HorarioCursadaManager.obtenerSala(horariosCursada.get(i)), };
+					HorarioCursadaManager.obtenerSala(horariosCursada.get(i)) };
 			modelo.addRow(fila);
 		}
 	}
@@ -312,10 +312,9 @@ public class ControladorCrearCurso implements ActionListener {
 		
 		// horarios =
 		// CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
-		// if(horarios.size()>0){
-		fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
-		/*
-		 * }else { fechaFin = fechaInicio; // el metodo tiene ciclos infinitos,
+		if(!horariosCursada.isEmpty()){
+			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
+		 }/*else { fechaFin = fechaInicio; // el metodo tiene ciclos infinitos,
 		 * para que compile }
 		 */
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
@@ -340,13 +339,16 @@ public class ControladorCrearCurso implements ActionListener {
 
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
-		Date fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
-		
+		Date fechaFin = null;
+
+		if(!horariosCursada.isEmpty()){
+			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
+		 }
 		String comision = ventanaCrearCurso.getTxtComision().getText();
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 
-		if(responsable ==null)
-			System.out.println("RESPOSNABLE NULL");
+		//if(responsable ==null)
+		System.out.println("HASTA ACA OK");
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido,
 				horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}

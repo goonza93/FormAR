@@ -101,7 +101,6 @@ public class ControladorGestionarCurso implements ActionListener {
 			this.ventanaCrearCurso.setVisible(true);
 			this.ventanaCrearCurso.setTitle("CREAR CURSADA");
 			this.ventanaGestionarCursos.frame.setEnabled(false);
-			;
 			new ControladorCrearCurso(this.ventanaCrearCurso, this);
 		}
 

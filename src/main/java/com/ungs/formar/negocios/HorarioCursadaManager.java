@@ -51,6 +51,8 @@ public class HorarioCursadaManager {
 		Integer salaID = hc.getSala();
 		SalaODB odb = FactoryODB.crearSalaODB();
 		Sala sala = odb.selectByID(salaID);
+		if(sala == null)
+			return "";
 		return sala.getNumero().toString();
 	}
 	
