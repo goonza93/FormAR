@@ -38,6 +38,7 @@ public class SeleccionarInstructor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Seleccion de Instructor");
+		setResizable(false);
 		setLocationRelativeTo(null);
 		addWindowListener(new WindowAdapter() {
 			@Override

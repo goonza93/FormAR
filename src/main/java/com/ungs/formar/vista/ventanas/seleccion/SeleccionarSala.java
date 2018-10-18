@@ -41,6 +41,7 @@ public class SeleccionarSala extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Seleccion de sala");
+		setResizable(false);
 		setLocationRelativeTo(null);
 		addWindowListener(new WindowAdapter() {
 			@Override

@@ -44,6 +44,7 @@ public class SeleccionarPrograma extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Seleccion de programa");
+		setResizable(false);
 		setLocationRelativeTo(null);
 		addWindowListener(new WindowAdapter() {
 			@Override

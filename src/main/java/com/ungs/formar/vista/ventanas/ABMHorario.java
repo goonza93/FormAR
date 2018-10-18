@@ -31,6 +31,7 @@ public class ABMHorario extends JFrame {
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
+		setResizable(false);
 		setTitle("Ingreso de horario y sala");
 		setLocationRelativeTo(null);
 

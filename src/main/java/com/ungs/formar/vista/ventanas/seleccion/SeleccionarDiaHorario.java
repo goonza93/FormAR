@@ -39,6 +39,7 @@ public class SeleccionarDiaHorario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		setLocationRelativeTo(null);
 
 		JScrollPane spDiasHorarios = new JScrollPane();
