@@ -71,6 +71,7 @@ public class ControladorAgregarHorario implements ActionListener {
 
 			Horario horarioIngresado = crearHorarioIngresado();
 			controlador.setHorarioIngresado(horarioIngresado);
+			controlador.inicializar();
 			this.ventanaAgregarHorario.setEnabled(false);
 		} else {
 			JOptionPane.showMessageDialog(null, msjError);

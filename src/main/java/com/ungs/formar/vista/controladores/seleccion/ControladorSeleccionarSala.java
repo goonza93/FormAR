@@ -25,7 +25,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 		this.controlador = controlador;
 		this.ventana.getBtnCancelar().addActionListener(this);
 		this.ventana.getBtnSeleccionar().addActionListener(this);
-		this.inicializar();
+		//this.inicializar();
 	}
 
 	public void inicializar() {
@@ -46,8 +46,13 @@ public class ControladorSeleccionarSala implements ActionListener {
 			});
 		*/
 		for (int i = 0; i < this.salas_en_tabla.size(); i ++){
+			boolean disponible = SalaManager.validarHorarioDeCursada(horarioIngresado, this.salas_en_tabla.get(i));
+			String disponibilidad = "SI";
+			if(!disponible){
+				disponibilidad = "NO";
+			}
 			Object[] fila = {this.salas_en_tabla.get(i).getNumero(), this.salas_en_tabla.get(i).getNombre(),
-					this.salas_en_tabla.get(i).getCapacidad()};
+					this.salas_en_tabla.get(i).getCapacidad(), disponibilidad};
 			this.ventana.getModelSalas().addRow(fila);
 		}
 	}
