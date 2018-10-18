@@ -23,10 +23,17 @@ public class CursoManager {
 	public static void crearCurso(Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc, Date fechaInicio,
 			Date fechaFin, Integer precio, String comision) {
-
+		Integer responsableID = null;
+		Integer instructorID = null;
+		if(responsable!= null){
+			responsableID = responsable.getEmpleadoID();
+		}
+		if(instructor!= null){
+			instructorID = instructor.getEmpleadoID();
+		}
 		// INSERTO EL CURSO EN LA BD
 		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
-				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
+				instructorID, programa.getProgramaID(), 1, responsableID);
 
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.insert(curso);
@@ -41,10 +48,20 @@ public class CursoManager {
 
 	public static void actualizarCurso(Integer ID, Integer cupoMinimo, Integer cupoMaximo, Integer horas,
 			Empleado responsable, Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
-			Date fechaInicio, Date fechaFin, EstadoCurso estado) {
+			Date fechaInicio, Date fechaFin, EstadoCurso estado, Integer precio, String comision) {
+		
+		Integer responsableID = null;
+		Integer instructorID = null;
+		if(responsable!= null){
+			responsableID = responsable.getEmpleadoID();
+		}
+		if(instructor!= null){
+			instructorID = instructor.getEmpleadoID();
+		}
+		
 		// Actualizao el curso
-		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, 999, horas, contenido, "CH", fechaInicio, fechaFin,
-				instructor.getEmpleadoID(), programa.getProgramaID(), estado.getEstadoID(), responsable.getEmpleadoID());
+		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
+				instructorID, programa.getProgramaID(), estado.getEstadoID(), responsableID);
 
 		CursoODB odb = FactoryODB.crearCursoODB();
 		odb.update(curso);
@@ -106,7 +123,9 @@ public class CursoManager {
 					curso.getContenido(),
 					obtenerHorariosDeCursada(curso),
 					curso.getFechaInicio(), curso.getFechaFin(),
-					traerEstadoSegunID(curso.getEstado()));
+					traerEstadoSegunID(curso.getEstado()),
+					curso.getPrecio(),
+					curso.getComision());
 		}
 	}
 

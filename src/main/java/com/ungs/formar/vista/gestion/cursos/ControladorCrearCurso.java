@@ -307,6 +307,9 @@ public class ControladorCrearCurso implements ActionListener {
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
 
+		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
+		String comision = ventanaCrearCurso.getTxtComision().getText();
+		
 		// horarios =
 		// CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
 		// if(horarios.size()>0){
@@ -318,7 +321,7 @@ public class ControladorCrearCurso implements ActionListener {
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
 				this.programa, contenido, this.horariosCursada, fechaInicio, fechaFin,
-				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()));
+				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
 		System.out.println("Entrada 5");
 	}
 	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO
@@ -342,6 +345,8 @@ public class ControladorCrearCurso implements ActionListener {
 		String comision = ventanaCrearCurso.getTxtComision().getText();
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 
+		if(responsable ==null)
+			System.out.println("RESPOSNABLE NULL");
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido,
 				horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}

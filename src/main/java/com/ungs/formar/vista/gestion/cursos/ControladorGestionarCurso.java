@@ -77,10 +77,17 @@ public class ControladorGestionarCurso implements ActionListener {
 			// this.cursos_en_tabla.get(i).getFechaCierreInscripcion();
 			Integer precio = this.cursos_en_tabla.get(i).getPrecio();
 			String comision = this.cursos_en_tabla.get(i).getComision();
-
+			String nombreApellidoInstructor = "";
+			String nombreApellidoResponsable = "";
+			if(instructor!=null){
+				nombreApellidoInstructor = instructor.getApellido() + " " + instructor.getNombre();
+			}
+			if(responsable!=null){
+				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
+			}
 			Object[] fila = { nombre, comision, area, estado, precio, cupoMinimo, cupoMaximo, fechaInicio, fechaFin,
-					/* fechaCierreInscripcion */" ", instructor.getApellido() + " " + instructor.getNombre(),
-					responsable.getApellido() + " " + responsable.getNombre(), horariosString };
+					/* fechaCierreInscripcion */" ", nombreApellidoInstructor,
+					nombreApellidoResponsable, horariosString };
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 		}
 
@@ -234,19 +241,26 @@ public class ControladorGestionarCurso implements ActionListener {
 		ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
 		ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
 		ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
-		ventanaCrearCurso.getInstructor().setText(instructor.getApellido() + " " + instructor.getNombre());
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
-		ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
 		ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
 		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
 		ventanaCrearCurso.getTxtComision().setText(curso.getComision());
 		ventanaCrearCurso.getTxtPrecio().setText(curso.getPrecio().toString());
-
+		
 		ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
+		if(instructor!=null){
+			ventanaCrearCurso.getInstructor().setText(instructor.getApellido() + " " + instructor.getNombre());
+			controladorCursoEdicion.setInstructor(instructor);
+
+		}
+		if(responsable!=null){
+			ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
+			controladorCursoEdicion.setResponsable(responsable);
+		}
+
+		
 		controladorCursoEdicion.setIdEdicion(curso.getCursoID());
-		controladorCursoEdicion.setInstructor(instructor);
 		controladorCursoEdicion.setPrograma(programa);
-		controladorCursoEdicion.setResponsable(responsable);
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();
 		this.ventanaGestionarCursos.frame.setEnabled(false);
