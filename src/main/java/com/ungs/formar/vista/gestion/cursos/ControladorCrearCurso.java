@@ -345,7 +345,7 @@ public boolean agregarHorarioDeCursada(HorarioCursada hc) {
 			llenarTablaHorarios();
 			ret = true;
 		} else {
-			JOptionPane.showMessageDialog(null, "El horario no es compatible con los otros.");
+			JOptionPane.showMessageDialog(null, "El horario no es compatible con los otros horarios de la cursada.");
 		}
 		return ret;
 	}

@@ -4,8 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.SalaManager;
+import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
 import com.ungs.formar.vista.gestion.cursos.ControladorCrearCurso;
@@ -15,8 +18,9 @@ public class ControladorSeleccionarSala implements ActionListener {
 	private SeleccionarSala ventana;
 	private ControladorAgregarHorario controlador;
 	private List<Sala> salas_en_tabla;
+	private Horario horarioIngresado;
 
-	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorAgregarHorario controlador) {
+ 	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorAgregarHorario controlador) {
 		this.ventana = ventana;
 		this.controlador = controlador;
 		this.ventana.getBtnCancelar().addActionListener(this);
@@ -56,10 +60,14 @@ public class ControladorSeleccionarSala implements ActionListener {
 				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
 				int row = this.ventana.getTablaSalas().getSelectedRow(); // indice row de la tabla
 				int modelFila = this.ventana.getTablaSalas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-				
-				this.controlador.setSala(this.salas_en_tabla.get(modelFila));
-				this.ventana.dispose();
-				this.controlador.inicializar();
+				if(validarSalaSeleccionada(this.salas_en_tabla.get(modelFila))){
+					this.controlador.setSala(this.salas_en_tabla.get(modelFila));
+					this.ventana.dispose();
+					this.controlador.inicializar();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "La sala seleccionada no esta disponible en el horario establecido.");
+				}
 			}
 		} else if (e.getSource() == ventana.getBtnCancelar()) {
 			this.ventana.dispose();
@@ -67,4 +75,11 @@ public class ControladorSeleccionarSala implements ActionListener {
 		} 
 	}
 	
+	private boolean validarSalaSeleccionada(Sala salaSeleccionada){	
+		return SalaManager.validarHorarioDeCursada(horarioIngresado, salaSeleccionada);	
+	}
+	
+	public void setHorarioIngresado(Horario horarioIngresado){
+		this.horarioIngresado = horarioIngresado;
+	}
 }
