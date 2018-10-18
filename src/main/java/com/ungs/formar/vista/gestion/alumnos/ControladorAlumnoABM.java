@@ -307,7 +307,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		
 		} else if (!Validador.validarEmail(email)){
 			isOk = false;
-			mensaje += "    -El E-MAIL debe tener el formato NL + @ + NL + . +NL (Siendo NL uno o mas numeros o letras).\n";
+			mensaje += "    -El E-MAIL es invalido\n";
 		}
 		
 		if (isOk == false)
