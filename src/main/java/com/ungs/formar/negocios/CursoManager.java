@@ -22,10 +22,10 @@ public class CursoManager {
 
 	public static void crearCurso(Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc, Date fechaInicio,
-			Date fechaFin) {
+			Date fechaFin, Integer precio, String comision) {
 
 		// INSERTO EL CURSO EN LA BD
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, 999, horas, contenido, "CH", fechaInicio, fechaFin,
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
 				instructor.getEmpleadoID(), programa.getProgramaID(), 1, responsable.getEmpleadoID());
 
 		CursoODB odb = FactoryODB.crearCursoODB();

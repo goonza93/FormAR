@@ -338,9 +338,12 @@ public class ControladorCrearCurso implements ActionListener {
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
+		
+		String comision = ventanaCrearCurso.getTxtComision().getText();
+		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido,
-				horariosCursada, fechaInicio, fechaFin);
+				horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}
 
 	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS
