@@ -238,6 +238,7 @@ public class ControladorAlumnoABM implements ActionListener {
 			
 			llenarTabla();
 			ventanaAM.dispose();
+			ventanaAM = null;
 			ventanaABM.getVentana().setEnabled(true);
 			ventanaABM.getVentana().setVisible(true);
 		}	
@@ -245,6 +246,7 @@ public class ControladorAlumnoABM implements ActionListener {
 
 	private void cancelarAM(){
 		ventanaAM.dispose();
+		ventanaAM = null;
 		ventanaABM.getVentana().setEnabled(true);
 		ventanaABM.getVentana().setVisible(true);
 	}
