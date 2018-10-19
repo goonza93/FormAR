@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
@@ -124,6 +125,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		});
 		this.ventanaProgramaAM.setVisible(true);
 		this.ventanaProgramaGestion.setEnabled(false);
+		this.ventanaProgramaAM.getDateChooserAprobacion().setDate(Almanaque.hoy());
 	}
 
 	private void iniciarBaja() {
