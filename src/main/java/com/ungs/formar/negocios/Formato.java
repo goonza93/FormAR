@@ -12,13 +12,19 @@ import com.ungs.formar.persistencia.entidades.Programa;
 public class Formato {
 	
 	public static String instructor(Curso curso) {
+		String ret = "Sin asignar";
 		Empleado empleado = EmpleadoManager.traerEmpleado(curso.getInstructor());
-		return empleado.getApellido()+" "+empleado.getNombre();
+		if (empleado != null)
+			ret = empleado.getApellido()+" "+empleado.getNombre(); 
+		return ret;
 	}
 
 	public static String responsable(Curso curso) {
+		String ret = "Sin asignar";
 		Empleado empleado = EmpleadoManager.traerEmpleado(curso.getResponsable());
-		return empleado.getApellido()+" "+empleado.getNombre();
+		if (empleado != null)
+			ret = empleado.getApellido()+" "+empleado.getNombre(); 
+		return ret;
 	}
 
 	public static String nombre(Curso curso) {

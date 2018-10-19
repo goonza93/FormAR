@@ -39,6 +39,17 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 		return selectByCondicion(condicion);
 	}
 
+
+	public Inscripcion selectByCursoAlumno(Curso curso, Alumno alumno) {
+		String condicion = "cliente = "+alumno.getClienteID()+" and curso = "+curso.getCursoID();
+		List<Inscripcion> inscripciones = selectByCondicion(condicion);
+		if (inscripciones.size()>0)
+			return inscripciones.get(0);
+		return null;
+	}
+	
+	
+	
 	private List<Inscripcion> selectByCondicion(String condicion) {
 		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
 		String comandoSQL = "select "+ID+", "+campos+" from "+tabla+" where ("+condicion+");";  
@@ -75,6 +86,7 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 		String condicion = "curso = "+curso.getCursoID();
 		return selectByCondicion(condicion);
 	}
+
 
 
 }
