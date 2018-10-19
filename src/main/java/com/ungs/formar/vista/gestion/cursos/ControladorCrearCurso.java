@@ -156,9 +156,11 @@ public class ControladorCrearCurso implements ActionListener {
 		String msjError = "";
 		if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
 			msjError += "- Por favor, primero ingrese un cupo maximo\n";
-		} else if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
+		} 
+		if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
 			msjError += "- Por favor, primero ingrese una fecha de inicio\n";
-		} else if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
+		}
+		if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
 			msjError += "- Por favor, ingrese una cantidad total de horas valida\n";
 		}
 		if(!msjError.isEmpty()){
