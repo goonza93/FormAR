@@ -12,33 +12,32 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 
 public class ControladorEmpleadoABM implements ActionListener {
-	private VentanaEmpleadoABM ventanaEmpleadoABM;
-	private VentanaEmpleadoAM ventanaEmpleadoAM;
+	private VentanaEmpleadoABM ventanaABM;
+	private VentanaEmpleadoAM ventanaAM;
 	private ControladorPantallaPrincipal controlador;
 	private List<Empleado> empleados;
 	private Rol rol;
 
-	public ControladorEmpleadoABM(VentanaEmpleadoABM ventanaEmpleadoABM, ControladorPantallaPrincipal controlador,
-			Rol rol) {
-		this.ventanaEmpleadoABM = ventanaEmpleadoABM;
+	public ControladorEmpleadoABM(VentanaEmpleadoABM ventanaABM, ControladorPantallaPrincipal controlador, Rol rol) {
+		this.ventanaABM = ventanaABM;
 		this.controlador = controlador;
 		this.rol = rol;
-		this.ventanaEmpleadoABM.getCancelar().addActionListener(this);
-		this.ventanaEmpleadoABM.getAgregar().addActionListener(this);
-		this.ventanaEmpleadoABM.getBorrar().addActionListener(this);
-		this.ventanaEmpleadoABM.getEditar().addActionListener(this);
+		this.ventanaABM.getAgregar().addActionListener(this);
+		this.ventanaABM.getBorrar().addActionListener(this);
+		this.ventanaABM.getEditar().addActionListener(this);
+		this.ventanaABM.getCancelar().addActionListener(this);
 		this.inicializar();
 	}
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaEmpleadoABM.mostrar();
+		ventanaABM.mostrar();
 	}
 
 	private void llenarTabla() {
-		ventanaEmpleadoABM.getModeloEmpleados().setRowCount(0);
-		ventanaEmpleadoABM.getModeloEmpleados().setColumnCount(0);
-		ventanaEmpleadoABM.getModeloEmpleados().setColumnIdentifiers(ventanaEmpleadoABM.getNombreColumnas());
+		ventanaABM.getModeloEmpleados().setRowCount(0);
+		ventanaABM.getModeloEmpleados().setColumnCount(0);
+		ventanaABM.getModeloEmpleados().setColumnIdentifiers(ventanaABM.getNombreColumnas());
 
 		if (rol == Rol.INSTRUCTOR)
 			empleados = EmpleadoManager.traerInstructores();
@@ -48,46 +47,53 @@ public class ControladorEmpleadoABM implements ActionListener {
 			empleados = EmpleadoManager.traerEmpleados();
 
 		for (Empleado empleado : empleados) {
-			Object[] fila = { empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
-					empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
-			ventanaEmpleadoABM.getModeloEmpleados().addRow(fila);
+			Object[] fila = {
+					empleado.getApellido(),
+					empleado.getNombre(),
+					empleado.getDNI(),
+					empleado.getEmail(),
+					empleado.getTelefono(),
+					empleado.getFechaIngreso(),
+					empleado.getFechaEgreso()
+					};
+			ventanaABM.getModeloEmpleados().addRow(fila);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
 		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaEmpleadoABM.getAgregar())
+		if (e.getSource() == ventanaABM.getAgregar())
 			mostrarEmpleadoAlta();
 
 		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaEmpleadoABM.getCancelar())
+		else if (e.getSource() == ventanaABM.getCancelar())
 			cerrarEmpleadoABM();
 
 		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaEmpleadoABM.getEditar())
+		else if (e.getSource() == ventanaABM.getEditar())
 			mostrarEmpleadoModificacion();
 
 		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaEmpleadoABM.getBorrar())
+		else if (e.getSource() == ventanaABM.getBorrar())
 			borrarEmpleado();
 
 		// BOTON ACEPTAR DEL AM
-		else if (e.getSource() == ventanaEmpleadoAM.getAceptar())
+		else if (e.getSource() == ventanaAM.getAceptar())
 			aceptarEmpleado();
 
 		// BOTON CANCELAR DEL AM
-		else if (e.getSource() == ventanaEmpleadoAM.getCancelar())
+		else if (e.getSource() == ventanaAM.getCancelar())
 			cerrarVentanaAM();
 	}
 
 	private void mostrarEmpleadoModificacion() {
 		Empleado empleado = obtenerEmpleadoSeleccionado();
-		ventanaEmpleadoAM = new VentanaEmpleadoAM(empleado, Rol.INSTRUCTOR);
-		ventanaEmpleadoAM.getAceptar().addActionListener(this);
-		ventanaEmpleadoAM.getCancelar().addActionListener(this);
-		ventanaEmpleadoAM.setVisible(true);
-		ventanaEmpleadoABM.ocultar();
+		ventanaAM = new VentanaEmpleadoAM(empleado, Rol.INSTRUCTOR);
+		ventanaAM.getAceptar().addActionListener(this);
+		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.setVisible(true);
+		ventanaABM.ocultar();
 	}
 
 	private void borrarEmpleado() {
@@ -98,20 +104,20 @@ public class ControladorEmpleadoABM implements ActionListener {
 	}
 
 	private void cerrarVentanaAM() {
-		ventanaEmpleadoAM.dispose();
-		ventanaEmpleadoABM.mostrar();
+		ventanaAM.dispose();
+		ventanaABM.mostrar();
 	}
 
 	private void aceptarEmpleado() {
 		if (validarCampos()) {
-			Empleado empleado = ventanaEmpleadoAM.getEmpleado();
-			Rol rol = ventanaEmpleadoAM.getRol();
-			String apellido = ventanaEmpleadoAM.getTxtApellido().getText();
-			String nombre = ventanaEmpleadoAM.getTxtNombre().getText();
-			String dni = ventanaEmpleadoAM.getTxtDni().getText();
-			String telefono = ventanaEmpleadoAM.getTxtTelefono().getText();
-			String email = ventanaEmpleadoAM.getTxtEmail().getText();
-			Date fechaIngreso = new Date(ventanaEmpleadoAM.getDateFechaIngreso().getDate().getTime());
+			Empleado empleado = ventanaAM.getEmpleado();
+			Rol rol = ventanaAM.getRol();
+			String apellido = ventanaAM.getTxtApellido().getText();
+			String nombre = ventanaAM.getTxtNombre().getText();
+			String dni = ventanaAM.getTxtDni().getText();
+			String telefono = ventanaAM.getTxtTelefono().getText();
+			String email = ventanaAM.getTxtEmail().getText();
+			Date fechaIngreso = new Date(ventanaAM.getDateFechaIngreso().getDate().getTime());
 
 			if (empleado == null)
 				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
@@ -125,30 +131,30 @@ public class ControladorEmpleadoABM implements ActionListener {
 				EmpleadoManager.modificarEmpleado(empleado);
 			}
 
-			ventanaEmpleadoAM.dispose();
+			ventanaAM.dispose();
 			inicializar();
 		}
 	}
 
 	private void cerrarEmpleadoABM() {
-		ventanaEmpleadoABM.ocultar();
+		ventanaABM.ocultar();
 		controlador.inicializar();
 	}
 
 	private void mostrarEmpleadoAlta() {
-		ventanaEmpleadoAM = new VentanaEmpleadoAM(Rol.INSTRUCTOR);
-		ventanaEmpleadoAM.getAceptar().addActionListener(this);
-		ventanaEmpleadoAM.getCancelar().addActionListener(this);
-		ventanaEmpleadoAM.setVisible(true);
-		ventanaEmpleadoABM.ocultar();
+		ventanaAM = new VentanaEmpleadoAM(Rol.INSTRUCTOR);
+		ventanaAM.getAceptar().addActionListener(this);
+		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.setVisible(true);
+		ventanaABM.ocultar();
 	}
 
 	private boolean validarCampos() {
-		String apellido = ventanaEmpleadoAM.getTxtApellido().getText();
-		String nombre = ventanaEmpleadoAM.getTxtNombre().getText();
-		String dni = ventanaEmpleadoAM.getTxtDni().getText();
-		String telefono = ventanaEmpleadoAM.getTxtTelefono().getText();
-		String email = ventanaEmpleadoAM.getTxtEmail().getText();
+		String apellido = ventanaAM.getTxtApellido().getText();
+		String nombre = ventanaAM.getTxtNombre().getText();
+		String dni = ventanaAM.getTxtDni().getText();
+		String telefono = ventanaAM.getTxtTelefono().getText();
+		String email = ventanaAM.getTxtEmail().getText();
 
 		boolean isOk = true;
 		String mensaje = "Se encontraron los siguientes errores:\n";
@@ -177,6 +183,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
 
+		
 		// VALIDAR DNI
 		if (dni == null) {
 			isOk = false;
@@ -185,13 +192,26 @@ public class ControladorEmpleadoABM implements ActionListener {
 			isOk = false;
 			mensaje += "    -El DNI solo puede consistir de numeros.\n";
 		} else if (EmpleadoManager.estaEnUsoDNI(dni)) {
-			isOk = false;
-			mensaje += "    -El DNI ya esta siendo utilizado por otro empleado.\n";
+			Empleado empleadoEdicion = ventanaAM.getEmpleado();
+			Empleado empleadoBD = EmpleadoManager.traerSegunDNI(dni);
+			
+			// caso: es un nuevo empleado
+			if (empleadoEdicion == null) {
+				isOk = false;
+				mensaje += "    -El DNI ya esta siendo utilizado por otro empleado.\n";
+			}
+			
+			// caso: se esta editando uno existente
+			else if (empleadoBD.getEmpleadoID() != empleadoEdicion.getEmpleadoID()) {
+				isOk = false;
+				mensaje += "    -El DNI ya esta siendo utilizado por otro empleado.\n";
+			}
 		} else if (dni.length() > 20) {
 			isOk = false;
 			mensaje += "    -El DNI debe tener una longitud maxima de 20\n";
 		}
 
+		
 		if (telefono == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el TELEFONO.\n";
@@ -216,7 +236,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 			mensaje += "    -El E-MAIL debe tener una longitud maxima de 50\n";
 		}
 
-		if (ventanaEmpleadoAM.getDateFechaIngreso().getDate() == null) {
+		if (ventanaAM.getDateFechaIngreso().getDate() == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese la FECHA DE INGRESO.\n";
 		}
@@ -228,19 +248,10 @@ public class ControladorEmpleadoABM implements ActionListener {
 	}
 
 	private Empleado obtenerEmpleadoSeleccionado() {
-		int registroTabla = ventanaEmpleadoABM.getTablaEmpleados().getSelectedRow(); // Indice
-																						// de
-																						// la
-																						// tabla
-
-		// No habia ningun registro seleccionado
+		int registroTabla = ventanaABM.getTablaEmpleados().getSelectedRow();
 		if (registroTabla == -1)
 			return null;
-
-		int registro = ventanaEmpleadoABM.getTablaEmpleados().convertRowIndexToModel(registroTabla); // Fix
-																										// para
-																										// el
-																										// filtro
+		int registro = ventanaABM.getTablaEmpleados().convertRowIndexToModel(registroTabla); // Fix
 		return empleados.get(registro);
 	}
 
