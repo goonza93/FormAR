@@ -79,8 +79,8 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			// this.cursos_en_tabla.get(i).getFechaCierreInscripcion();
 			Integer precio = this.cursos_en_tabla.get(i).getPrecio();
 			String comision = this.cursos_en_tabla.get(i).getComision();
-			String nombreApellidoInstructor = "";
-			String nombreApellidoResponsable = "";
+			String nombreApellidoInstructor = "A DESIGNAR";
+			String nombreApellidoResponsable = "A DESIGNAR";
 			if(instructor!=null){
 				nombreApellidoInstructor = instructor.getApellido() + " " + instructor.getNombre();
 			}

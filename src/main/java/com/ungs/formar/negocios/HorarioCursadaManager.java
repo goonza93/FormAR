@@ -84,7 +84,9 @@ public class HorarioCursadaManager {
 			
 			ret += nuevo;
 		}
-		
+		if(ret == "<html>"){
+			return "A DESIGNAR";
+		}
 		return ret += "</html>";
 	}
 	
