@@ -61,6 +61,16 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		
 		return empleado;
 	}
+	
+	public Empleado selectByDNI(String dni) {
+		String condicion = "dni = '"+dni+"'";
+		List<Empleado> empleados = selectByCondicion(condicion);
+		Empleado empleado = null;
+		if (empleados.size()>0)
+			empleado = empleados.get(0); 
+		
+		return empleado;
+	}
 
 	public Empleado selectByID(Integer id) {
 		String condicion = "empleado_ID = '"+id+"'";

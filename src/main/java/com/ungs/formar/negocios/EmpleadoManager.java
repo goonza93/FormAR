@@ -2,6 +2,7 @@ package com.ungs.formar.negocios;
 
 import java.sql.Date;
 import java.util.List;
+
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -45,6 +46,16 @@ public class EmpleadoManager {
 	public static Empleado traerEmpleado(Integer id){
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		return odb.selectByID(id);
+	}
+
+	public static boolean estaEnUsoDNI(String dni) {
+		Empleado empleado = traerSegunDNI(dni);
+		return empleado != null;
+	}
+
+	public static Empleado traerSegunDNI(String dni) {
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByDNI(dni);
 	}
 
 }

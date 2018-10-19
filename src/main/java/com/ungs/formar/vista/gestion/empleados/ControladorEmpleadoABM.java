@@ -177,13 +177,16 @@ public class ControladorEmpleadoABM implements ActionListener {
 			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
 
+		// VALIDAR DNI
 		if (dni == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el DNI.\n";
-
 		} else if (!Validador.validarDNI(dni)) {
 			isOk = false;
 			mensaje += "    -El DNI solo puede consistir de numeros.\n";
+		} else if (EmpleadoManager.estaEnUsoDNI(dni)) {
+			isOk = false;
+			mensaje += "    -El DNI ya esta siendo utilizado por otro empleado.\n";
 		} else if (dni.length() > 20) {
 			isOk = false;
 			mensaje += "    -El DNI debe tener una longitud maxima de 20\n";

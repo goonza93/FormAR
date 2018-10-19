@@ -18,6 +18,8 @@ public interface EmpleadoODB {
 	
 	public Empleado selectByID(Integer id);
 	
+	public Empleado selectByDNI(String dni);
+	
 	public List<Empleado> selectByRol(Integer rolID);
 	
 }
