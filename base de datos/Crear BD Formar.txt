@@ -103,16 +103,16 @@ CREATE TABLE for_empleados (
 -- ESQUEMA CURSOS
 CREATE TABLE for_cursos (
 	curso_ID INT(4) AUTO_INCREMENT,
-	cupo_minimo INT(3) DEFAULT 1,
-	cupo_maximo INT(3) DEFAULT 999,
+	cupo_minimo INT(3),
+	cupo_maximo INT(3),
 	precio INT(5),
-	fecha_inicio DATE NOT NULL,
-	fecha_fin DATE NOT NULL,
-	contenido VARCHAR(500) DEFAULT NULL,
-    comision VARCHAR(10) NOT NULL,
+	fecha_inicio DATE,
+	fecha_fin DATE,
+	contenido VARCHAR(500),
+    comision VARCHAR(10),
 	horas INT(5) NOT NULL,
-	instructor INT(4), -- FK EMPLEADOS
-	responsable INT(4), -- FK EMPLEADOS
+	instructor INT(4) NULL, -- FK EMPLEADOS
+	responsable INT(4) NULL, -- FK EMPLEADOS
 	programa INT(4) NOT NULL, -- FK PROGRAMAS
 	estado INT(4) NOT NULL, -- FK ESTADOS DE CURSO
 	PRIMARY KEY (curso_ID)

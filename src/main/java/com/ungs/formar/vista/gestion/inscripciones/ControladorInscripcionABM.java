@@ -20,7 +20,7 @@ import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 
 public class ControladorInscripcionABM implements ActionListener, AlumnoConsultable{
-	ControladorPantallaPrincipal controlador;
+	private ControladorPantallaPrincipal controlador;
 	private VentanaInscripcionABM ventanaABM;
 	private VentanaInscripcionAlta ventanaAlta;
 	private List<Curso> cursos;
@@ -119,8 +119,12 @@ public class ControladorInscripcionABM implements ActionListener, AlumnoConsulta
 	private void inscribirAlumnos() {
 		Alumno alumno = obtenerAlumnosSeleccionados();
 		if (alumno != null) {
-			InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
-			cerrarVentanaAlta();
+			try {
+				InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
+				cerrarVentanaAlta();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
 		} else
 			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 alumno para poder inscribir.");
 	}

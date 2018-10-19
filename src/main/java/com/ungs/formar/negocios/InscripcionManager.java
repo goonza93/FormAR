@@ -13,12 +13,22 @@ import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
 
 public class InscripcionManager {
 	
-	public static void inscribir(Curso curso, Alumno alumno, Empleado empleado) {
+	public static void inscribir(Curso curso, Alumno alumno, Empleado empleado) throws Exception {
+		if (estaInscripto(curso, alumno))
+			throw new Exception("El alumno ya estaba inscripto al curso.");
+		
 		Date fecha = Almanaque.hoy(); 
 		Inscripcion inscripcion = new Inscripcion(-1, alumno.getClienteID(), curso.getCursoID(), 1, fecha, 1.0);
 		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
 		obd.insert(inscripcion);
 	}
+	
+	public static boolean estaInscripto(Curso curso, Alumno alumno) {
+		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
+		Inscripcion inscripcion = obd.selectByCursoAlumno(curso, alumno); 
+		return inscripcion != null;
+	}
+	
 	
 	public static void cancelarInscripcion(Inscripcion inscripcion) {
 		

@@ -15,5 +15,7 @@ public interface InscripcionOBD {
 	public List<Inscripcion> selectByAlumno(Alumno alumno);
 	
 	public List<Inscripcion> selectByCurso(Curso curso);
+	
+	public Inscripcion selectByCursoAlumno(Curso curso, Alumno alumno);
 
 }
