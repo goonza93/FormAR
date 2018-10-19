@@ -253,6 +253,19 @@ public class ControladorCrearCurso implements ActionListener {
 			msjError += "- Por favor, ingrese una fecha de Cierre de inscripciones valida\n";
 		}
 		
+		//VALIDACIONES DE LONGITUDES DE CAMPOS
+		if (this.ventanaCrearCurso.getCupoMinimo().getText().length() > 3) {
+			msjError += "- El cupo minimo debe ser menor a 999\n";
+		}if (this.ventanaCrearCurso.getCupoMaximo().getText().length() > 3) {
+			msjError +=  "- El cupo maximo debe ser menor a 999\n";
+		}if (this.ventanaCrearCurso.getHoras().getText().length() > 5) {
+			msjError += "- Las horas totales deben ser menor a 99999\n";
+		}if (this.ventanaCrearCurso.getTxtComision().getText().length() > 10) {
+			msjError +=  "- Por favor, ingrese una comision con una longitud maxima de 10\n";
+		}if (this.ventanaCrearCurso.getTxtPrecio().getText().length() > 5) {
+			msjError +=  "- El precio debe ser menor a 99999\n";
+		}
+		
 
 		// VALIDACIONES LOGICAS
 		//Primero ver si el cupo minimo esta bien, y si el maximo tambien.
@@ -417,7 +430,6 @@ public class ControladorCrearCurso implements ActionListener {
 		}
 	}
 	
-
 	private void iniciarDocumentListener() {
 		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {

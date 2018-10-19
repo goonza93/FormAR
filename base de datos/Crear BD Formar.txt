@@ -156,7 +156,7 @@ CREATE TABLE for_horarios_cursada (
 	horario_ID INT(4) AUTO_INCREMENT,
 	curso INT(4) NOT NULL, -- FK CURSOS
 	horario INT(4) NOT NULL, -- FK HORARIOS
-    sala INT(4) NOT NULL, -- FK SALAS
+    sala INT(4), -- FK SALAS
 	PRIMARY KEY (horario_ID)
 );
 
