@@ -36,7 +36,7 @@ CREATE TABLE for_clientes (
 	dni VARCHAR(20) NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
-	telefono VARCHAR(50) NOT NULL,
+	telefono VARCHAR(50),
 	email VARCHAR(50) NOT NULL,
 	PRIMARY KEY (cliente_ID),
 	UNIQUE KEY dni (dni)
@@ -93,7 +93,7 @@ CREATE TABLE for_empleados (
 	DNI VARCHAR(20) NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
-	telefono VARCHAR(20) NOT NULL,
+	telefono VARCHAR(20),
 	email VARCHAR(50) NOT NULL,
 	fecha_ingreso DATE NOT NULL,
 	fecha_egreso DATE NULL,
