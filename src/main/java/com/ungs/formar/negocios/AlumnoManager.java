@@ -37,5 +37,10 @@ public class AlumnoManager {
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		return odb.selectByID(ID);
 	}
+	
+	public static boolean estaEnUsoDNI(String dni) {
+		Alumno alumno = traerAlumnoSegunDNI(dni);
+		return alumno != null;
+	}
 
 }
