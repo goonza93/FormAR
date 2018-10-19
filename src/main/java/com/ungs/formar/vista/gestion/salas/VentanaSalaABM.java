@@ -2,6 +2,9 @@ package com.ungs.formar.vista.gestion.salas;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
@@ -27,12 +30,13 @@ public class VentanaSalaABM {
 	private String[] nombreColumnas = { "Numero", "Nombre", "Capacidad" };
 	private JTable tablaSalas;
 	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
-	private JTextField inFiltro;
+	private JTextField txtNumeroFiltro;
 	private JLabel lblFiltros;
 	private JLabel lblNombre;
-	private JTextField textField;
+	private JTextField txtNombreFiltro;
 	private JLabel lblCapacidad;
-	private JTextField textField_1;
+	private JTextField txtCapacidadFiltro;
+	private final TableRowSorter<TableModel> filtro;
 
 	public VentanaSalaABM() {
 		ventana = new JFrame();
@@ -42,16 +46,14 @@ public class VentanaSalaABM {
 
 		modeloSalas = new DefaultTableModel(null, nombreColumnas);
 
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloSalas);
-
 		JScrollPane spSalas = new JScrollPane();
 		tablaSalas = new JTable(modeloSalas);
 		tablaSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 		spSalas.setViewportView(tablaSalas);
 		tablaSalas.setDefaultEditor(Object.class, null);
 		tablaSalas.getTableHeader().setReorderingAllowed(false);
-		tablaSalas.setRowSorter(sorter);
-
+		filtro = new TableRowSorter<TableModel>(modeloSalas);
+		tablaSalas.setRowSorter(filtro);
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
@@ -63,9 +65,9 @@ public class VentanaSalaABM {
 		lblFiltrar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		inFiltro = new JTextField();
-		inFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		inFiltro.setColumns(10);
+		txtNumeroFiltro = new JTextField();
+		txtNumeroFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtNumeroFiltro.setColumns(10);
 
 		JLabel lblSalas = new JLabel("SALAS:");
 		lblSalas.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,17 +86,17 @@ public class VentanaSalaABM {
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		textField = new JTextField();
-		textField.setFont(new Font("Arial", Font.PLAIN, 12));
-		textField.setColumns(10);
+		txtNombreFiltro = new JTextField();
+		txtNombreFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtNombreFiltro.setColumns(10);
 
 		lblCapacidad = new JLabel("CAPACIDAD");
 		lblCapacidad.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCapacidad.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Arial", Font.PLAIN, 12));
-		textField_1.setColumns(10);
+		txtCapacidadFiltro = new JTextField();
+		txtCapacidadFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtCapacidadFiltro.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
 		groupLayout
 				.setHorizontalGroup(groupLayout
@@ -125,7 +127,7 @@ public class VentanaSalaABM {
 																						Short.MAX_VALUE)
 																				.addGap(18))
 																		.addGroup(groupLayout.createSequentialGroup()
-																				.addComponent(inFiltro,
+																				.addComponent(txtNumeroFiltro,
 																						GroupLayout.DEFAULT_SIZE, 187,
 																						Short.MAX_VALUE)
 																				.addGap(28)))
@@ -136,14 +138,14 @@ public class VentanaSalaABM {
 																				GroupLayout.DEFAULT_SIZE, 215,
 																				Short.MAX_VALUE)
 																		.addGroup(groupLayout.createSequentialGroup()
-																				.addComponent(textField,
+																				.addComponent(txtNombreFiltro,
 																						GroupLayout.DEFAULT_SIZE, 205,
 																						Short.MAX_VALUE)
 																				.addGap(10)))
 																.addGap(39)
 																.addGroup(groupLayout
 																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(textField_1, Alignment.TRAILING,
+																		.addComponent(txtCapacidadFiltro, Alignment.TRAILING,
 																				GroupLayout.DEFAULT_SIZE, 205,
 																				Short.MAX_VALUE)
 																		.addGroup(Alignment.TRAILING,
@@ -170,14 +172,14 @@ public class VentanaSalaABM {
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup().addGap(28)
 										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(textField, GroupLayout.PREFERRED_SIZE,
+												.addComponent(txtNombreFiltro, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(textField_1, GroupLayout.PREFERRED_SIZE,
+												.addComponent(txtCapacidadFiltro, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 								.addGroup(groupLayout.createSequentialGroup()
 										.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14,
 												GroupLayout.PREFERRED_SIZE)
-										.addGap(13).addComponent(inFiltro, GroupLayout.PREFERRED_SIZE, 20,
+										.addGap(13).addComponent(txtNumeroFiltro, GroupLayout.PREFERRED_SIZE, 20,
 												GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNombre)
 										.addComponent(lblCapacidad)))
@@ -191,28 +193,6 @@ public class VentanaSalaABM {
 						.addGap(11)));
 		ventana.getContentPane().setLayout(groupLayout);
 
-		inFiltro.getDocument().addDocumentListener(new DocumentListener() {
-			public void insertUpdate(DocumentEvent e) {
-				if (inFiltro.getText().trim().length() == 0) {
-					sorter.setRowFilter(null);
-				} else {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inFiltro.getText()));
-				}
-			}
-
-			public void removeUpdate(DocumentEvent e) {
-				if (inFiltro.getText().trim().length() == 0) {
-					sorter.setRowFilter(null);
-				} else {
-					sorter.setRowFilter(RowFilter.regexFilter("(?i)" + inFiltro.getText()));
-				}
-			}
-
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-			}
-		});
-
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -220,6 +200,10 @@ public class VentanaSalaABM {
 			}
 		});
 
+		DocumentListener listener = crearFiltroListener();
+		txtNumeroFiltro.getDocument().addDocumentListener(listener);
+		txtNombreFiltro.getDocument().addDocumentListener(listener);
+		txtCapacidadFiltro.getDocument().addDocumentListener(listener);
 	}
 
 	public void mostrar() {
@@ -258,4 +242,27 @@ public class VentanaSalaABM {
 		return tablaSalas;
 	}
 
+	public List<RowFilter<Object, Object>> crearFiltros() {
+		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
+		filtros.add(RowFilter.regexFilter("(?i)" + txtNumeroFiltro.getText(), 0));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtNombreFiltro.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtCapacidadFiltro.getText(), 2));
+		return filtros;
+	}
+	
+	public DocumentListener crearFiltroListener() {
+		DocumentListener ret = new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void changedUpdate(DocumentEvent e) {}
+		};
+		
+		return ret;
+	}
 }
