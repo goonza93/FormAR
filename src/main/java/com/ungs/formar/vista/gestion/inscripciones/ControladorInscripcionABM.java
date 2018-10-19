@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Formato;
@@ -18,6 +15,7 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Popup;
 
 public class ControladorInscripcionABM implements ActionListener, Consultable{
 	private ControladorPantallaPrincipal controlador;
@@ -123,10 +121,10 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 				InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
 				cerrarVentanaAlta();
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
+				Popup.mostrar(e.getMessage());
 			}
 		} else
-			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 alumno para poder inscribir.");
+			Popup.mostrar("Seleccione exactamente 1 alumno para poder inscribir.");
 	}
 
 	private void volver() {
@@ -142,12 +140,22 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			new ControladorAlumnosInscriptos(ventanaAlumnos, this, cursoSeleccionado);
 			ventanaABM.getVentana().setEnabled(false);
 		} else
-			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 curso para poder inscribir.");
+			Popup.mostrar("Seleccione exactamente 1 curso para poder inscribir.");
 	}
 
 	private void abrirVentanaAlta() {
 		cursoSeleccionado = obtenerCursoSeleccionado();
-		if (cursoSeleccionado != null) {
+		
+		if (cursoSeleccionado == null) {
+			Popup.mostrar("Seleccione exactamente 1 curso para poder inscribir.");
+			return;
+		}
+	
+		boolean mostrar = true;
+		if (cursoSeleccionado.getEstado() != 2)
+			mostrar = mostrar && Popup.confirmar("El curso no esta abierto a inscripciones ¿Desea continuar?");
+
+		if (mostrar) {
 			ventanaAlta = new VentanaInscripcionAlta(cursoSeleccionado);
 			ventanaAlta.getBtnInscribir().addActionListener(this);
 			ventanaAlta.getBtnVolver().addActionListener(this);
@@ -160,9 +168,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			ventanaAlta.getVentana().setVisible(true);
 			ventanaABM.getVentana().setEnabled(false);
 			llenarTablaAlta();
-		
-		} else
-			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 curso para poder inscribir.");
+		}
 	}
 
 	private Curso obtenerCursoSeleccionado() {
