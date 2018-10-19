@@ -272,7 +272,11 @@ public class ControladorAlumnoABM implements ActionListener {
 		} else if (!Validador.validarApellido(apellido)){
 			isOk = false;
 			mensaje += "    -El APELLIDO solo puede consistir de letras y espacios.\n";
+		} else if (apellido.length()> 50) {
+			isOk = false;
+			mensaje += "    -El APELLIDO debe tener una longitud maxima de 50\n";
 		}
+		
 
 		if (nombre == null) {
 			isOk = false;
@@ -281,6 +285,10 @@ public class ControladorAlumnoABM implements ActionListener {
 		} else if (!Validador.validarNombre(nombre)){
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";
+		}
+		else if (nombre.length()> 50) {
+			isOk = false;
+			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
 
 		if (dni == null) {
@@ -291,6 +299,10 @@ public class ControladorAlumnoABM implements ActionListener {
 			isOk = false;
 			mensaje += "    -El DNI solo puede consistir de numeros.\n";
 		}
+		else if (dni.length()> 20) {
+			isOk = false;
+			mensaje += "    -El DNI debe tener una longitud maxima de 20\n";
+		}
 		
 		if (telefono == null) {
 			isOk = false;
@@ -299,6 +311,9 @@ public class ControladorAlumnoABM implements ActionListener {
 		} else if (!Validador.validarTelefono(telefono)){
 			isOk = false;
 			mensaje += "    -El TELEFONO solo puede consistir de numeros.\n";
+		} else if (telefono.length()> 50) {
+			isOk = false;
+			mensaje += "    -El TELEFONO debe tener una longitud maxima de 50\n";
 		}
 		
 		if (email == null) {
@@ -308,6 +323,10 @@ public class ControladorAlumnoABM implements ActionListener {
 		} else if (!Validador.validarEmail(email)){
 			isOk = false;
 			mensaje += "    -El E-MAIL es invalido\n";
+		}
+		else if (email.length()> 50) {
+			isOk = false;
+			mensaje += "    -El EMAIL debe tener una longitud maxima de 50\n";
 		}
 		
 		if (isOk == false)
