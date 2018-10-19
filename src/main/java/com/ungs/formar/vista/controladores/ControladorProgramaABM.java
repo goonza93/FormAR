@@ -64,7 +64,6 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 					ProgramaManager.traerAreaSegunID(programa.getAreaID()).getNombre(),
 					programa.getNombre(),
 					programa.getFechaAprobacion(),
-					programa.getDescripcion(),
 					programa.getHoras()
 					};
 			ventanaProgramaGestion.getModeloProgramas().addRow(fila);
