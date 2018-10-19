@@ -148,7 +148,7 @@ public class ControladorSalaABM implements ActionListener {
 			mensaje += "    -El NUMERO debe ser menor a 9999\n";
 		}
 
-		if (nombre != null && !Validador.validarNombre(nombre)){
+		if (!nombre.isEmpty() && !Validador.validarNombre(nombre)){
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";
 		}else if (nombre.length()> 50) {
