@@ -167,7 +167,8 @@ public class ControladorCrearCurso implements ActionListener {
 		else {
 			this.ventanaABMHorario = new ABMHorario();
 			this.ventanaCrearCurso.setEnabled(false);
-			new ControladorAgregarHorario(this.ventanaABMHorario, this);
+			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
+			controlador.capacidadMaxima = Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText());
 		}
 	}
 
@@ -200,6 +201,7 @@ public class ControladorCrearCurso implements ActionListener {
 			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
 			controlador.esEdicion = true;
 			controlador.indiceHorarioEdicion = indiceEnHorarios;
+			controlador.capacidadMaxima = Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()); 
 			controlador.setSala(SalaManager.traerSegunID(horarioSeleccionado.getSala()));
 		} else {
 			JOptionPane.showMessageDialog(null, msjError);

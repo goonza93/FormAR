@@ -27,6 +27,7 @@ public class ControladorAgregarHorario implements ActionListener {
 	private SeleccionarSala ventanaSeleccionarSala;
 	public boolean esEdicion = false;
 	public int indiceHorarioEdicion = -1;
+	public int capacidadMaxima;
 
 	public ControladorAgregarHorario(ABMHorario ventanaAltaModifDiaHorario,
 			ControladorCrearCurso controladorCrearCurso) {
@@ -72,6 +73,7 @@ public class ControladorAgregarHorario implements ActionListener {
 			Horario horarioIngresado = crearHorarioIngresado();
 			controlador.setHorarioIngresado(horarioIngresado);
 			controlador.inicializar();
+			controlador.capacidadMaxima = this.capacidadMaxima;
 			this.ventanaAgregarHorario.setEnabled(false);
 		} else {
 			JOptionPane.showMessageDialog(null, msjError);

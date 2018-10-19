@@ -149,8 +149,13 @@ public class ControladorGestionarCurso implements ActionListener {
 
 			// Si tiene otro estado lo borro segun corresponda
 			else {
-				CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
-				llenarTablaCursos();
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Estas seguro que queres Borrar la cursada!?", "Confirmacion",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (confirm == 0) {
+					CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
+					llenarTablaCursos();
+				}				
 			}
 		}
 		// Si no selecciono nada, le aviso
