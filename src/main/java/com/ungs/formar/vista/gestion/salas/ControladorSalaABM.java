@@ -123,6 +123,7 @@ public class ControladorSalaABM implements ActionListener {
 
 			ventanaSalaAM.dispose();
 			inicializar();
+			ventanaSalaABM.getFrame().setEnabled(true);
 		}
 	}
 
