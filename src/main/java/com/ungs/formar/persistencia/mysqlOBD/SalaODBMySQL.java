@@ -30,10 +30,11 @@ public class SalaODBMySQL extends ODB implements SalaODB{
 		String condicion = ID+"="+sala.getSalaID();
 		String nombre = sala.getNombre() == null ? null : "'"+sala.getNombre()+"'";
 		String sql = "update "+tabla
-				+" set numero = "+sala.getNumero()
-				+" nombre = "+nombre
+				+" set numero = "+sala.getNumero()+", "
+				+" nombre = "+nombre+", "
 				+" capacidad = "+sala.getCapacidad()
 				+" where ("+condicion+");";
+		
 		ejecutarSQL(sql);
 	}
 	
