@@ -13,9 +13,12 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.consulta.Consultable;
+import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
+import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 
-public class ControladorGestionarCurso implements ActionListener {
+public class ControladorGestionarCurso implements ActionListener, Consultable {
 	private GestionarCursos ventanaGestionarCursos;
 	private ControladorPantallaPrincipal controladorPantallaPrincipal;
 	private CrearCurso ventanaCrearCurso;
@@ -128,7 +131,13 @@ public class ControladorGestionarCurso implements ActionListener {
 
 		// BOTON CONSULTAR INSCRIPCIONES
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnConsultarInscripciones()) {
-
+			Curso curso = obtenerCursoSeleccionado();
+			if (curso != null) {
+				VentanaAlumnosInscriptos v = new VentanaAlumnosInscriptos(curso);
+				new ControladorAlumnosInscriptos(v, this, curso);
+				ventanaGestionarCursos.frame.setEnabled(false);
+			} else
+				JOptionPane.showMessageDialog(null, "Seleccione una cursada para ver sus inscripciones");
 		}
 	}
 
@@ -363,4 +372,14 @@ public class ControladorGestionarCurso implements ActionListener {
 		return true;
 	}
 
+	private Curso obtenerCursoSeleccionado() {
+		int registroTabla = ventanaGestionarCursos.getTablaCursos().getSelectedRow(); //Indice de la tabla
+
+		// No habia ningun registro seleccionado
+		if (registroTabla == -1)
+			return null;
+		
+		int registro = ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+		return cursos_en_tabla.get(registro);
+	}
 }

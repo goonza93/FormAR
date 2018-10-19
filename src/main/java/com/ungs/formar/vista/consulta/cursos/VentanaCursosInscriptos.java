@@ -75,7 +75,7 @@ public class VentanaCursosInscriptos {
 		return ventana;
 	}
 
-	public JButton getBtnVolver() {
+	public JButton getVolver() {
 		return btnVolver;
 	}
 

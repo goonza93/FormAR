@@ -9,14 +9,15 @@ import java.util.List;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.vista.consulta.Consultable;
 
 public class ControladorAlumnosInscriptos implements ActionListener{
 	private VentanaAlumnosInscriptos ventana;
-	private AlumnoConsultable invocador;
+	private Consultable invocador;
 	private List<Alumno> alumnos;
 	private Curso curso;
 
-	public ControladorAlumnosInscriptos(VentanaAlumnosInscriptos ventana, AlumnoConsultable invocador, Curso curso) {
+	public ControladorAlumnosInscriptos(VentanaAlumnosInscriptos ventana, Consultable invocador, Curso curso) {
 		this.ventana= ventana;
 		this.invocador = invocador;
 		this.curso = curso;
