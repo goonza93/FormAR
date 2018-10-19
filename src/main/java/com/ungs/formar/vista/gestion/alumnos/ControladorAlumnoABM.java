@@ -138,7 +138,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		
 		else if (ventanaInscripciones != null) {
 			// BOTON VOLVER DE INSCRIPCIONES
-			if (e.getSource() == ventanaInscripciones.getBtnVolver())
+			if (e.getSource() == ventanaInscripciones.getVolver())
 				cerrarVentanaInscripciones();
 		}
 		
@@ -148,7 +148,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		if (alumno != null) {			
 			ventanaInscripciones = new VentanaCursosInscriptos();
-			ventanaInscripciones.getBtnVolver().addActionListener(this);
+			ventanaInscripciones.getVolver().addActionListener(this);
 			ventanaInscripciones.getVentana().addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {

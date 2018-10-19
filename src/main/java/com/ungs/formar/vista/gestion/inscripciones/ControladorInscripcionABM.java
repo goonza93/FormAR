@@ -14,12 +14,12 @@ import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.vista.consulta.alumnos.AlumnoConsultable;
+import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 
-public class ControladorInscripcionABM implements ActionListener, AlumnoConsultable{
+public class ControladorInscripcionABM implements ActionListener, Consultable{
 	private ControladorPantallaPrincipal controlador;
 	private VentanaInscripcionABM ventanaABM;
 	private VentanaInscripcionAlta ventanaAlta;
