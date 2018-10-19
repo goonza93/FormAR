@@ -189,7 +189,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		if(validarCampos()){
 			Programa programa = ventanaProgramaAM.getPrograma();
 			//String area = aca iria el ID no el nombre...
-			Integer area = 1; // esta como default el 1.
+			Integer area = this.area.getAreaID(); // esta como default el 1.
 			String nombre = ventanaProgramaAM.getTxtNombre().getText();
 			Date fechaAprobacion = ventanaProgramaAM.getDateChooserAprobacion().getDate();
 			String descripcion = ventanaProgramaAM.getTxtDescripcion().getText();
