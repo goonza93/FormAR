@@ -20,6 +20,9 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class VentanaProgramaAM extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -27,12 +30,12 @@ public class VentanaProgramaAM extends JFrame {
 	private JTextField txtNombre;
 	private JTextField txtArea;
 	private JTextField txtCargaHoraria;
-	private JTextField txtDescripcion;
 	private JButton btnSeleccionArea;
 	private JDateChooser dateChooserAprobacion;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private Programa programa;
+	private JTextArea txtDescripcion; 
 
 	public VentanaProgramaAM() {
 		setTitle("Ingresar programa");
@@ -51,30 +54,36 @@ public class VentanaProgramaAM extends JFrame {
 	}
 	
 	private void inicializar(){
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 343);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		JLabel lblNombre = new JLabel("Nombre");
+		JLabel lblNombre = new JLabel("NOMBRE");
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtNombre.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Fecha Aprobacion");
+		JLabel lblNewLabel = new JLabel("FECHA APROBACION");
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		dateChooserAprobacion = new JDateChooser();
 		dateChooserAprobacion.setEnabled(false);
 		dateChooserAprobacion.getCalendarButton().setEnabled(true);
 		
-		JLabel lblArea = new JLabel("Area");
+		JLabel lblArea = new JLabel("AREA");
+		lblArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		txtArea = new JTextField();
+		txtArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtArea.setEnabled(false);
 		txtArea.setColumns(10);
 		
@@ -82,83 +91,105 @@ public class VentanaProgramaAM extends JFrame {
 		btnSeleccionArea.setActionCommand("seleccionarArea");
 		
 		txtCargaHoraria = new JTextField();
+		txtCargaHoraria.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtCargaHoraria.setColumns(10);
 		
-		txtDescripcion = new JTextField();
-		txtDescripcion.setColumns(10);
+		JLabel lblCargaHoraria = new JLabel("CARGA HORARIA");
+		lblCargaHoraria.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel lblCargaHoraria = new JLabel("Carga Horaria");
+		JLabel lblDescripcion = new JLabel("DESCRIPCION");
+		lblDescripcion.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		
-		btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnAceptar.setActionCommand("aceptar");
 		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setActionCommand("cancelar");
+		
+		JScrollPane scrollPane = new JScrollPane();
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(26)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblNombre, Alignment.LEADING)
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblArea, Alignment.LEADING)
-						.addComponent(lblCargaHoraria, Alignment.LEADING)
-						.addComponent(lblDescripcion, Alignment.LEADING)
-						.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-							.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(38)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtDescripcion, GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-								.addComponent(txtCargaHoraria, GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-								.addComponent(dateChooserAprobacion, GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-								.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(txtArea, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnSeleccionArea, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
-							.addGap(81))
+							.addComponent(btnAceptar, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+							.addGap(182)
+							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addGap(28))))
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblArea, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED)))
+									.addGap(38))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblDescripcion, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+										.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+									.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(txtArea, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnSeleccionArea, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED))
+									.addComponent(dateChooserAprobacion, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+									.addComponent(txtCargaHoraria, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+									.addGap(1)))))
+					.addGap(18))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(37)
+					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblArea)
-						.addComponent(txtArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnSeleccionArea))
+						.addComponent(txtArea, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnSeleccionArea, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNombre)
-						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel)
-						.addComponent(dateChooserAprobacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNombre))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(dateChooserAprobacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtCargaHoraria, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCargaHoraria))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtDescripcion, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDescripcion))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCancelar)
-						.addComponent(btnAceptar))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(16)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblDescripcion)
+							.addGap(54)))
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAceptar)
+						.addComponent(btnCancelar))
+					.addContainerGap())
 		);
+		
+		txtDescripcion = new JTextArea();
+		txtDescripcion.setFont(new Font("Arial", Font.PLAIN, 12));
+		scrollPane.setViewportView(txtDescripcion);
 		panel.setLayout(gl_panel);
 	}
 	
@@ -174,7 +205,7 @@ public class VentanaProgramaAM extends JFrame {
 		return txtCargaHoraria;
 	}
 
-	public JTextField getTxtDescripcion() {
+	public JTextArea getTxtDescripcion() {
 		return txtDescripcion;
 	}
 
@@ -197,5 +228,4 @@ public class VentanaProgramaAM extends JFrame {
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
-	
 }
