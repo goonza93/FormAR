@@ -60,6 +60,8 @@ public class VentanaEmpleadoAM extends JFrame {
 		setBounds(100, 100, 400, 300);
 		PanelVertical panelPrincipal = new PanelVertical();
 		setContentPane(panelPrincipal);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -117,8 +119,8 @@ public class VentanaEmpleadoAM extends JFrame {
 		
 		
 		// AGREGO LOS BOTONES
-		btnAceptar = new JButton("Aceptar");
-		btnCancelar = new JButton("Cancelar");
+		btnAceptar = new JButton("ACEPTAR");
+		btnCancelar = new JButton("CANCELAR");
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnAceptar);
 		panelBotones.add(btnCancelar);

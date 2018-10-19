@@ -87,7 +87,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		ventanaEmpleadoAM.getAceptar().addActionListener(this);
 		ventanaEmpleadoAM.getCancelar().addActionListener(this);
 		ventanaEmpleadoAM.setVisible(true);
-		ventanaEmpleadoABM.ocultar();
+		ventanaEmpleadoABM.getFrame().setEnabled(false);
 	}
 
 	private void borrarEmpleado() {
@@ -99,7 +99,8 @@ public class ControladorEmpleadoABM implements ActionListener {
 
 	private void cerrarVentanaAM() {
 		ventanaEmpleadoAM.dispose();
-		ventanaEmpleadoABM.mostrar();
+		ventanaEmpleadoABM.getFrame().setEnabled(true);
+		ventanaEmpleadoABM.getFrame().toFront();
 	}
 
 	private void aceptarEmpleado() {
@@ -140,7 +141,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		ventanaEmpleadoAM.getAceptar().addActionListener(this);
 		ventanaEmpleadoAM.getCancelar().addActionListener(this);
 		ventanaEmpleadoAM.setVisible(true);
-		ventanaEmpleadoABM.ocultar();
+		ventanaEmpleadoABM.getFrame().setEnabled(false);
 	}
 
 	private boolean validarCampos() {

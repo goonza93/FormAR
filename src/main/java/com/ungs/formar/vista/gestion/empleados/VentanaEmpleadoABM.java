@@ -255,4 +255,7 @@ public class VentanaEmpleadoABM {
 		return ret;
 	}
 	
+	public JFrame getFrame(){
+		return ventana;
+	}
 }
