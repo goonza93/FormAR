@@ -81,6 +81,13 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		
 		return curso;
 	}
+	
+	public List<Curso> selectByPrograma(Integer IDPrograma){
+		String condicion = "programa = "+IDPrograma;
+		List<Curso> cursos = selectByCondicion(condicion);
+		
+		return cursos;
+	}
 
 	private List<Curso> selectByCondicion(String condicion) {
 		List<Curso> cursos = new ArrayList<Curso>();

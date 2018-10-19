@@ -6,9 +6,13 @@ import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.entidades.Area;
+import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
+import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
+import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 
 public class ProgramaManager {
@@ -50,4 +54,10 @@ public class ProgramaManager {
 		odb.delete(programa);
 	}
 	
+	public static boolean estaAsignado(Programa programa){
+		CursoODB obd = FactoryODB.crearCursoODB();
+		List<Curso> cursos = obd.selectByPrograma(programa.getProgramaID());
+		
+		return !(cursos.isEmpty());
+	}
 }

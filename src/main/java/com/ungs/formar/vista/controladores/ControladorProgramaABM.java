@@ -148,7 +148,11 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		List<Programa> lista = obtenerProgramasSeleccionados();
 		if (lista.size()!=1){
 			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para editar seleccione exactamente un programa.");
-		} else {
+		}
+		else if(ProgramaManager.estaAsignado(lista.get(0))){
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "El programa seleccionado esta asignado y no puede editarse");
+		}
+		else {
 			Programa aEditar = lista.get(0);
 			this.ventanaProgramaAM = new VentanaProgramaAM(aEditar);
 			this.area = ProgramaManager.traerAreaSegunID(aEditar.getAreaID());
@@ -175,7 +179,6 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	private void retroceder() {
 		this.ventanaProgramaGestion.dispose();
 		this.controladorPrincipal.inicializar();
-		
 	}
 
 	private void aceptarAM() {
@@ -264,7 +267,6 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		return isOk;
 	}
 
-	
 	public void setArea(Area area) {
 		// Esta es el area seleccionada, colocarla donde corresponda
 		this.area = area;

@@ -17,4 +17,6 @@ public interface CursoODB {
 	
 	public Integer selectIDMasReciente();
 	
+	public List<Curso> selectByPrograma(Integer IDPrograma);
+	
 }
