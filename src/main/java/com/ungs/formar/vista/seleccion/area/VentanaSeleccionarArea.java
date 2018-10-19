@@ -35,13 +35,14 @@ public class VentanaSeleccionarArea extends JFrame {
 	private JTextField txtFiltro;
 
 	public VentanaSeleccionarArea() {
-		setBounds(100, 100, 500, 350);
+		setBounds(100, 100, 500, 357);
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		setTitle("Seleccion de areas");
 		setLocationRelativeTo(null);
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -50,7 +51,7 @@ public class VentanaSeleccionarArea extends JFrame {
 		});
 
 		JScrollPane panelAreas = new JScrollPane();
-		panelAreas.setBounds(10, 61, 482, 206);
+		panelAreas.setBounds(10, 61, 464, 206);
 		panelPrincipal.add(panelAreas);
 
 		modeloAreas = new DefaultTableModel(null, nombreColumnas);
@@ -62,25 +63,25 @@ public class VentanaSeleccionarArea extends JFrame {
 	    tablaAreas.getTableHeader().setReorderingAllowed(false);
 		panelAreas.setViewportView(tablaAreas);
 
-		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar = new JButton("SELECCIONAR");
 		btnSeleccionar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnSeleccionar.setBounds(10, 278, 199, 23);
 		panelPrincipal.add(btnSeleccionar);
 
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(293, 278, 199, 23);
+		btnCancelar.setBounds(275, 278, 199, 23);
 		panelPrincipal.add(btnCancelar);
 
-		JLabel lblFiltro = new JLabel("FILTRAR:");
+		JLabel lblFiltro = new JLabel("FILTRO NOMBRE:");
 		lblFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblFiltro.setBounds(21, 11, 106, 14);
 		panelPrincipal.add(lblFiltro);
 
-		JLabel lblSalas = new JLabel("SALAS");
+		JLabel lblSalas = new JLabel("AREAS");
 		lblSalas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSalas.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblSalas.setBounds(10, 36, 481, 14);
+		lblSalas.setFont(new Font("Arial", Font.BOLD, 12));
+		lblSalas.setBounds(10, 36, 464, 14);
 		panelPrincipal.add(lblSalas);
 		
 		txtFiltro = new JTextField();
@@ -93,14 +94,14 @@ public class VentanaSeleccionarArea extends JFrame {
                 if (txtFiltro.getText().trim().length() == 0) {
                     sorter.setRowFilter(null);
                 } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText(), 0));
                 }
             }
             public void removeUpdate(DocumentEvent e) {
                 if (txtFiltro.getText().trim().length() == 0) {
                     sorter.setRowFilter(null);
                 } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText(), 0));
                 }
             }
 			public void changedUpdate(DocumentEvent arg0) {
