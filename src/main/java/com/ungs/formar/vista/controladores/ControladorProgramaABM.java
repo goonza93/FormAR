@@ -130,7 +130,11 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		List<Programa> lista = obtenerProgramasSeleccionados();
 		if (lista.size()==0){
 			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para borrar seleccione al menos un programa.");
-		} else {
+		} 
+		else if(ProgramaManager.estaAsignado(lista.get(0))){
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "El programa seleccionado esta asignado y no puede borrarse");
+		}
+		else {
 			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar lo seleccionado!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
@@ -193,7 +197,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			if(programa == null){
 				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion);
 			} else {
-				programa.setAreaID(1); // otro defaulteo a 1...
+				programa.setAreaID(this.area.getAreaID()); // otro defaulteo a 1...
 				programa.setNombre(nombre);
 				programa.setDescripcion(descripcion);
 				programa.setHoras(cargaHoraria);
