@@ -297,7 +297,7 @@ public class ControladorAlumnoABM implements ActionListener {
 		if (dni == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el DNI.\n";
-		} else if (!Validador.validarDNI(dni)){
+		} else if (!Validador.validarDNI(dni) && ventanaAM.getAlumno()==null){
 			isOk = false;
 			mensaje += "    -El DNI solo puede consistir de numeros.\n";
 		} else if (AlumnoManager.estaEnUsoDNI(dni)){
