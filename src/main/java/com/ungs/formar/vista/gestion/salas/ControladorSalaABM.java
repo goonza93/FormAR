@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+
+import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Sala;
@@ -14,9 +16,9 @@ public class ControladorSalaABM implements ActionListener {
 	private VentanaSalaAM ventanaSalaAM;
 	private ControladorPantallaPrincipal controlador;
 	private List<Sala> salas;
-	
+
 	public ControladorSalaABM(VentanaSalaABM ventanaSalaABM, ControladorPantallaPrincipal controlador) {
-		this.ventanaSalaABM= ventanaSalaABM;
+		this.ventanaSalaABM = ventanaSalaABM;
 		this.controlador = controlador;
 		this.ventanaSalaABM.getCancelar().addActionListener(this);
 		this.ventanaSalaABM.getAgregar().addActionListener(this);
@@ -37,17 +39,13 @@ public class ControladorSalaABM implements ActionListener {
 
 		salas = SalaManager.traerTodo();
 		for (Sala sala : salas) {
-			Object[] fila = {
-					sala.getNumero(),
-					sala.getNombre(),
-					sala.getCapacidad()
-					};
+			Object[] fila = { sala.getNumero(), sala.getNombre(), sala.getCapacidad() };
 			ventanaSalaABM.getModeloSalas().addRow(fila);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaSalaABM.getAgregar())
 			mostrarSalaAlta();
@@ -67,7 +65,7 @@ public class ControladorSalaABM implements ActionListener {
 		// BOTON ACEPTAR DEL AM
 		else if (e.getSource() == ventanaSalaAM.getAceptar())
 			aceptarSala();
-		
+
 		// BOTON CANCELAR DEL AM
 		else if (e.getSource() == ventanaSalaAM.getCancelar())
 			cerrarVentanaAM();
@@ -75,18 +73,30 @@ public class ControladorSalaABM implements ActionListener {
 
 	private void mostrarSalaModificacion() {
 		Sala sala = obtenerSalaSeleccionada();
-		ventanaSalaAM = new VentanaSalaAM(sala);
-		ventanaSalaAM.getAceptar().addActionListener(this);
-		ventanaSalaAM.getCancelar().addActionListener(this);
-		ventanaSalaAM.setVisible(true);
-		ventanaSalaABM.ocultar();		
+		if (sala != null) {
+			ventanaSalaAM = new VentanaSalaAM(sala);
+			ventanaSalaAM.getAceptar().addActionListener(this);
+			ventanaSalaAM.getCancelar().addActionListener(this);
+			ventanaSalaAM.setVisible(true);
+			ventanaSalaABM.ocultar();
+		}
 	}
 
 	private void borrarSala() {
 		Sala sala = obtenerSalaSeleccionada();
-		if (sala != null)
-			SalaManager.eliminar(sala);
-		inicializar();		
+		if (sala != null) {
+			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres eliminar la sala seleccionada!?",
+					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (confirm == 0) {
+				if (!SalaManager.estaAsignada(sala)) {
+					SalaManager.eliminar(sala);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "La sala no se puede eliminar porque esta asignada a una cursada");
+				}
+			}
+		}
+		llenarTabla();
 	}
 
 	private void cerrarVentanaAM() {
@@ -100,7 +110,7 @@ public class ControladorSalaABM implements ActionListener {
 			Integer numero = Integer.decode(ventanaSalaAM.getNumero().getText());
 			String nombre = ventanaSalaAM.getNombre().getText();
 			Integer capacidad = Integer.decode(ventanaSalaAM.getCapacidad().getText());
-			
+
 			if (sala == null)
 				SalaManager.crear(numero, nombre, capacidad);
 			else {
@@ -109,7 +119,7 @@ public class ControladorSalaABM implements ActionListener {
 				sala.setCapacidad(capacidad);
 				SalaManager.modificar(sala);
 			}
-			
+
 			ventanaSalaAM.dispose();
 			inicializar();
 		}
@@ -139,19 +149,19 @@ public class ControladorSalaABM implements ActionListener {
 		if (numero == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el NUMERO.\n";
-		
-		} else if (!Validador.validarNumero(numero)){
+
+		} else if (!Validador.validarNumero(numero)) {
 			isOk = false;
 			mensaje += "    -El NUMERO solo puede consistir de digitos del 0 al 9.\n";
-		}else if (numero.length()> 4) {
+		} else if (numero.length() > 4) {
 			isOk = false;
 			mensaje += "    -El NUMERO debe ser menor a 9999\n";
 		}
 
-		if (!nombre.isEmpty() && !Validador.validarNombre(nombre)){
+		if (!nombre.isEmpty() && !Validador.validarNombre(nombre)) {
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";
-		}else if (nombre.length()> 50) {
+		} else if (nombre.length() > 50) {
 			isOk = false;
 			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
@@ -159,30 +169,38 @@ public class ControladorSalaABM implements ActionListener {
 		if (capacidad == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese la CAPACIDAD.\n";
-		
-		} else if (!Validador.validarNumero(capacidad)){
+
+		} else if (!Validador.validarNumero(capacidad)) {
 			isOk = false;
 			mensaje += "    -La CAPACIDAD solo puede consistir de digitos del 0 al 9.\n";
-		}else if (capacidad.length()> 4) {
+		} else if (capacidad.length() > 4) {
 			isOk = false;
 			mensaje += "    -La CAPACIDAD debe ser menor a 9999\n";
 		}
-		
+
 		if (isOk == false)
 			JOptionPane.showMessageDialog(null, mensaje);
-			
+
 		return isOk;
 	}
-	
+
 	private Sala obtenerSalaSeleccionada() {
-		int registroTabla = ventanaSalaABM.getTablaSalas().getSelectedRow(); //Indice de la tabla
-		
+		int registroTabla = ventanaSalaABM.getTablaSalas().getSelectedRow(); // Indice
+																				// de
+																				// la
+																				// tabla
+
 		// No habia ningun registro seleccionado
-		if (registroTabla == -1)
+		if (registroTabla == -1) {
+			JOptionPane.showMessageDialog(null, "Por favor seleccione una sala");
 			return null;
-		
-		int registro = ventanaSalaABM.getTablaSalas().convertRowIndexToModel(registroTabla); // Fix para el filtro
+		}
+
+		int registro = ventanaSalaABM.getTablaSalas().convertRowIndexToModel(registroTabla); // Fix
+																								// para
+																								// el
+																								// filtro
 		return salas.get(registro);
 	}
-	
+
 }
