@@ -48,5 +48,7 @@ public class Formato {
 		return area.getNombre();
 	}
 	
-	
+	public static String precio(Integer precio) {
+		return "$ "+precio+",00";
+	}
 }

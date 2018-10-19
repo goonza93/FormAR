@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -86,7 +87,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			if(responsable!=null){
 				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
 			}
-			Object[] fila = { nombre, comision, area, estado, precio, cupoMinimo, cupoMaximo, fechaInicio, fechaFin,
+			Object[] fila = { nombre, comision, area, estado, Formato.precio(precio), cupoMinimo, cupoMaximo, fechaInicio, fechaFin,
 					/* fechaCierreInscripcion */" ", nombreApellidoInstructor,
 					nombreApellidoResponsable, horariosString };
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
