@@ -2,6 +2,9 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
@@ -17,115 +20,190 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class VentanaProgramaGestion extends JFrame{
+public class VentanaProgramaGestion extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modeloProgramas;
-	private String[] nombreColumnas = { "Area", "Nombre", "Fecha aprobacion", "Descripcion", "Carga horaria"};
+	private String[] nombreColumnas = { "Area", "Nombre", "Fecha aprobacion", "Carga horaria" };
 	private JTable tablaProgramas;
 	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
-	private JTextField txtFiltro;
+	private JLabel lblFiltros;
+	private final TableRowSorter<TableModel> filtro;
+	private JLabel lblArea;
+	private JTextField txtAreaFiltro;
+	private JTextField txtNombreFiltro;
+	private JLabel lblNombre;
+	private JTextField txtFechaAprobacionFiltro;
+	private JLabel lblFechaAprobacion;
+	private JTextField txtCargaHorariaFiltro;
+	private JLabel lblCargaHoraria;
 
 	public VentanaProgramaGestion() {
-		setBounds(100, 100, 740, 369);
-		getContentPane().setLayout(null);
+		setBounds(100, 100, 669, 393);
 		setTitle("Gestion de programas");
 		setLocationRelativeTo(null);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 724, 330);
-		getContentPane().add(panel);
-		panel.setLayout(null);
-
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnAgregar.setBounds(10, 296, 120, 23);
-		panel.add(btnAgregar);
-		
-		btnEditar = new JButton("Editar");
-		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnEditar.setBounds(150, 296, 120, 23);
-		panel.add(btnEditar);
-		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnBorrar.setBounds(300, 296, 120, 23);
-		panel.add(btnBorrar);
-		
-		JScrollPane spEmpleados = new JScrollPane();
-		spEmpleados.setBounds(10, 79, 704, 206);
-		panel.add(spEmpleados);
-		
 		modeloProgramas = new DefaultTableModel(null, nombreColumnas);
+
+		JScrollPane spEmpleados = new JScrollPane();
 		tablaProgramas = new JTable(modeloProgramas);
 		tablaProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
 		spEmpleados.setViewportView(tablaProgramas);
 		tablaProgramas.setDefaultEditor(Object.class, null);
 		tablaProgramas.getTableHeader().setReorderingAllowed(false);
+		filtro = new TableRowSorter<TableModel>(modeloProgramas);
+		tablaProgramas.setRowSorter(filtro);
 
-		
-		final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloProgramas);
-		tablaProgramas.setRowSorter(sorter);
-		
-		JLabel lblFiltrar = new JLabel("FILTRAR:");
-		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblFiltrar.setBounds(10, 14, 106, 14);
-		panel.add(lblFiltrar);
-		
-		txtFiltro = new JTextField();
-		txtFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFiltro.setColumns(10);
-		txtFiltro.setBounds(126, 11, 205, 20);
-		panel.add(txtFiltro);
-		
+		btnAgregar = new JButton("AGREGAR");
+		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		btnBorrar = new JButton("BORRAR");
+		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
+
 		JLabel lblProgramas = new JLabel("PROGRAMAS:");
 		lblProgramas.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProgramas.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblProgramas.setBounds(10, 46, 609, 14);
-		panel.add(lblProgramas);
-		
-		btnCancelar = new JButton("Cancelar");
+		lblProgramas.setFont(new Font("Arial", Font.BOLD, 12));
+
+		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(594, 296, 120, 23);
-		panel.add(btnCancelar);
+
+		lblFiltros = new JLabel("FILTROS:");
+		lblFiltros.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFiltros.setFont(new Font("Arial", Font.BOLD, 12));
 		
-		txtFiltro.getDocument().addDocumentListener(new DocumentListener(){
-            public void insertUpdate(DocumentEvent e) {
-                if (txtFiltro.getText().trim().length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
-                }
-            }
-            public void removeUpdate(DocumentEvent e) {
-                if (txtFiltro.getText().trim().length() == 0) {
-                    sorter.setRowFilter(null);
-                } else {
-                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtFiltro.getText()));
-                }
-            }
-			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-			}
-        });
+		lblArea = new JLabel("AREA");
+		lblArea.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		
+		txtAreaFiltro = new JTextField();
+		txtAreaFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtAreaFiltro.setColumns(10);
+		
+		txtNombreFiltro = new JTextField();
+		txtNombreFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtNombreFiltro.setColumns(10);
+		
+		lblNombre = new JLabel("NOMBRE");
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		txtFechaAprobacionFiltro = new JTextField();
+		txtFechaAprobacionFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtFechaAprobacionFiltro.setColumns(10);
+		
+		lblFechaAprobacion = new JLabel("FECHA APROBACION");
+		lblFechaAprobacion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFechaAprobacion.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		txtCargaHorariaFiltro = new JTextField();
+		txtCargaHorariaFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtCargaHorariaFiltro.setColumns(10);
+		
+		lblCargaHoraria = new JLabel("CARGA HORARIA");
+		lblCargaHoraria.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCargaHoraria.setFont(new Font("Arial", Font.PLAIN, 12));
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+							.addGap(165)
+							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+						.addComponent(lblProgramas, GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+						.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+						.addComponent(spEmpleados, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(txtAreaFiltro, Alignment.LEADING)
+								.addComponent(lblArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+								.addComponent(txtNombreFiltro, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblFechaAprobacion, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+								.addComponent(txtFechaAprobacionFiltro, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+								.addComponent(txtCargaHorariaFiltro, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+							.addGap(19)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(9)
+					.addComponent(lblFiltros)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblFechaAprobacion, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(txtFechaAprobacionFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblArea, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtAreaFiltro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNombre, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(txtNombreFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblCargaHoraria, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(txtCargaHorariaFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblProgramas, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAgregar)
+						.addComponent(btnEditar)
+						.addComponent(btnBorrar)
+						.addComponent(btnCancelar))
+					.addGap(11))
+		);
+		getContentPane().setLayout(groupLayout);
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				btnCancelar.doClick();
 			}
 		});
+
+		DocumentListener listener = crearFiltroListener();
+		txtAreaFiltro.getDocument().addDocumentListener(listener);
+		txtNombreFiltro.getDocument().addDocumentListener(listener);
+		txtFechaAprobacionFiltro.getDocument().addDocumentListener(listener);
+		txtCargaHorariaFiltro.getDocument().addDocumentListener(listener);
 		
 	}
-	
-	public void mostrar(){
+
+	public void mostrar() {
 		setVisible(true);
 	}
-	
-	public void ocultar(){
+
+	public void ocultar() {
 		setVisible(false);
 	}
-	
+
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
@@ -141,7 +219,7 @@ public class VentanaProgramaGestion extends JFrame{
 	public JButton getBtnBorrar() {
 		return btnBorrar;
 	}
-	
+
 	public DefaultTableModel getModeloProgramas() {
 		return modeloProgramas;
 	}
@@ -155,6 +233,33 @@ public class VentanaProgramaGestion extends JFrame{
 	}
 
 	public JTextField getTxtFiltro() {
-		return txtFiltro;
+		return txtAreaFiltro;
 	}
+
+	public List<RowFilter<Object, Object>> crearFiltros() {
+		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
+		filtros.add(RowFilter.regexFilter("(?i)" + txtAreaFiltro.getText(), 0));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtNombreFiltro.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtFechaAprobacionFiltro.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtCargaHorariaFiltro.getText(), 3));
+		return filtros;
+	}
+
+	public DocumentListener crearFiltroListener() {
+		DocumentListener ret = new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void changedUpdate(DocumentEvent e) {
+			}
+		};
+
+		return ret;
+	}
+
 }

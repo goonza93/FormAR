@@ -36,9 +36,11 @@ public class VentanaSalaAM extends JFrame {
 	}
 	
 	public void cargarComponentes() {
-		setBounds(100, 100, 400, 300);
+		setBounds(100, 100, 390, 160);
 		PanelVertical panelPrincipal = new PanelVertical();
 		setContentPane(panelPrincipal);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -78,8 +80,8 @@ public class VentanaSalaAM extends JFrame {
 		
 		
 		// AGREGO LOS BOTONES
-		btnAceptar = new JButton("Aceptar");
-		btnCancelar = new JButton("Cancelar");
+		btnAceptar = new JButton("ACEPTAR");
+		btnCancelar = new JButton("CANCELAR");
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnAceptar);
 		panelBotones.add(btnCancelar);

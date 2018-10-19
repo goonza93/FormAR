@@ -38,6 +38,8 @@ public class VentanaAlumnoAM extends JFrame {
 	private void cargarComponentes() {
 		setBounds(100, 100, 400, 300);
 		setLocationRelativeTo(null); // Centrar pantalla
+		setResizable(false);
+
 
 		// AGREGO LAS ETIQUETAS
 		JLabel lblNombre = new JLabel("Nombre: ");
