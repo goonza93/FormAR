@@ -67,7 +67,8 @@ public class ControladorSeleccionarSala implements ActionListener {
 				// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
 				int row = this.ventana.getTablaSalas().getSelectedRow(); // indice row de la tabla
 				int modelFila = this.ventana.getTablaSalas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
-				if(validarSalaSeleccionada(this.salas_en_tabla.get(modelFila))){
+				if(validarSalaSeleccionada(this.salas_en_tabla.get(modelFila)) || 
+						this.salas_en_tabla.get(modelFila).getSalaID() == 1){				//SI es la FANTASMA NO valido
 					if(this.salas_en_tabla.get(modelFila).getCapacidad()< this.capacidadMaxima){
 						int confirm = JOptionPane.showOptionDialog(null,
 								"La capacidad maxima de la sala es menor que la de la \n"
