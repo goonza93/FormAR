@@ -193,4 +193,4 @@ INSERT INTO for_roles_empleado (descripcion) VALUES ('INSTRUCTOR');
 INSERT INTO for_roles_empleado (descripcion) VALUES ('SUPERVISOR');
 
 -- INSERTAR SALA "FANTASMA"
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("A DESIGNAR", 0, 0);
+INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("A DESIGNAR", 0, 9999);
