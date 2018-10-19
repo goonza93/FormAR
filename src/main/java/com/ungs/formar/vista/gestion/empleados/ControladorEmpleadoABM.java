@@ -17,8 +17,9 @@ public class ControladorEmpleadoABM implements ActionListener {
 	private ControladorPantallaPrincipal controlador;
 	private List<Empleado> empleados;
 	private Rol rol;
-	
-	public ControladorEmpleadoABM(VentanaEmpleadoABM ventanaEmpleadoABM, ControladorPantallaPrincipal controlador, Rol rol) {
+
+	public ControladorEmpleadoABM(VentanaEmpleadoABM ventanaEmpleadoABM, ControladorPantallaPrincipal controlador,
+			Rol rol) {
 		this.ventanaEmpleadoABM = ventanaEmpleadoABM;
 		this.controlador = controlador;
 		this.rol = rol;
@@ -45,23 +46,16 @@ public class ControladorEmpleadoABM implements ActionListener {
 			empleados = EmpleadoManager.traerAdministrativos();
 		else if (rol == Rol.COMPLETO)
 			empleados = EmpleadoManager.traerEmpleados();
-		
+
 		for (Empleado empleado : empleados) {
-			Object[] fila = {
-					empleado.getApellido(),
-					empleado.getNombre(),
-					empleado.getDNI(),
-					empleado.getEmail(),
-					empleado.getTelefono(),
-					empleado.getFechaIngreso(),
-					empleado.getFechaEgreso()
-					};
+			Object[] fila = { empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
+					empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
 			ventanaEmpleadoABM.getModeloEmpleados().addRow(fila);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaEmpleadoABM.getAgregar())
 			mostrarEmpleadoAlta();
@@ -81,7 +75,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		// BOTON ACEPTAR DEL AM
 		else if (e.getSource() == ventanaEmpleadoAM.getAceptar())
 			aceptarEmpleado();
-		
+
 		// BOTON CANCELAR DEL AM
 		else if (e.getSource() == ventanaEmpleadoAM.getCancelar())
 			cerrarVentanaAM();
@@ -93,14 +87,14 @@ public class ControladorEmpleadoABM implements ActionListener {
 		ventanaEmpleadoAM.getAceptar().addActionListener(this);
 		ventanaEmpleadoAM.getCancelar().addActionListener(this);
 		ventanaEmpleadoAM.setVisible(true);
-		ventanaEmpleadoABM.ocultar();		
+		ventanaEmpleadoABM.ocultar();
 	}
 
 	private void borrarEmpleado() {
 		Empleado empleado = obtenerEmpleadoSeleccionado();
 		if (empleado != null)
 			EmpleadoManager.eliminarEmpleado(empleado);
-		inicializar();		
+		inicializar();
 	}
 
 	private void cerrarVentanaAM() {
@@ -118,7 +112,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 			String telefono = ventanaEmpleadoAM.getTxtTelefono().getText();
 			String email = ventanaEmpleadoAM.getTxtEmail().getText();
 			Date fechaIngreso = new Date(ventanaEmpleadoAM.getDateFechaIngreso().getDate().getTime());
-			
+
 			if (empleado == null)
 				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
 			else {
@@ -130,7 +124,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 				empleado.setFechaIngreso(fechaIngreso);
 				EmpleadoManager.modificarEmpleado(empleado);
 			}
-			
+
 			ventanaEmpleadoAM.dispose();
 			inicializar();
 		}
@@ -153,7 +147,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		String apellido = ventanaEmpleadoAM.getTxtApellido().getText();
 		String nombre = ventanaEmpleadoAM.getTxtNombre().getText();
 		String dni = ventanaEmpleadoAM.getTxtDni().getText();
-		String telefono = ventanaEmpleadoAM.getTxtTelefono().getText();		
+		String telefono = ventanaEmpleadoAM.getTxtTelefono().getText();
 		String email = ventanaEmpleadoAM.getTxtEmail().getText();
 
 		boolean isOk = true;
@@ -162,68 +156,89 @@ public class ControladorEmpleadoABM implements ActionListener {
 		if (apellido == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el APELLIDO.\n";
-		
-		} else if (!Validador.validarApellido(apellido)){
+
+		} else if (!Validador.validarApellido(apellido)) {
 			isOk = false;
 			mensaje += "    -El APELLIDO solo puede consistir de letras y espacios.\n";
+		} else if (apellido.length() > 50) {
+			isOk = false;
+			mensaje += "    -El APELLIDO debe tener una longitud maxima de 50\n";
 		}
 
 		if (nombre == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el NOMBRE.\n";
-		
-		} else if (!Validador.validarNombre(nombre)){
+
+		} else if (!Validador.validarNombre(nombre)) {
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";
+		} else if (nombre.length() > 50) {
+			isOk = false;
+			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
 
 		if (dni == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el DNI.\n";
-		
-		} else if (!Validador.validarDNI(dni)){
+
+		} else if (!Validador.validarDNI(dni)) {
 			isOk = false;
 			mensaje += "    -El DNI solo puede consistir de numeros.\n";
+		} else if (dni.length() > 20) {
+			isOk = false;
+			mensaje += "    -El DNI debe tener una longitud maxima de 20\n";
 		}
-		
+
 		if (telefono == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el TELEFONO.\n";
-		
-		} else if (!Validador.validarTelefono(telefono)){
+
+		} else if (!Validador.validarTelefono(telefono)) {
 			isOk = false;
 			mensaje += "    -El TELEFONO solo puede consistir de numeros.\n";
+		} else if (telefono.length() > 20) {
+			isOk = false;
+			mensaje += "    -El TELEFONO debe tener una longitud maxima de 20\n";
 		}
-		
+
 		if (email == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el E-MAIL.\n";
-		
-		} else if (!Validador.validarEmail(email)){
+
+		} else if (!Validador.validarEmail(email)) {
 			isOk = false;
-			mensaje += "    -El E-MAIL debe tener el formato NL + @ + NL + . +NL (Siendo NL uno o mas numeros o letras).\n";
+			mensaje += "    -El E-MAIL ingresado no es valido\n";
+		}else if (email.length()> 50) {
+			isOk = false;
+			mensaje += "    -El E-MAIL debe tener una longitud maxima de 50\n";
 		}
-		
+
 		if (ventanaEmpleadoAM.getDateFechaIngreso().getDate() == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese la FECHA DE INGRESO.\n";
 		}
-		
+
 		if (isOk == false)
 			JOptionPane.showMessageDialog(null, mensaje);
-			
+
 		return isOk;
 	}
-	
+
 	private Empleado obtenerEmpleadoSeleccionado() {
-		int registroTabla = ventanaEmpleadoABM.getTablaEmpleados().getSelectedRow(); //Indice de la tabla
-		
+		int registroTabla = ventanaEmpleadoABM.getTablaEmpleados().getSelectedRow(); // Indice
+																						// de
+																						// la
+																						// tabla
+
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-		
-		int registro = ventanaEmpleadoABM.getTablaEmpleados().convertRowIndexToModel(registroTabla); // Fix para el filtro
+
+		int registro = ventanaEmpleadoABM.getTablaEmpleados().convertRowIndexToModel(registroTabla); // Fix
+																										// para
+																										// el
+																										// filtro
 		return empleados.get(registro);
 	}
-	
+
 }
