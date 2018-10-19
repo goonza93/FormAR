@@ -76,7 +76,6 @@ public class VentanaProgramaAM extends JFrame {
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		dateChooserAprobacion = new JDateChooser();
-		dateChooserAprobacion.setEnabled(false);
 		dateChooserAprobacion.getCalendarButton().setEnabled(true);
 		
 		JLabel lblArea = new JLabel("AREA");
