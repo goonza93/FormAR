@@ -143,11 +143,17 @@ public class ControladorSalaABM implements ActionListener {
 		} else if (!Validador.validarNumero(numero)){
 			isOk = false;
 			mensaje += "    -El NUMERO solo puede consistir de digitos del 0 al 9.\n";
+		}else if (numero.length()> 4) {
+			isOk = false;
+			mensaje += "    -El NUMERO debe ser menor a 9999\n";
 		}
 
 		if (nombre != null && !Validador.validarNombre(nombre)){
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";
+		}else if (nombre.length()> 50) {
+			isOk = false;
+			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
 
 		if (capacidad == null) {
@@ -156,7 +162,10 @@ public class ControladorSalaABM implements ActionListener {
 		
 		} else if (!Validador.validarNumero(capacidad)){
 			isOk = false;
-			mensaje += "    -El CAPACIDAD solo puede consistir de digitos del 0 al 9.\n";
+			mensaje += "    -La CAPACIDAD solo puede consistir de digitos del 0 al 9.\n";
+		}else if (capacidad.length()> 4) {
+			isOk = false;
+			mensaje += "    -La CAPACIDAD debe ser menor a 9999\n";
 		}
 		
 		if (isOk == false)
