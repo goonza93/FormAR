@@ -189,6 +189,11 @@ public class VentanaProgramaGestion extends JFrame {
 		});
 
 		DocumentListener listener = crearFiltroListener();
+		txtAreaFiltro.getDocument().addDocumentListener(listener);
+		txtNombreFiltro.getDocument().addDocumentListener(listener);
+		txtFechaAprobacionFiltro.getDocument().addDocumentListener(listener);
+		txtCargaHorariaFiltro.getDocument().addDocumentListener(listener);
+		
 	}
 
 	public void mostrar() {
