@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Horario;
@@ -19,6 +20,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 	private ControladorAgregarHorario controlador;
 	private List<Sala> salas_en_tabla;
 	private Horario horarioIngresado;
+	public int capacidadMaxima;
 
  	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorAgregarHorario controlador) {
 		this.ventana = ventana;
@@ -66,9 +68,22 @@ public class ControladorSeleccionarSala implements ActionListener {
 				int row = this.ventana.getTablaSalas().getSelectedRow(); // indice row de la tabla
 				int modelFila = this.ventana.getTablaSalas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
 				if(validarSalaSeleccionada(this.salas_en_tabla.get(modelFila))){
-					this.controlador.setSala(this.salas_en_tabla.get(modelFila));
-					this.ventana.dispose();
-					this.controlador.inicializar();
+					if(this.salas_en_tabla.get(modelFila).getCapacidad()< this.capacidadMaxima){
+						int confirm = JOptionPane.showOptionDialog(null,
+								"La capacidad maxima de la sala es menor que la de la \n"
+								+ "cursada. Deseas asignarla de todas maneras!?", "Confirmacion",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+						if (confirm == 0) {
+							this.controlador.setSala(this.salas_en_tabla.get(modelFila));
+							this.ventana.dispose();
+							this.controlador.inicializar();
+						}
+					}
+					else{
+						this.controlador.setSala(this.salas_en_tabla.get(modelFila));
+						this.ventana.dispose();
+						this.controlador.inicializar();
+					}
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "La sala seleccionada no esta disponible en el horario establecido.");
