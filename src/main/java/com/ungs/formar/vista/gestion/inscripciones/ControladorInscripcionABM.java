@@ -144,6 +144,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 	}
 
 	private void abrirVentanaAlta() {
+		boolean mostrar = true;
 		cursoSeleccionado = obtenerCursoSeleccionado();
 		
 		if (cursoSeleccionado == null) {
@@ -151,10 +152,17 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			return;
 		}
 	
-		boolean mostrar = true;
-		if (cursoSeleccionado.getEstado() != 2)
+		// VALIDO LOS ESTADOS
+		int estado = cursoSeleccionado.getEstado(); 
+		
+		if (estado==1 || estado==3)
 			mostrar = mostrar && Popup.confirmar("El curso no esta abierto a inscripciones ¿Desea continuar?");
 
+		if (estado==4 || estado==5) {
+			mostrar = false;
+			Popup.mostrar("No se pueden inscribir alumnos a este curso");
+		}
+		
 		if (mostrar) {
 			ventanaAlta = new VentanaInscripcionAlta(cursoSeleccionado);
 			ventanaAlta.getBtnInscribir().addActionListener(this);
