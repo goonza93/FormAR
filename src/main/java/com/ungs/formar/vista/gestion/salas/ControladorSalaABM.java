@@ -78,7 +78,7 @@ public class ControladorSalaABM implements ActionListener {
 			ventanaSalaAM.getAceptar().addActionListener(this);
 			ventanaSalaAM.getCancelar().addActionListener(this);
 			ventanaSalaAM.setVisible(true);
-			ventanaSalaABM.ocultar();
+			ventanaSalaABM.getFrame().setEnabled(false);
 		}
 	}
 
@@ -101,7 +101,8 @@ public class ControladorSalaABM implements ActionListener {
 
 	private void cerrarVentanaAM() {
 		ventanaSalaAM.dispose();
-		ventanaSalaABM.mostrar();
+		ventanaSalaABM.getFrame().setEnabled(true);
+		ventanaSalaABM.getFrame().toFront();
 	}
 
 	private void aceptarSala() {
@@ -135,7 +136,7 @@ public class ControladorSalaABM implements ActionListener {
 		ventanaSalaAM.getAceptar().addActionListener(this);
 		ventanaSalaAM.getCancelar().addActionListener(this);
 		ventanaSalaAM.setVisible(true);
-		ventanaSalaABM.ocultar();
+		ventanaSalaABM.getFrame().setEnabled(false);
 	}
 
 	private boolean validarCampos() {

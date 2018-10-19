@@ -265,4 +265,8 @@ public class VentanaSalaABM {
 		
 		return ret;
 	}
+
+	public JFrame getFrame(){
+		return ventana;
+	}
 }
