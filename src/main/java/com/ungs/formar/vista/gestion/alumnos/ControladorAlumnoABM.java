@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.InscripcionManager;
@@ -301,8 +299,21 @@ public class ControladorAlumnoABM implements ActionListener {
 			isOk = false;
 			mensaje += "    -El DNI solo puede consistir de numeros.\n";
 		} else if (AlumnoManager.estaEnUsoDNI(dni)){
-			isOk = false;
-			mensaje += "    -El DNI ya esta siendo utilizado.\n";
+			Alumno alumnoEdicion = ventanaAM.getAlumno();
+			Alumno alumnoBD = AlumnoManager.traerAlumnoSegunDNI(dni);
+			
+			// caso: es un nuevo alumno
+			if (alumnoEdicion == null) {
+				isOk = false;
+				mensaje += "    -El DNI ya esta siendo utilizado por otro alumno.\n";
+			}
+			
+			// caso: se esta editando uno existente
+			else if (alumnoBD.getClienteID() != alumnoEdicion.getClienteID()) {
+				isOk = false;
+				mensaje += "    -El DNI ya esta siendo utilizado por otro alumno.\n";
+			}
+		
 		} else if (dni.length()> 20) {
 			isOk = false;
 			mensaje += "    -El DNI debe tener una longitud maxima de 20\n";
