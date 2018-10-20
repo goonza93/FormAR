@@ -4,10 +4,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -30,16 +28,9 @@ public class VentanaEmpleadoABM {
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
 	private JTable tablaEmpleados;
 	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
-	private JTextField txtApellidoFiltro;
-	private JLabel lblFiltros;
-	private JLabel lblNombre;
-	private JTextField txtNombreFiltro;
-	private JLabel lblDni;
-	private JTextField txtDNIFiltro;
-	private JLabel lblFechaIngreso;
-	private JTextField txtFechaIngresoFiltro;
+	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI, inFiltroFechaIngreso;
+	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso;
 	private final TableRowSorter<TableModel> filtro;
-
 
 	public VentanaEmpleadoABM() {
 		ventana = new JFrame();
@@ -48,8 +39,6 @@ public class VentanaEmpleadoABM {
 		ventana.setLocationRelativeTo(null);
 		
 		modeloEmpleados = new DefaultTableModel(null, nombreColumnas);
-
-		
 		filtro = new TableRowSorter<TableModel>(modeloEmpleados);
 		
 		JScrollPane spEmpleados = new JScrollPane();
@@ -68,33 +57,33 @@ public class VentanaEmpleadoABM {
 		lblFiltrar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		txtApellidoFiltro = new JTextField();
-		txtApellidoFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtApellidoFiltro.setColumns(10);
+		inFiltroApellido = new JTextField();
+		inFiltroApellido.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroApellido.setColumns(10);
 		
 		lblNombre = new JLabel("NOMBRE");
 		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		txtNombreFiltro = new JTextField();
-		txtNombreFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtNombreFiltro.setColumns(10);
+		inFiltroNombre = new JTextField();
+		inFiltroNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroNombre.setColumns(10);
 		
 		lblDni = new JLabel("DNI");
 		lblDni.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDni.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		txtDNIFiltro = new JTextField();
-		txtDNIFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtDNIFiltro.setColumns(10);
+		inFiltroDNI = new JTextField();
+		inFiltroDNI.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroDNI.setColumns(10);
 		
 		lblFechaIngreso = new JLabel("FECHA INGRESO");
 		lblFechaIngreso.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFechaIngreso.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		txtFechaIngresoFiltro = new JTextField();
-		txtFechaIngresoFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtFechaIngresoFiltro.setColumns(10);
+		inFiltroFechaIngreso = new JTextField();
+		inFiltroFechaIngreso.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroFechaIngreso.setColumns(10);
 		
 				btnAgregar = new JButton("AGREGAR");
 				btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -128,13 +117,13 @@ public class VentanaEmpleadoABM {
 									.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
 								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtApellidoFiltro, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtNombreFiltro, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtDNIFiltro, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(txtFechaIngresoFiltro, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+									.addComponent(inFiltroFechaIngreso, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
 									.addGap(38))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
@@ -161,10 +150,10 @@ public class VentanaEmpleadoABM {
 								.addComponent(lblFechaIngreso))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtApellidoFiltro, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtNombreFiltro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDNIFiltro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtFechaIngresoFiltro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(inFiltroApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+								.addComponent(inFiltroNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(inFiltroDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(inFiltroFechaIngreso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblInstructores, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -180,10 +169,10 @@ public class VentanaEmpleadoABM {
 				ventana.getContentPane().setLayout(groupLayout);
 		
 				DocumentListener listener = crearFiltroListener();
-				txtApellidoFiltro.getDocument().addDocumentListener(listener);
-				txtNombreFiltro.getDocument().addDocumentListener(listener);
-				txtDNIFiltro.getDocument().addDocumentListener(listener);
-				txtFechaIngresoFiltro.getDocument().addDocumentListener(listener);
+				inFiltroApellido.getDocument().addDocumentListener(listener);
+				inFiltroNombre.getDocument().addDocumentListener(listener);
+				inFiltroDNI.getDocument().addDocumentListener(listener);
+				inFiltroFechaIngreso.getDocument().addDocumentListener(listener);
 		
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
@@ -232,10 +221,10 @@ public class VentanaEmpleadoABM {
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
 		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
-		filtros.add(RowFilter.regexFilter("(?i)" + txtApellidoFiltro.getText(), 0));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtNombreFiltro.getText(), 1));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtDNIFiltro.getText(), 2));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtFechaIngresoFiltro.getText(), 5));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroApellido.getText(), 0));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroNombre.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroDNI.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroFechaIngreso.getText(), 5));
 		return filtros;
 	}
 	
@@ -255,7 +244,7 @@ public class VentanaEmpleadoABM {
 		return ret;
 	}
 	
-	public JFrame getFrame(){
+	public JFrame getVentana(){
 		return ventana;
 	}
 }

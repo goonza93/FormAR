@@ -74,7 +74,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		JLabel lblApellido = new JLabel("Apellido:");
 		JLabel lblDni = new JLabel("DNI:");
 		JLabel lblEmail = new JLabel("E-Mail:");
-		JLabel lblTelefono = new JLabel("Telefono:");
+		JLabel lblTelefono = new JLabel("Teléfono:");
 		JLabel lblFechaIngreso = new JLabel("Fecha de ingreso:");
 
 		EmptyBorder bordeEtiqueta = new EmptyBorder(5, 50, 5, 50);
@@ -117,7 +117,6 @@ public class VentanaEmpleadoAM extends JFrame {
 		panelEntradas.add(inTelefono);
 		panelEntradas.add(inIngreso);
 		
-		
 		// AGREGO LOS BOTONES
 		btnAceptar = new JButton("ACEPTAR");
 		btnCancelar = new JButton("CANCELAR");
@@ -133,7 +132,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		panelPrincipal.add(panelBotones);
 	}
 
-	public JTextField getTxtNombre() {
+	public JTextField getNombre() {
 		return inNombre;
 	}
 
@@ -145,23 +144,23 @@ public class VentanaEmpleadoAM extends JFrame {
 		return btnCancelar;
 	}
 
-	public JTextField getTxtApellido() {
+	public JTextField getApellido() {
 		return inApellido;
 	}
 
-	public JTextField getTxtDni() {
+	public JTextField getDNI() {
 		return inDNI;
 	}
 
-	public JTextField getTxtEmail() {
+	public JTextField getEmail() {
 		return inEmail;
 	}
 
-	public JTextField getTxtTelefono() {
+	public JTextField getTelefono() {
 		return inTelefono;
 	}
 
-	public JDateChooser getDateFechaIngreso() {
+	public JDateChooser getFechaIngreso() {
 		return inIngreso;
 	}
 
