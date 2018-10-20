@@ -53,6 +53,8 @@ public class HorarioCursadaManager {
 		Sala sala = odb.selectByID(salaID);
 		if(sala == null)
 			return "";
+		if(sala.getSalaID()==1)
+			return "A DESIGNAR";
 		return sala.getNumero().toString();
 	}
 	

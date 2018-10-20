@@ -50,7 +50,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 		for (int i = 0; i < this.salas_en_tabla.size(); i ++){
 			boolean disponible = SalaManager.validarHorarioDeCursada(horarioIngresado, this.salas_en_tabla.get(i));
 			String disponibilidad = "SI";
-			if(!disponible){
+			if(!disponible && this.salas_en_tabla.get(i).getSalaID()!=1){
 				disponibilidad = "NO";
 			}
 			Object[] fila = {this.salas_en_tabla.get(i).getNumero(), this.salas_en_tabla.get(i).getNombre(),

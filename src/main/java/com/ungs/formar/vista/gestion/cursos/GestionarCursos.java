@@ -98,7 +98,7 @@ public class GestionarCursos {
 		tablaCursos.getTableHeader().setReorderingAllowed(false);
 		tablaCursos.setRowSorter(sorter);
 
-		tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
+		/*tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(2).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(3).setPreferredWidth(50);
@@ -108,6 +108,11 @@ public class GestionarCursos {
 		tablaCursos.getColumnModel().getColumn(7).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(8).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(9).setPreferredWidth(200);
+		*/
+		tablaCursos.getColumnModel().getColumn(0).sizeWidthToFit();
+		tablaCursos.getColumnModel().getColumn(1).sizeWidthToFit();
+		tablaCursos.getColumnModel().getColumn(2).sizeWidthToFit();
+		
 		tablaCursos.setRowHeight(75);
 		tablaCursos.setSelectionMode(0);
 		
