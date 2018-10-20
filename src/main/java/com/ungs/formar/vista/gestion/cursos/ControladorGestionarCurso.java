@@ -111,7 +111,21 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			ventanaGestionarCursos.getTablaCursos().setRowHeight(registro, altura);
 			
 		}
-
+		System.out.println(ventanaGestionarCursos.getTablaCursos().getColumnModel().getTotalColumnWidth());
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(0).setPreferredWidth(122);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(1).setPreferredWidth(30);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(2).setPreferredWidth(60);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(3).setPreferredWidth(42);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(4).setPreferredWidth(40);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(5).setPreferredWidth(35);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(6).setPreferredWidth(37);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(7).setPreferredWidth(43);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(8).setPreferredWidth(43);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(9).setPreferredWidth(44);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(10).setPreferredWidth(130);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(11).setPreferredWidth(130);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(12).setPreferredWidth(215);//
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
