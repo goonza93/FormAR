@@ -5,10 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -81,51 +84,39 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			String comision = this.cursos_en_tabla.get(i).getComision();
 			String nombreApellidoInstructor = "A DESIGNAR";
 			String nombreApellidoResponsable = "A DESIGNAR";
-			if(instructor!=null){
+			if (instructor != null) {
 				nombreApellidoInstructor = instructor.getApellido() + " " + instructor.getNombre();
 			}
-			if(responsable!=null){
+			if (responsable != null) {
 				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
 			}
-			Object[] fila = {
-					nombre,
-					comision,
-					area,
-					estado,
-					Formato.precio(precio),
-					cupoMinimo.toString(),
-					cupoMaximo.toString(),
-					fechaInicio.toString(),
-					fechaFin == null ? "":fechaFin.toString(),
-					/* fechaCierreInscripcion */" ",
-					nombreApellidoInstructor,
-					nombreApellidoResponsable,
-					horariosString
-					};
+			Object[] fila = { nombre, comision, area, estado, Formato.precio(precio), cupoMinimo.toString(),
+					cupoMaximo.toString(), fechaInicio.toString(), fechaFin == null ? "" : fechaFin.toString(),
+					/* fechaCierreInscripcion */" ", nombreApellidoInstructor, nombreApellidoResponsable,
+					horariosString };
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
-			
 
 			// seteo la altura de la celda
-			int registro = ventanaGestionarCursos.getModelCursos().getRowCount()-1;
+			int registro = ventanaGestionarCursos.getModelCursos().getRowCount() - 1;
 			int altura = Formato.calcularAlturaDeCelda(fila);
 			ventanaGestionarCursos.getTablaCursos().setRowHeight(registro, altura);
-			
+
 		}
 		System.out.println(ventanaGestionarCursos.getTablaCursos().getColumnModel().getTotalColumnWidth());
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(0).setPreferredWidth(122);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(1).setPreferredWidth(30);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(2).setPreferredWidth(60);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(3).setPreferredWidth(42);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(4).setPreferredWidth(40);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(5).setPreferredWidth(35);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(6).setPreferredWidth(37);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(7).setPreferredWidth(43);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(8).setPreferredWidth(43);//
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(9).setPreferredWidth(44);//
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(0).setPreferredWidth(122);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(1).setPreferredWidth(30);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(2).setPreferredWidth(60);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(3).setPreferredWidth(42);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(4).setPreferredWidth(40);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(5).setPreferredWidth(35);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(6).setPreferredWidth(37);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(7).setPreferredWidth(43);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(8).setPreferredWidth(43);
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(9).setPreferredWidth(44);
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(10).setPreferredWidth(130);
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(11).setPreferredWidth(130);
-		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(12).setPreferredWidth(215);//
-		
+		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(12).setPreferredWidth(215);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -192,13 +183,12 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 			// Si tiene otro estado lo borro segun corresponda
 			else {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres Borrar la cursada!?", "Confirmacion",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres Borrar la cursada!?",
+						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
 					llenarTablaCursos();
-				}				
+				}
 			}
 		}
 		// Si no selecciono nada, le aviso
@@ -291,19 +281,18 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
 		ventanaCrearCurso.getTxtComision().setText(curso.getComision());
 		ventanaCrearCurso.getTxtPrecio().setText(curso.getPrecio().toString());
-		
+
 		ControladorCrearCurso controladorCursoEdicion = new ControladorCrearCurso(this.ventanaCrearCurso, this);
-		if(instructor!=null){
+		if (instructor != null) {
 			ventanaCrearCurso.getInstructor().setText(instructor.getApellido() + " " + instructor.getNombre());
 			controladorCursoEdicion.setInstructor(instructor);
 
 		}
-		if(responsable!=null){
+		if (responsable != null) {
 			ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
 			controladorCursoEdicion.setResponsable(responsable);
 		}
 
-		
 		controladorCursoEdicion.setIdEdicion(curso.getCursoID());
 		controladorCursoEdicion.setPrograma(programa);
 		controladorCursoEdicion.setHorarios(horariosCursada);
@@ -346,9 +335,17 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			}
 			// Si el curso esta INICIADO puede pasar a FINALIZADO
 			else if (aEditar.getEstado() == 3) {
-				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres cambiar el estado /n" + "de INICIADO a FINALIZADO!?", "Confirmacion",
-						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int confirm;
+				if (aEditar.getFechaFin().after(Almanaque.hoy())) {
+					confirm = JOptionPane.showOptionDialog(null,
+							"Aun no se llego a la fecha de fin de curso. \n"
+									+ "Estas seguro que queres cambiar el estado \n" + "de INICIADO a FINALIZADO!?",
+							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				} else {
+					confirm = JOptionPane.showOptionDialog(null,
+							"Estas seguro que queres cambiar el estado \n" + "de INICIADO a FINALIZADO!?",
+							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				}
 				if (confirm == 0) {
 					aEditar.setEstado(4);
 					CursoManager.cambiarEstadoCurso(aEditar);
@@ -404,21 +401,37 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		if (instructor == null) {
 			msjError += "- Por favor, seleccione un instructor";
 		}
+
 		if (!msjError.isEmpty()) {
 			JOptionPane.showMessageDialog(null, msjError);
 			return false;
+		}
+		// Si el cupo minimo es menor que la cantidad de inscriptos
+		if (curso.getCupoMinimo() < InscripcionManager.traerAlumnosInscriptos(curso).size()) {
+			int confirm = JOptionPane.showOptionDialog(null,
+					"La cursada tiene menos inscriptos que el cupo minimo. \n" + "Desea iniciarla de todas maneras!?",
+					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (confirm == 0) {
+				return true;
+			}
 		}
 		return true;
 	}
 
 	private Curso obtenerCursoSeleccionado() {
-		int registroTabla = ventanaGestionarCursos.getTablaCursos().getSelectedRow(); //Indice de la tabla
+		int registroTabla = ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // Indice
+																						// de
+																						// la
+																						// tabla
 
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-		
-		int registro = ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+
+		int registro = ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix
+																										// para
+																										// el
+																										// filtro
 		return cursos_en_tabla.get(registro);
 	}
 }
