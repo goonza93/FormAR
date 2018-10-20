@@ -43,7 +43,10 @@ public class InscripcionManager {
 		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
 		return obd.selectByAlumno(alumno);
 	}
-		
+	
+	
+	
+	
 	public static List<Curso> traerCursosInscriptos(Alumno alumno) {
 		List<Inscripcion> inscripciones = traerInscripciones(alumno);
 		List<Curso> cursos = new ArrayList<Curso>();

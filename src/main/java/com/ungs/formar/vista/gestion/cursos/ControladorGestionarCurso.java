@@ -9,6 +9,7 @@ import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -18,6 +19,7 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Popup;
 
 public class ControladorGestionarCurso implements ActionListener, Consultable {
 	private GestionarCursos ventanaGestionarCursos;
@@ -322,12 +324,27 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			// Si el curso esta CREADO, puede pasar a PUBLICADO
 			if (aEditar.getEstado() == 1) {
 				if (validarCambioaPublicado(aEditar)) {
-					int confirm = JOptionPane.showOptionDialog(null,
-							"Estas seguro que queres cambiar el estado /n" + "de CREADO a PUBLICADO!?", "Confirmacion",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-					if (confirm == 0) {
+					
+					// FIX: SI LAS INSCRIPCIONES NO LLEGAN AL CUPO MINIMO PIDE DOBLE CONFIRMACION
+					Integer inscriptos = InscripcionManager.traerAlumnosInscriptos(aEditar).size();
+					Integer cupoMinimo = aEditar.getCupoMinimo();
+					boolean proceder = true;
+					if (cupoMinimo > inscriptos) {
+						String pregunta = "La cantidad de alumnos inscriptos es de "+inscriptos
+								+", no llegan al cupo minimo que es de "+cupoMinimo
+								+ "\n¿Aun asi desea proceder?";
+						proceder = Popup.confirmar(pregunta);
+					}
+					// LUEGO CONTINUA NORMALMENTE
+					
+					if (proceder) {
+						int confirm = JOptionPane.showOptionDialog(null,
+								"Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
+								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+						if (confirm == 0) {
 						aEditar.setEstado(2);
 						CursoManager.cambiarEstadoCurso(aEditar);
+						}
 					}
 				}
 			}
