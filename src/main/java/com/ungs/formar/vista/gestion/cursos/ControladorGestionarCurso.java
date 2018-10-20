@@ -392,7 +392,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
 		Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
 		for (HorarioCursada hcursada : horariosCursada) {
-			if (hcursada.getSala() == null) {
+			if (hcursada.getSala() == 0) {
 				msjError += "- Por favor, agregue salas a los dias de cursada";
 				break;
 			}
