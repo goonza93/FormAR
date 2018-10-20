@@ -87,10 +87,29 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			if(responsable!=null){
 				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
 			}
-			Object[] fila = { nombre, comision, area, estado, Formato.precio(precio), cupoMinimo, cupoMaximo, fechaInicio, fechaFin,
-					/* fechaCierreInscripcion */" ", nombreApellidoInstructor,
-					nombreApellidoResponsable, horariosString };
+			Object[] fila = {
+					nombre,
+					comision,
+					area,
+					estado,
+					Formato.precio(precio),
+					cupoMinimo.toString(),
+					cupoMaximo.toString(),
+					fechaInicio.toString(),
+					fechaFin == null ? "":fechaFin.toString(),
+					/* fechaCierreInscripcion */" ",
+					nombreApellidoInstructor,
+					nombreApellidoResponsable,
+					horariosString
+					};
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
+			
+
+			// seteo la altura de la celda
+			int registro = ventanaGestionarCursos.getModelCursos().getRowCount()-1;
+			int altura = Formato.calcularAlturaDeCelda(fila);
+			ventanaGestionarCursos.getTablaCursos().setRowHeight(registro, altura);
+			
 		}
 
 	}

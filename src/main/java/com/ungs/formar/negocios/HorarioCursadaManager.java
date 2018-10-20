@@ -59,36 +59,46 @@ public class HorarioCursadaManager {
 	public static String obtenerVistaDeHorariosYSalas(List<HorarioCursada> horarios) {
 		String ret = "<html>";
 		for (HorarioCursada horarioCursada : horarios) {
-			String dia = obtenerDia(horarioCursada);
-			String sala = obtenerSala(horarioCursada);
-			Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
-			String horaInicio = "";
-			String horaFin = "";
-			String minutoInicio = "";
-			String minutoFin = "";
-			if(horario.getHoraInicio().toString().length()==1){
-				horaInicio += "0";
-			}
-			if(horario.getMinutoInicio().toString().length()==1){
-				minutoInicio += "0";
-			}
-			if(horario.getHoraFin().toString().length()==1){
-				horaFin += "0";
-			}
-			if(horario.getMinutoFin().toString().length()==1){
-				minutoFin += "0";
-			}
-		
-			String nuevo = dia +" de "+horaInicio+horario.getHoraInicio()+":"+minutoInicio+horario.getMinutoInicio();
-			nuevo += " a "+horaFin+horario.getHoraFin()+":"+minutoFin+horario.getMinutoFin()+"("+sala+")<br>";
+			String nuevo = formatoHorarioCursada(horarioCursada);
+			if (horarioCursada != horarios.get(0))
+				nuevo = "<br>"+nuevo;
 			
 			ret += nuevo;
 		}
 		if(ret == "<html>"){
 			return "A DESIGNAR";
 		}
+		System.out.println(ret);
 		return ret += "</html>";
 	}
+	
+	public static String formatoHorarioCursada(HorarioCursada horarioCursada) {
+		String dia = obtenerDia(horarioCursada);
+		String sala = obtenerSala(horarioCursada);
+		Horario horario = traerHorarioSegunID(horarioCursada.getHorario());
+		String horaInicio = "";
+		String horaFin = "";
+		String minutoInicio = "";
+		String minutoFin = "";
+		if(horario.getHoraInicio().toString().length()==1){
+			horaInicio += "0";
+		}
+		if(horario.getMinutoInicio().toString().length()==1){
+			minutoInicio += "0";
+		}
+		if(horario.getHoraFin().toString().length()==1){
+			horaFin += "0";
+		}
+		if(horario.getMinutoFin().toString().length()==1){
+			minutoFin += "0";
+		}
+	
+		return dia +" de "+horaInicio+horario.getHoraInicio()+":"+minutoInicio+horario.getMinutoInicio()
+		+ " a "+horaFin+horario.getHoraFin()+":"+minutoFin+horario.getMinutoFin()+"("+sala+")";
+	}
+	
+	
+	
 	
 	public static void eliminarHorarioDeCursada(HorarioCursada horarioCursada) {
 		// elimino sus horarios relacionados y luego el horario cursada en si

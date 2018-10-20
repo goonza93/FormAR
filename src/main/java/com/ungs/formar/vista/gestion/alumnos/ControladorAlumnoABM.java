@@ -65,6 +65,11 @@ public class ControladorAlumnoABM implements ActionListener {
 					alumno.getTelefono()
 					};
 			ventanaABM.getModeloAlumnos().addRow(fila);
+
+			// seteo la altura de la celda
+			int registro = ventanaABM.getModeloAlumnos().getRowCount()-1;
+			int altura = Formato.calcularAlturaDeCelda(fila);
+			ventanaABM.getTablaAlumnos().setRowHeight(registro, altura);
 		}
 	}
 
