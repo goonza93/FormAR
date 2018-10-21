@@ -44,6 +44,7 @@ public class ControladorCursosInscriptos implements ActionListener{
 
 		cursos = InscripcionManager.traerCursosInscriptos(alumno);
 		for (Curso curso : cursos) {
+			System.out.println(curso);
 			Object[] fila = {
 					Formato.nombre(curso),
 					Formato.area(curso),

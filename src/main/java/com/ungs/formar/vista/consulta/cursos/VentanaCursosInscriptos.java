@@ -5,10 +5,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -28,8 +24,6 @@ public class VentanaCursosInscriptos {
 
 	private void initialize() {
 		
-		
-		
 		// PROPIEDADES DE LA VENTANA
 		ventana = new JFrame();
 		ventana.setTitle("Inscripciones de alumno");
@@ -38,16 +32,6 @@ public class VentanaCursosInscriptos {
 		ventana.setLocationRelativeTo(null);
 		PanelVertical panelPrincipal = new PanelVertical();
 		ventana.setContentPane(panelPrincipal);
-		
-		
-		
-		ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnVolver.doClick();
-			}
-		});
-
 		
 		// CREO LA TABLA DE CURSOS
 		modeloCursos = new DefaultTableModel(null, nombreColumnas);

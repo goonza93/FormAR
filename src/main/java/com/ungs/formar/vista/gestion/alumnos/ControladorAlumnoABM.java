@@ -8,21 +8,20 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Formato;
-import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.vista.consulta.Consultable;
+import com.ungs.formar.vista.consulta.cursos.ControladorCursosInscriptos;
 import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.Popup;
 
-public class ControladorAlumnoABM implements ActionListener {
+public class ControladorAlumnoABM implements ActionListener, Consultable {
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
-	private VentanaCursosInscriptos ventanaInscripciones;
 	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
-	private List<Curso> cursosInscriptos;
 
 	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPantallaPrincipal controlador) {
 		this.ventanaABM = ventanaABM;
@@ -48,6 +47,8 @@ public class ControladorAlumnoABM implements ActionListener {
 	public void inicializar() {
 		llenarTabla();
 		ventanaABM.getVentana().setVisible(true);
+		ventanaABM.getVentana().setEnabled(true);
+		
 	}
 
 	private void llenarTabla() {
@@ -73,33 +74,6 @@ public class ControladorAlumnoABM implements ActionListener {
 		}
 	}
 
-	private void llenarTablaInscripciones(Alumno alumno) {
-		ventanaInscripciones.getModeloCursos().setRowCount(0);
-		ventanaInscripciones.getModeloCursos().setColumnCount(0);
-		ventanaInscripciones.getModeloCursos().setColumnIdentifiers(ventanaInscripciones.getNombreColumnas());
-
-		cursosInscriptos = InscripcionManager.traerCursosInscriptos(alumno);
-		for (Curso curso : cursosInscriptos) {
-			Object[] fila = {
-					Formato.nombre(curso),
-					Formato.area(curso),
-					Formato.estado(curso),
-					curso.getCupoMinimo(),
-					curso.getCupoMaximo(),
-					curso.getFechaInicio(),
-					curso.getFechaFin(),
-					Formato.instructor(curso),
-					Formato.responsable(curso),
-					Formato.horarios(curso),
-			};
-			ventanaInscripciones.getModeloCursos().addRow(fila);
-		}
-	}
-
-	
-	
-	
-	
 	public void actionPerformed(ActionEvent e) {
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaABM.getAgregar())
@@ -138,31 +112,19 @@ public class ControladorAlumnoABM implements ActionListener {
 			else if (e.getSource() == ventanaAM.getCancelar())
 				cancelarAM();
 		}
-		
-		else if (ventanaInscripciones != null) {
-			// BOTON VOLVER DE INSCRIPCIONES
-			if (e.getSource() == ventanaInscripciones.getVolver())
-				cerrarVentanaInscripciones();
-		}
-		
 	}
 	
 	private void mostrarInscripciones() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
-		if (alumno != null) {			
-			ventanaInscripciones = new VentanaCursosInscriptos();
-			ventanaInscripciones.getVolver().addActionListener(this);
-			ventanaInscripciones.getVentana().addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosing(WindowEvent e) {
-					cerrarVentanaInscripciones();
-				}
-			});
-			ventanaInscripciones.getVentana().setVisible(true);
-			ventanaABM.getVentana().setEnabled(false);
-			llenarTablaInscripciones(alumno);
-		} else
-			JOptionPane.showMessageDialog(null, "Seleccione exactamente 1 alumno para ver a que cursos esta inscripto.");
+		
+		if (alumno == null) {
+			Popup.mostrar("Seleccione exactamente 1 alumno para ver a que cursos esta inscripto.");
+			return;
+		}
+		
+		VentanaCursosInscriptos ventanaInscripciones = new VentanaCursosInscriptos();
+		new ControladorCursosInscriptos(ventanaInscripciones, this, alumno);
+		ventanaABM.getVentana().setEnabled(false);
 	}
 
 	private void eliminarSeleccion() {
@@ -254,12 +216,6 @@ public class ControladorAlumnoABM implements ActionListener {
 		ventanaABM.getVentana().setVisible(true);
 	}
 
-	private void cerrarVentanaInscripciones(){
-		ventanaInscripciones.getVentana().dispose();
-		ventanaABM.getVentana().setEnabled(true);
-		ventanaABM.getVentana().setVisible(true);
-	}
-	
 	private boolean validarCampos(){
 		String apellido = ventanaAM.getApellido().getText();
 		String nombre = ventanaAM.getNombre().getText();
