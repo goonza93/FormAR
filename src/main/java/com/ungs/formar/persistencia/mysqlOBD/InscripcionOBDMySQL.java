@@ -88,5 +88,10 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	}
 
 
+	public void delete(Inscripcion inscripcion) {
+		String condicion = ID+"="+inscripcion.getInscripcionID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
 
 }

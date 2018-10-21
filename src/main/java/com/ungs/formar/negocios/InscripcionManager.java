@@ -29,11 +29,6 @@ public class InscripcionManager {
 		return inscripcion != null;
 	}
 	
-	
-	public static void cancelarInscripcion(Inscripcion inscripcion) {
-		
-	}
-	
 	public static List<Inscripcion> traerInscripciones(Curso curso) {
 		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
 		return obd.selectByCurso(curso);
@@ -65,6 +60,12 @@ public class InscripcionManager {
 			alumnos.add(AlumnoManager.traerAlumnoSegunID(inscripcion.getCliente()));
 		
 		return alumnos;
+	}
+
+	public static void cancelarInscripcion(Alumno alumno, Curso curso) {
+		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
+		Inscripcion inscripcion = obd.selectByCursoAlumno(curso, alumno); 
+		obd.delete(inscripcion);
 	}
 
 }

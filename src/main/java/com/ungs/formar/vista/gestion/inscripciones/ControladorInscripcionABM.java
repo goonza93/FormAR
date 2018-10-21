@@ -21,6 +21,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 	private ControladorPantallaPrincipal controlador;
 	private VentanaInscripcionABM ventanaABM;
 	private VentanaInscripcionAlta ventanaAlta;
+	private VentanaInscripcionBaja ventanaBaja;
 	private List<Curso> cursos;
 	private List<Alumno> alumnos;
 	private Curso cursoSeleccionado;
@@ -31,6 +32,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		this.ventanaABM.getInscribir().addActionListener(this);
 		this.ventanaABM.getConsultar().addActionListener(this);
 		this.ventanaABM.getVolver().addActionListener(this);
+		this.ventanaABM.getBorrar().addActionListener(this);
 		inicializar();
 	}
 	
@@ -80,6 +82,24 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			ventanaAlta.getModeloAlumnos().addRow(fila);
 		}
 	}
+	
+	private void llenarTablaBaja() {
+		ventanaBaja.getModeloAlumnos().setRowCount(0);
+		ventanaBaja.getModeloAlumnos().setColumnCount(0);
+		ventanaBaja.getModeloAlumnos().setColumnIdentifiers(ventanaBaja.getNombreColumnas());
+		
+		alumnos = InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado);
+		for (Alumno alumno: alumnos) {
+			Object[] fila = {
+					alumno.getApellido(),
+					alumno.getNombre(),
+					alumno.getDni(),
+					alumno.getEmail(),
+					alumno.getTelefono()
+					};
+			ventanaBaja.getModeloAlumnos().addRow(fila);
+		}
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		
@@ -91,10 +111,14 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		else if (e.getSource() == ventanaABM.getConsultar())
 			abrirVentanaConsultar();
 		
+		// BOTON CANCELAR INSCRIPCION DEL ABM
+		else if (e.getSource() == ventanaABM.getBorrar())
+			abrirVentanaBaja();
+
 		// BOTON VOLVER DEL ABM
 		else if (e.getSource() == ventanaABM.getVolver())
 			volver();
-		
+						
 		else if (ventanaAlta != null) {
 
 			// BOTON INSCRIBIR DEL ALTA
@@ -106,11 +130,51 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 				cerrarVentanaAlta();
 		}
 		
+		else if (ventanaBaja != null) {
+
+			// BOTON CANCELAR INSCRIPCION DE BAJAS
+			if (e.getSource() == ventanaBaja.getBaja())
+				cancelarInscripcion();
+
+			// BOTON VOLVER DE BAJAS
+			else if (e.getSource() == ventanaBaja.getVolver())
+				cerrarVentanaBaja();
+		}
+		
+	}
+
+	private void cancelarInscripcion() {
+		Alumno alumno = obtenerAlumnoSeleccionadoBaja();
+		if (alumno != null) {
+			InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
+			cerrarVentanaBaja();
+			llenarTabla();
+		} else 
+			Popup.mostrar("Seleccione exactamente 1 alumno para dar de baja");
+	}
+
+	private void abrirVentanaBaja() {
+		cursoSeleccionado = obtenerCursoSeleccionado();
+		if (cursoSeleccionado != null) {
+			ventanaBaja = new VentanaInscripcionBaja(cursoSeleccionado);
+			ventanaBaja.getVentana().setVisible(true);
+			ventanaBaja.getBaja().addActionListener(this);
+			ventanaBaja.getVolver().addActionListener(this);
+			ventanaABM.getVentana().setEnabled(false);
+			llenarTablaBaja();
+		} else
+			Popup.mostrar("Seleccione exactamente 1 curso para poder gestonar bajas.");
 	}
 
 	private void cerrarVentanaAlta() {
 		ventanaAlta.getVentana().dispose();
 		ventanaAlta = null;
+		inicializar();
+	}
+
+	private void cerrarVentanaBaja() {
+		ventanaBaja.getVentana().dispose();
+		ventanaBaja= null;
 		inicializar();
 	}
 
@@ -198,6 +262,17 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			return null;
 		
 		int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+		return alumnos.get(registro);
+	}
+	
+	private Alumno obtenerAlumnoSeleccionadoBaja() {
+		int registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
+		
+		// No habia ningun registro seleccionado
+		if (registroTabla == -1)
+			return null;
+		
+		int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
 		return alumnos.get(registro);
 	}
 	

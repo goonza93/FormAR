@@ -12,6 +12,8 @@ public interface InscripcionOBD {
 	
 	public List<Inscripcion> select();
 	
+	public void delete(Inscripcion inscripcion);
+	
 	public List<Inscripcion> selectByAlumno(Alumno alumno);
 	
 	public List<Inscripcion> selectByCurso(Curso curso);
