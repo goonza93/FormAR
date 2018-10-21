@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -120,8 +121,18 @@ public class ControladorEmpleadoABM implements ActionListener {
 			return;
 		}
 		
-		for (Empleado empleado : seleccionados)
-			EmpleadoManager.eliminarEmpleado(empleado);
+		boolean mostrarMensaje = false;
+		String mensaje = "Los siguientes empleados no pueden ser borrados porque tiene asignado al menos un curso:";
+		for (Empleado empleado : seleccionados) {
+			if (Instructor.tieneAsignaciones(empleado)) {
+				mostrarMensaje = true;
+				mensaje += "\n    -"+empleado.getApellido()+", "+empleado.getNombre();
+			} else
+				EmpleadoManager.eliminarEmpleado(empleado);
+		}
+			
+		if (mostrarMensaje)	
+			Popup.mostrar(mensaje);
 		
 		inicializar();
 	}
