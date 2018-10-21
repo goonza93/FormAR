@@ -74,11 +74,17 @@ public class ControladorSalaABM implements ActionListener {
 	private void mostrarSalaModificacion() {
 		Sala sala = obtenerSalaSeleccionada();
 		if (sala != null) {
-			ventanaSalaAM = new VentanaSalaAM(sala);
-			ventanaSalaAM.getAceptar().addActionListener(this);
-			ventanaSalaAM.getCancelar().addActionListener(this);
-			ventanaSalaAM.setVisible(true);
-			ventanaSalaABM.getFrame().setEnabled(false);
+			if (!SalaManager.estaAsignada(sala)) {
+				ventanaSalaAM = new VentanaSalaAM(sala);
+				ventanaSalaAM.getAceptar().addActionListener(this);
+				ventanaSalaAM.getCancelar().addActionListener(this);
+				ventanaSalaAM.setVisible(true);
+				ventanaSalaABM.getFrame().setEnabled(false);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "La sala no se puede editar porque esta asignada a una cursada");
+			}
+			
 		}
 	}
 

@@ -32,13 +32,15 @@ public class CrearCurso extends JFrame {
 	private  String[] columnasHorarios = {"Dia", "Hora Inicio", "Hora Fin", "Sala"};
 	private JTable tablaHorarios;
 	private JDateChooser inFechaInicio, inFechaFin, dateCierreInscripciones;
-	private JTextArea inContenidoEspecifico;
 	private JTextField inCupoMinimo, inCupoMaximo, inHoras, inInstructor, inPrograma, inResponsable;
 	private JButton btnCrearCurso, btnCancelar, btnAgregarHorario, btnBorrarHorario, btnSelInstructor, btnSelPrograma, btnSelResponsable;
 	private JTextField txtComision;
 	private JTextField txtPrecio;
 	private JLabel lblPrecio;
 	private JButton btnEditarDia;
+	private JTextField txtNombrePdf;
+	private JButton btnSelContenido;
+	private JButton btnVerPdf;
 	
 	public CrearCurso() {
 		setBounds(100, 100, 504, 713);
@@ -167,18 +169,10 @@ public class CrearCurso extends JFrame {
 		lblResponsable.setBounds(10, 298, 188, 14);
 		panelprincipal.add(lblResponsable);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 503, 467, 124);
-		panelprincipal.add(scrollPane);
-		
-		inContenidoEspecifico = new JTextArea();
-		inContenidoEspecifico.setFont(new Font("Arial", Font.PLAIN, 12));
-		scrollPane.setViewportView(inContenidoEspecifico);
-		
 		JLabel lblProgramaEspecifico = new JLabel("PROGRAMA ESPECIFICO:");
 		lblProgramaEspecifico.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramaEspecifico.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblProgramaEspecifico.setBounds(10, 478, 467, 14);
+		lblProgramaEspecifico.setBounds(10, 478, 188, 14);
 		panelprincipal.add(lblProgramaEspecifico);
 		
 		JLabel lblDiasYHorarios = new JLabel("DIAS Y HORARIOS:");
@@ -244,6 +238,20 @@ public class CrearCurso extends JFrame {
 		btnEditarDia.setBounds(179, 444, 129, 23);
 		panelprincipal.add(btnEditarDia);
 		
+		txtNombrePdf = new JTextField();
+		txtNombrePdf.setBounds(208, 476, 224, 20);
+		panelprincipal.add(txtNombrePdf);
+		txtNombrePdf.setEditable(false);
+		txtNombrePdf.setColumns(10);
+		
+		btnSelContenido = new JButton("...");
+		btnSelContenido.setBounds(442, 475, 35, 23);
+		panelprincipal.add(btnSelContenido);
+		
+		btnVerPdf = new JButton("Ver archivo");
+		btnVerPdf.setBounds(208, 507, 224, 23);
+		panelprincipal.add(btnVerPdf);
+		
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -288,10 +296,6 @@ public class CrearCurso extends JFrame {
 	public JTextField getHoras() {
 		return inHoras;
 	}
-
-	public JTextArea getContenidoEspecifico(){
-		return inContenidoEspecifico;
-	}
 	
 	public JDateChooser getFechaInicio() {
 		return inFechaInicio;
@@ -334,12 +338,24 @@ public class CrearCurso extends JFrame {
 		return btnSelPrograma;
 	}
 	
+	public JButton getBtnSeleccionarContenido(){
+		return btnSelContenido;
+	}
+	
+	public JButton getBtnVerPdf(){
+		return btnVerPdf;
+	}
+	
 	public JDateChooser getFechaCierreDeInscripcion(){
 		return this.dateCierreInscripciones;
 	}
 	
 	public  JTextField getTxtPrecio() {
 		return txtPrecio;
+	}
+	
+	public JTextField getTxtNombrePdf(){
+		return txtNombrePdf;
 	}
 	
 	public  JTextField getTxtComision() {
@@ -349,5 +365,4 @@ public class CrearCurso extends JFrame {
 	public JButton getBtnEditarDia() {
 		return btnEditarDia;
 	}
-	
 }

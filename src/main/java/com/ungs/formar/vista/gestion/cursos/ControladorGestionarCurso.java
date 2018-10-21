@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
@@ -12,10 +13,12 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.InscripcionManager;
+import com.ungs.formar.negocios.PdfManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.persistencia.entidades.Pdf;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
@@ -255,7 +258,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		ventanaCrearCurso.getHoras().setEditable(false);
 		ventanaCrearCurso.getTxtPrecio().setEditable(false);
 		ventanaCrearCurso.getFechaInicio().setEnabled(false);
-		ventanaCrearCurso.getContenidoEspecifico().setEditable(false);
+		ventanaCrearCurso.getBtnSeleccionarContenido().setEnabled(false);
 		ventanaCrearCurso.getTxtComision().setEditable(false);
 		ventanaCrearCurso.getCupoMinimo().setEditable(false);
 		ventanaCrearCurso.getFechaCierreDeInscripcion().setEnabled(false);
@@ -267,6 +270,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		Empleado instructor = EmpleadoManager.traerEmpleado(curso.getInstructor());
 		Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
 		Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
+		Pdf contenido = PdfManager.traerPdfByID(curso.getContenido());
 		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
 
 		// LLeno todos los campos del curso
@@ -278,7 +282,6 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
 		ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
-		ventanaCrearCurso.getContenidoEspecifico().setText(curso.getContenido());
 		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
 		ventanaCrearCurso.getTxtComision().setText(curso.getComision());
 		ventanaCrearCurso.getTxtPrecio().setText(curso.getPrecio().toString());
@@ -292,6 +295,10 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		if (responsable != null) {
 			ventanaCrearCurso.getResponsable().setText(responsable.getApellido() + " " + responsable.getNombre());
 			controladorCursoEdicion.setResponsable(responsable);
+		}
+		if (contenido != null) {
+			ventanaCrearCurso.getTxtNombrePdf().setText(contenido.getNombrepdf());
+			controladorCursoEdicion.setContenido(contenido);
 		}
 
 		controladorCursoEdicion.setIdEdicion(curso.getCursoID());

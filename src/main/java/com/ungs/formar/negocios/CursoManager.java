@@ -14,6 +14,7 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.persistencia.entidades.Pdf;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
@@ -22,10 +23,14 @@ import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 public class CursoManager {
 
 	public static void crearCurso(Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
-			Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc, Date fechaInicio,
+			Empleado instructor, Programa programa, Pdf contenido, List<HorarioCursada> hc, Date fechaInicio,
 			Date fechaFin, Integer precio, String comision) {
 		Integer responsableID = null;
 		Integer instructorID = null;
+		Integer contenidoID = null;
+		if(contenido != null){
+			contenidoID = contenido.getContenidoID();
+		}
 		if (responsable != null) {
 			responsableID = responsable.getEmpleadoID();
 		}
@@ -33,7 +38,7 @@ public class CursoManager {
 			instructorID = instructor.getEmpleadoID();
 		}
 		// INSERTO EL CURSO EN LA BD
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenidoID, comision, fechaInicio, fechaFin,
 				instructorID, programa.getProgramaID(), 1, responsableID);
 
 		CursoODB odb = FactoryODB.crearCursoODB();
@@ -50,11 +55,15 @@ public class CursoManager {
 	}
 
 	public static void actualizarCurso(Integer ID, Integer cupoMinimo, Integer cupoMaximo, Integer horas,
-			Empleado responsable, Empleado instructor, Programa programa, String contenido, List<HorarioCursada> hc,
+			Empleado responsable, Empleado instructor, Programa programa, Pdf contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin, EstadoCurso estado, Integer precio, String comision) {
 
 		Integer responsableID = null;
 		Integer instructorID = null;
+		Integer contenidoID = null;
+		if(contenido != null){
+			contenidoID = contenido.getContenidoID();
+		}
 		if (responsable != null) {
 			responsableID = responsable.getEmpleadoID();
 		}
@@ -63,7 +72,7 @@ public class CursoManager {
 		}
 
 		// Actualizao el curso
-		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
+		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenidoID, comision, fechaInicio, fechaFin,
 				instructorID, programa.getProgramaID(), estado.getEstadoID(), responsableID);
 
 		CursoODB odb = FactoryODB.crearCursoODB();
@@ -122,7 +131,7 @@ public class CursoManager {
 			actualizarCurso(curso.getCursoID(), curso.getCupoMinimo(), curso.getCupoMaximo(), curso.getHoras(),
 					EmpleadoManager.traerEmpleado(curso.getResponsable()),
 					EmpleadoManager.traerEmpleado(curso.getInstructor()),
-					ProgramaManager.traerProgramaSegunID(curso.getPrograma()), curso.getContenido(),
+					ProgramaManager.traerProgramaSegunID(curso.getPrograma()), PdfManager.traerPdfByID(curso.getContenido()),
 					obtenerHorariosDeCursada(curso), curso.getFechaInicio(), curso.getFechaFin(),
 					traerEstadoSegunID(curso.getEstado()), curso.getPrecio(), curso.getComision());
 		}

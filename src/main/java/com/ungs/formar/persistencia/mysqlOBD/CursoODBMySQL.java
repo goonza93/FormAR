@@ -18,7 +18,6 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	public void insert (Curso curso) {
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
 		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
-		String contenido = curso.getContenido() == null ? null : "'"+curso.getContenido()+"'"; 
 		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
 		
 		String valores = curso.getCupoMinimo()
@@ -27,7 +26,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+", "+ comision
 				+", "+ fInicio
 				+", "+ fFin
-				+", "+ contenido
+				+", "+ curso.getContenido()
 				+", "+ curso.getHoras()
 				+", "+ curso.getInstructor()
 				+", "+ curso.getResponsable()
@@ -46,8 +45,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 
 	public void update(Curso curso) {
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
-		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
-		String contenido = curso.getContenido() == null ? null : "'"+curso.getContenido()+"'"; 
+		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'";
 		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
 		String condicion = ID+" = "+curso.getCursoID();
 		
@@ -58,7 +56,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+ ", comision = "+comision
 				+ ", fecha_inicio = "+fInicio
 				+ ", fecha_fin = "+fFin
-				+ ", contenido = "+contenido
+				+ ", contenido = "+curso.getContenido()
 				+ ", horas = "+curso.getHoras()
 				+ ", instructor = "+curso.getInstructor()
 				+ ", responsable = "+curso.getResponsable()
@@ -106,7 +104,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 						resultados.getInt("cupo_maximo"),
 						resultados.getInt("precio"),
 						resultados.getInt("horas"),
-						resultados.getString("contenido"),
+						resultados.getInt("contenido"),
 						resultados.getString("comision"),
 						resultados.getDate("fecha_inicio"),
 						resultados.getDate("fecha_fin"),

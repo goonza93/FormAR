@@ -108,7 +108,7 @@ CREATE TABLE for_cursos (
 	precio INT(5),
 	fecha_inicio DATE,
 	fecha_fin DATE,
-	contenido VARCHAR(500),
+	contenido INT(4),
     comision VARCHAR(10),
 	horas INT(5) NOT NULL,
 	instructor INT(4) NULL, -- FK EMPLEADOS
@@ -168,6 +168,14 @@ CREATE TABLE for_usuarios (
     empleado INT(4) NOT NULL, -- FK EMPLEADOS
 	PRIMARY KEY (usuario_ID)
 );
+
+CREATE TABLE for_pdf (
+	contenido_ID INT(11) NOT NULL,
+	nombrepdf varchar(50) NOT NULL,
+	archivopdf mediumblob DEFAULT NULL,
+	PRIMARY KEY (contenido_ID)
+);
+
 
 -- INSERT DE DATOS PREDEFINIDOS
 
