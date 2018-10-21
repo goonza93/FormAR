@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
@@ -84,6 +85,12 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		String condicion = "programa = "+IDPrograma;
 		List<Curso> cursos = selectByCondicion(condicion);
 		
+		return cursos;
+	}
+	
+	public List<Curso> selectByInstructor(Empleado empleado){
+		String condicion = "instructor = "+empleado.getEmpleadoID();
+		List<Curso> cursos = selectByCondicion(condicion);		
 		return cursos;
 	}
 

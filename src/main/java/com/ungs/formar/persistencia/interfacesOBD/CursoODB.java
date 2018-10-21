@@ -2,6 +2,7 @@ package com.ungs.formar.persistencia.interfacesOBD;
 
 import java.util.List;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
 
 public interface CursoODB {
 
@@ -18,5 +19,7 @@ public interface CursoODB {
 	public Integer selectIDMasReciente();
 	
 	public List<Curso> selectByPrograma(Integer IDPrograma);
+	
+	public List<Curso> selectByInstructor(Empleado empleado);
 	
 }
