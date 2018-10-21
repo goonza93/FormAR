@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 public class ODB {
 	protected String driver = "com.mysql.jdbc.Driver";
-	protected String cadenaConexion = "jdbc:mysql://localhost:3306/formar?autoReconnect=true&useSSL=false"; 
+	protected final String cadenaConexion = "jdbc:mysql://localhost:3306/formar?autoReconnect=true&useSSL=false"; 
 	protected String usuarioBD = "root"; 
 	protected String passwordBD = "root";
-	protected Connection connection = null;
+	protected static Connection conexion = null;
 	protected String bd ="formar";
 
 		
@@ -54,30 +54,27 @@ public class ODB {
 			
 		return ret;
 	}
-	
-	public ODB() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD);
-            if (connection != null) {
-                System.out.println("Conexión a base de datos " + bd + " OK\n");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
 
-    public Connection getConnection() {
-        return connection;
+    public Connection getConexion() {
+    	if (conexion == null) {
+    		try {
+				Class.forName("com.mysql.jdbc.Driver");
+				conexion = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}            
+    	}
+        return conexion;
     }
 
     public void desconectar() {
         try {
-            connection.close();
-        } catch (Exception ex) {
+        	conexion.close();
+        	conexion = null;
         }
+        catch (Exception ex) {}
     }
 
 	
