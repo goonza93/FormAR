@@ -161,7 +161,7 @@ public class ControladorCrearCurso implements ActionListener {
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarContenido()) {
 			logicaFileChooser();
 		} else if (e.getSource() == ventanaCrearCurso.getBtnVerPdf()) {
-			if (this.contenido.getContenidoID() == null) {
+			if (this.contenido == null || this.contenido.getContenidoID() == null) {
 				JOptionPane.showMessageDialog(null, "No hay ningun contenido especifico para mostrar.");
 
 			} else {
@@ -419,8 +419,12 @@ public class ControladorCrearCurso implements ActionListener {
 
 		// if(responsable ==null)
 		System.out.println("HASTA ACA OK");
+		Integer contenidoID = 0;
+		if(this.contenido !=null){
+			contenidoID = this.contenido.getContenidoID();
+		}
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa,
-				this.contenido.getContenidoID(), horariosCursada, fechaInicio, fechaFin, precio, comision);
+				contenidoID, horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}
 
 	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS
