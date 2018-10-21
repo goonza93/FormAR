@@ -135,7 +135,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 		// BOTON BORRAR CURSO
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnBorrar()) {
-			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar lo seleccionado!?",
+			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar la cursada!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				borrarCurso();
@@ -186,14 +186,10 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 			// Si tiene otro estado lo borro segun corresponda
 			else {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres Borrar la cursada!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
 					CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
 					llenarTablaCursos();
 				}
 			}
-		}
 		// Si no selecciono nada, le aviso
 		else {
 			JOptionPane.showMessageDialog(null, "Seleccione una cursada para borrar");
@@ -394,10 +390,10 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
 		Empleado responsable = EmpleadoManager.traerEmpleado(curso.getResponsable());
 		if (horariosCursada == null || horariosCursada.isEmpty()) {
-			msjError += "- Por favor, agregue al menos un dia de cursada";
+			msjError += "- Por favor, agregue al menos un dia de cursada\n";
 		}
 		if (responsable == null) {
-			msjError += "- Por favor, seleccione un responsable";
+			msjError += "- Por favor, seleccione un responsable\n";
 		}
 		if (!msjError.isEmpty()) {
 			JOptionPane.showMessageDialog(null, msjError);
