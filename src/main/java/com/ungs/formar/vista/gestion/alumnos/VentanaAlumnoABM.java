@@ -129,7 +129,6 @@ public class VentanaAlumnoABM {
 		panelPrincipal.add(panelFiltrar);
 		panelPrincipal.add(panelAlumnos);
 		panelPrincipal.add(panelBotones);
-
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
@@ -182,7 +181,7 @@ public class VentanaAlumnoABM {
 		return btnOcultar;
 	}
 
-	public JButton getBtnInscripciones() {
+	public JButton getInscripciones() {
 		return btnInscripciones;
 	}
 

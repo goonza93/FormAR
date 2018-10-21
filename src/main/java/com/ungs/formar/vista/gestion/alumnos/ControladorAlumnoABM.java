@@ -32,8 +32,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		this.ventanaABM.getBorrar().addActionListener(this);
 		this.ventanaABM.getMostrar().addActionListener(this);
 		this.ventanaABM.getOcultar().addActionListener(this);
-		this.ventanaABM.getBtnInscripciones().addActionListener(this);
-		
+		this.ventanaABM.getInscripciones().addActionListener(this);
 		
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
@@ -48,7 +47,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		llenarTabla();
 		ventanaABM.getVentana().setVisible(true);
 		ventanaABM.getVentana().setEnabled(true);
-		
 	}
 
 	private void llenarTabla() {
@@ -92,7 +90,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 			eliminarSeleccion();
 		
 		// BOTON VER INSCRIPCIONES DEL ABM
-		else if (e.getSource() == ventanaABM.getBtnInscripciones())
+		else if (e.getSource() == ventanaABM.getInscripciones())
 			mostrarInscripciones();
 
 		// BOTON MOSTRAR FILTROS
@@ -129,11 +127,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 	private void eliminarSeleccion() {
 		Alumno alumno = obtenerAlumnoSeleccionado();
 		if (alumno != null) {
-			AlumnoManager.eliminarAlumno(alumno);
-			llenarTabla();
-			
+			String pregunta = "¿Esta seguro de que desea borrar a este alumno?\n"+alumno.getApellido()+", "+alumno.getNombre();
+			if (Popup.confirmar(pregunta)){
+				AlumnoManager.eliminarAlumno(alumno);
+				llenarTabla();
+			}
 		} else
-			JOptionPane.showMessageDialog(null, "Seleccione un alumno");
+			Popup.mostrar("Seleccione exactamente 1 alumno para borrarlo");
 	}
 
 	private void abrirVentanaModificacion() {
@@ -153,7 +153,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 			ventanaABM.getVentana().setEnabled(false);		
 		
 		} else
-			JOptionPane.showMessageDialog(null, "Seleccione un alumno");
+			Popup.mostrar("Seleccione exactamente 1 alumno para modificar");
 	}
 
 	private void abrirVentanaAlta() {
