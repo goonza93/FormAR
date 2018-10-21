@@ -24,7 +24,7 @@ public class CursoManager {
 
 	public static void crearCurso(Integer cupoMinimo, Integer cupoMaximo, Integer horas, Empleado responsable,
 			Empleado instructor, Programa programa, Integer contenido, List<HorarioCursada> hc, Date fechaInicio,
-			Date fechaFin, Integer precio, String comision) {
+			Date fechaFin, Date fechaCierre, Integer precio, String comision) {
 		Integer responsableID = null;
 		Integer instructorID = null;
 		if (responsable != null) {
@@ -34,7 +34,8 @@ public class CursoManager {
 			instructorID = instructor.getEmpleadoID();
 		}
 		// INSERTO EL CURSO EN LA BD
-		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
+		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision,
+				fechaInicio, fechaFin, fechaCierre,
 				instructorID, programa.getProgramaID(), 1, responsableID);
 
 		CursoODB odb = FactoryODB.crearCursoODB();
@@ -52,7 +53,7 @@ public class CursoManager {
 
 	public static void actualizarCurso(Integer ID, Integer cupoMinimo, Integer cupoMaximo, Integer horas,
 			Empleado responsable, Empleado instructor, Programa programa, Integer contenido, List<HorarioCursada> hc,
-			Date fechaInicio, Date fechaFin, EstadoCurso estado, Integer precio, String comision) {
+			Date fechaInicio, Date fechaFin, Date fechaCierre, EstadoCurso estado, Integer precio, String comision) {
 
 		Integer responsableID = null;
 		Integer instructorID = null;
@@ -64,7 +65,8 @@ public class CursoManager {
 		}
 
 		// Actualizao el curso
-		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision, fechaInicio, fechaFin,
+		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision,
+				fechaInicio, fechaFin, fechaCierre,
 				instructorID, programa.getProgramaID(), estado.getEstadoID(), responsableID);
 
 		CursoODB odb = FactoryODB.crearCursoODB();
@@ -124,7 +126,7 @@ public class CursoManager {
 					EmpleadoManager.traerEmpleado(curso.getResponsable()),
 					EmpleadoManager.traerEmpleado(curso.getInstructor()),
 					ProgramaManager.traerProgramaSegunID(curso.getPrograma()), curso.getContenido(),
-					obtenerHorariosDeCursada(curso), curso.getFechaInicio(), curso.getFechaFin(),
+					obtenerHorariosDeCursada(curso), curso.getFechaInicio(), curso.getFechaFin(), curso.getFechaCierre(),
 					traerEstadoSegunID(curso.getEstado()), curso.getPrecio(), curso.getComision());
 		}
 	}

@@ -77,6 +77,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
 			Date fechaInicio = this.cursos_en_tabla.get(i).getFechaInicio();
 			Date fechaFin = this.cursos_en_tabla.get(i).getFechaFin();
+			Date fechaCierre = this.cursos_en_tabla.get(i).getFechaCierre();
 			Empleado instructor = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getInstructor());
 			Empleado responsable = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getResponsable());
 			List<HorarioCursada> horarios = CursoManager.obtenerHorariosDeCursada(this.cursos_en_tabla.get(i));
@@ -95,7 +96,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			}
 			Object[] fila = { nombre, comision, area, estado, Formato.precio(precio), cupoMinimo.toString(),
 					cupoMaximo.toString(), fechaInicio.toString(), fechaFin == null ? "" : fechaFin.toString(),
-					/* fechaCierreInscripcion */" ", nombreApellidoInstructor, nombreApellidoResponsable,
+					fechaCierre == null?"":fechaCierre.toString(), nombreApellidoInstructor, nombreApellidoResponsable,
 					horariosString };
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 
@@ -276,6 +277,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		ventanaCrearCurso.getCupoMaximo().setText(curso.getCupoMaximo().toString());
 		ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
 		ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
+		ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierre());
 		ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
 		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);

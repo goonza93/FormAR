@@ -377,6 +377,8 @@ public class ControladorCrearCurso implements ActionListener {
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
+		
+		Date fechaCierre = new Date(ventanaCrearCurso.getFechaCierreDeInscripcion().getDate().getTime());
 
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 		String comision = ventanaCrearCurso.getTxtComision().getText();
@@ -391,7 +393,7 @@ public class ControladorCrearCurso implements ActionListener {
 			 */
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
-				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin,
+				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin, fechaCierre,
 				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
 		System.out.println("Entrada 5");
 	}
@@ -410,7 +412,8 @@ public class ControladorCrearCurso implements ActionListener {
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
-
+		Date fechaCierre = new Date(ventanaCrearCurso.getFechaCierreDeInscripcion().getDate().getTime());
+		
 		if (!horariosCursada.isEmpty()) {
 			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
 		}
@@ -424,7 +427,7 @@ public class ControladorCrearCurso implements ActionListener {
 			contenidoID = this.contenido.getContenidoID();
 		}
 		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa,
-				contenidoID, horariosCursada, fechaInicio, fechaFin, precio, comision);
+				contenidoID, horariosCursada, fechaInicio, fechaFin, fechaCierre, precio, comision);
 	}
 
 	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS

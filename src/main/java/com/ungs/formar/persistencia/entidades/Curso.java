@@ -5,11 +5,11 @@ import java.sql.Date;
 public class Curso {
 	private Integer cursoID, cupoMinimo, cupoMaximo, precio, horas;
 	private String comision;
-	private Date fechaInicio, fechaFin;
+	private Date fechaInicio, fechaFin, fechaCierre;
 	private Integer instructor, programa, estado, responsable, contenido;
 	
 	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer precio, Integer horas,
-			Integer contenido, String comision, Date fechaInicio, Date fechaFin,
+			Integer contenido, String comision, Date fechaInicio, Date fechaFin, Date fechaCierre,
 			Integer instructor, Integer programa, Integer estado,
 			Integer responsable) {
 		this.cursoID = cursoID;
@@ -21,6 +21,7 @@ public class Curso {
 		this.comision = comision;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		this.fechaCierre = fechaCierre;
 		this.instructor = instructor;
 		this.programa = programa;
 		this.estado = estado;
@@ -130,5 +131,13 @@ public class Curso {
 	public void setPrecio(Integer precio) {
 		this.precio = precio;
 	}
-	
+
+	public Date getFechaCierre() {
+		return fechaCierre;
+	}
+
+	public void setFechaCierre(Date fechaCierre) {
+		this.fechaCierre = fechaCierre;
+	}
+		
 }

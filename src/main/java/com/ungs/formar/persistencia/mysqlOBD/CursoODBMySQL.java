@@ -12,13 +12,14 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
-	private final String campos = "cupo_minimo, cupo_maximo, precio, comision, fecha_inicio, fecha_fin, contenido, horas, instructor, responsable, programa, estado";
+	private final String campos = "cupo_minimo, cupo_maximo, precio, comision, fecha_inicio, fecha_fin, fecha_cierre, contenido, horas, instructor, responsable, programa, estado";
 	private final String tabla = "for_cursos";
 	private final String ID = "curso_ID";
 	
 	public void insert (Curso curso) {
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
-		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'"; 
+		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'";
+		String fCierre = curso.getFechaCierre() == null ? null : "'"+curso.getFechaCierre()+"'";
 		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
 		
 		String valores = curso.getCupoMinimo()
@@ -27,6 +28,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+", "+ comision
 				+", "+ fInicio
 				+", "+ fFin
+				+", "+ fCierre
 				+", "+ curso.getContenido()
 				+", "+ curso.getHoras()
 				+", "+ curso.getInstructor()
@@ -47,6 +49,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	public void update(Curso curso) {
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
 		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'";
+		String fCierre = curso.getFechaCierre() == null ? null : "'"+curso.getFechaCierre()+"'";
 		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
 		String condicion = ID+" = "+curso.getCursoID();
 		
@@ -57,6 +60,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+ ", comision = "+comision
 				+ ", fecha_inicio = "+fInicio
 				+ ", fecha_fin = "+fFin
+				+ ", fecha_cierre = "+fCierre
 				+ ", contenido = "+curso.getContenido()
 				+ ", horas = "+curso.getHoras()
 				+ ", instructor = "+curso.getInstructor()
@@ -115,6 +119,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 						resultados.getString("comision"),
 						resultados.getDate("fecha_inicio"),
 						resultados.getDate("fecha_fin"),
+						resultados.getDate("fecha_cierre"),
 						resultados.getInt("instructor"),
 						resultados.getInt("programa"),
 						resultados.getInt("estado"),
