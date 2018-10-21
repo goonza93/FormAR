@@ -186,10 +186,11 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 			// Si tiene otro estado lo borro segun corresponda
 			else {
-					CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
-					llenarTablaCursos();
-				}
+				// aca iria el borrar horarios y pdfs que quedan colgados
+				CursoManager.borrarCurso(this.cursos_en_tabla.get(modelFila));
+				llenarTablaCursos();
 			}
+		}
 		// Si no selecciono nada, le aviso
 		else {
 			JOptionPane.showMessageDialog(null, "Seleccione una cursada para borrar");

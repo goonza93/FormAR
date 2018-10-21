@@ -377,7 +377,7 @@ public class ControladorCrearCurso implements ActionListener {
 		 */
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
-				this.programa, this.contenido, this.horariosCursada, fechaInicio, fechaFin,
+				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin,
 				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
 		System.out.println("Entrada 5");
 	}
@@ -405,7 +405,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 		//if(responsable ==null)
 		System.out.println("HASTA ACA OK");
-		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, this.contenido,
+		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, this.contenido.getContenidoID(),
 				horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}
 

@@ -12,7 +12,7 @@ public class Pdf {
     }
 
     /*Todo los codigos get*/
-    public int getContenidoID() {
+    public Integer getContenidoID() {
         return contenido_ID;
     }
 
