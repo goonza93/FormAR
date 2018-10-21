@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
@@ -22,6 +24,7 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.persistencia.entidades.Pdf;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
@@ -42,6 +45,7 @@ public class ControladorCrearCurso implements ActionListener {
 	private ControladorGestionarCurso controladorGestionarCurso;
 	private Empleado instructor, responsable;
 	private Programa programa;
+	private Pdf contenido;
 	private List<HorarioCursada> horariosCursada;
 	private List<Horario> horarios;// Estas dos lineas es para implementar lo de
 									// que
@@ -318,8 +322,6 @@ public class ControladorCrearCurso implements ActionListener {
 		JTextField inHoras = ventanaCrearCurso.getHoras();
 		Integer horas = Integer.decode(inHoras.getText());
 
-		String contenido = ventanaCrearCurso.getContenidoEspecifico().getText();
-
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
@@ -336,7 +338,7 @@ public class ControladorCrearCurso implements ActionListener {
 		 */
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
-				this.programa, contenido, this.horariosCursada, fechaInicio, fechaFin,
+				this.programa, this.contenido, this.horariosCursada, fechaInicio, fechaFin,
 				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
 		System.out.println("Entrada 5");
 	}
@@ -352,8 +354,6 @@ public class ControladorCrearCurso implements ActionListener {
 		JTextField inHoras = ventanaCrearCurso.getHoras();
 		Integer horas = Integer.decode(inHoras.getText());
 
-		String contenido = ventanaCrearCurso.getContenidoEspecifico().getText();
-
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
@@ -366,7 +366,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 		//if(responsable ==null)
 		System.out.println("HASTA ACA OK");
-		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenido,
+		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, this.contenido,
 				horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}
 
@@ -419,6 +419,10 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void setHorarios(List<HorarioCursada> horarios) {
 		this.horariosCursada = horarios;
+	}
+	
+	public void setContenido(Pdf contenido){
+		this.contenido = contenido;
 	}
 
 	public void actualizarFechaFin() {

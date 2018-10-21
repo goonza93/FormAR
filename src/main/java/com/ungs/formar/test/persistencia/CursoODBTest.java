@@ -35,7 +35,7 @@ public class CursoODBTest {
 	public static void main(String[] args) throws ParseException {
 		DateFormat formato = new SimpleDateFormat("MM-dd-yyyy");
 		Date sqlDate = new Date(formato.parse("02-04-2015").getTime());
-		Curso curso = new Curso(-1, 10, 50, 99,15, "AAAAA","", sqlDate, sqlDate, 1, 1, 1, 1);
+		Curso curso = new Curso(-1, 10, 50, 99,15, 1,"", sqlDate, sqlDate, 1, 1, 1, 1);
 		
 		insertTest(curso);
 		selectTest();

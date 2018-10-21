@@ -3,6 +3,7 @@ package com.ungs.formar.persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ODB {
@@ -10,6 +11,9 @@ public class ODB {
 	protected String cadenaConexion = "jdbc:mysql://localhost:3306/formar?autoReconnect=true&useSSL=false"; 
 	protected String usuarioBD = "root"; 
 	protected String passwordBD = "root";
+	protected Connection connection = null;
+	protected String bd ="formar";
+
 		
 	// Ejecutar sentencias que no traigan resultados
 	public void ejecutarSQL(String sql) {
@@ -50,5 +54,31 @@ public class ODB {
 			
 		return ret;
 	}
+	
+	public ODB() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD);
+            if (connection != null) {
+                System.out.println("Conexión a base de datos " + bd + " OK\n");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void desconectar() {
+        try {
+            connection.close();
+        } catch (Exception ex) {
+        }
+    }
+
 	
 }

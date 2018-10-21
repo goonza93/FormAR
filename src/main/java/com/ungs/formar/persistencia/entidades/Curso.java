@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class Curso {
 	private Integer cursoID, cupoMinimo, cupoMaximo, precio, horas;
-	private String contenido, comision;
+	private String comision;
 	private Date fechaInicio, fechaFin;
-	private Integer instructor, programa, estado, responsable;
+	private Integer instructor, programa, estado, responsable, contenido;
 	
 	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer precio, Integer horas,
-			String contenido, String comision, Date fechaInicio, Date fechaFin,
+			Integer contenido, String comision, Date fechaInicio, Date fechaFin,
 			Integer instructor, Integer programa, Integer estado,
 			Integer responsable) {
 		this.cursoID = cursoID;
@@ -59,11 +59,11 @@ public class Curso {
 		this.horas = horas;
 	}
 
-	public String getContenido() {
+	public Integer getContenido() {
 		return contenido;
 	}
 
-	public void setContenido(String contenido) {
+	public void setContenido(Integer contenido) {
 		this.contenido = contenido;
 	}
 
