@@ -319,27 +319,12 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			// Si el curso esta CREADO, puede pasar a PUBLICADO
 			if (aEditar.getEstado() == 1) {
 				if (validarCambioaPublicado(aEditar)) {
-					
-					// FIX: SI LAS INSCRIPCIONES NO LLEGAN AL CUPO MINIMO PIDE DOBLE CONFIRMACION
-					Integer inscriptos = InscripcionManager.traerAlumnosInscriptos(aEditar).size();
-					Integer cupoMinimo = aEditar.getCupoMinimo();
-					boolean proceder = true;
-					if (cupoMinimo > inscriptos) {
-						String pregunta = "La cantidad de alumnos inscriptos es de "+inscriptos
-								+", no llegan al cupo minimo que es de "+cupoMinimo
-								+ "\n¿Aun asi desea proceder?";
-						proceder = Popup.confirmar(pregunta);
-					}
-					// LUEGO CONTINUA NORMALMENTE
-					
-					if (proceder) {
 						int confirm = JOptionPane.showOptionDialog(null,
 								"Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
 								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 						if (confirm == 0) {
 						aEditar.setEstado(2);
-						CursoManager.cambiarEstadoCurso(aEditar);
-						}
+						CursoManager.cambiarEstadoCurso(aEditar);					
 					}
 				}
 			}
