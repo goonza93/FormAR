@@ -158,11 +158,16 @@ public class ControladorCrearCurso implements ActionListener {
 			if (fila != -1) {
 				seApretoEditarDia(this.horariosCursada.get(fila), fila);
 			}
-		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarContenido()){
+		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarContenido()) {
 			logicaFileChooser();
-		} else if (e.getSource() == ventanaCrearCurso.getBtnVerPdf()){
-			System.out.println("entro");
-			PdfManager.abrirPdf(this.contenido.getContenidoID());
+		} else if (e.getSource() == ventanaCrearCurso.getBtnVerPdf()) {
+			if (this.contenido.getContenidoID() == null) {
+				JOptionPane.showMessageDialog(null, "No hay ningun contenido especifico para mostrar.");
+
+			} else {
+				System.out.println("entro");
+				PdfManager.abrirPdf(this.contenido.getContenidoID());
+			}
 		}
 	}
 
@@ -170,21 +175,20 @@ public class ControladorCrearCurso implements ActionListener {
 		Pattern patronNumeros = Pattern.compile("^[0-9]*$");
 		Matcher cupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
 		Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
-		
+
 		String msjError = "";
 		if (!cupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
 			msjError += "- Por favor, primero ingrese un cupo maximo\n";
-		} 
+		}
 		if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
 			msjError += "- Por favor, primero ingrese una fecha de inicio\n";
 		}
 		if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
 			msjError += "- Por favor, ingrese una cantidad total de horas valida\n";
 		}
-		if(!msjError.isEmpty()){
+		if (!msjError.isEmpty()) {
 			JOptionPane.showMessageDialog(null, msjError);
-		}
-		else {
+		} else {
 			this.ventanaABMHorario = new ABMHorario();
 			this.ventanaCrearCurso.setEnabled(false);
 			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
@@ -221,7 +225,7 @@ public class ControladorCrearCurso implements ActionListener {
 			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
 			controlador.esEdicion = true;
 			controlador.indiceHorarioEdicion = indiceEnHorarios;
-			controlador.capacidadMaxima = Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()); 
+			controlador.capacidadMaxima = Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText());
 			controlador.setSala(SalaManager.traerSegunID(horarioSeleccionado.getSala()));
 		} else {
 			JOptionPane.showMessageDialog(null, msjError);
@@ -246,30 +250,28 @@ public class ControladorCrearCurso implements ActionListener {
 			}
 		}
 	}
-	
+
 	private void logicaFileChooser() {
 		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF only", "pdf","txt");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF only", "pdf", "txt");
 		chooser.setFileFilter(filter);
-        int result = chooser.showOpenDialog(null);
-        File archivo = chooser.getSelectedFile();
-        if(result == JFileChooser.APPROVE_OPTION){
-	        if(archivo!=null){
-	 	        this.ventanaCrearCurso.getTxtNombrePdf().setText(archivo.getName());
-	 	        this.contenido = PdfManager.crearPdf(archivo);
-	 	        PdfManager.guardarPdf(this.contenido);
-	 	        /*
-	 	        try {
-					Desktop.getDesktop().open(archivo);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-	        } else {
-	        	this.ventanaCrearCurso.getTxtNombrePdf().setText("");
-	        	this.contenido = null;
-	        }
-        }
+		int result = chooser.showOpenDialog(null);
+		File archivo = chooser.getSelectedFile();
+		if (result == JFileChooser.APPROVE_OPTION) {
+			if (archivo != null) {
+				this.ventanaCrearCurso.getTxtNombrePdf().setText(archivo.getName());
+				this.contenido = PdfManager.crearPdf(archivo);
+				PdfManager.guardarPdf(this.contenido);
+				/*
+				 * try { Desktop.getDesktop().open(archivo); } catch
+				 * (IOException e) { // TODO Auto-generated catch block
+				 * e.printStackTrace(); }
+				 */
+			} else {
+				this.ventanaCrearCurso.getTxtNombrePdf().setText("");
+				this.contenido = null;
+			}
+		}
 	}
 
 	private void seApretoAgregarCurso() {
@@ -279,64 +281,75 @@ public class ControladorCrearCurso implements ActionListener {
 		Matcher mcupoMaximo = patronNumeros.matcher(this.ventanaCrearCurso.getCupoMaximo().getText());
 		Matcher mhorasTotal = patronNumeros.matcher(this.ventanaCrearCurso.getHoras().getText());
 		Matcher mPrecio = patronNumeros.matcher(this.ventanaCrearCurso.getTxtPrecio().getText());
-		
+
 		String msjError = "";
 		// Validaciones de null, y de tipos de datos validos
 		if (!mcupoMinimo.matches() || this.ventanaCrearCurso.getCupoMinimo().getText().isEmpty()) {
 			msjError += "- Por favor, ingrese un cupo minimo valido\n";
-		}if (!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
-			msjError +=  "- Por favor, ingrese un cupo maximo valido\n";
-		}if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
+		}
+		if (!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) {
+			msjError += "- Por favor, ingrese un cupo maximo valido\n";
+		}
+		if (this.ventanaCrearCurso.getFechaInicio().getDate() == null) {
 			msjError += "- Por favor, ingrese una fecha de inicio valida\n";
-		}if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
+		}
+		if (!mhorasTotal.matches() || this.ventanaCrearCurso.getHoras().getText().isEmpty()) {
 			msjError += "- Por favor, ingrese una cantidad total de horas valida\n";
-		}if (this.programa == null) {
-			msjError +=  "- Por favor,  seleccione un Curso\n";
-		}if (!mPrecio.matches() || this.ventanaCrearCurso.getTxtPrecio().getText().isEmpty()) {
-			msjError +=  "- Por favor, ingrese un precio valido\n";
-		}if (this.ventanaCrearCurso.getTxtComision().getText().isEmpty()) {
-			msjError +=  "- Por favor, ingrese una comision\n";
-		}if (this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate() == null) {
+		}
+		if (this.programa == null) {
+			msjError += "- Por favor,  seleccione un Curso\n";
+		}
+		if (!mPrecio.matches() || this.ventanaCrearCurso.getTxtPrecio().getText().isEmpty()) {
+			msjError += "- Por favor, ingrese un precio valido\n";
+		}
+		if (this.ventanaCrearCurso.getTxtComision().getText().isEmpty()) {
+			msjError += "- Por favor, ingrese una comision\n";
+		}
+		if (this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate() == null) {
 			msjError += "- Por favor, ingrese una fecha de Cierre de inscripciones valida\n";
 		}
-		
-		//VALIDACIONES DE LONGITUDES DE CAMPOS
+
+		// VALIDACIONES DE LONGITUDES DE CAMPOS
 		if (this.ventanaCrearCurso.getCupoMinimo().getText().length() > 3) {
 			msjError += "- El cupo minimo debe ser menor a 999\n";
-		}if (this.ventanaCrearCurso.getCupoMaximo().getText().length() > 3) {
-			msjError +=  "- El cupo maximo debe ser menor a 999\n";
-		}if (this.ventanaCrearCurso.getHoras().getText().length() > 5) {
-			msjError += "- Las horas totales deben ser menor a 99999\n";
-		}if (this.ventanaCrearCurso.getTxtComision().getText().length() > 10) {
-			msjError +=  "- Por favor, ingrese una comision con una longitud maxima de 10\n";
-		}if (this.ventanaCrearCurso.getTxtPrecio().getText().length() > 5) {
-			msjError +=  "- El precio debe ser menor a 99999\n";
 		}
-		
+		if (this.ventanaCrearCurso.getCupoMaximo().getText().length() > 3) {
+			msjError += "- El cupo maximo debe ser menor a 999\n";
+		}
+		if (this.ventanaCrearCurso.getHoras().getText().length() > 5) {
+			msjError += "- Las horas totales deben ser menor a 99999\n";
+		}
+		if (this.ventanaCrearCurso.getTxtComision().getText().length() > 10) {
+			msjError += "- Por favor, ingrese una comision con una longitud maxima de 10\n";
+		}
+		if (this.ventanaCrearCurso.getTxtPrecio().getText().length() > 5) {
+			msjError += "- El precio debe ser menor a 99999\n";
+		}
 
 		// VALIDACIONES LOGICAS
-		//Primero ver si el cupo minimo esta bien, y si el maximo tambien.
-		//Si ambos estan bien, controlar si el maximo no es menor que el minimo.
-		if (!(!mcupoMinimo.matches() || this.ventanaCrearCurso.getCupoMinimo().getText().isEmpty()) &&
-				!(!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty()) &&
-				Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()) < Integer
-				.parseInt(this.ventanaCrearCurso.getCupoMinimo().getText())) {
+		// Primero ver si el cupo minimo esta bien, y si el maximo tambien.
+		// Si ambos estan bien, controlar si el maximo no es menor que el
+		// minimo.
+		if (!(!mcupoMinimo.matches() || this.ventanaCrearCurso.getCupoMinimo().getText().isEmpty())
+				&& !(!mcupoMaximo.matches() || this.ventanaCrearCurso.getCupoMaximo().getText().isEmpty())
+				&& Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText()) < Integer
+						.parseInt(this.ventanaCrearCurso.getCupoMinimo().getText())) {
 			msjError += "- El cupo maximo no puede ser menor que el cupo minimo\n";
-		} 
-		//Primero ver si la fecha Inicio y cierre de inscripcion estan bien.
-		//Si ambas estan bien, controlar si la fecha Inicio NO es anterior a la de inscripcion
-		if(!(this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate() == null) &&
-				!(this.ventanaCrearCurso.getFechaInicio().getDate() == null) &&
-				this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate().after
-						(this.ventanaCrearCurso.getFechaInicio().getDate())){
+		}
+		// Primero ver si la fecha Inicio y cierre de inscripcion estan bien.
+		// Si ambas estan bien, controlar si la fecha Inicio NO es anterior a la
+		// de inscripcion
+		if (!(this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate() == null)
+				&& !(this.ventanaCrearCurso.getFechaInicio().getDate() == null)
+				&& this.ventanaCrearCurso.getFechaCierreDeInscripcion().getDate()
+						.after(this.ventanaCrearCurso.getFechaInicio().getDate())) {
 			msjError += "- La fecha de Cierre de inscripcion no debe ser posterior a la de inicio\n";
-			
+
 		}
-		
-		if(!msjError.isEmpty()){
+
+		if (!msjError.isEmpty()) {
 			JOptionPane.showMessageDialog(null, msjError);
-		}
-		else {
+		} else {
 			// El agregar paso todas las validadciones
 			if (this.idEdicion == -1) {
 				crearCurso();
@@ -367,14 +380,15 @@ public class ControladorCrearCurso implements ActionListener {
 
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 		String comision = ventanaCrearCurso.getTxtComision().getText();
-		
+
 		// horarios =
 		// CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
-		if(!horariosCursada.isEmpty()){
+		if (!horariosCursada.isEmpty()) {
 			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
-		 }/*else { fechaFin = fechaInicio; // el metodo tiene ciclos infinitos,
-		 * para que compile }
-		 */
+		} /*
+			 * else { fechaFin = fechaInicio; // el metodo tiene ciclos
+			 * infinitos, para que compile }
+			 */
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
 				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin,
@@ -397,16 +411,16 @@ public class ControladorCrearCurso implements ActionListener {
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
 
-		if(!horariosCursada.isEmpty()){
+		if (!horariosCursada.isEmpty()) {
 			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
-		 }
+		}
 		String comision = ventanaCrearCurso.getTxtComision().getText();
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 
-		//if(responsable ==null)
+		// if(responsable ==null)
 		System.out.println("HASTA ACA OK");
-		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, this.contenido.getContenidoID(),
-				horariosCursada, fechaInicio, fechaFin, precio, comision);
+		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa,
+				this.contenido.getContenidoID(), horariosCursada, fechaInicio, fechaFin, precio, comision);
 	}
 
 	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS
@@ -459,8 +473,8 @@ public class ControladorCrearCurso implements ActionListener {
 	public void setHorarios(List<HorarioCursada> horarios) {
 		this.horariosCursada = horarios;
 	}
-	
-	public void setContenido(Pdf contenido){
+
+	public void setContenido(Pdf contenido) {
 		this.contenido = contenido;
 	}
 
@@ -476,7 +490,7 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaCrearCurso.getDateFechaFin().setDate(fechaFin);
 		}
 	}
-	
+
 	private void iniciarDocumentListener() {
 		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {
