@@ -1,4 +1,4 @@
-﻿-- SCRIPT PARA CREAR LA BASE DE DATOS
+﻿-- SCRIPT PARA CREAR LA BASE DE DATOS...
 -- EJECUTAR DIRECTAMENTE, NO IMPORTA SI EXISTE O NO PREVIAMENTE
 -- ASEGURARSE DE QUE ES LA ULTIMA VERSION
 
@@ -108,7 +108,8 @@ CREATE TABLE for_cursos (
 	precio INT(5),
 	fecha_inicio DATE,
 	fecha_fin DATE,
-	contenido INT(4),
+	fecha_cierre DATE,
+    contenido INT(4),
     comision VARCHAR(10),
 	horas INT(5) NOT NULL,
 	instructor INT(4) NULL, -- FK EMPLEADOS
