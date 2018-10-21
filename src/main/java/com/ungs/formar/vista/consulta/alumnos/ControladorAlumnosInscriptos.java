@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -22,11 +21,11 @@ public class ControladorAlumnosInscriptos implements ActionListener{
 		this.invocador = invocador;
 		this.curso = curso;
 		this.ventana.getVolver().addActionListener(this);
-		
+		this.ventana.getVentana().setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				cerrarVentana();
+				//cerrarVentana();
 			}
 		});
 		this.inicializar();

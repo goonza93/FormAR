@@ -122,8 +122,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 			return;
 		}
 		
-		VentanaCursosInscriptos ventanaInscripciones = new VentanaCursosInscriptos();
-		new ControladorCursosInscriptos(ventanaInscripciones, this, alumno);
+		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
 		ventanaABM.getVentana().setEnabled(false);
 	}
 

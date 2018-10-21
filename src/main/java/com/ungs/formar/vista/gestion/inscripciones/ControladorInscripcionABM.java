@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+
+import javax.swing.JFrame;
+
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Formato;
@@ -33,6 +36,14 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		this.ventanaABM.getConsultar().addActionListener(this);
 		this.ventanaABM.getVolver().addActionListener(this);
 		this.ventanaABM.getBorrar().addActionListener(this);
+		
+		this.ventanaABM.getVentana().setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				volver();
+			}
+		});
 		inicializar();
 	}
 	
@@ -160,6 +171,15 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			ventanaBaja.getVentana().setVisible(true);
 			ventanaBaja.getBaja().addActionListener(this);
 			ventanaBaja.getVolver().addActionListener(this);
+			
+			ventanaBaja.getVentana().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			ventanaBaja.getVentana().addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent e) {
+					cerrarVentanaBaja();
+				}
+			});
+			
 			ventanaABM.getVentana().setEnabled(false);
 			llenarTablaBaja();
 		} else
@@ -192,8 +212,10 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 	}
 
 	private void volver() {
-		ventanaABM.getVentana().dispose();
-		ventanaABM = null;
+		if (ventanaABM != null) {
+			ventanaABM.getVentana().dispose();
+			ventanaABM = null;
+		}
 		controlador.inicializar();
 	}
 
