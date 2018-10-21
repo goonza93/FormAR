@@ -10,7 +10,7 @@ public interface PdfOBD {
 	
 	public void delete (Pdf alumno);
 	
-	public void abrir (Integer id);
+	public String abrir (Integer id);
 	
 	public Pdf traerPdf(Integer id);
 

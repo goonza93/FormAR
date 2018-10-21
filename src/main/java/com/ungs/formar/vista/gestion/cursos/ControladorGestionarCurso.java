@@ -258,7 +258,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		ventanaCrearCurso.getHoras().setEditable(false);
 		ventanaCrearCurso.getTxtPrecio().setEditable(false);
 		ventanaCrearCurso.getFechaInicio().setEnabled(false);
-		ventanaCrearCurso.getContenidoEspecifico().setEditable(false);
+		ventanaCrearCurso.getBtnSeleccionarContenido().setEnabled(false);
 		ventanaCrearCurso.getTxtComision().setEditable(false);
 		ventanaCrearCurso.getCupoMinimo().setEditable(false);
 		ventanaCrearCurso.getFechaCierreDeInscripcion().setEnabled(false);
@@ -297,7 +297,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			controladorCursoEdicion.setResponsable(responsable);
 		}
 		if (contenido != null) {
-			ventanaCrearCurso.getContenidoEspecifico().setText(contenido.getNombrepdf());
+			ventanaCrearCurso.getTxtNombrePdf().setText(contenido.getNombrepdf());
 			controladorCursoEdicion.setContenido(contenido);
 		}
 

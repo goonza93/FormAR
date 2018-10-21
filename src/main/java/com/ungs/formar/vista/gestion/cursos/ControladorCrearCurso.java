@@ -1,17 +1,23 @@
 package com.ungs.formar.vista.gestion.cursos;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -19,6 +25,7 @@ import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.PdfManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -62,6 +69,8 @@ public class ControladorCrearCurso implements ActionListener {
 		this.ventanaCrearCurso.getBtnAgregarDia().addActionListener(this);
 		this.ventanaCrearCurso.getBtnBorrarDia().addActionListener(this);
 		this.ventanaCrearCurso.getBtnEditarDia().addActionListener(this);
+		this.ventanaCrearCurso.getBtnSeleccionarContenido().addActionListener(this);
+		this.ventanaCrearCurso.getBtnVerPdf().addActionListener(this);
 		this.controladorGestionarCurso = controladorGestionarCurso;
 		horariosCursada = new ArrayList<HorarioCursada>();
 		horarios = new ArrayList<Horario>();
@@ -149,6 +158,11 @@ public class ControladorCrearCurso implements ActionListener {
 			if (fila != -1) {
 				seApretoEditarDia(this.horariosCursada.get(fila), fila);
 			}
+		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarContenido()){
+			logicaFileChooser();
+		} else if (e.getSource() == ventanaCrearCurso.getBtnVerPdf()){
+			System.out.println("entro");
+			PdfManager.abrirPdf(this.contenido.getContenidoID());
 		}
 	}
 
@@ -231,6 +245,31 @@ public class ControladorCrearCurso implements ActionListener {
 				this.ventanaABMHorario.getTxtMinutosFin().setEditable(false);
 			}
 		}
+	}
+	
+	private void logicaFileChooser() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF only", "pdf","txt");
+		chooser.setFileFilter(filter);
+        int result = chooser.showOpenDialog(null);
+        File archivo = chooser.getSelectedFile();
+        if(result == JFileChooser.APPROVE_OPTION){
+	        if(archivo!=null){
+	 	        this.ventanaCrearCurso.getTxtNombrePdf().setText(archivo.getName());
+	 	        this.contenido = PdfManager.crearPdf(archivo);
+	 	        PdfManager.guardarPdf(this.contenido);
+	 	        /*
+	 	        try {
+					Desktop.getDesktop().open(archivo);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
+	        } else {
+	        	this.ventanaCrearCurso.getTxtNombrePdf().setText("");
+	        	this.contenido = null;
+	        }
+        }
 	}
 
 	private void seApretoAgregarCurso() {

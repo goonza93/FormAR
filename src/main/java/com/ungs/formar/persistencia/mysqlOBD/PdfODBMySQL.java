@@ -173,19 +173,21 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     }
 
     //Permite mostrar PDF contenido en la base de datos
-    public void abrir(Integer id) {
+    public String abrir(Integer id) {
 
     	 ODB conec = new ODB();
         PreparedStatement ps = null;
         ResultSet rs = null;
         byte[] b = null;
+        String nombre = "";
 
         try {
-            ps = conec.getConnection().prepareStatement("SELECT archivopdf FROM for_pdf WHERE contenido_ID = ?;");
+            ps = conec.getConnection().prepareStatement("SELECT archivopdf,nombrepdf FROM for_pdf WHERE contenido_ID = ?;");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 b = rs.getBytes(1);
+                nombre = rs.getString(2);
             }
             InputStream bos = new ByteArrayInputStream(b);
 
@@ -193,7 +195,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
             byte[] datosPDF = new byte[tamanoInput];
             bos.read(datosPDF, 0, tamanoInput);
 
-            OutputStream out = new FileOutputStream("new.pdf");
+            OutputStream out = new FileOutputStream(nombre);
             out.write(datosPDF);
 
             //abrir archivo
@@ -210,6 +212,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
         } catch (SQLException ex){
         	System.out.println("Error al abrir archivo PDF " + ex.getMessage());
         }
+        return nombre;
     }
     
 }
