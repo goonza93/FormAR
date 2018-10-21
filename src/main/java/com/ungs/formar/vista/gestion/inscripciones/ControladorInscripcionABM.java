@@ -167,6 +167,12 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 	private void abrirVentanaBaja() {
 		cursoSeleccionado = obtenerCursoSeleccionado();
 		if (cursoSeleccionado != null) {
+			
+			if (cursoSeleccionado.getEstado() == 4 || cursoSeleccionado.getEstado() == 5) {
+				Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
+				return;
+			}
+
 			ventanaBaja = new VentanaInscripcionBaja(cursoSeleccionado);
 			ventanaBaja.getVentana().setVisible(true);
 			ventanaBaja.getBaja().addActionListener(this);
