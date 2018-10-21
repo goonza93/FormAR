@@ -25,7 +25,7 @@ public class ControladorAlumnosInscriptos implements ActionListener{
 		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//cerrarVentana();
+				cerrarVentana();
 			}
 		});
 		this.inicializar();
