@@ -3,7 +3,6 @@ package com.ungs.formar.negocios;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -38,9 +37,6 @@ public class InscripcionManager {
 		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
 		return obd.selectByAlumno(alumno);
 	}
-	
-	
-	
 	
 	public static List<Curso> traerCursosInscriptos(Alumno alumno) {
 		List<Inscripcion> inscripciones = traerInscripciones(alumno);

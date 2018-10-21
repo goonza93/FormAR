@@ -28,6 +28,11 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 		ejecutarSQL(sql);
 	}
 	
+	public void delete(Inscripcion inscripcion) {
+		String condicion = ID+"="+inscripcion.getInscripcionID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
 	
 	public List<Inscripcion> select() {
 		String condicion = "1=1";
@@ -39,6 +44,10 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 		return selectByCondicion(condicion);
 	}
 
+	public List<Inscripcion> selectByCurso(Curso curso) {
+		String condicion = "curso = "+curso.getCursoID();
+		return selectByCondicion(condicion);
+	}
 
 	public Inscripcion selectByCursoAlumno(Curso curso, Alumno alumno) {
 		String condicion = "cliente = "+alumno.getClienteID()+" and curso = "+curso.getCursoID();
@@ -47,8 +56,6 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 			return inscripciones.get(0);
 		return null;
 	}
-	
-	
 	
 	private List<Inscripcion> selectByCondicion(String condicion) {
 		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
@@ -80,18 +87,6 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 		}
 			
 		return inscripciones;
-	}
-
-	public List<Inscripcion> selectByCurso(Curso curso) {
-		String condicion = "curso = "+curso.getCursoID();
-		return selectByCondicion(condicion);
-	}
-
-
-	public void delete(Inscripcion inscripcion) {
-		String condicion = ID+"="+inscripcion.getInscripcionID();
-		String consulta = "delete from "+tabla+" where ("+condicion+");";
-		ejecutarSQL(consulta);
 	}
 
 }
