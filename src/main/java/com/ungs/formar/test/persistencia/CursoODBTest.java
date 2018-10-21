@@ -37,6 +37,10 @@ public class CursoODBTest {
 		Date sqlDate = new Date(formato.parse("02-04-2015").getTime());
 		Curso curso = new Curso(-1, 10, 50, 99,15, 1,"", sqlDate, sqlDate, 1, 1, 1, 1);
 		
+		CursoODB odb = FactoryODB.crearCursoODB();
+		odb.delete(new Curso(2, 1, 1, 1, 1, 1, "", sqlDate, sqlDate, 1, 1, 1, 1));
+		
+		
 		insertTest(curso);
 		selectTest();
 		selectIDMasRecienteTest();
