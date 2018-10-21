@@ -37,6 +37,7 @@ public class PdfManager {
             contenido.setArchivopdf(null);
             //System.out.println("Error al agregar archivo pdf "+ex.getMessage());
         }
+		odb.desconectar();
 		return contenido;
 	}
 	
