@@ -15,4 +15,6 @@ public interface SalaODB {
 
 	public Sala selectByID(Integer id);
 	
+	public Sala selectByNumero(Integer numero);
+	
 }

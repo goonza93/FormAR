@@ -37,6 +37,15 @@ public class SalaManager {
 		return odb.selectByID(id);
 	}
 	
+	public static Sala traerSegunNumero(Integer numero){
+		SalaODB odb = FactoryODB.crearSalaODB();
+		return odb.selectByNumero(numero);
+	}
+	
+	public static boolean estaOcupado(Integer numero) {
+		return traerSegunNumero(numero) != null;
+	}
+	
 	public static boolean estaAsignada(Sala sala){
 				HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
 				List<HorarioCursada> horarios = obd.selectBySala(sala.getSalaID());

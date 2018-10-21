@@ -3,9 +3,9 @@ package com.ungs.formar.vista.gestion.salas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import javax.swing.JOptionPane;
 
-import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Sala;
@@ -164,8 +164,19 @@ public class ControladorSalaABM implements ActionListener {
 		} else if (numero.length() > 4) {
 			isOk = false;
 			mensaje += "    -El NUMERO debe ser menor a 9999\n";
+		} else if (SalaManager.estaOcupado(Integer.decode(numero))) {
+			// Veo si la que esta en BD es esta misma
+			Sala salaEdicion = ventanaSalaAM.getSala();
+			Sala salaBD = SalaManager.traerSegunNumero(Integer.decode(numero));
+			if (salaEdicion == null) {
+				isOk = false;
+				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";	
+			} else if (salaBD.getSalaID() != salaEdicion.getSalaID()) {
+				isOk = false;
+				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";					
+			}
 		}
-
+		
 		if (!nombre.isEmpty() && !Validador.validarNombre(nombre)) {
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";

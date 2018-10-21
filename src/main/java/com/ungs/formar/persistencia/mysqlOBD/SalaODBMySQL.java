@@ -59,6 +59,16 @@ public class SalaODBMySQL extends ODB implements SalaODB{
 		
 		return sala;
 	}
+	
+	public Sala selectByNumero(Integer numero){
+		String condicion = "numero = "+numero;
+		List<Sala> salas = selectByCondicion(condicion);
+		Sala sala = null;
+		if (salas.size()>0)
+			sala = salas.get(0); 
+		
+		return sala;
+	}
 
 	private List<Sala> selectByCondicion(String condicion) {
 		List<Sala> salas = new ArrayList<Sala>();
