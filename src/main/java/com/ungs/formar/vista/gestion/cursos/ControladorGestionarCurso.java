@@ -24,7 +24,6 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
-import com.ungs.formar.vista.util.Popup;
 
 public class ControladorGestionarCurso implements ActionListener, Consultable {
 	private GestionarCursos ventanaGestionarCursos;
@@ -319,12 +318,12 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			// Si el curso esta CREADO, puede pasar a PUBLICADO
 			if (aEditar.getEstado() == 1) {
 				if (validarCambioaPublicado(aEditar)) {
-						int confirm = JOptionPane.showOptionDialog(null,
-								"Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
-								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-						if (confirm == 0) {
+					int confirm = JOptionPane.showOptionDialog(null,
+							"Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+					if (confirm == 0) {
 						aEditar.setEstado(2);
-						CursoManager.cambiarEstadoCurso(aEditar);					
+						CursoManager.cambiarEstadoCurso(aEditar);
 					}
 				}
 			}
@@ -332,12 +331,26 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			// Si el curso esta PUBLICADO puede pasar a INICIADO
 			else if (aEditar.getEstado() == 2) {
 				if (validarCambioaIniciado(aEditar)) {
-					int confirm = JOptionPane.showOptionDialog(null,
-							"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?",
-							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-					if (confirm == 0) {
-						aEditar.setEstado(3);
-						CursoManager.cambiarEstadoCurso(aEditar);
+					if (aEditar.getCupoMinimo() > InscripcionManager.traerAlumnosInscriptos(aEditar).size()) {
+						int confirm = JOptionPane.showOptionDialog(null,
+								"La cantidad de inscriptos no cubre el cupo minimo.\n"
+										+ "Estas seguro que queres cambiar el estado \n" 
+										+ "de PUBLICADO a INICIADO!?",
+								"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+								null);
+						if (confirm == 0) {
+							aEditar.setEstado(3);
+							CursoManager.cambiarEstadoCurso(aEditar);
+						}
+					} else {
+						int confirm = JOptionPane.showOptionDialog(null,
+								"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?",
+								"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+								null);
+						if (confirm == 0) {
+							aEditar.setEstado(3);
+							CursoManager.cambiarEstadoCurso(aEditar);
+						}
 					}
 				}
 			}
