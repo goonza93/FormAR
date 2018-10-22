@@ -246,6 +246,9 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		} else if (!Validador.validarNombre(nombre)){
 			isOk = false;
 			mensaje += "    -El Nombre solo puede consistir de letras y espacios.\n";
+		} else if(nombre.length() > 50){
+			isOk = false;
+			mensaje += "    -El Nombre debe tener una longitud menor a 50.\n";
 		}
 		
 		if (fechaAprobacion == null) {
@@ -256,7 +259,10 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		if (descripcion.equals("")) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese una Descripcion.\n";
-		} 
+		} else if(descripcion.length()>500){
+			isOk = false;
+			mensaje += "    -La descripcion debe tener una longitud menor a 500.\n";
+		}
 		
 		if(cargaHoraria.equals("")){
 			isOk = false;
@@ -264,6 +270,9 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		} else if(!Validador.validarNumero(cargaHoraria)) {
 			isOk = false;
 			mensaje += "    -La Carga Horaria solo admite numeros en horas.\n";
+		} else if(cargaHoraria.length()>4){
+			isOk = false;
+			mensaje += "    -La Carga Horaria debe ser menor a 9999.\n";
 		}
 		
 		if (isOk == false){
