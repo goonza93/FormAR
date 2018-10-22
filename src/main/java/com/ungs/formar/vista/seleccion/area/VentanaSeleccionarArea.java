@@ -43,6 +43,7 @@ public class VentanaSeleccionarArea extends JFrame {
 		setTitle("Seleccion de areas");
 		setLocationRelativeTo(null);
 		setResizable(false);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

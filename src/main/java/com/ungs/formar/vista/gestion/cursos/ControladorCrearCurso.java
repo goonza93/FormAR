@@ -109,8 +109,12 @@ public class ControladorCrearCurso implements ActionListener {
 
 			// BOTON CANCELAR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {
-			this.ventanaCrearCurso.dispose();
-			this.controladorGestionarCurso.inicializar();
+			int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
+					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (confirm == 0) {
+				this.ventanaCrearCurso.dispose();
+				this.controladorGestionarCurso.inicializar();
+			}
 
 			// BOTON SELECCIONAR INSTRUCTOR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnSeleccionarInstructor()) {
@@ -262,11 +266,6 @@ public class ControladorCrearCurso implements ActionListener {
 				this.ventanaCrearCurso.getTxtNombrePdf().setText(archivo.getName());
 				this.contenido = PdfManager.crearPdf(archivo);
 				PdfManager.guardarPdf(this.contenido);
-				/*
-				 * try { Desktop.getDesktop().open(archivo); } catch
-				 * (IOException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); }
-				 */
 			} else {
 				this.ventanaCrearCurso.getTxtNombrePdf().setText("");
 				this.contenido = null;

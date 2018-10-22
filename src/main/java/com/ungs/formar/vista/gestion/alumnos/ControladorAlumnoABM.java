@@ -107,8 +107,9 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 				aceptarAM();
 		
 			// BOTON CANCELAR DEL AM
-			else if (e.getSource() == ventanaAM.getCancelar())
+			else if (e.getSource() == ventanaAM.getCancelar()){
 				cancelarAM();
+			}
 		}
 	}
 	
@@ -209,10 +210,14 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 	}
 
 	private void cancelarAM(){
-		ventanaAM.dispose();
-		ventanaAM = null;
-		ventanaABM.getVentana().setEnabled(true);
-		ventanaABM.getVentana().setVisible(true);
+		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
+				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			ventanaAM.dispose();
+			ventanaAM = null;
+			ventanaABM.getVentana().setEnabled(true);
+			ventanaABM.getVentana().setVisible(true);
+		}
 	}
 
 	private boolean validarCampos(){
