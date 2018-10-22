@@ -1,5 +1,8 @@
 package com.ungs.formar.vista.consulta.alumnos;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -27,6 +30,12 @@ public class VentanaAlumnosInscriptos {
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.setTitle("Alumnos inscriptos en el curso: "+Formato.nombre(curso));
 		ventana.setLocationRelativeTo(null); // Centrar ventana
+		ventana.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnVolver.doClick();
+			}
+		});
 		
 		// CREO LA TABLA DE ALUMNOS
 		modeloAlumnos = new DefaultTableModel(null, nombreColumnas);
