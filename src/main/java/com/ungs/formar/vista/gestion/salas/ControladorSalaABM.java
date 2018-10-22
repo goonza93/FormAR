@@ -74,7 +74,10 @@ public class ControladorSalaABM implements ActionListener {
 	private void mostrarSalaModificacion() {
 		Sala sala = obtenerSalaSeleccionada();
 		if (sala != null) {
-			if (!SalaManager.estaAsignada(sala)) {
+			if(sala.getSalaID() == 1){
+				JOptionPane.showMessageDialog(null, "La sala seleccionada no se puede editar.");
+			}
+			else if (!SalaManager.estaAsignada(sala)) {
 				ventanaSalaAM = new VentanaSalaAM(sala);
 				ventanaSalaAM.getAceptar().addActionListener(this);
 				ventanaSalaAM.getCancelar().addActionListener(this);
