@@ -14,7 +14,7 @@ public class InscripcionManager {
 	
 	public static void inscribir(Curso curso, Alumno alumno, Empleado empleado) throws Exception {
 		if (estaInscripto(curso, alumno))
-			throw new Exception("El alumno ya estaba inscripto al curso.");
+			throw new Exception("El alumno "+ alumno.getNombre()+" "+alumno.getApellido()+" ya estaba inscripto al curso.");
 		
 		Date fecha = Almanaque.hoy(); 
 		Inscripcion inscripcion = new Inscripcion(-1, alumno.getClienteID(), curso.getCursoID(), 1, fecha, 1.0);

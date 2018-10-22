@@ -33,6 +33,7 @@ public class VentanaInscripcionAlta {
 		// CREO LA TABLA DE ALUMNOS
 		modeloAlumnos = new DefaultTableModel(null, nombreColumnas);
 		tablaAlumnos = new JTable(modeloAlumnos);
+		//tablaAlumnos.setSelectionMode(0); //estaba para que solo seleccione 1
 		JScrollPane panelAlumnos = new JScrollPane();
 		panelAlumnos.setViewportView(tablaAlumnos);
 		

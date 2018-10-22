@@ -47,6 +47,7 @@ public class VentanaInscripcionABM {
 		tablaCursos = new JTable(modeloCursos);
 		tablaCursos.setDefaultEditor(Object.class, null);
 		tablaCursos.getTableHeader().setReorderingAllowed(false);
+		tablaCursos.setSelectionMode(0);
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tablaCursos);
 		
