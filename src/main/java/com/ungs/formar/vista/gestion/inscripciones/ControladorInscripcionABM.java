@@ -7,13 +7,16 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.InscripcionManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
@@ -253,6 +256,14 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		if (estado==4 || estado==5) {
 			mostrar = false;
 			Popup.mostrar("No se pueden inscribir alumnos a este curso");
+		}
+		if (InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size()==cursoSeleccionado.getCupoMaximo()){
+			mostrar = false;
+			int confirm = JOptionPane.showOptionDialog(null, "El curso seleccionado esta lleno, deseas continuar!?",
+					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (confirm == 0) {
+				mostrar = true;
+			}
 		}
 		
 		if (mostrar) {

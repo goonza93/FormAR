@@ -22,13 +22,6 @@ public class ControladorCursosInscriptos implements ActionListener{
 		this.invocador = invocador;
 		this.alumno = alumno;
 		this.ventana.getVolver().addActionListener(this);
-		
-		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				cerrarVentana();
-			}
-		});
 		this.inicializar();
 	}
 
