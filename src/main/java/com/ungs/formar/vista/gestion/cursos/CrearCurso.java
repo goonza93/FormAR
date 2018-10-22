@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -21,8 +22,11 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class CrearCurso extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -100,6 +104,16 @@ public class CrearCurso extends JFrame {
 		
 		inFechaInicio = new JDateChooser();
 		inFechaInicio.setBounds(208, 184, 269, 20);
+		inFechaInicio.getDateEditor().addPropertyChangeListener(new PropertyChangeListener(){
+			public void propertyChange(PropertyChangeEvent arg0) {
+				if(inFechaInicio.getDate()!=null){
+					Calendar actual = Calendar.getInstance();
+					actual.setTime(inFechaInicio.getDate());
+					actual.add(Calendar.DATE, -7);
+					dateCierreInscripciones.setDate(actual.getTime());
+				}
+			}
+		});
 		panelprincipal.add(inFechaInicio);
 		
 		JLabel lblFechaFin = new JLabel("FECHA FIN:");
