@@ -21,13 +21,6 @@ public class ControladorAlumnosInscriptos implements ActionListener{
 		this.invocador = invocador;
 		this.curso = curso;
 		this.ventana.getVolver().addActionListener(this);
-		this.ventana.getVentana().setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				cerrarVentana();
-			}
-		});
 		this.inicializar();
 	}
 

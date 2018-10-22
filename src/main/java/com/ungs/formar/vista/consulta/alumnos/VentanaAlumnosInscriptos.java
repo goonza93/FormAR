@@ -27,7 +27,6 @@ public class VentanaAlumnosInscriptos {
 		// PROPIEDADES DE LA VENTANA
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 750, 600);
-		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.setTitle("Alumnos inscriptos en el curso: "+Formato.nombre(curso));
 		ventana.setLocationRelativeTo(null); // Centrar ventana
 		ventana.addWindowListener(new WindowAdapter() {
