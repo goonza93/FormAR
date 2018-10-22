@@ -237,8 +237,8 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		if(alumnos.size()==0){
 			Popup.mostrar("Seleccione al menos 1 alumno para poder inscribir.");
 			continuar = false;
-		} else if (alumnos.size()+InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size()>=cursoSeleccionado.getCupoMaximo()) {
-			int confirm = JOptionPane.showOptionDialog(null, "La cantidad de alumnos seleccionados supera el cupo\n maximo, desea continuar!?",
+		} else if (alumnos.size()+InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size()>cursoSeleccionado.getCupoMaximo()) {
+			int confirm = JOptionPane.showOptionDialog(null, "La cantidad de alumnos seleccionados supera \nel cupo maximo, desea continuar!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm != 0) {
 				continuar = false;
