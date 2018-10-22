@@ -80,25 +80,29 @@ public class ControladorSalaABM implements ActionListener {
 				ventanaSalaAM.getCancelar().addActionListener(this);
 				ventanaSalaAM.setVisible(true);
 				ventanaSalaABM.getFrame().setEnabled(false);
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null, "La sala no se puede editar porque esta asignada a una cursada");
 			}
-			
+
 		}
 	}
 
 	private void borrarSala() {
 		Sala sala = obtenerSalaSeleccionada();
 		if (sala != null) {
-			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres eliminar la sala seleccionada!?",
-					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-			if (confirm == 0) {
-				if (!SalaManager.estaAsignada(sala)) {
-					SalaManager.eliminar(sala);
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "La sala no se puede eliminar porque esta asignada a una cursada");
+			if (sala.getSalaID() == 1) {
+				JOptionPane.showMessageDialog(null, "La sala seleccionada no se puede eliminar.");
+			} else {
+				int confirm = JOptionPane.showOptionDialog(null,
+						"Estas seguro que queres eliminar la sala seleccionada!?", "Confirmacion",
+						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (confirm == 0) {
+					if (!SalaManager.estaAsignada(sala)) {
+						SalaManager.eliminar(sala);
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"La sala no se puede eliminar porque esta asignada a una cursada");
+					}
 				}
 			}
 		}
@@ -170,13 +174,13 @@ public class ControladorSalaABM implements ActionListener {
 			Sala salaBD = SalaManager.traerSegunNumero(Integer.decode(numero));
 			if (salaEdicion == null) {
 				isOk = false;
-				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";	
+				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";
 			} else if (salaBD.getSalaID() != salaEdicion.getSalaID()) {
 				isOk = false;
-				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";					
+				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";
 			}
 		}
-		
+
 		if (!nombre.isEmpty() && !Validador.validarNombre(nombre)) {
 			isOk = false;
 			mensaje += "    -El NOMBRE solo puede consistir de letras y espacios.\n";
