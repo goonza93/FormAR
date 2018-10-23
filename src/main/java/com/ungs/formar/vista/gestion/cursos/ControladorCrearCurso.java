@@ -109,8 +109,8 @@ public class ControladorCrearCurso implements ActionListener {
 
 			// BOTON CANCELAR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {
-			int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
-					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?", "Confirmacion",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				this.ventanaCrearCurso.dispose();
 				this.controladorGestionarCurso.inicializar();
@@ -376,7 +376,7 @@ public class ControladorCrearCurso implements ActionListener {
 		JDateChooser inFechaInicio = ventanaCrearCurso.getFechaInicio();
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
-		
+
 		Date fechaCierre = new Date(ventanaCrearCurso.getFechaCierreDeInscripcion().getDate().getTime());
 
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
@@ -386,15 +386,18 @@ public class ControladorCrearCurso implements ActionListener {
 		// CursoManager.obtenerHorariosDeCursada(CursoManager.traerCursoPorId(this.controladorGestionarCurso.a_editar.getCursoID()));
 		if (!horariosCursada.isEmpty()) {
 			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
+
 		} /*
 			 * else { fechaFin = fechaInicio; // el metodo tiene ciclos
 			 * infinitos, para que compile }
 			 */
 		Curso cursoEdicion = CursoManager.traerCursoPorId(idEdicion);
+
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
-				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin, fechaCierre,
-				CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
+				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin,
+				fechaCierre, CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
 		System.out.println("Entrada 5");
+
 	}
 	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO
 
@@ -412,7 +415,7 @@ public class ControladorCrearCurso implements ActionListener {
 		Date fechaInicio = new Date(inFechaInicio.getDate().getTime());
 		Date fechaFin = null;
 		Date fechaCierre = new Date(ventanaCrearCurso.getFechaCierreDeInscripcion().getDate().getTime());
-		
+
 		if (!horariosCursada.isEmpty()) {
 			fechaFin = CursoManager.calcularFechaFin(horariosCursada, horas, fechaInicio);
 		}
@@ -422,11 +425,13 @@ public class ControladorCrearCurso implements ActionListener {
 		// if(responsable ==null)
 		System.out.println("HASTA ACA OK");
 		Integer contenidoID = 0;
-		if(this.contenido !=null){
+		if (this.contenido != null) {
 			contenidoID = this.contenido.getContenidoID();
 		}
-		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa,
-				contenidoID, horariosCursada, fechaInicio, fechaFin, fechaCierre, precio, comision);
+
+		CursoManager.crearCurso(cupoMinimo, cupoMaximo, horas, responsable, instructor, programa, contenidoID,
+				horariosCursada, fechaInicio, fechaFin, fechaCierre, precio, comision);
+
 	}
 
 	// LAS DISTINTAS VENTANAS DE SELECCION UTILIZAN ESTO SETTERS PARA DECINOS
