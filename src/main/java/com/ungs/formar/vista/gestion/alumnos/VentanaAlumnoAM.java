@@ -1,11 +1,17 @@
 package com.ungs.formar.vista.gestion.alumnos;
 
 import javax.swing.JFrame;
+
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
+
 import javax.swing.JButton;
+
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -39,6 +45,7 @@ public class VentanaAlumnoAM extends JFrame {
 		setBounds(100, 100, 400, 300);
 		setLocationRelativeTo(null); // Centrar pantalla
 		setResizable(false);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 
 		// AGREGO LAS ETIQUETAS

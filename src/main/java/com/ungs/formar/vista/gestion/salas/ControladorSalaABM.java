@@ -74,7 +74,10 @@ public class ControladorSalaABM implements ActionListener {
 	private void mostrarSalaModificacion() {
 		Sala sala = obtenerSalaSeleccionada();
 		if (sala != null) {
-			if (!SalaManager.estaAsignada(sala)) {
+			if(sala.getSalaID() == 1){
+				JOptionPane.showMessageDialog(null, "La sala seleccionada no se puede editar.");
+			}
+			else if (!SalaManager.estaAsignada(sala)) {
 				ventanaSalaAM = new VentanaSalaAM(sala);
 				ventanaSalaAM.getAceptar().addActionListener(this);
 				ventanaSalaAM.getCancelar().addActionListener(this);
@@ -110,9 +113,14 @@ public class ControladorSalaABM implements ActionListener {
 	}
 
 	private void cerrarVentanaAM() {
-		ventanaSalaAM.dispose();
-		ventanaSalaABM.getFrame().setEnabled(true);
-		ventanaSalaABM.getFrame().toFront();
+		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
+				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			ventanaSalaAM.dispose();
+			ventanaSalaAM = null;
+			ventanaSalaABM.getFrame().setEnabled(true);
+			ventanaSalaABM.getFrame().toFront();
+		}
 	}
 
 	private void aceptarSala() {
@@ -132,6 +140,7 @@ public class ControladorSalaABM implements ActionListener {
 			}
 
 			ventanaSalaAM.dispose();
+			ventanaSalaAM = null;
 			inicializar();
 			ventanaSalaABM.getFrame().setEnabled(true);
 		}

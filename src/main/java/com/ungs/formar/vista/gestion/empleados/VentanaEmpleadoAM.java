@@ -62,12 +62,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		setContentPane(panelPrincipal);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		// AGREGO LAS ETIQUETAS
 		JLabel lblNombre = new JLabel("Nombre:");

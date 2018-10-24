@@ -2,10 +2,14 @@ package com.ungs.formar.vista.gestion.empleados;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.Validador;
@@ -66,34 +70,43 @@ public class ControladorEmpleadoABM implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaABM.getAgregar())
+		if (e.getSource() == ventanaABM.getAgregar()){
 			abrirVentanaAlta();
-
+		}
 		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaABM.getCancelar())
+		else if (e.getSource() == ventanaABM.getCancelar()){
 			cerrarVentanaABM();
-
+		}
 		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaABM.getEditar())
+		else if (e.getSource() == ventanaABM.getEditar()){
 			abrirVentanaModificacion();
-
+		}
 		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaABM.getBorrar())
+		else if (e.getSource() == ventanaABM.getBorrar()){
 			baja();
-
+		}
 		// BOTON ACEPTAR DEL AM
-		else if (e.getSource() == ventanaAM.getAceptar())
-			aceptarAM();
-
-		// BOTON CANCELAR DEL AM
-		else if (e.getSource() == ventanaAM.getCancelar())
-			cerrarVentanaAM();
+		else if(ventanaAM!=null){
+			if (e.getSource() == ventanaAM.getAceptar()){
+				aceptarAM();
+			}
+			// BOTON CANCELAR DEL AM
+			else if (e.getSource() == ventanaAM.getCancelar()){
+				cerrarVentanaAM();
+			}
+		}
 	}
 
 	private void abrirVentanaAlta() {
 		ventanaAM = new VentanaEmpleadoAM(rol);
 		ventanaAM.getAceptar().addActionListener(this);
 		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaAM();
+			}
+		});
 		ventanaAM.setVisible(true);
 		ventanaABM.getVentana().setEnabled(false);
 	}
@@ -109,6 +122,12 @@ public class ControladorEmpleadoABM implements ActionListener {
 		ventanaAM = new VentanaEmpleadoAM(seleccionados.get(0), Rol.INSTRUCTOR);
 		ventanaAM.getAceptar().addActionListener(this);
 		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaAM();
+			}
+		});
 		ventanaAM.setVisible(true);
 		ventanaABM.getVentana().setEnabled(false);
 	}
@@ -138,10 +157,14 @@ public class ControladorEmpleadoABM implements ActionListener {
 	}
 
 	private void cerrarVentanaAM() {
-		ventanaAM.dispose();
-		ventanaAM = null;
-		ventanaABM.getVentana().setEnabled(true);
-		ventanaABM.getVentana().toFront();
+		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
+				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			ventanaAM.dispose();
+			ventanaAM = null;
+			ventanaABM.getVentana().setEnabled(true);
+			ventanaABM.getVentana().setVisible(true);
+		}
 	}
 
 	private void aceptarAM() {
@@ -167,7 +190,10 @@ public class ControladorEmpleadoABM implements ActionListener {
 				EmpleadoManager.modificarEmpleado(empleado);
 			}
 
-			cerrarVentanaAM();
+			ventanaAM.dispose();
+			ventanaAM = null;
+			ventanaABM.getVentana().setEnabled(true);
+			ventanaABM.getVentana().setVisible(true);
 			inicializar();
 		}
 	}

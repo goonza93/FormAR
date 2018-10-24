@@ -1,15 +1,26 @@
 package com.ungs.formar.vista.consulta.alumnos;
 
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -21,6 +32,9 @@ public class VentanaAlumnosInscriptos {
 	private DefaultTableModel modeloAlumnos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono" };
 	private JButton btnVolver;
+	private JTextField inApellido, inNombre, inEmail, inDNI, inTelefono;
+	private final TableRowSorter<TableModel> filtro;
+	private PanelHorizontal panelConFiltros;
 	
 	public VentanaAlumnosInscriptos(Curso curso) {
 		
@@ -41,7 +55,62 @@ public class VentanaAlumnosInscriptos {
 		tablaAlumnos = new JTable(modeloAlumnos);
 		JScrollPane panelAlumnos = new JScrollPane();
 		panelAlumnos.setViewportView(tablaAlumnos);
-				
+		
+		// CREO LOS FILTROS PARA LA TABLA
+		inApellido = new JTextField();
+		inNombre = new JTextField();
+		inEmail = new JTextField();
+		inDNI = new JTextField();
+		inTelefono = new JTextField();
+		
+		// ALTURA MAXIMA DE 25 PARA LAS ENTRADAS
+		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
+		inApellido.setMaximumSize(largoEntrada);
+		inNombre.setMaximumSize(largoEntrada);
+		inEmail.setMaximumSize(largoEntrada);
+		inDNI.setMaximumSize(largoEntrada);
+		inTelefono.setMaximumSize(largoEntrada);
+		
+		filtro = new TableRowSorter<TableModel>(modeloAlumnos);
+		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
+		tablaAlumnos.setDefaultEditor(Object.class, null);
+		tablaAlumnos.setRowSorter(filtro);
+		
+		DocumentListener listener = crearFiltroListener();
+		inApellido.getDocument().addDocumentListener(listener);
+		inNombre.getDocument().addDocumentListener(listener);
+		inDNI.getDocument().addDocumentListener(listener);
+		inEmail.getDocument().addDocumentListener(listener);
+		inTelefono.getDocument().addDocumentListener(listener);
+		
+		// UBICO LOS FILTROS EN PANELES PARA FACIL MANIPULACION
+		PanelVertical filtroApellido = new PanelVertical();
+		filtroApellido.add(new JLabel("Apellido"));
+		filtroApellido.add(inApellido);
+		
+		PanelVertical filtroNombre = new PanelVertical();
+		filtroNombre.add(new JLabel("Nombre"));
+		filtroNombre.add(inNombre);
+		
+		PanelVertical filtroDNI = new PanelVertical();
+		filtroDNI.add(new JLabel("DNI"));
+		filtroDNI.add(inDNI);
+		
+		PanelVertical filtroEmail = new PanelVertical();
+		filtroEmail.add(new JLabel("E-Mail"));
+		filtroEmail.add(inEmail);
+		
+		PanelVertical filtroTelefono = new PanelVertical();
+		filtroTelefono.add(new JLabel("Telefono"));
+		filtroTelefono.add(inTelefono);
+		
+		panelConFiltros = new PanelHorizontal();
+		panelConFiltros.add(filtroApellido);
+		panelConFiltros.add(filtroNombre);
+		panelConFiltros.add(filtroDNI);
+		panelConFiltros.add(filtroEmail);
+		panelConFiltros.add(filtroTelefono);
+		
 		// CREO LOS BOTONES
 		btnVolver = new JButton("Volver a la vista anterior");
 		PanelHorizontal panelBotones = new PanelHorizontal();
@@ -52,9 +121,36 @@ public class VentanaAlumnosInscriptos {
 		PanelVertical panelPrincipal = new PanelVertical();
 		ventana.setContentPane(panelPrincipal);
 		panelPrincipal.setBorder(bordeSimple);
+		panelPrincipal.add(panelConFiltros);
 		panelPrincipal.add(panelAlumnos);
 		panelPrincipal.add(panelBotones);
 		
+	}
+	
+	public List<RowFilter<Object, Object>> crearFiltros() {
+		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
+		filtros.add(RowFilter.regexFilter("(?i)" + inApellido.getText(), 0));
+		filtros.add(RowFilter.regexFilter("(?i)" + inNombre.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + inDNI.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + inEmail.getText(), 3));
+		filtros.add(RowFilter.regexFilter("(?i)" + inTelefono.getText(), 4));
+		return filtros;
+	}
+	
+	public DocumentListener crearFiltroListener() {
+		DocumentListener ret = new DocumentListener() {
+			public void insertUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void removeUpdate(DocumentEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+
+			public void changedUpdate(DocumentEvent e) {}
+		};
+		
+		return ret;
 	}
 	
 	public JButton getVolver() {

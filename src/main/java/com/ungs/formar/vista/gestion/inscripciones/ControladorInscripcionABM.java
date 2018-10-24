@@ -24,7 +24,7 @@ import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
-public class ControladorInscripcionABM implements ActionListener, Consultable{
+public class ControladorInscripcionABM implements ActionListener, Consultable {
 	private ControladorPantallaPrincipal controlador;
 	private VentanaInscripcionABM ventanaABM;
 	private VentanaInscripcionAlta ventanaAlta;
@@ -40,7 +40,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		this.ventanaABM.getConsultar().addActionListener(this);
 		this.ventanaABM.getVolver().addActionListener(this);
 		this.ventanaABM.getBorrar().addActionListener(this);
-		
+
 		this.ventanaABM.getVentana().setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
@@ -50,7 +50,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		});
 		inicializar();
 	}
-	
+
 	public void inicializar() {
 		ventanaABM.getVentana().setEnabled(true);
 		ventanaABM.getVentana().setVisible(true);
@@ -64,18 +64,9 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 
 		cursos = CursoManager.traerCursos();
 		for (Curso curso : cursos) {
-			Object[] fila = {
-					Formato.nombre(curso),
-					Formato.area(curso),
-					Formato.estado(curso),
-					curso.getCupoMinimo(),
-					curso.getCupoMaximo(),
-					curso.getFechaInicio(),
-					curso.getFechaFin(),
-					Formato.instructor(curso),
-					Formato.responsable(curso),
-					Formato.horarios(curso),
-					};
+			Object[] fila = { Formato.nombre(curso), Formato.area(curso), Formato.estado(curso), curso.getCupoMinimo(),
+					curso.getCupoMaximo(), curso.getFechaInicio(), curso.getFechaFin(), Formato.instructor(curso),
+					Formato.responsable(curso), Formato.horarios(curso), };
 			ventanaABM.getModeloCursos().addRow(fila);
 		}
 	}
@@ -86,46 +77,36 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		ventanaAlta.getModeloAlumnos().setColumnIdentifiers(ventanaAlta.getNombreColumnas());
 
 		alumnos = AlumnoManager.traerAlumnos();
-		for (Alumno alumno: alumnos) {
-			Object[] fila = {
-					alumno.getApellido(),
-					alumno.getNombre(),
-					alumno.getDni(),
-					alumno.getEmail(),
-					alumno.getTelefono()
-					};
+		for (Alumno alumno : alumnos) {
+			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDni(), alumno.getEmail(),
+					alumno.getTelefono() };
 			ventanaAlta.getModeloAlumnos().addRow(fila);
 		}
 	}
-	
+
 	private void llenarTablaBaja() {
 		ventanaBaja.getModeloAlumnos().setRowCount(0);
 		ventanaBaja.getModeloAlumnos().setColumnCount(0);
 		ventanaBaja.getModeloAlumnos().setColumnIdentifiers(ventanaBaja.getNombreColumnas());
-		
+
 		alumnos = InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado);
-		for (Alumno alumno: alumnos) {
-			Object[] fila = {
-					alumno.getApellido(),
-					alumno.getNombre(),
-					alumno.getDni(),
-					alumno.getEmail(),
-					alumno.getTelefono()
-					};
+		for (Alumno alumno : alumnos) {
+			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDni(), alumno.getEmail(),
+					alumno.getTelefono() };
 			ventanaBaja.getModeloAlumnos().addRow(fila);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		// BOTON INSCRIBIR DEL ABM
 		if (e.getSource() == ventanaABM.getInscribir())
 			abrirVentanaAlta();
-		
+
 		// BOTON CONSULTAR DEL ABM
 		else if (e.getSource() == ventanaABM.getConsultar())
 			abrirVentanaConsultar();
-		
+
 		// BOTON CANCELAR INSCRIPCION DEL ABM
 		else if (e.getSource() == ventanaABM.getBorrar())
 			abrirVentanaBaja();
@@ -133,7 +114,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 		// BOTON VOLVER DEL ABM
 		else if (e.getSource() == ventanaABM.getVolver())
 			volver();
-						
+
 		else if (ventanaAlta != null) {
 
 			// BOTON INSCRIBIR DEL ALTA
@@ -144,7 +125,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			else if (e.getSource() == ventanaAlta.getBtnVolver())
 				cerrarVentanaAlta();
 		}
-		
+
 		else if (ventanaBaja != null) {
 
 			// BOTON CANCELAR INSCRIPCION DE BAJAS
@@ -155,34 +136,33 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			else if (e.getSource() == ventanaBaja.getVolver())
 				cerrarVentanaBaja();
 		}
-		
+
 	}
 
 	private void cancelarInscripcion() {
 		/*
-		Alumno alumno = obtenerAlumnoSeleccionadoBaja();
-		if (alumno != null) {
-			InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
-			cerrarVentanaBaja();
-			llenarTabla();
-		} else 
-			Popup.mostrar("Seleccione exactamente 1 alumno para dar de baja");
-			*/
+		 * Alumno alumno = obtenerAlumnoSeleccionadoBaja(); if (alumno != null)
+		 * { InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
+		 * cerrarVentanaBaja(); llenarTabla(); } else
+		 * Popup.mostrar("Seleccione exactamente 1 alumno para dar de baja");
+		 */
 		List<Alumno> alumnos = obtenerAlumnosSeleccionadosBaja2();
-		if(alumnos.size()==0){
+		if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para dar de baja.");
 		} else {
-			for(Alumno alumno : alumnos){
-				InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
+			if (Popup.confirmar("Estas seguro que deseas dar de bajo a los alumnos seleccionado0s?")) {
+				for (Alumno alumno : alumnos) {
+					InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
+				}
+				cerrarVentanaBaja();
 			}
-			cerrarVentanaBaja();
 		}
 	}
 
 	private void abrirVentanaBaja() {
 		cursoSeleccionado = obtenerCursoSeleccionado();
 		if (cursoSeleccionado != null) {
-			
+
 			if (cursoSeleccionado.getEstado() == 4 || cursoSeleccionado.getEstado() == 5) {
 				Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
 				return;
@@ -192,7 +172,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			ventanaBaja.getVentana().setVisible(true);
 			ventanaBaja.getBaja().addActionListener(this);
 			ventanaBaja.getVolver().addActionListener(this);
-			
+
 			ventanaBaja.getVentana().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			ventanaBaja.getVentana().addWindowListener(new WindowAdapter() {
 				@Override
@@ -200,7 +180,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 					cerrarVentanaBaja();
 				}
 			});
-			
+
 			ventanaABM.getVentana().setEnabled(false);
 			llenarTablaBaja();
 		} else
@@ -215,38 +195,38 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 
 	private void cerrarVentanaBaja() {
 		ventanaBaja.getVentana().dispose();
-		ventanaBaja= null;
+		ventanaBaja = null;
 		inicializar();
 	}
 
 	private void inscribirAlumnos() {
-		/*Alumno alumno = obtenerAlumnosSeleccionados();
-		if (alumno != null) {
-			try {
-				InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
-				cerrarVentanaAlta();
-			} catch (Exception e) {
-				Popup.mostrar(e.getMessage());
-			}
-		} else {
-			Popup.mostrar("Seleccione exactamente 1 alumno para poder inscribir.");
-		}*/
-		
+		/*
+		 * Alumno alumno = obtenerAlumnosSeleccionados(); if (alumno != null) {
+		 * try { InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
+		 * cerrarVentanaAlta(); } catch (Exception e) {
+		 * Popup.mostrar(e.getMessage()); } } else {
+		 * Popup.mostrar("Seleccione exactamente 1 alumno para poder inscribir."
+		 * ); }
+		 */
+
 		List<Alumno> alumnos = obtenerAlumnosSeleccionados2();
 		boolean continuar = true;
-		if(alumnos.size()==0){
+		if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para poder inscribir.");
 			continuar = false;
-		} else if (alumnos.size()+InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size()>=cursoSeleccionado.getCupoMaximo()) {
-			int confirm = JOptionPane.showOptionDialog(null, "La cantidad de alumnos seleccionados supera el cupo\n maximo, desea continuar!?",
-					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		} else if (alumnos.size()
+				+ InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size() > cursoSeleccionado
+						.getCupoMaximo()) {
+			int confirm = JOptionPane.showOptionDialog(null,
+					"La cantidad de alumnos seleccionados supera \nel cupo maximo, desea continuar!?", "Confirmacion",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm != 0) {
 				continuar = false;
 			}
 		}
-		
-		if (continuar){
-			for(Alumno alumno : alumnos){
+
+		if (continuar) {
+			for (Alumno alumno : alumnos) {
 				try {
 					InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
 				} catch (Exception e) {
@@ -255,7 +235,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 			}
 			cerrarVentanaAlta();
 		}
-		
+
 	}
 
 	private void volver() {
@@ -279,23 +259,23 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 	private void abrirVentanaAlta() {
 		boolean mostrar = true;
 		cursoSeleccionado = obtenerCursoSeleccionado();
-		
+
 		if (cursoSeleccionado == null) {
 			Popup.mostrar("Seleccione exactamente 1 curso para poder inscribir.");
 			return;
 		}
-	
+
 		// VALIDO LOS ESTADOS
-		int estado = cursoSeleccionado.getEstado(); 
-		
-		if (estado==1 || estado==3)
+		int estado = cursoSeleccionado.getEstado();
+
+		if (estado == 1 || estado == 3)
 			mostrar = mostrar && Popup.confirmar("El curso no esta abierto a inscripciones ¿Desea continuar?");
 
-		if (estado==4 || estado==5) {
+		if (estado == 4 || estado == 5) {
 			mostrar = false;
 			Popup.mostrar("No se pueden inscribir alumnos a este curso");
 		}
-		if (InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size()>=cursoSeleccionado.getCupoMaximo()){
+		if (InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size() >= cursoSeleccionado.getCupoMaximo()) {
 			mostrar = false;
 			int confirm = JOptionPane.showOptionDialog(null, "El curso seleccionado esta lleno, deseas continuar!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -303,7 +283,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 				mostrar = true;
 			}
 		}
-		
+
 		if (mostrar) {
 			ventanaAlta = new VentanaInscripcionAlta(cursoSeleccionado);
 			ventanaAlta.getBtnInscribir().addActionListener(this);
@@ -321,58 +301,88 @@ public class ControladorInscripcionABM implements ActionListener, Consultable{
 	}
 
 	private Curso obtenerCursoSeleccionado() {
-		int registroTabla = ventanaABM.getTablaCursos().getSelectedRow(); //Indice de la tabla
-		
+		int registroTabla = ventanaABM.getTablaCursos().getSelectedRow(); // Indice
+																			// de
+																			// la
+																			// tabla
+
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-		
-		int registro = ventanaABM.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+
+		int registro = ventanaABM.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix
+																							// para
+																							// el
+																							// filtro
 		return cursos.get(registro);
 	}
 
 	private Alumno obtenerAlumnosSeleccionados() {
-		int registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
-		
+		int registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRow(); // Indice
+																			// de
+																			// la
+																			// tabla
+
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-		
-		int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+
+		int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix
+																							// para
+																							// el
+																							// filtro
 		return alumnos.get(registro);
 	}
-	
-	private List<Alumno> obtenerAlumnosSeleccionados2(){
+
+	private List<Alumno> obtenerAlumnosSeleccionados2() {
 		List<Alumno> ret = new ArrayList<Alumno>();
-		int[] registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRows(); //Indice de la tabla
+		int[] registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRows(); // Indice
+																				// de
+																				// la
+																				// tabla
 		// No habia ningun registro seleccionado
 		for (int fila : registroTabla) {
-			int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(fila); // Fix para el filtro
+			int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(fila); // Fix
+																						// para
+																						// el
+																						// filtro
 			ret.add(alumnos.get(registro));
 		}
 		return ret;
 	}
-	
+
 	private Alumno obtenerAlumnoSeleccionadoBaja() {
-		int registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
-		
+		int registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRow(); // Indice
+																			// de
+																			// la
+																			// tabla
+
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-		
-		int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
+
+		int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix
+																							// para
+																							// el
+																							// filtro
 		return alumnos.get(registro);
 	}
-	
-	private List<Alumno> obtenerAlumnosSeleccionadosBaja2(){
+
+	private List<Alumno> obtenerAlumnosSeleccionadosBaja2() {
 		List<Alumno> ret = new ArrayList<Alumno>();
-		int[] registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRows(); //Indice de la tabla
+		int[] registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRows(); // Indice
+																				// de
+																				// la
+																				// tabla
 		// No habia ningun registro seleccionado
 		for (int fila : registroTabla) {
-			int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(fila); // Fix para el filtro
+			int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(fila); // Fix
+																						// para
+																						// el
+																						// filtro
 			ret.add(alumnos.get(registro));
 		}
 		return ret;
 	}
-	
+
 }

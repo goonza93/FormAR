@@ -256,6 +256,9 @@ public class ControladorAgregarHorario implements ActionListener {
 		if (!this.esEdicion && this.sala != null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala)) {
 			msjError += "- La sala no esta disponible en el horario ingresado, seleccione otra sala.\n";
 		}
+		else if(this.esEdicion && this.sala!= null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala)){
+			msjError += "- La sala no esta disponible en el horario ingresado, seleccione otra sala.\n";
+		}
 		return msjError;
 	}
 
