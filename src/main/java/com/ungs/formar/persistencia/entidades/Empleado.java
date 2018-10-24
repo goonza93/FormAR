@@ -1,23 +1,25 @@
 package com.ungs.formar.persistencia.entidades;
 
 import java.sql.Date;
+import com.ungs.formar.persistencia.definidos.Rol;
 
 public class Empleado {
-	private Integer empleadoID, rol;
-	private String DNI, nombre, apellido, telefono, email;
+	private Integer empleadoID;
+	private String dni, nombre, apellido, telefono, email;
 	private Date fechaIngreso, fechaEgreso;
+	private Rol rol;
 	
-	public Empleado(Integer empleadoID, Integer rol, String DNI, String nombre, String apellido, String telefono, String email,
-			Date fechaIngreso, Date fechaEgreso) {
+	public Empleado(Integer empleadoID, String dni, String nombre, String apellido, String telefono, String email,
+			Date fechaIngreso, Date fechaEgreso, Rol rol) {
 		this.empleadoID = empleadoID;
-		this.rol = rol;
-		this.DNI = DNI;
+		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.email = email;
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
+		this.rol = rol;
 	}
 
 	public Integer getEmpleadoID() {
@@ -29,11 +31,11 @@ public class Empleado {
 	}
 
 	public String getDNI() {
-		return DNI;
+		return dni;
 	}
 
-	public void setDNI(String dNI) {
-		DNI = dNI;
+	public void setDNI(String dni) {
+		this.dni = dni;
 	}
 
 	public String getNombre() {
@@ -84,12 +86,12 @@ public class Empleado {
 		this.fechaEgreso = fechaEgreso;
 	}
 
-	public Integer getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(Integer rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-		
+	
 }

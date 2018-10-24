@@ -6,44 +6,66 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
 
 public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
+	private final String campos = "rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
 	private final String tabla = "for_empleados";
+	private final String ID = "empleado_ID";
 
 	public void insert(Empleado empleado) {
-		String consulta = "insert into "+tabla+" (rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso) ";
-		//String fechaEgreso = empleado.getFechaEgreso() == null ? null : "'"+empleado.getFechaEgreso()+"'"; 
+		String dni = empleado.getDNI()==null ? null: "'"+empleado.getDNI()+"'";
+		String nombre = empleado.getNombre()==null ? null: "'"+empleado.getNombre()+"'";
+		String apellido = empleado.getApellido()==null ? null: "'"+empleado.getApellido()+"'";
+		String telefono = empleado.getTelefono()==null ? null: "'"+empleado.getTelefono()+"'";
+		String email = empleado.getEmail()==null ? null: "'"+empleado.getEmail()+"'";
+		String fIngreso = empleado.getFechaIngreso()==null ? null: "'"+empleado.getFechaIngreso()+"'";
+		String fEgreso = empleado.getFechaEgreso()==null ? null: "'"+empleado.getFechaEgreso()+"'";
 		
-		String valores = empleado.getRol() +", '"+ empleado.getDNI() +"', '"+ empleado.getNombre() +"', '"
-				+ empleado.getApellido() +"', '"+ empleado.getTelefono() +"', '"+ empleado.getEmail() +"', '"
-				+ empleado.getFechaIngreso()+"', ";
-		if(empleado.getFechaEgreso() == null){
-			valores += "null";
-		}
-		else{
-			valores += "'"+empleado.getFechaEgreso()+"'";
-		}
-		consulta += "values ("+valores+");";
-		ejecutarSQL(consulta);
+		String valores = Definido.rol(empleado.getRol())
+				+", "+ dni
+				+", "+ nombre
+				+", "+ apellido
+				+", "+ telefono
+				+", "+ email
+				+", "+ fIngreso
+				+", "+ fEgreso;
+		
+		String sql = "insert into "+tabla+"("+campos+") values ("+valores+");";
+		ejecutarSQL(sql);
 	}
 
 	public void update(Empleado empleado) {
-		String consulta = "update "+tabla+" set ";
-		String valores = "DNI = '"+ empleado.getDNI() +"', nombre = '"+ empleado.getNombre() +"', apellido = '"
-		+ empleado.getApellido() +"', telefono = '"+ empleado.getTelefono() +"', email = '"+ empleado.getEmail() +"'";
-		consulta += valores+" where empleado_ID = '"+empleado.getEmpleadoID() +"';";
-		ejecutarSQL(consulta);
+		String dni = empleado.getDNI()==null ? null: "'"+empleado.getDNI()+"'";
+		String nombre = empleado.getNombre()==null ? null: "'"+empleado.getNombre()+"'";
+		String apellido = empleado.getApellido()==null ? null: "'"+empleado.getApellido()+"'";
+		String telefono = empleado.getTelefono()==null ? null: "'"+empleado.getTelefono()+"'";
+		String email = empleado.getEmail()==null ? null: "'"+empleado.getEmail()+"'";
+		String fIngreso = empleado.getFechaIngreso()==null ? null: "'"+empleado.getFechaIngreso()+"'";
+		String fEgreso = empleado.getFechaEgreso()==null ? null: "'"+empleado.getFechaEgreso()+"'";
+		
+		String valores = " rol = "+Definido.rol(empleado.getRol())
+				+", DNI = "+ dni
+				+", nombre = "+ nombre
+				+", apellido = "+apellido
+				+", telefono = "+ telefono
+				+", email = "+ email
+				+", fecha_ingreso = "+ fIngreso
+				+", fecha_egreso = "+ fEgreso;
+		
+		String condicion = ID +"="+empleado.getEmpleadoID();		
+		String sql = "update "+tabla+" set "+valores+" where ("+condicion+");";
+		ejecutarSQL(sql);
 	}
 
 	public void delete(Empleado empleado) {
-		String consulta = "delete from "+tabla+" where ";
-		String valor = "empleado_ID = '"+empleado.getEmpleadoID()+"'";
-		consulta += valor+";";
-		ejecutarSQL(consulta);
+		String condicion = ID +"="+empleado.getEmpleadoID();
+		String sql = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(sql);
 	}
 	
 	public List<Empleado> select() {
@@ -52,6 +74,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		return empleados;
 	}
 	
+	// Carlos: ¿Que esto? ¿acaso no pueden haber dos empleados con el mismo nombre?
 	public Empleado selectByNombre(String nombre) {
 		String condicion = "nombre = '"+nombre+"'";
 		List<Empleado> empleados = selectByCondicion(condicion);
@@ -73,7 +96,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	}
 
 	public Empleado selectByID(Integer id) {
-		String condicion = "empleado_ID = '"+id+"'";
+		String condicion = ID+" = "+id;
 		List<Empleado> empleados = selectByCondicion(condicion);
 		Empleado empleado = null;
 		if (empleados.size()>0)
@@ -82,11 +105,10 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		return empleado;
 	}
 	
-	public List<Empleado> selectByRol(Integer rolID){
-		String condicion = "rol = '"+rolID+"'";
+	public List<Empleado> selectByRol(Rol rol){
+		String condicion = "rol = "+Definido.rol(rol);
 		return selectByCondicion(condicion);
 	}
-
 
 	private List<Empleado> selectByCondicion(String condicion) {
 		List<Empleado> empleados = new ArrayList<Empleado>();
@@ -102,14 +124,14 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 			while (resultados.next()) {
 				empleados.add(new Empleado(
 						resultados.getInt("empleado_ID"),
-						resultados.getInt("rol"),
 						resultados.getString("dni"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),
 						resultados.getString("email"),
 						resultados.getDate("fecha_ingreso"),
-						resultados.getDate("fecha_egreso")
+						resultados.getDate("fecha_egreso"),
+						Definido.rol(resultados.getInt("rol"))
 						));
 				}
 			
@@ -123,5 +145,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		}
 			
 		return empleados;
-	}	
+	}
+
+	
 }

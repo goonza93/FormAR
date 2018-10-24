@@ -1,7 +1,7 @@
 package com.ungs.formar.persistencia.interfacesOBD;
 
 import java.util.List;
-
+import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
 
 public interface EmpleadoODB {
@@ -20,6 +20,6 @@ public interface EmpleadoODB {
 	
 	public Empleado selectByDNI(String dni);
 	
-	public List<Empleado> selectByRol(Integer rolID);
+	public List<Empleado> selectByRol(Rol rol);
 	
 }
