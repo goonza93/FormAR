@@ -4,8 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.Validador;
@@ -113,47 +116,59 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 	}
 	
 	private void mostrarInscripciones() {
-		Alumno alumno = obtenerAlumnoSeleccionado();
+		List<Alumno> seleccion = obtenerAlumnosSeleccionados();
 		
-		if (alumno == null) {
-			Popup.mostrar("Seleccione exactamente 1 alumno para ver a que cursos esta inscripto.");
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Seleccione exactamente 1 alumno para ver sus inscripciones");
 			return;
 		}
 		
+		Alumno alumno = seleccion.get(0);
 		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
 		ventanaABM.getVentana().setEnabled(false);
 	}
 
 	private void eliminarSeleccion() {
-		Alumno alumno = obtenerAlumnoSeleccionado();
-		if (alumno != null) {
-			String pregunta = "¿Esta seguro de que desea borrar a este alumno?\n"+alumno.getApellido()+", "+alumno.getNombre();
-			if (Popup.confirmar(pregunta)){
+		List<Alumno> seleccion = obtenerAlumnosSeleccionados();
+		
+		if (seleccion.size() == 0) {
+			Popup.mostrar("Seleccione al menos un alumno para borrar");
+			return;
+		}
+		
+		String pregunta = "¿Esta seguro de que desea borrar los siguientes alumnos?";
+		for (Alumno alumno : seleccion)
+			pregunta += "\n"+alumno.getApellido()+", "+alumno.getNombre();
+			
+		if (Popup.confirmar(pregunta)){
+			for (Alumno alumno : seleccion)
 				AlumnoManager.eliminarAlumno(alumno);
-				llenarTabla();
-			}
-		} else
-			Popup.mostrar("Seleccione exactamente 1 alumno para borrarlo");
+
+			llenarTabla();
+		}
 	}
 
 	private void abrirVentanaModificacion() {
-		Alumno alumno = obtenerAlumnoSeleccionado();
-		if (alumno != null) {
-			ventanaAM = new VentanaAlumnoAM(alumno);
-			ventanaAM.getAceptar().addActionListener(this);
-			ventanaAM.getCancelar().addActionListener(this);
-			
-			ventanaAM.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosing(WindowEvent e) {
-					cancelarAM();
-				}
-			});
-			ventanaAM.setVisible(true);
-			ventanaABM.getVentana().setEnabled(false);		
+		List<Alumno> seleccion = obtenerAlumnosSeleccionados();
 		
-		} else
+		if (seleccion.size() != 1) {
 			Popup.mostrar("Seleccione exactamente 1 alumno para modificar");
+			return;
+		}
+		
+		Alumno alumno = seleccion.get(0);
+		ventanaAM = new VentanaAlumnoAM(alumno);
+		ventanaAM.getAceptar().addActionListener(this);
+		ventanaAM.getCancelar().addActionListener(this);
+		
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cancelarAM();
+			}
+		});
+		ventanaAM.setVisible(true);
+		ventanaABM.getVentana().setEnabled(false);		
 	}
 
 	private void abrirVentanaAlta() {
@@ -310,15 +325,16 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		return isOk;
 	}
 
-	private Alumno obtenerAlumnoSeleccionado() {
-		int registroTabla = ventanaABM.getTablaAlumnos().getSelectedRow(); //Indice de la tabla
+	private List<Alumno> obtenerAlumnosSeleccionados() {
+		List<Alumno> registros = new ArrayList<Alumno>();
+		int[] indices = ventanaABM.getTablaAlumnos().getSelectedRows();
+
+		for (int indice : indices) {
+			int registro = ventanaABM.getTablaAlumnos().convertRowIndexToModel(indice);
+			registros.add(alumnos.get(registro));
+		}
 		
-		// No habia ningun registro seleccionado
-		if (registroTabla == -1)
-			return null;
-		
-		int registro = ventanaABM.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix para el filtro
-		return alumnos.get(registro);
+		return registros;
 	}
 	
 	private void mostrarFiltros() {
