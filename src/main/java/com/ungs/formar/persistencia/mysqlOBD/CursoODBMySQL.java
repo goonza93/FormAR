@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -34,7 +36,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+", "+ curso.getInstructor()
 				+", "+ curso.getResponsable()
 				+", "+ curso.getPrograma()
-				+", "+ curso.getEstado();
+				+", "+ Definido.estadoCurso(curso.getEstado());
 		
 		String consulta = "insert into "+tabla+" ("+campos+") values ("+valores+");";
 		ejecutarSQL(consulta);
@@ -66,7 +68,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 				+ ", instructor = "+curso.getInstructor()
 				+ ", responsable = "+curso.getResponsable()
 				+ ", programa = "+curso.getPrograma()
-				+ ", estado = "+curso.getEstado()
+				+ ", estado = "+Definido.estadoCurso(curso.getEstado())
 				+ " where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
@@ -122,7 +124,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 						resultados.getDate("fecha_cierre"),
 						resultados.getInt("instructor"),
 						resultados.getInt("programa"),
-						resultados.getInt("estado"),
+						Definido.estadoCurso(resultados.getInt("estado")),
 						resultados.getInt("responsable")
 						));
 				}

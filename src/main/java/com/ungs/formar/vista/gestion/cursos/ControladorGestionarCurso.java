@@ -15,6 +15,7 @@ import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.PdfManager;
 import com.ungs.formar.negocios.ProgramaManager;
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
@@ -24,6 +25,7 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Popup;
 
 public class ControladorGestionarCurso implements ActionListener, Consultable {
 	private GestionarCursos ventanaGestionarCursos;
@@ -72,7 +74,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 					.traerAreaSegunID(
 							ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getAreaID())
 					.getNombre();
-			String estado = CursoManager.traerEstadoSegunID(this.cursos_en_tabla.get(i).getEstado()).getDescripcion();
+			String estado = Formato.estado(this.cursos_en_tabla.get(i));
 			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
 			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
 			Date fechaInicio = this.cursos_en_tabla.get(i).getFechaInicio();
@@ -179,9 +181,9 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			Curso aBorrar = this.cursos_en_tabla.get(modelFila);
 
 			// Si el curso esta FINALIZADO o CANCELADO, NO se puede borrar.
-			if (aBorrar.getEstado() == 4) {
+			if (aBorrar.getEstado() == EstadoCurso.FINALIZADO) {
 				JOptionPane.showMessageDialog(null, "El curso seleccionado ya Finalizo.");
-			} else if (aBorrar.getEstado() == 5) {
+			} else if (aBorrar.getEstado() == EstadoCurso.CANCELADO) {
 				JOptionPane.showMessageDialog(null, "El curso seleccionado ya esta cancelado.");
 			}
 
@@ -204,32 +206,29 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		if (row != -1) {
 			int modelFila = this.ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(row);
 			Curso curso = this.cursos_en_tabla.get(modelFila);
-
-			// Si el curso ya finalizo o esta cancelado, no se puede editar
-			if (curso.getEstado() == 4 || curso.getEstado() == 5) {
-				JOptionPane.showMessageDialog(null, "La cursada seleccionada no esta disponible para edicion");
-			}
-
-			// Si el curso esta Creado, puedo editar cualquier cosa
-			else if (curso.getEstado() == 1) {
+			EstadoCurso estado = curso.getEstado();
+			
+			// Si el curso esta en estado FINALIZADO o CANCELADO, no se puede editar
+			if (estado == EstadoCurso.FINALIZADO || estado == EstadoCurso.CANCELADO)
+				Popup.mostrar("La cursada seleccionada no esta disponible para edicion");
+			
+			// Si el curso esta en esatdo CREADO, puedo editar cualquier cosa
+			else if (estado == EstadoCurso.CREADO)
 				completarVentanaEdicion(curso);
-			}
-
-			// Si el curso esta en estado publicado, puedo editar CIERTAS cosas
-			else if (curso.getEstado() == 2) {
+			
+			// Si el curso esta en estado PUBLICADO, puedo editar CIERTAS cosas
+			else if (estado == EstadoCurso.PUBLICADO)
 				editarPublicado(curso);
-			}
-
+			
 			// Si el curso esta en estado INICIADO, puedo editar CIERTAS cosas
-			else if (curso.getEstado() == 3) {
+			else if (estado == EstadoCurso.INICIADO)
 				editarIniciado(curso);
-			}
 		}
+		
 		// Si no selecciono nada, le aviso
 		else {
-			JOptionPane.showMessageDialog(null, "Seleccione una cursada para editar");
+			Popup.mostrar("Seleccione exactamente 1 cursada para editar");
 		}
-
 	}
 
 	private void editarPublicado(Curso curso) {
@@ -316,20 +315,20 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			Curso aEditar = this.cursos_en_tabla.get(modelFila);
 
 			// Si el curso esta CREADO, puede pasar a PUBLICADO
-			if (aEditar.getEstado() == 1) {
+			if (aEditar.getEstado() == EstadoCurso.CREADO) {
 				if (validarCambioaPublicado(aEditar)) {
 					int confirm = JOptionPane.showOptionDialog(null,
 							"Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
 							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (confirm == 0) {
-						aEditar.setEstado(2);
+						aEditar.setEstado(EstadoCurso.PUBLICADO);
 						CursoManager.cambiarEstadoCurso(aEditar);
 					}
 				}
 			}
 
 			// Si el curso esta PUBLICADO puede pasar a INICIADO
-			else if (aEditar.getEstado() == 2) {
+			else if (aEditar.getEstado() == EstadoCurso.PUBLICADO) {
 				if (validarCambioaIniciado(aEditar)) {
 					if (aEditar.getCupoMinimo() > InscripcionManager.traerAlumnosInscriptos(aEditar).size()) {
 						int confirm = JOptionPane.showOptionDialog(null,
@@ -339,7 +338,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 								"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
 								null);
 						if (confirm == 0) {
-							aEditar.setEstado(3);
+							aEditar.setEstado(EstadoCurso.INICIADO);
 							CursoManager.cambiarEstadoCurso(aEditar);
 						}
 					} else {
@@ -348,14 +347,14 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 								"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
 								null);
 						if (confirm == 0) {
-							aEditar.setEstado(3);
+							aEditar.setEstado(EstadoCurso.INICIADO);
 							CursoManager.cambiarEstadoCurso(aEditar);
 						}
 					}
 				}
 			}
 			// Si el curso esta INICIADO puede pasar a FINALIZADO
-			else if (aEditar.getEstado() == 3) {
+			else if (aEditar.getEstado() == EstadoCurso.INICIADO) {
 				int confirm;
 				if (aEditar.getFechaFin().after(Almanaque.hoy())) {
 					confirm = JOptionPane.showOptionDialog(null,
@@ -368,16 +367,16 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				}
 				if (confirm == 0) {
-					aEditar.setEstado(4);
+					aEditar.setEstado(EstadoCurso.FINALIZADO);
 					CursoManager.cambiarEstadoCurso(aEditar);
 				}
 			}
 			// Si el curso esta FINALIZADO no puede cambiar de estado
-			else if (aEditar.getEstado() == 4) {
+			else if (aEditar.getEstado() == EstadoCurso.FINALIZADO) {
 				JOptionPane.showMessageDialog(null, "La cursada Finalizo. No se puede cambiar su estado");
 			}
 			// Si el curso esta CANCELADO no puede cambiar de estado
-			else if (aEditar.getEstado() == 5) {
+			else if (aEditar.getEstado() == EstadoCurso.CANCELADO) {
 				JOptionPane.showMessageDialog(null, "La cursada fue Cancelada. No se puede cambiar su estado");
 			}
 		}

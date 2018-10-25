@@ -1,17 +1,14 @@
 package com.ungs.formar.vista.gestion.cursos;
 
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -23,10 +20,10 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
-import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.PdfManager;
 import com.ungs.formar.negocios.SalaManager;
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
@@ -245,7 +242,7 @@ public class ControladorCrearCurso implements ActionListener {
 			// Si no es el estado CREADO, unicamente puedo editar sala, por lo
 			// tanto
 			// No dejo editar horas ni minutos.
-			if (aEditar.getEstado() != 1) {
+			if (aEditar.getEstado() != EstadoCurso.CREADO) {
 				this.ventanaABMHorario.getComboDias().setEnabled(false);
 				this.ventanaABMHorario.getTxtHorasInicio().setEditable(false);
 				this.ventanaABMHorario.getTxtHorasFin().setEditable(false);
@@ -395,7 +392,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
 				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin,
-				fechaCierre, CursoManager.traerEstadoSegunID(cursoEdicion.getEstado()), precio, comision);
+				fechaCierre, cursoEdicion.getEstado(), precio, comision);
 		System.out.println("Entrada 5");
 
 	}

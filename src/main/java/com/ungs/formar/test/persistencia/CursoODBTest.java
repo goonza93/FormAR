@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
@@ -35,13 +36,6 @@ public class CursoODBTest {
 	public static void main(String[] args) throws ParseException {
 		DateFormat formato = new SimpleDateFormat("MM-dd-yyyy");
 		Date sqlDate = new Date(formato.parse("02-04-2015").getTime());
-		Curso curso = new Curso(-1, 10, 50, 99,15, 1,"", sqlDate, sqlDate, sqlDate, 1, 1, 1, 1);
-		
-		CursoODB odb = FactoryODB.crearCursoODB();
-		odb.delete(new Curso(2, 1, 1, 1, 1, 1, "", sqlDate, sqlDate, sqlDate, 1, 1, 1, 1));
-		
-		
-		insertTest(curso);
 		selectTest();
 		selectIDMasRecienteTest();
 	}

@@ -5,7 +5,6 @@ import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 import com.ungs.formar.persistencia.interfacesOBD.DiaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
-import com.ungs.formar.persistencia.interfacesOBD.EstadoCursoOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
 import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
@@ -17,7 +16,6 @@ import com.ungs.formar.persistencia.mysqlOBD.AreaOBDMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.CursoODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.DiaODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.EmpleadoODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.EstadoCursoODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.HorarioCursadaODBMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.HorarioOBDMySQL;
 import com.ungs.formar.persistencia.mysqlOBD.InscripcionOBDMySQL;
@@ -49,10 +47,6 @@ public class FactoryODB {
 	
 	public static AlumnoODB crearAlumnoODB() {
 		return new AlumnoODBMySQL();
-	}
-	
-	public static EstadoCursoOBD crearEstadoCursoOBD() {
-		return new EstadoCursoODBMySQL();
 	}
 	
 	public static AreaOBD crearAreaOBD() {

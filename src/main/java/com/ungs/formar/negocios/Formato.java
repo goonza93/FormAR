@@ -4,7 +4,6 @@ import java.util.List;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 
@@ -32,8 +31,7 @@ public class Formato {
 	}
 	
 	public static String estado(Curso curso) {
-		EstadoCurso estado = EstadoCursoManager.traerEstadoDeCurso(curso.getEstado());
-		return estado.getDescripcion();
+		return curso.getEstado().toString();
 	}
 	
 	public static String horarios(Curso curso) {

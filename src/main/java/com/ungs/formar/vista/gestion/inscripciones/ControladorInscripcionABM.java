@@ -15,6 +15,7 @@ import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Programa;
@@ -163,7 +164,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		cursoSeleccionado = obtenerCursoSeleccionado();
 		if (cursoSeleccionado != null) {
 
-			if (cursoSeleccionado.getEstado() == 4 || cursoSeleccionado.getEstado() == 5) {
+			if (cursoSeleccionado.getEstado() == EstadoCurso.FINALIZADO || cursoSeleccionado.getEstado() == EstadoCurso.CANCELADO) {
 				Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
 				return;
 			}
@@ -266,12 +267,12 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		}
 
 		// VALIDO LOS ESTADOS
-		int estado = cursoSeleccionado.getEstado();
+		EstadoCurso estado = cursoSeleccionado.getEstado();
 
-		if (estado == 1 || estado == 3)
+		if (estado == EstadoCurso.CREADO || estado == EstadoCurso.INICIADO)
 			mostrar = mostrar && Popup.confirmar("El curso no esta abierto a inscripciones ¿Desea continuar?");
 
-		if (estado == 4 || estado == 5) {
+		if (estado == EstadoCurso.FINALIZADO || estado == EstadoCurso.CANCELADO) {
 			mostrar = false;
 			Popup.mostrar("No se pueden inscribir alumnos a este curso");
 		}

@@ -2,15 +2,18 @@ package com.ungs.formar.persistencia.entidades;
 
 import java.sql.Date;
 
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
+
 public class Curso {
 	private Integer cursoID, cupoMinimo, cupoMaximo, precio, horas;
 	private String comision;
 	private Date fechaInicio, fechaFin, fechaCierre;
-	private Integer instructor, programa, estado, responsable, contenido;
+	private Integer instructor, programa, responsable, contenido;
+	private EstadoCurso estado;
 	
 	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer precio, Integer horas,
 			Integer contenido, String comision, Date fechaInicio, Date fechaFin, Date fechaCierre,
-			Integer instructor, Integer programa, Integer estado,
+			Integer instructor, Integer programa, EstadoCurso estado,
 			Integer responsable) {
 		this.cursoID = cursoID;
 		this.cupoMinimo = cupoMinimo;
@@ -100,11 +103,11 @@ public class Curso {
 		this.programa = programa;
 	}
 
-	public Integer getEstado() {
+	public EstadoCurso getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Integer estado) {
+	public void setEstado(EstadoCurso estado) {
 		this.estado = estado;
 	}
 

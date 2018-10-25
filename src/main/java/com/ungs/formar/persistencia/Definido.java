@@ -1,5 +1,6 @@
 package com.ungs.formar.persistencia;
 
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.definidos.Rol;
 
 public class Definido {
@@ -23,6 +24,36 @@ public class Definido {
 			ret = Rol.INSTRUCTOR;
 		else if (rol == 3)
 			ret = Rol.SUPERVISOR;
+		return ret;
+	}
+	
+	public static EstadoCurso estadoCurso(Integer estado) {
+		EstadoCurso ret = null;
+		if (estado == 1)
+			ret = EstadoCurso.CREADO;
+		else if (estado == 2)
+			ret = EstadoCurso.PUBLICADO;
+		else if (estado == 3)
+			ret = EstadoCurso.INICIADO;
+		else if (estado == 4)
+			ret = EstadoCurso.FINALIZADO;
+		else if (estado == 5)
+			ret = EstadoCurso.CANCELADO;
+		return ret;
+	}
+	
+	public static Integer estadoCurso(EstadoCurso estado) {
+		Integer ret = null;
+		if (estado == EstadoCurso.CREADO)
+			ret = 1;
+		else if (estado == EstadoCurso.PUBLICADO)
+			ret = 2;
+		else if (estado == EstadoCurso.INICIADO)
+			ret = 3;
+		else if (estado == EstadoCurso.FINALIZADO)
+			ret = 4;
+		else if (estado == EstadoCurso.CANCELADO)
+			ret = 5;
 		return ret;
 	}
 	
