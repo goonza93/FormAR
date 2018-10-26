@@ -1,5 +1,6 @@
 package com.ungs.formar;
 
+import com.ungs.formar.pruebas.Email;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 
