@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.Validador;
@@ -100,6 +101,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 				cerrarVentanaAM();
 			}
 		});
+		ventanaAM.getFechaIngreso().setDate(Almanaque.hoy());
 		ventanaAM.setVisible(true);
 		ventanaABM.getVentana().setEnabled(false);
 	}
