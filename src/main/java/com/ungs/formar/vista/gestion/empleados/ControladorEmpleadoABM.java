@@ -54,15 +54,8 @@ public class ControladorEmpleadoABM implements ActionListener {
 			empleados = EmpleadoManager.traerEmpleados();
 
 		for (Empleado empleado : empleados) {
-			Object[] fila = {
-					empleado.getApellido(),
-					empleado.getNombre(),
-					empleado.getDNI(),
-					empleado.getEmail(),
-					empleado.getTelefono(),
-					empleado.getFechaIngreso(),
-					empleado.getFechaEgreso()
-					};
+			Object[] fila = { empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
+					empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
 			ventanaABM.getModeloEmpleados().addRow(fila);
 		}
 	}
@@ -70,28 +63,28 @@ public class ControladorEmpleadoABM implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaABM.getAgregar()){
+		if (e.getSource() == ventanaABM.getAgregar()) {
 			abrirVentanaAlta();
 		}
 		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaABM.getCancelar()){
+		else if (e.getSource() == ventanaABM.getCancelar()) {
 			cerrarVentanaABM();
 		}
 		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaABM.getEditar()){
+		else if (e.getSource() == ventanaABM.getEditar()) {
 			abrirVentanaModificacion();
 		}
 		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaABM.getBorrar()){
+		else if (e.getSource() == ventanaABM.getBorrar()) {
 			baja();
 		}
 		// BOTON ACEPTAR DEL AM
-		else if(ventanaAM!=null){
-			if (e.getSource() == ventanaAM.getAceptar()){
+		else if (ventanaAM != null) {
+			if (e.getSource() == ventanaAM.getAceptar()) {
 				aceptarAM();
 			}
 			// BOTON CANCELAR DEL AM
-			else if (e.getSource() == ventanaAM.getCancelar()){
+			else if (e.getSource() == ventanaAM.getCancelar()) {
 				cerrarVentanaAM();
 			}
 		}
@@ -113,12 +106,12 @@ public class ControladorEmpleadoABM implements ActionListener {
 
 	private void abrirVentanaModificacion() {
 		List<Empleado> seleccionados = obtenerRegistrosSeleccionados();
-		
+
 		if (seleccionados.size() != 1) {
 			Popup.mostrar("Seleccione exactamente un empleado para poder editarlo");
 			return;
 		}
-		
+
 		ventanaAM = new VentanaEmpleadoAM(seleccionados.get(0), Rol.INSTRUCTOR);
 		ventanaAM.getAceptar().addActionListener(this);
 		ventanaAM.getCancelar().addActionListener(this);
@@ -134,31 +127,33 @@ public class ControladorEmpleadoABM implements ActionListener {
 
 	private void baja() {
 		List<Empleado> seleccionados = obtenerRegistrosSeleccionados();
-		
+
 		if (seleccionados.size() == 0) {
 			Popup.mostrar("Seleccione al menos un empleado para poder borrarlo");
 			return;
 		}
-		
+
 		boolean mostrarMensaje = false;
 		String mensaje = "Los siguientes empleados no pueden ser borrados porque tiene asignado al menos un curso:";
-		for (Empleado empleado : seleccionados) {
-			if (Instructor.tieneAsignaciones(empleado)) {
-				mostrarMensaje = true;
-				mensaje += "\n    -"+empleado.getApellido()+", "+empleado.getNombre();
-			} else
-				EmpleadoManager.eliminarEmpleado(empleado);
+		if (Popup.confirmar("Esta seguro que quiere borrar los empleados seleccionados?")) {
+			for (Empleado empleado : seleccionados) {
+				if (Instructor.tieneAsignaciones(empleado)) {
+					mostrarMensaje = true;
+					mensaje += "\n    -" + empleado.getApellido() + ", " + empleado.getNombre();
+				} else
+					EmpleadoManager.eliminarEmpleado(empleado);
+			}
 		}
-			
-		if (mostrarMensaje)	
+		if (mostrarMensaje)
 			Popup.mostrar(mensaje);
-		
+
 		inicializar();
+
 	}
 
 	private void cerrarVentanaAM() {
-		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
-				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?", "Confirmacion",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaAM.dispose();
 			ventanaAM = null;
@@ -238,7 +233,6 @@ public class ControladorEmpleadoABM implements ActionListener {
 			mensaje += "    -El NOMBRE debe tener una longitud maxima de 50\n";
 		}
 
-		
 		// VALIDAR DNI
 		if (dni == null) {
 			isOk = false;
@@ -249,13 +243,13 @@ public class ControladorEmpleadoABM implements ActionListener {
 		} else if (EmpleadoManager.estaEnUsoDNI(dni)) {
 			Empleado empleadoEdicion = ventanaAM.getEmpleado();
 			Empleado empleadoBD = EmpleadoManager.traerSegunDNI(dni);
-			
+
 			// caso: es un nuevo empleado
 			if (empleadoEdicion == null) {
 				isOk = false;
 				mensaje += "    -El DNI ya esta siendo utilizado por otro empleado.\n";
 			}
-			
+
 			// caso: se esta editando uno existente
 			else if (empleadoBD.getEmpleadoID() != empleadoEdicion.getEmpleadoID()) {
 				isOk = false;
@@ -266,7 +260,6 @@ public class ControladorEmpleadoABM implements ActionListener {
 			mensaje += "    -El DNI debe tener una longitud maxima de 20\n";
 		}
 
-		
 		if (telefono == null) {
 			isOk = false;
 			mensaje += "    -Por favor ingrese el TELEFONO.\n";
@@ -286,7 +279,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		} else if (!Validador.validarEmail(email)) {
 			isOk = false;
 			mensaje += "    -El E-MAIL ingresado no es valido\n";
-		}else if (email.length()> 50) {
+		} else if (email.length() > 50) {
 			isOk = false;
 			mensaje += "    -El E-MAIL debe tener una longitud maxima de 50\n";
 		}
@@ -310,8 +303,8 @@ public class ControladorEmpleadoABM implements ActionListener {
 			int registro = ventanaABM.getTablaEmpleados().convertRowIndexToModel(indice);
 			registros.add(empleados.get(registro));
 		}
-		
+
 		return registros;
 	}
-	
+
 }
