@@ -92,10 +92,9 @@ public class CursoManager {
 			if (!horarioCursadas.isEmpty()) {
 				for (HorarioCursada horarioCursada : horarioCursadas)
 					HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
-
-				CursoODB odb = FactoryODB.crearCursoODB();
-				odb.delete(curso);
 			}
+			CursoODB odb = FactoryODB.crearCursoODB();
+			odb.delete(curso);
 		}
 		// Si Tiene otro estado, el curso pasa a estar Cancelado
 		else {

@@ -2,7 +2,9 @@ package com.ungs.formar.negocios;
 
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 
 public class AlumnoManager {
@@ -43,4 +45,19 @@ public class AlumnoManager {
 		return alumno != null;
 	}
 
+	public static boolean estaCursando(Alumno alumno){
+		List<Curso> cursadas = InscripcionManager.traerCursosInscriptos(alumno);
+		
+		if(!cursadas.isEmpty()){
+			for(Curso c : cursadas){
+				if(c.getEstado()!= EstadoCurso.CANCELADO &&
+						c.getEstado()!= EstadoCurso.FINALIZADO){
+					return true;
+				}
+					
+			}
+		}
+		
+		return false;
+	}
 }
