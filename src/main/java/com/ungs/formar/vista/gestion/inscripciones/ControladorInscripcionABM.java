@@ -151,7 +151,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para dar de baja.");
 		} else {
-			if (Popup.confirmar("Estas seguro que deseas dar de bajo a los alumnos seleccionado0s?")) {
+			if (Popup.confirmar("Estas seguro que deseas dar de bajo a los alumnos seleccionados?")) {
 				for (Alumno alumno : alumnos) {
 					InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
 				}
@@ -371,16 +371,10 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 	private List<Alumno> obtenerAlumnosSeleccionadosBaja2() {
 		List<Alumno> ret = new ArrayList<Alumno>();
-		int[] registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRows(); // Indice
-																				// de
-																				// la
-																				// tabla
+		int[] registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRows(); 
 		// No habia ningun registro seleccionado
 		for (int fila : registroTabla) {
-			int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(fila); // Fix
-																						// para
-																						// el
-																						// filtro
+			int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(fila); 
 			ret.add(alumnos.get(registro));
 		}
 		return ret;
