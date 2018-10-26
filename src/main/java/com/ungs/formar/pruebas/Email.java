@@ -35,14 +35,14 @@ public class Email {
 			// Define message
 			MimeMessage message = new MimeMessage(session);
 			//message.setFrom(new InternetAddress("gfgrillo3@gmail.com"));
-			message.setSubject("asunto");
+			message.setSubject("Generar contraseña");
 			//EMAIL Destinatario
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(""));
-			message.setText("gracias Chuidiang");
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("benescence@hotmail.com"));
+			message.setText("Prueba envio mail");
 			// Envia el mensaje
 			Transport t = session.getTransport("smtp");
 			//Email de formar, Contrasena de formar
-			t.connect("","");
+			t.connect("formarungs@gmail.com","formar123");
 			t.sendMessage(message,message.getAllRecipients());
 			t.close();
 
