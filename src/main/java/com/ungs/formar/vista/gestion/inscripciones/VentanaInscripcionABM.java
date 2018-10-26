@@ -49,6 +49,7 @@ public class VentanaInscripcionABM {
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		PanelVertical panelPrincipal = new PanelVertical();
 		ventana.setContentPane(panelPrincipal);
+		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

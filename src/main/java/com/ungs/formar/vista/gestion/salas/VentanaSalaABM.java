@@ -43,7 +43,8 @@ public class VentanaSalaABM {
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setTitle("Gestion de salas");
 		ventana.setLocationRelativeTo(null);
-
+		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
+		
 		modeloSalas = new DefaultTableModel(null, nombreColumnas);
 
 		JScrollPane spSalas = new JScrollPane();

@@ -45,6 +45,8 @@ public class VentanaProgramaGestion extends JFrame {
 		setBounds(100, 100, 669, 393);
 		setTitle("Gestion de programas");
 		setLocationRelativeTo(null);
+		setExtendedState(MAXIMIZED_BOTH);
+
 
 		modeloProgramas = new DefaultTableModel(null, nombreColumnas);
 

@@ -65,6 +65,8 @@ public class GestionarCursos {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setTitle("Gestion de cursadas");
 		frame.setLocationRelativeTo(null);
+		frame.setExtendedState(frame.MAXIMIZED_BOTH);
+
 
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
 

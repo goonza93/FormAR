@@ -37,6 +37,8 @@ public class VentanaEmpleadoABM {
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setTitle("Gestion de instructores");
 		ventana.setLocationRelativeTo(null);
+		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
+
 		
 		modeloEmpleados = new DefaultTableModel(null, nombreColumnas);
 		filtro = new TableRowSorter<TableModel>(modeloEmpleados);
