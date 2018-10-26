@@ -111,6 +111,11 @@ public class ControladorEmpleadoABM implements ActionListener {
 			Popup.mostrar("Seleccione exactamente un empleado para poder editarlo");
 			return;
 		}
+		if(seleccionados.get(0).getFechaEgreso()!= null){
+			Empleado emp = seleccionados.get(0);
+			Popup.mostrar(emp.getApellido()+", " + emp.getNombre()+" ya no pertenece a la institucion");
+			return;
+		}
 
 		ventanaAM = new VentanaEmpleadoAM(seleccionados.get(0), Rol.INSTRUCTOR);
 		ventanaAM.getAceptar().addActionListener(this);
@@ -134,19 +139,31 @@ public class ControladorEmpleadoABM implements ActionListener {
 		}
 
 		boolean mostrarMensaje = false;
+		boolean mostrarMensajeYaBorrado = false;
 		String mensaje = "Los siguientes empleados no pueden ser borrados porque tiene asignado al menos un curso:";
+		String mensajeYaBorrado = "\nLos siguientes empleados ya no pertenecen a la institucion: ";
+		
 		if (Popup.confirmar("Esta seguro que quiere borrar los empleados seleccionados?")) {
 			for (Empleado empleado : seleccionados) {
-				if (Instructor.tieneAsignaciones(empleado)) {
+				if(empleado.getFechaEgreso()!=null){
+					mostrarMensajeYaBorrado = true;
+					mensajeYaBorrado += "\n    -" + empleado.getApellido() + ", " + empleado.getNombre();
+				}
+				else if (Instructor.tieneAsignaciones(empleado)) {
 					mostrarMensaje = true;
 					mensaje += "\n    -" + empleado.getApellido() + ", " + empleado.getNombre();
 				} else
 					EmpleadoManager.eliminarEmpleado(empleado);
 			}
 		}
+		String msjErrorCompleto ="";
 		if (mostrarMensaje)
-			Popup.mostrar(mensaje);
-
+			msjErrorCompleto += mensaje;
+		if (mostrarMensajeYaBorrado)
+			msjErrorCompleto += mensajeYaBorrado;
+		if(mostrarMensaje || mostrarMensajeYaBorrado)
+			Popup.mostrar(msjErrorCompleto);
+		
 		inicializar();
 
 	}
