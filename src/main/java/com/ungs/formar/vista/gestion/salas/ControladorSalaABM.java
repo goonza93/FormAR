@@ -217,10 +217,7 @@ public class ControladorSalaABM implements ActionListener {
 	}
 
 	private Sala obtenerSalaSeleccionada() {
-		int registroTabla = ventanaSalaABM.getTablaSalas().getSelectedRow(); // Indice
-																				// de
-																				// la
-																				// tabla
+		int registroTabla = ventanaSalaABM.getTablaSalas().getSelectedRow(); 
 
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1) {
@@ -228,10 +225,7 @@ public class ControladorSalaABM implements ActionListener {
 			return null;
 		}
 
-		int registro = ventanaSalaABM.getTablaSalas().convertRowIndexToModel(registroTabla); // Fix
-																								// para
-																								// el
-																								// filtro
+		int registro = ventanaSalaABM.getTablaSalas().convertRowIndexToModel(registroTabla);
 		return salas.get(registro);
 	}
 

@@ -55,6 +55,8 @@ public class VentanaSalaABM {
 		tablaSalas.getTableHeader().setReorderingAllowed(false);
 		filtro = new TableRowSorter<TableModel>(modeloSalas);
 		tablaSalas.setRowSorter(filtro);
+		tablaSalas.setSelectionMode(0);
+		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
