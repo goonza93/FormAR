@@ -1,36 +1,35 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Alumno {
-	private Integer clienteID;
-	private String dni;
-	private String nombre;
-	private String apellido;
-	private String telefono;
-	private String email;
+	private Integer ID;
+	private String DNI, nombre, apellido, telefono, email;
+	private Boolean activo;
 	
-	public Alumno(int clienteID, String dni, String nombre, String apellido, String telefono, String email){
-		this.clienteID = clienteID;
-		this.dni = dni;
+	public Alumno(Integer iD, String dNI, String nombre, String apellido, String telefono, String email,
+			Boolean activo) {
+		this.ID = iD;
+		this.DNI = dNI;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.email = email;
+		this.activo = activo;
 	}
 
-	public int getClienteID() {
-		return clienteID;
+	public Integer getID() {
+		return ID;
 	}
 
-	public void setClienteID(int clienteID) {
-		this.clienteID = clienteID;
+	public void setID(Integer iD) {
+		ID = iD;
 	}
 
-	public String getDni() {
-		return dni;
+	public String getDNI() {
+		return DNI;
 	}
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public void setDNI(String dNI) {
+		DNI = dNI;
 	}
 
 	public String getNombre() {
@@ -63,6 +62,14 @@ public class Alumno {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 	
 }

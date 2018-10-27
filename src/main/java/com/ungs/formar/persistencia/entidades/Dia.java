@@ -1,11 +1,11 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Dia {
-	private Integer diaID;
+	private Integer ID;
 	private String descripcion;
 	
-	public Dia(Integer diaID, String descripcion) {
-		this.diaID = diaID;
+	public Dia(Integer ID, String descripcion) {
+		this.ID = ID;
 		this.descripcion = descripcion;
 	}
 	
@@ -15,11 +15,11 @@ public class Dia {
 	}
 
 	public Integer getDiaID() {
-		return diaID;
+		return ID;
 	}
 
-	public void setDiaID(Integer diaID) {
-		this.diaID = diaID;
+	public void setID(Integer ID) {
+		this.ID = ID;
 	}
 
 	public String getDescripcion() {

@@ -17,7 +17,7 @@ public class InscripcionManager {
 			throw new Exception("El alumno "+ alumno.getNombre()+" "+alumno.getApellido()+" ya estaba inscripto al curso.");
 		
 		Date fecha = Almanaque.hoy(); 
-		Inscripcion inscripcion = new Inscripcion(-1, alumno.getClienteID(), curso.getCursoID(), 1, fecha, 1.0);
+		Inscripcion inscripcion = new Inscripcion(-1, alumno.getID(), curso.getCursoID(), 1, fecha, 1.0);
 		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
 		obd.insert(inscripcion);
 	}

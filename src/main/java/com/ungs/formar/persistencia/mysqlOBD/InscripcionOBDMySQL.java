@@ -40,7 +40,7 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	}
 
 	public List<Inscripcion> selectByAlumno(Alumno alumno) {
-		String condicion = "cliente = "+alumno.getClienteID();
+		String condicion = "cliente = "+alumno.getID();
 		return selectByCondicion(condicion);
 	}
 
@@ -50,7 +50,7 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	}
 
 	public Inscripcion selectByCursoAlumno(Curso curso, Alumno alumno) {
-		String condicion = "cliente = "+alumno.getClienteID()+" and curso = "+curso.getCursoID();
+		String condicion = "cliente = "+alumno.getID()+" and curso = "+curso.getCursoID();
 		List<Inscripcion> inscripciones = selectByCondicion(condicion);
 		if (inscripciones.size()>0)
 			return inscripciones.get(0);

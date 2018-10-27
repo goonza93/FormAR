@@ -127,7 +127,7 @@ public class ControladorAgregarHorario implements ActionListener {
 		// CREO EL HORARIO CURSADA PERO LO MANTENGO SI SUBIR AUN
 		Integer salaId = null;
 		if(sala!=null){
-			salaId = sala.getSalaID();
+			salaId = sala.getID();
 		}
 		HorarioCursada horarioCursada = new HorarioCursada(-1, -1, horarioID, salaId);
 		if (controladorCrearCurso.agregarHorarioDeCursada(horarioCursada)) {
@@ -164,7 +164,7 @@ public class ControladorAgregarHorario implements ActionListener {
 		HorarioCursadaManager.actualizarHorario(horarioEdicion);
 
 		// fix para que tome la sala
-		horarioCursadaEdicion.setSala(sala.getSalaID());
+		horarioCursadaEdicion.setSala(sala.getID());
 		
 		controladorCrearCurso.actualizarHorarioCursada(indiceHorarioEdicion, horarioCursadaEdicion);
 		controladorCrearCurso.actualizarFechaFin();

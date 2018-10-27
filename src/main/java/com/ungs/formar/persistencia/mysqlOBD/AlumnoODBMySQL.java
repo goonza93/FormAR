@@ -11,12 +11,11 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 
 public class AlumnoODBMySQL extends ODB implements AlumnoODB{
-	private final String campos = "dni, nombre, apellido, telefono, email";
-	private final String tabla = "for_clientes";
-	private final String ID = "cliente_ID";
+	private final String campos = "DNI, nombre, apellido, telefono, email, activo";
+	private final String tabla = "for_alumnos";
 	
 	public void insert (Alumno alumno) {
-		String dni = "'"+alumno.getDni()+"'";
+		String dni = "'"+alumno.getDNI()+"'";
 		String nombre = "'"+alumno.getNombre()+"'";
 		String apellido = "'"+alumno.getApellido()+"'";
 		String telefono = alumno.getTelefono() == null ? null :"'"+alumno.getTelefono()+"'"; // El telefono es opcional
@@ -26,19 +25,20 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 				+", "+nombre
 				+", "+apellido
 				+", "+telefono
-				+", "+mail;
+				+", "+mail
+				+", "+alumno.getActivo();
 				
 		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(consulta);
 	}
 	
 	public void update(Alumno alumno) {
-		String dni = "'"+alumno.getDni()+"'";
+		String dni = "'"+alumno.getDNI()+"'";
 		String nombre = "'"+alumno.getNombre()+"'";
 		String apellido = "'"+alumno.getApellido()+"'";
 		String telefono = alumno.getTelefono() == null ? null :"'"+alumno.getTelefono()+"'"; // El telefono es opcional
 		String mail = "'"+alumno.getEmail()+"'";
-		String condicion = ID+"="+alumno.getClienteID();
+		String condicion = "ID ="+alumno.getID();
 		
 		String consulta = "update " + tabla
 				+" set dni = "+dni
@@ -46,18 +46,19 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 				+", apellido = "+apellido
 				+", telefono = "+telefono
 				+", email = "+ mail
+				+", activo = "+ alumno.getActivo()
 				+"  where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
 	
 	public void delete(Alumno alumno){
-		String condicion = ID+"="+alumno.getClienteID();
+		String condicion = "ID = "+alumno.getID();
 		String consulta = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
 
 	public List<Alumno> select() {
-		String condicion = "1=1";
+		String condicion = "true";
 		List<Alumno> alumnos = selectByCondicion(condicion);
 		return alumnos;
 	}
@@ -65,36 +66,30 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 	public Alumno selectByNombre(String nombre) {
 		String condicion = "nombre = '"+nombre+"'";
 		List<Alumno> alumnos = selectByCondicion(condicion);
-		Alumno alumno = null;
 		if (alumnos.size()>0)
-			alumno = alumnos.get(0); 
-		
-		return alumno;
+			return alumnos.get(0); 
+		return null;
 	}
 	
 	public Alumno selectByID(Integer id) {
-		String condicion = ID+" = "+id;
+		String condicion = "ID = "+id;
 		List<Alumno> alumnos = selectByCondicion(condicion);
-		Alumno alumno = null;
 		if (alumnos.size()>0)
-			alumno = alumnos.get(0); 
-		
-		return alumno;
+			return alumnos.get(0); 
+		return null;
 	}
 
 	public Alumno selectByDNI(String dni) {
-		String condicion = "dni = '"+dni+"'";
+		String condicion = "DNI = '"+dni+"'";
 		List<Alumno> alumnos = selectByCondicion(condicion);
-		Alumno alumno = null;
 		if (alumnos.size()>0)
-			alumno = alumnos.get(0);
-		
-		return alumno;
+			return alumnos.get(0); 
+		return null;
 	}
 	
 	private List<Alumno> selectByCondicion(String condicion) {
 		List<Alumno> alumnos = new ArrayList<Alumno>();
-		String comandoSQL = "select "+ID+", "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 
@@ -104,12 +99,13 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 	
 			while (resultados.next()) {
 				alumnos.add(new Alumno(
-						resultados.getInt("cliente_ID"),
-						resultados.getString("dni"),
+						resultados.getInt("ID"),
+						resultados.getString("DNI"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),
-						resultados.getString("email")
+						resultados.getString("email"),
+						resultados.getBoolean("activo")
 						));
 				}
 			

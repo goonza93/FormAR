@@ -79,7 +79,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 		alumnos = AlumnoManager.traerAlumnos();
 		for (Alumno alumno : alumnos) {
-			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDni(), alumno.getEmail(),
+			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDNI(), alumno.getEmail(),
 					alumno.getTelefono() };
 			ventanaAlta.getModeloAlumnos().addRow(fila);
 		}
@@ -92,7 +92,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 		alumnos = InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado);
 		for (Alumno alumno : alumnos) {
-			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDni(), alumno.getEmail(),
+			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDNI(), alumno.getEmail(),
 					alumno.getTelefono() };
 			ventanaBaja.getModeloAlumnos().addRow(fila);
 		}

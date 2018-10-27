@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 public class SalaManager {
 	
 	public static void crear(Integer numero, String nombre, Integer capacidad) {
-		Sala sala = new Sala(-1, numero, capacidad, nombre);
+		Sala sala = new Sala(-1, numero, capacidad, nombre, true);
 		SalaODB odb = FactoryODB.crearSalaODB();
 		odb.insert(sala);
 	}
@@ -47,20 +47,15 @@ public class SalaManager {
 	}
 	
 	public static boolean estaAsignada(Sala sala){
-				HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
-				List<HorarioCursada> horarios = obd.selectBySala(sala.getSalaID());
-				
-				return !horarios.isEmpty();
+		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
+		List<HorarioCursada> horarios = obd.selectBySala(sala.getID());
+		return !horarios.isEmpty();
 	}
-	
-	
-	
-	
 	
 	public static boolean validarHorarioDeCursada(Horario horarioIngresado, Sala salaSeleccionada) {
 		// Traigo los horario que ocupan la misma sala
 		HorarioCursadaOBD obd = FactoryODB.crearHorarioCursada();
-		List<HorarioCursada> horarios = obd.selectBySala(salaSeleccionada.getSalaID());
+		List<HorarioCursada> horarios = obd.selectBySala(salaSeleccionada.getID());
 		
 		// Comparo el nuevo Horario de cursada con los ya existentes para ver si alguno se superpone
 		// Si uno solo se superpone entonces el nuevo horario de cursada no es valido
@@ -76,8 +71,6 @@ public class SalaManager {
 		
 		return true;
 	}
-	
-	
 	
 	public static boolean horariosSupuerpuestos(Horario horario1, Horario horario2) {
 		// Si no son el mismo dia no pueden superponerse
