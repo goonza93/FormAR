@@ -13,9 +13,8 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
 
 public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
-	private final String campos = "rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
+	private final String campos = "rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso, usuario, password, activo";
 	private final String tabla = "for_empleados";
-	private final String ID = "empleado_ID";
 
 	public void insert(Empleado empleado) {
 		String dni = empleado.getDNI()==null ? null: "'"+empleado.getDNI()+"'";
@@ -25,6 +24,8 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		String email = empleado.getEmail()==null ? null: "'"+empleado.getEmail()+"'";
 		String fIngreso = empleado.getFechaIngreso()==null ? null: "'"+empleado.getFechaIngreso()+"'";
 		String fEgreso = empleado.getFechaEgreso()==null ? null: "'"+empleado.getFechaEgreso()+"'";
+		String usuario = empleado.getUsuario()==null ? null: "'"+empleado.getUsuario()+"'";
+		String password = empleado.getPassword()==null ? null: "'"+empleado.getPassword()+"'";
 		
 		String valores = Definido.rol(empleado.getRol())
 				+", "+ dni
@@ -33,7 +34,10 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 				+", "+ telefono
 				+", "+ email
 				+", "+ fIngreso
-				+", "+ fEgreso;
+				+", "+ fEgreso
+				+", "+ usuario
+				+", "+ password
+				+", "+ empleado.getActivo();
 		
 		String sql = "insert into "+tabla+"("+campos+") values ("+valores+");";
 		ejecutarSQL(sql);
@@ -47,6 +51,8 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		String email = empleado.getEmail()==null ? null: "'"+empleado.getEmail()+"'";
 		String fIngreso = empleado.getFechaIngreso()==null ? null: "'"+empleado.getFechaIngreso()+"'";
 		String fEgreso = empleado.getFechaEgreso()==null ? null: "'"+empleado.getFechaEgreso()+"'";
+		String usuario = empleado.getUsuario()==null ? null: "'"+empleado.getUsuario()+"'";
+		String password = empleado.getPassword()==null ? null: "'"+empleado.getPassword()+"'";
 		
 		String valores = " rol = "+Definido.rol(empleado.getRol())
 				+", DNI = "+ dni
@@ -55,15 +61,17 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 				+", telefono = "+ telefono
 				+", email = "+ email
 				+", fecha_ingreso = "+ fIngreso
-				+", fecha_egreso = "+ fEgreso;
-		
-		String condicion = ID +"="+empleado.getEmpleadoID();		
+				+", fecha_egreso = "+ fEgreso
+				+", usuario = "+ usuario
+				+", password = "+ password
+				+", activo = "+ empleado.getActivo();
+		String condicion = "ID = "+empleado.getID();		
 		String sql = "update "+tabla+" set "+valores+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}
 
 	public void delete(Empleado empleado) {
-		String condicion = ID +"="+empleado.getEmpleadoID();
+		String condicion = "ID = "+empleado.getID();
 		String sql = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}
@@ -96,7 +104,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	}
 
 	public Empleado selectByID(Integer id) {
-		String condicion = ID+" = "+id;
+		String condicion = "ID = "+id;
 		List<Empleado> empleados = selectByCondicion(condicion);
 		Empleado empleado = null;
 		if (empleados.size()>0)
@@ -112,8 +120,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 
 	private List<Empleado> selectByCondicion(String condicion) {
 		List<Empleado> empleados = new ArrayList<Empleado>();
-		String campos = "empleado_ID, rol, dni, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso";
-		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 
@@ -123,15 +130,18 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	
 			while (resultados.next()) {
 				empleados.add(new Empleado(
-						resultados.getInt("empleado_ID"),
-						resultados.getString("dni"),
+						resultados.getInt("ID"),
+						resultados.getString("DNI"),
 						resultados.getString("nombre"),
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),
 						resultados.getString("email"),
+						resultados.getString("usuario"),
+						resultados.getString("password"),
 						resultados.getDate("fecha_ingreso"),
 						resultados.getDate("fecha_egreso"),
-						Definido.rol(resultados.getInt("rol"))
+						Definido.rol(resultados.getInt("rol")),
+						resultados.getBoolean("activo")
 						));
 				}
 			

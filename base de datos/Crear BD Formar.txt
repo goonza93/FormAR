@@ -118,7 +118,7 @@ CREATE TABLE for_cursos (
 	fecha_inicio DATE,
 	fecha_fin DATE,
 	fecha_cierre DATE,
-    contenido INT(4),
+    contenido INT(4) NULL,
     comision VARCHAR(10),
 	horas INT(5) NOT NULL,
 	instructor INT(4) NULL,

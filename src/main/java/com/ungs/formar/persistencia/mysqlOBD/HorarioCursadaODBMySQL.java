@@ -15,8 +15,8 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	private final String tabla = "for_horarios_cursada";
 
 	public void insert(HorarioCursada horarioCursada) {
-		String campos = "curso, horario, sala";
-		String valores = horarioCursada.getCurso()+", "+horarioCursada.getHorario()+", "+horarioCursada.getSala(); 
+		String campos = "curso, horario, sala, activo";
+		String valores = horarioCursada.getCurso()+", "+horarioCursada.getHorario()+", "+horarioCursada.getSala()+", "+horarioCursada.getActivo(); 
 		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(sql);
 	}
@@ -35,13 +35,13 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	}
 	
 	public List<HorarioCursada> selectByCurso(Curso curso) {
-		return selectByCondicion("curso="+curso.getCursoID());
+		return selectByCondicion("curso="+curso.getID());
 	}
 	
 	
 	private List<HorarioCursada> selectByCondicion(String condicion) {
 		List<HorarioCursada> estados = new ArrayList<HorarioCursada>();
-		String campos = "horario_ID, curso, horario, sala";
+		String campos = "ID, curso, horario, sala";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -52,10 +52,11 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	
 			while (resultados.next()) {
 				estados.add(new HorarioCursada(
-						resultados.getInt("horario_ID"),
+						resultados.getInt("ID"),
 						resultados.getInt("curso"),
 						resultados.getInt("horario"),
-						resultados.getInt("sala")
+						resultados.getInt("sala"),
+						resultados.getBoolean("activo")
 						));
 			}
 			
@@ -73,7 +74,7 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 
 
 	public void update(HorarioCursada horarioCursada) {
-		String condicion = "horario_id = "+horarioCursada.getHorarioID();
+		String condicion = "ID = "+horarioCursada.getID();
 		String sql = "update "+tabla+" set curso = "+horarioCursada.getCurso()+
 				", horario = "+horarioCursada.getHorario()+", sala = "+ horarioCursada.getSala()
 				+" where ("+condicion+");";
@@ -81,7 +82,7 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	}
 	
 	public void delete(HorarioCursada horarioCursada) {
-		String condicion = "horario_id = "+horarioCursada.getHorarioID();
+		String condicion = "ID = "+horarioCursada.getID();
 		String sql = "delete  from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}

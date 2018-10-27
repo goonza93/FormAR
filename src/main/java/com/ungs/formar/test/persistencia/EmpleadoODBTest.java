@@ -17,6 +17,7 @@ public class EmpleadoODBTest {
 	}
 	
 	public static void main(String[] args) {
+		
 		selectTest();
 	}
 

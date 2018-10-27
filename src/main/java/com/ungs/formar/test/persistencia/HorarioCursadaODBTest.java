@@ -14,7 +14,7 @@ public class HorarioCursadaODBTest {
 		List<HorarioCursada> horarios = obd.select();
 		System.out.println("Cantidad:"+horarios.size());
 		for (HorarioCursada horario: horarios)
-			System.out.println(horario.getHorarioID());
+			System.out.println(horario.getID());
 	}
 	
 	public static void main(String[] args) {

@@ -22,7 +22,7 @@ public class InscripcionOBDTest {
 		List<Inscripcion> inscripciones = obd.select();
 		System.out.println("Cantidad: "+inscripciones.size());
 		for (Inscripcion inscripcion:inscripciones)
-			System.out.println(inscripcion.getInscripcionID());
+			System.out.println(inscripcion.getID());
 	}
 	
 	public static void deleteTest(Inscripcion inscripcion) {

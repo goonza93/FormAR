@@ -5,17 +5,17 @@ import java.sql.Date;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 
 public class Curso {
-	private Integer cursoID, cupoMinimo, cupoMaximo, precio, horas;
+	private Integer ID, cupoMinimo, cupoMaximo, precio, horas;
 	private String comision;
 	private Date fechaInicio, fechaFin, fechaCierre;
 	private Integer instructor, programa, responsable, contenido;
 	private EstadoCurso estado;
 	
-	public Curso(Integer cursoID, Integer cupoMinimo, Integer cupoMaximo, Integer precio, Integer horas,
+	public Curso(Integer ID, Integer cupoMinimo, Integer cupoMaximo, Integer precio, Integer horas,
 			Integer contenido, String comision, Date fechaInicio, Date fechaFin, Date fechaCierre,
 			Integer instructor, Integer programa, EstadoCurso estado,
 			Integer responsable) {
-		this.cursoID = cursoID;
+		this.ID = ID;
 		this.cupoMinimo = cupoMinimo;
 		this.cupoMaximo = cupoMaximo;
 		this.precio = precio;
@@ -31,12 +31,12 @@ public class Curso {
 		this.responsable = responsable;
 	}
 
-	public Integer getCursoID() {
-		return cursoID;
+	public Integer getID() {
+		return ID;
 	}
 
-	public void setCursoID(Integer cursoID) {
-		this.cursoID = cursoID;
+	public void setID(Integer cursoID) {
+		this.ID = cursoID;
 	}
 
 	public Integer getCupoMinimo() {

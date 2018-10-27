@@ -270,7 +270,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 			}
 
 			// caso: se esta editando uno existente
-			else if (empleadoBD.getEmpleadoID() != empleadoEdicion.getEmpleadoID()) {
+			else if (empleadoBD.getID() != empleadoEdicion.getID()) {
 				isOk = false;
 				mensaje += "    -El DNI ya esta siendo utilizado por otro empleado.\n";
 			}

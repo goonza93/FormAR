@@ -30,7 +30,7 @@ public class CursoODBTest {
 		List<Curso> cursos = odb.select();
 		System.out.println("Cantidad:"+odb.select().size());
 		for (Curso curso : cursos)
-			System.out.println("Curso ID: "+curso.getCursoID());
+			System.out.println("Curso ID: "+curso.getID());
 	}
 	
 	public static void main(String[] args) throws ParseException {

@@ -17,7 +17,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
 
 	public Pdf traerPdf(Integer id) {
 		Pdf ret = new Pdf();
-		String sql = "SELECT * FROM for_pdf WHERE (contenido_ID = "+id+");";
+		String sql = "SELECT * FROM for_archivos WHERE (ID = "+id+");";
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		try {
@@ -47,7 +47,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     public ArrayList<Pdf> Listar_Pdf() {
         ArrayList<Pdf> list = new ArrayList<Pdf>();
         
-        String sql = "SELECT * FROM for_pdf";
+        String sql = "SELECT * FROM for_archivos";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
@@ -78,7 +78,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
 
     /*Metodo agregar*/
     public void insert(Pdf vo) {
-        String sql = "INSERT INTO for_pdf (contenido_ID, nombrepdf, archivopdf) VALUES(?, ?, ?);";
+        String sql = "INSERT INTO for_archivos (ID, nombre, archivo) VALUES(?, ?, ?);";
         PreparedStatement ps = null;
         try {
             ps = getConexion().prepareStatement(sql);
@@ -103,7 +103,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     /*Metodo Modificar*/
     public void update(Pdf vo) {
     	
-        String sql = "UPDATE for_pdf SET nombrepdf = ?, archivopdf = ? WHERE contenido_ID = ?;";
+        String sql = "UPDATE for_archivos SET nombre = ?, archivo = ? WHERE ID = ?;";
         PreparedStatement ps = null;
         try {
             ps = getConexion().prepareStatement(sql);
@@ -149,7 +149,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     /*Metodo Eliminar*/
     public void delete(Pdf vo) {
     	
-        String sql = "DELETE FROM for_pdf WHERE contenido_ID = ?;";
+        String sql = "DELETE FROM for_archivos WHERE ID = ?;";
         PreparedStatement ps = null;
         try {
             ps = getConexion().prepareStatement(sql);
@@ -176,7 +176,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
         String nombre = "";
 
         try {
-            ps = getConexion().prepareStatement("SELECT archivopdf,nombrepdf FROM for_pdf WHERE contenido_ID = ?;");
+            ps = getConexion().prepareStatement("SELECT archivo, nombre FROM for_archivos WHERE ID = ?;");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {

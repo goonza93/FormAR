@@ -16,7 +16,6 @@ import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 public class CursoODBMySQL extends ODB implements CursoODB{
 	private final String campos = "cupo_minimo, cupo_maximo, precio, comision, fecha_inicio, fecha_fin, fecha_cierre, contenido, horas, instructor, responsable, programa, estado";
 	private final String tabla = "for_cursos";
-	private final String ID = "curso_ID";
 	
 	public void insert (Curso curso) {
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 
@@ -43,7 +42,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	}
 
 	public void delete(Curso curso) {
-		String condicion = ID + "=" + curso.getCursoID();
+		String condicion = "ID = " + curso.getID();
 		String consulta = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
@@ -53,7 +52,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		String fFin = curso.getFechaFin() == null ? null : "'"+curso.getFechaFin()+"'";
 		String fCierre = curso.getFechaCierre() == null ? null : "'"+curso.getFechaCierre()+"'";
 		String comision = curso.getComision() == null ? null : "'"+curso.getComision()+"'"; 
-		String condicion = ID+" = "+curso.getCursoID();
+		String condicion = "ID = "+curso.getID();
 		
 		String consulta = "update "+ tabla
 				+ " set cupo_minimo = "+curso.getCupoMinimo()
@@ -78,7 +77,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	}
 	
 	public Curso selectByID(Integer ID){
-		String condicion = this.ID+" = "+ID;
+		String condicion = "ID = "+ID;
 		List<Curso> cursos = selectByCondicion(condicion);
 		Curso curso = null;
 		if (cursos.size()>0)
@@ -95,14 +94,14 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	}
 	
 	public List<Curso> selectByInstructor(Empleado empleado){
-		String condicion = "instructor = "+empleado.getEmpleadoID();
+		String condicion = "instructor = "+empleado.getID();
 		List<Curso> cursos = selectByCondicion(condicion);		
 		return cursos;
 	}
 
 	private List<Curso> selectByCondicion(String condicion) {
 		List<Curso> cursos = new ArrayList<Curso>();
-		String comandoSQL = "select "+ID + ", "+campos+" from "+tabla+" where ("+condicion+");";
+		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";
 				
 		try { 
 			Class.forName(driver); 
@@ -112,7 +111,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	
 			while (resultados.next()) {
 				cursos.add(new Curso(
-						resultados.getInt("curso_ID"),
+						resultados.getInt("ID"),
 						resultados.getInt("cupo_minimo"),
 						resultados.getInt("cupo_maximo"),
 						resultados.getInt("precio"),
@@ -142,7 +141,7 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 	}
 
 	public Integer selectIDMasReciente() {
-		return selectLastID(ID, tabla);
+		return selectLastID(tabla);
 	}
 
 }

@@ -24,7 +24,7 @@ public class CursoManagerTest {
 		System.out.println("___ Traer cursos Test");
 		List<Curso> cursos = CursoManager.traerCursos();
 		for (Curso curso: cursos)
-			System.out.println("Curso ID:"+curso.getCursoID());
+			System.out.println("Curso ID:"+curso.getID());
 		System.out.println("Cantidad de cursos:"+cursos.size());
 	}
 	

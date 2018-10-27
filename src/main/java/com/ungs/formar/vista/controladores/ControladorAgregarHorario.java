@@ -129,7 +129,7 @@ public class ControladorAgregarHorario implements ActionListener {
 		if(sala!=null){
 			salaId = sala.getID();
 		}
-		HorarioCursada horarioCursada = new HorarioCursada(-1, -1, horarioID, salaId);
+		HorarioCursada horarioCursada = new HorarioCursada(-1, -1, horarioID, salaId, true);
 		if (controladorCrearCurso.agregarHorarioDeCursada(horarioCursada)) {
 			controladorCrearCurso.actualizarFechaFin();
 			ventanaAgregarHorario.dispose();

@@ -139,7 +139,7 @@ public class ControladorCrearCurso implements ActionListener {
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
 			int fila = this.ventanaCrearCurso.getHorarios().getSelectedRow();
 			if (this.idEdicion != -1) {
-				if (this.horariosCursada.get(fila).getHorarioID() == -1) {
+				if (this.horariosCursada.get(fila).getID() == -1) {
 					HorarioCursadaManager.eliminarHorario(this.horariosCursada.get(fila));
 					this.horariosCursada.remove(fila);
 				} else {
