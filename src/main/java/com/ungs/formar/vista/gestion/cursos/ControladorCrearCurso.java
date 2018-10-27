@@ -139,7 +139,7 @@ public class ControladorCrearCurso implements ActionListener {
 		} else if (e.getSource() == ventanaCrearCurso.getBtnBorrarDia()) {
 			int fila = this.ventanaCrearCurso.getHorarios().getSelectedRow();
 			if (this.idEdicion != -1) {
-				if (this.horariosCursada.get(fila).getHorarioID() == -1) {
+				if (this.horariosCursada.get(fila).getID() == -1) {
 					HorarioCursadaManager.eliminarHorario(this.horariosCursada.get(fila));
 					this.horariosCursada.remove(fila);
 				} else {
@@ -448,8 +448,6 @@ public class ControladorCrearCurso implements ActionListener {
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
 		// Al elegir un programa se carga automaticamente su carga horaria
 		ventanaCrearCurso.getHoras().setText(seleccion.getHoras().toString());
-		// y se actualiza la fecha fin
-		actualizarFechaFin();
 	}
 
 	public boolean agregarHorarioDeCursada(HorarioCursada hc) {

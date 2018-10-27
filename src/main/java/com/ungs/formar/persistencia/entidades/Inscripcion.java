@@ -3,42 +3,33 @@ package com.ungs.formar.persistencia.entidades;
 import java.sql.Date;
 
 public class Inscripcion {
-	private Integer inscripcionID, cliente, curso, empleado;
+	private Integer ID, alumno, empleado, curso;
 	private Date fecha;
 	private Double nota;
-
-	public Inscripcion(Integer inscripcionID, Integer cliente, Integer curso, Integer empleado, Date fecha,
-			Double nota) {
-		this.inscripcionID = inscripcionID;
-		this.cliente = cliente;
-		this.curso = curso;
+	
+	public Inscripcion(Integer iD, Integer alumno, Integer empleado, Integer curso, Date fecha, Double nota) {
+		this.ID = iD;
+		this.alumno = alumno;
 		this.empleado = empleado;
+		this.curso = curso;
 		this.fecha = fecha;
 		this.nota = nota;
 	}
 
-	public Integer getInscripcionID() {
-		return inscripcionID;
+	public Integer getID() {
+		return ID;
 	}
 
-	public void setInscripcionID(Integer inscripcionID) {
-		this.inscripcionID = inscripcionID;
+	public void setID(Integer iD) {
+		this.ID = iD;
 	}
 
-	public Integer getCliente() {
-		return cliente;
+	public Integer getAlumno() {
+		return alumno;
 	}
 
-	public void setCliente(Integer cliente) {
-		this.cliente = cliente;
-	}
-
-	public Integer getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Integer curso) {
-		this.curso = curso;
+	public void setAlumno(Integer alumno) {
+		this.alumno = alumno;
 	}
 
 	public Integer getEmpleado() {
@@ -47,6 +38,14 @@ public class Inscripcion {
 
 	public void setEmpleado(Integer empleado) {
 		this.empleado = empleado;
+	}
+
+	public Integer getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Integer curso) {
+		this.curso = curso;
 	}
 
 	public Date getFecha() {
@@ -64,5 +63,5 @@ public class Inscripcion {
 	public void setNota(Double nota) {
 		this.nota = nota;
 	}
-	
+
 }

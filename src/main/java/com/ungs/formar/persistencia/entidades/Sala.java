@@ -1,22 +1,24 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Sala {
-	private Integer salaID, numero, capacidad;
+	private Integer ID, numero, capacidad;
 	private String nombre;
-
-	public Sala(Integer salaID, Integer numero, Integer capacidad, String nombre) {
-		this.salaID = salaID;
+	private Boolean activo;
+	
+	public Sala(Integer iD, Integer numero, Integer capacidad, String nombre, Boolean activo) {
+		this.ID = iD;
 		this.numero = numero;
 		this.capacidad = capacidad;
 		this.nombre = nombre;
+		this.activo = activo;
 	}
 
-	public Integer getSalaID() {
-		return salaID;
+	public Integer getID() {
+		return ID;
 	}
 
-	public void setSalaID(Integer salaID) {
-		this.salaID = salaID;
+	public void setID(Integer iD) {
+		this.ID = iD;
 	}
 
 	public Integer getNumero() {
@@ -41,6 +43,14 @@ public class Sala {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 		
 }

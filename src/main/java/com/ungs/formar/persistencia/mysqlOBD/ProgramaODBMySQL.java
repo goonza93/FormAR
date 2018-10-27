@@ -12,9 +12,9 @@ import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 
 public class ProgramaODBMySQL extends ODB implements ProgramaODB{
-	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas";
+	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas, activo";
 	private final String tabla = "for_programas";
-	private final String ID = "programa_ID";
+	private final String ID = "ID";
 
 	public void insert (Programa programa) {
 		String area = "'"+programa.getAreaID()+"'";
@@ -27,7 +27,9 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 				+", "+nombre
 				+", "+fechaAprobacion
 				+", "+descripcion
-				+", "+cargaHoraria;
+				+", "+cargaHoraria
+				+", "+true;
+				
 				
 		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(consulta);
@@ -65,7 +67,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 	}
 	
 	public Programa selectByID(Integer id) {
-		String condicion = "programa_ID = '"+id+"'";
+		String condicion = "ID = "+id;
 		List<Programa> programas = selectByCondicion(condicion);
 		Programa programa = null;
 		if (programas.size()>0)
@@ -76,7 +78,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 
 	private List<Programa> selectByCondicion(String condicion) {
 		List<Programa> programas = new ArrayList<Programa>();
-		String campos = "programa_ID, area, horas, nombre, fecha_aprobacion, descripcion";
+		String campos = "ID, area, horas, nombre, fecha_aprobacion, descripcion";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -87,7 +89,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 	
 			while (resultados.next()) {
 				programas.add(new Programa(
-						resultados.getInt("programa_ID"),
+						resultados.getInt("ID"),
 						resultados.getInt("area"),
 						resultados.getInt("horas"),
 						resultados.getString("nombre"),

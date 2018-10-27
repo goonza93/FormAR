@@ -13,15 +13,14 @@ import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
 
 public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
-	private final String campos = "curso, cliente, empleado, fecha, nota";
+	private final String campos = "alumno, empleado, curso, fecha, nota";
 	private final String tabla = "for_inscripciones";
-	private final String ID = "inscripcion_ID";
 	
 	public void insert(Inscripcion inscripcion) {
 		String fecha = inscripcion.getFecha() == null ? null: "'"+inscripcion.getFecha()+"'"; 
-		String valores = inscripcion.getCurso()
-				+", "+inscripcion.getCliente()
+		String valores = inscripcion.getAlumno()
 				+", "+inscripcion.getEmpleado()
+				+", "+inscripcion.getCurso()
 				+", "+fecha
 				+", "+inscripcion.getNota();
 		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
@@ -29,7 +28,7 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	}
 	
 	public void delete(Inscripcion inscripcion) {
-		String condicion = ID+"="+inscripcion.getInscripcionID();
+		String condicion = "ID = "+inscripcion.getID();
 		String consulta = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
@@ -40,17 +39,17 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	}
 
 	public List<Inscripcion> selectByAlumno(Alumno alumno) {
-		String condicion = "cliente = "+alumno.getClienteID();
+		String condicion = "alumno = "+alumno.getID();
 		return selectByCondicion(condicion);
 	}
 
 	public List<Inscripcion> selectByCurso(Curso curso) {
-		String condicion = "curso = "+curso.getCursoID();
+		String condicion = "curso = "+curso.getID();
 		return selectByCondicion(condicion);
 	}
 
 	public Inscripcion selectByCursoAlumno(Curso curso, Alumno alumno) {
-		String condicion = "cliente = "+alumno.getClienteID()+" and curso = "+curso.getCursoID();
+		String condicion = "alumno = "+alumno.getID()+" and curso = "+curso.getID();
 		List<Inscripcion> inscripciones = selectByCondicion(condicion);
 		if (inscripciones.size()>0)
 			return inscripciones.get(0);
@@ -59,7 +58,7 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	
 	private List<Inscripcion> selectByCondicion(String condicion) {
 		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
-		String comandoSQL = "select "+ID+", "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 
@@ -69,8 +68,8 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	
 			while (resultados.next())
 				inscripciones.add(new Inscripcion(
-						resultados.getInt(ID),
-						resultados.getInt("cliente"),
+						resultados.getInt("ID"),
+						resultados.getInt("alumno"),
 						resultados.getInt("curso"),
 						resultados.getInt("empleado"),
 						resultados.getDate("fecha"),

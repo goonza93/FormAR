@@ -89,7 +89,7 @@ public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 	}
 
 	public Integer selectIDMasReciente() {
-		return selectLastID(ID, tabla);
+		return selectLastID(tabla);
 	}
 	
 }

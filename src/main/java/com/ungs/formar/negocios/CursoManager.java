@@ -23,8 +23,8 @@ public class CursoManager {
 			Empleado instructor, Programa programa, Integer contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin, Date fechaCierre, Integer precio, String comision) {
 		
-		Integer responsableID = (responsable == null) ? null: responsable.getEmpleadoID();
-		Integer instructorID = (instructor == null) ? null: instructor.getEmpleadoID();
+		Integer responsableID = (responsable == null) ? null: responsable.getID();
+		Integer instructorID = (instructor == null) ? null: instructor.getID();
 		
 		// INSERTO EL CURSO EN LA BD
 		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision,
@@ -47,8 +47,8 @@ public class CursoManager {
 			Empleado responsable, Empleado instructor, Programa programa, Integer contenido, List<HorarioCursada> hc,
 			Date fechaInicio, Date fechaFin, Date fechaCierre, EstadoCurso estado, Integer precio, String comision) {
 
-		Integer responsableID = (responsable == null) ? null: responsable.getEmpleadoID();
-		Integer instructorID = (instructor == null) ? null: instructor.getEmpleadoID();
+		Integer responsableID = (responsable == null) ? null: responsable.getID();
+		Integer instructorID = (instructor == null) ? null: instructor.getID();
 		
 		// Actualizao el curso
 		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision,
@@ -66,8 +66,8 @@ public class CursoManager {
 		if (!hc.isEmpty()) {
 			for (HorarioCursada horarioCursada : hc) {
 
-				if (horarioCursada.getHorarioID() == -1) {
-					horarioCursada.setCurso(curso.getCursoID());
+				if (horarioCursada.getID() == -1) {
+					horarioCursada.setCurso(curso.getID());
 					HorarioCursadaManager.crearHorarioCursada(horarioCursada);
 				} else {
 					HorarioCursadaManager.actualizarHorarioDeCursada(horarioCursada);
@@ -99,7 +99,7 @@ public class CursoManager {
 		// Si Tiene otro estado, el curso pasa a estar Cancelado
 		else {
 			curso.setEstado(EstadoCurso.CANCELADO);
-			actualizarCurso(curso.getCursoID(), curso.getCupoMinimo(), curso.getCupoMaximo(), curso.getHoras(),
+			actualizarCurso(curso.getID(), curso.getCupoMinimo(), curso.getCupoMaximo(), curso.getHoras(),
 					EmpleadoManager.traerEmpleado(curso.getResponsable()),
 					EmpleadoManager.traerEmpleado(curso.getInstructor()),
 					ProgramaManager.traerProgramaSegunID(curso.getPrograma()), curso.getContenido(),

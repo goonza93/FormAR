@@ -299,7 +299,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			controladorCursoEdicion.setContenido(contenido);
 		}
 
-		controladorCursoEdicion.setIdEdicion(curso.getCursoID());
+		controladorCursoEdicion.setIdEdicion(curso.getID());
 		controladorCursoEdicion.setPrograma(programa);
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();

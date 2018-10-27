@@ -10,7 +10,7 @@ import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
 public class AlumnoManager {
 
 	public static void crearAlumno(String dni, String nombre, String apellido, String telefono, String email){
-		Alumno alumno = new Alumno(-1, dni, nombre, apellido, telefono, email);
+		Alumno alumno = new Alumno(-1, dni, nombre, apellido, telefono, email, true);
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		odb.insert(alumno);
 	}

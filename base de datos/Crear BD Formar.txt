@@ -1,6 +1,5 @@
-﻿-- SCRIPT PARA CREAR LA BASE DE DATOS...
+﻿-- SCRIPT PARA CREAR LA BASE DE DATOS
 -- EJECUTAR DIRECTAMENTE, NO IMPORTA SI EXISTE O NO PREVIAMENTE
--- ASEGURARSE DE QUE ES LA ULTIMA VERSION
 
 -- CREA LA BD, SI YA EXISTIA PRIMERO LA ELIMINA
 DROP DATABASE IF EXISTS formar;
@@ -9,87 +8,85 @@ USE formar;
 
 -- ESQUEMA SALAS
 CREATE TABLE for_salas (
-	sala_ID INT(4) AUTO_INCREMENT,
+	ID INT(4) AUTO_INCREMENT,
 	numero INT(4) NOT NULL,
-	nombre VARCHAR(50) DEFAULT NULL,
-	capacidad INT(4) NOT NULL DEFAULT 1,
-	PRIMARY KEY (sala_ID)
+	nombre VARCHAR(50),
+	capacidad INT(4) NOT NULL,
+	activo BOOLEAN NOT NULL,
+	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA DIAS DE LA SEMANA
 CREATE TABLE for_dias (
-	dia_ID INT(4) AUTO_INCREMENT,
-	descripcion VARCHAR(20) NOT NULL,
-	PRIMARY KEY (dia_ID)
+	ID INT(4) AUTO_INCREMENT,
+	descripcion VARCHAR(20),
+	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA ROLES DE EMPLEADO
-CREATE TABLE for_roles_empleado (
-	rol_ID INT(1) AUTO_INCREMENT,
+CREATE TABLE for_roles (
+	ID INT(1) AUTO_INCREMENT,
 	descripcion VARCHAR(50),
-	PRIMARY KEY (rol_ID)
+	PRIMARY KEY (ID)
 );
 
--- ESQUEMA CLIENTES
-CREATE TABLE for_clientes (
-	cliente_ID INT(4) AUTO_INCREMENT,
-	dni VARCHAR(20) NOT NULL,
+-- ESQUEMA ALUMNOS
+CREATE TABLE for_alumnos (
+	ID INT(4) AUTO_INCREMENT,
+	DNI VARCHAR(20) NOT NULL UNIQUE,
 	nombre VARCHAR(50) NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
 	telefono VARCHAR(50),
 	email VARCHAR(50) NOT NULL,
-	PRIMARY KEY (cliente_ID),
-	UNIQUE KEY dni (dni)
+	activo BOOLEAN NOT NULL,
+	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA DE AREAS DE INTERES
 CREATE TABLE for_areas (
-	area_ID INT(4) AUTO_INCREMENT,
+	ID INT(4) AUTO_INCREMENT,
 	nombre VARCHAR(50),
 	descripcion VARCHAR(200),
-	PRIMARY KEY (area_ID)
+	activo BOOLEAN NOT NULL,
+	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA ESTADO DE CURSO
 CREATE TABLE for_estados_curso (
-	estado_ID INT(4) AUTO_INCREMENT,
+	ID INT(4) AUTO_INCREMENT,
 	descripcion VARCHAR(20),
-	PRIMARY KEY (estado_ID)
-);
-
--- ESQUEMA ESTADOS DE INSCRIPCION
-CREATE TABLE for_estados_inscripcion (
-	estado_ID INT(4) AUTO_INCREMENT,
-	descripcion VARCHAR(50),
-	PRIMARY KEY (estado_ID)
+	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA DE PROGRAMAS
 CREATE TABLE for_programas (
-	programa_ID INT(4) AUTO_INCREMENT,
+	ID INT(4) AUTO_INCREMENT,
 	area INT(11), -- FK AREAS DE INTERES
 	nombre VARCHAR(50) NOT NULL,
 	fecha_aprobacion DATE DEFAULT NULL,
 	descripcion VARCHAR(500) NOT NULL,
 	horas INT(4) NOT NULL,
-	PRIMARY KEY (programa_ID)
+	activo BOOLEAN NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (area) REFERENCES for_areas(ID)
 );
 
 -- ESQUEMAS HORARIOS
 CREATE TABLE for_horarios (
-	horario_ID INT(4) AUTO_INCREMENT,
-	dia INT(4) NOT NULL, -- FK DIAS DE LA SEMANA
+	ID INT(4) AUTO_INCREMENT,
+	dia INT(1) NOT NULL, -- FK DIAS DE LA SEMANA
 	hora_inicio INT(2) NOT NULL,
 	hora_fin INT(2) NOT NULL,
     minuto_inicio INT(2) NOT NULL,
     minuto_fin INT(2) NOT NULL,
-	PRIMARY KEY (horario_ID)
+	PRIMARY KEY (ID),
+	FOREIGN KEY (dia) REFERENCES for_dias(ID)
 );
 
 -- ESQUEMA DE EMPLEADOS
 CREATE TABLE for_empleados (
-	empleado_ID INT(4) AUTO_INCREMENT,
-	rol INT(1) NOT NULL, -- FK ROLES DE EMPLEADO
+	ID INT(4) AUTO_INCREMENT,
+	rol INT(1) NOT NULL,
 	DNI VARCHAR(20) NOT NULL,
 	nombre VARCHAR(50) NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
@@ -97,85 +94,144 @@ CREATE TABLE for_empleados (
 	email VARCHAR(50) NOT NULL,
 	fecha_ingreso DATE NOT NULL,
 	fecha_egreso DATE NULL,
-	PRIMARY KEY (empleado_ID)
+	activo BOOLEAN NOT NULL,
+	usuario VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(50) NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (rol) REFERENCES for_roles(ID)
+);
+
+-- ESQUEMA PARA GUARDAR LOS PDF
+CREATE TABLE for_archivos (
+	ID INT(4) AUTO_INCREMENT,
+	nombre VARCHAR(50) NOT NULL,
+	archivo mediumblob DEFAULT NULL,
+	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA CURSOS
 CREATE TABLE for_cursos (
-	curso_ID INT(4) AUTO_INCREMENT,
+	ID INT(4) AUTO_INCREMENT,
 	cupo_minimo INT(3),
 	cupo_maximo INT(3),
 	precio INT(5),
 	fecha_inicio DATE,
 	fecha_fin DATE,
 	fecha_cierre DATE,
-    contenido INT(4),
+    contenido INT(4) NULL,
     comision VARCHAR(10),
 	horas INT(5) NOT NULL,
-	instructor INT(4) NULL, -- FK EMPLEADOS
-	responsable INT(4) NULL, -- FK EMPLEADOS
-	programa INT(4) NOT NULL, -- FK PROGRAMAS
-	estado INT(4) NOT NULL, -- FK ESTADOS DE CURSO
-	PRIMARY KEY (curso_ID)
+	instructor INT(4) NULL,
+	responsable INT(4) NULL,
+	programa INT(4) NOT NULL,
+	estado INT(4) NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (instructor) REFERENCES for_empleados(ID),
+	FOREIGN KEY (responsable) REFERENCES for_empleados(ID),
+	FOREIGN KEY (programa) REFERENCES for_programas(ID),
+	FOREIGN KEY (estado) REFERENCES for_estados_curso(ID),
+	FOREIGN KEY (contenido) REFERENCES for_archivos(ID)
 );
 
 -- ESQUEMA DE ASISTENCIAS
 CREATE TABLE for_asistencias (
-	asistencia_ID INT(10) AUTO_INCREMENT,
-	curso INT(4) NOT NULL, -- FK CURSOS
-	cliente INT(4) NOT NULL, -- FK CLIENTES
+	ID INT(10) AUTO_INCREMENT,
+	curso INT(4) NOT NULL,
+	alumno INT(4) NOT NULL,
 	fecha DATE NOT NULL,
 	presente BOOLEAN NOT NULL,
-	PRIMARY KEY (asistencia_ID)
+	PRIMARY KEY (ID),
+	FOREIGN KEY (curso) REFERENCES for_cursos(ID),
+	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID)
 );
 
 -- ESQUEMA EXAMENES
 CREATE TABLE for_examenes (
-	examen_ID INT(4) AUTO_INCREMENT,
-	cliente INT(4) DEFAULT NULL,
+	ID INT(4) AUTO_INCREMENT,
+	alumno INT(4) DEFAULT NULL,
 	curso INT(4) DEFAULT NULL,
 	fecha DATE NOT NULL,
 	descripcion VARCHAR(50) NOT NULL,
-	nota INT(4) NOT NULL,
-	PRIMARY KEY (examen_ID)
+	nota INT(2) NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (curso) REFERENCES for_cursos(ID),
+	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID)
 );
 
 -- ESQUEMA INSCRIPCIONES
 CREATE TABLE for_inscripciones (
-	inscripcion_ID INT(4) AUTO_INCREMENT,
-	cliente INT(4) NOT NULL, -- FK CLIENTES
-	empleado INT(4) NOT NULL, -- FK EMPLEADOS
-	curso INT(4) NOT  NULL, -- FK CURSOS
-	estado INT(4) DEFAULT NULL, -- FK ESTADOS DE INSCRIPCION
+	ID INT(4) AUTO_INCREMENT,
+	alumno INT(4) NOT NULL,
+	empleado INT(4) NOT NULL,
+	curso INT(4) NOT  NULL,
 	fecha DATE NOT NULL,
 	nota DECIMAL(10,0) DEFAULT NULL,
-	PRIMARY KEY (inscripcion_ID)
+	PRIMARY KEY (ID),
+	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID),
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
+	FOREIGN KEY (curso) REFERENCES for_cursos(ID)
 );
 
 -- ESQUEMA HORARIOS DE CURSADA CON SALA
 CREATE TABLE for_horarios_cursada (
-	horario_ID INT(4) AUTO_INCREMENT,
-	curso INT(4) NOT NULL, -- FK CURSOS
-	horario INT(4) NOT NULL, -- FK HORARIOS
-    sala INT(4), -- FK SALAS
-	PRIMARY KEY (horario_ID)
+	ID INT(4) AUTO_INCREMENT,
+	curso INT(4) NOT NULL,
+	horario INT(4) NOT NULL,
+    sala INT(4),
+	activo BOOLEAN NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (curso) REFERENCES for_cursos(ID),
+	FOREIGN KEY (horario) REFERENCES for_horarios(ID),
+	FOREIGN KEY (sala) REFERENCES for_salas(ID)
 );
 
--- ESQUEMA USUARIOS
-CREATE TABLE for_usuarios (
-	usuario_ID INT(4) AUTO_INCREMENT,
-	usuario VARCHAR(50) NOT NULL,
-	password VARCHAR(50) NOT NULL,
-    empleado INT(4) NOT NULL, -- FK EMPLEADOS
-	PRIMARY KEY (usuario_ID)
+-- ESQUEMA INTERESADOS
+CREATE TABLE for_interesados (
+	ID INT(4) AUTO_INCREMENT,
+	DNI VARCHAR(20) NOT NULL UNIQUE,
+	nombre VARCHAR(50) NOT NULL,
+	apellido VARCHAR(50) NOT NULL,
+	telefono VARCHAR(50),
+	email VARCHAR(50),
+	PRIMARY KEY (ID)
 );
 
-CREATE TABLE for_pdf (
-	contenido_ID INT(11) NOT NULL,
-	nombrepdf varchar(50) NOT NULL,
-	archivopdf mediumblob DEFAULT NULL,
-	PRIMARY KEY (contenido_ID)
+-- ESQUEMA INTERACCIONES
+CREATE TABLE for_interacciones (
+	ID INT(4) AUTO_INCREMENT,
+	empleado INT(4) NOT NULL,
+	interesado INT(4) NOT NULL,
+	area INT(4) NULL,
+	curso INT(4) NULL,
+	fecha DATE NOT NULL,
+	descripcion VARCHAR(500) NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
+	FOREIGN KEY (interesado) REFERENCES for_interesados(ID),
+	FOREIGN KEY (area) REFERENCES for_areas(ID),
+	FOREIGN KEY (curso) REFERENCES for_cursos(ID)
 );
+
+-- ESQUEMA RECADOS
+CREATE TABLE for_recados (
+	ID INT(4) AUTO_INCREMENT,
+	emisor INT(4) NOT NULL,
+	receptor INT(4) NOT NULL,
+    empleado INT(4) NOT NULL,
+    contenido VARCHAR(100) NOT NULL,
+	leido BOOLEAN NOT NULL,
+	archivado BOOLEAN NOT NULL,
+	fecha DATE NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (emisor) REFERENCES for_empleados(ID),
+	FOREIGN KEY (receptor) REFERENCES for_empleados(ID),
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+);
+
+
+
+
+
 
 
 -- INSERT DE DATOS PREDEFINIDOS
@@ -197,9 +253,9 @@ INSERT INTO for_estados_curso (descripcion) VALUES ("Finalizado");
 INSERT INTO for_estados_curso (descripcion) VALUES ("Cancelado");
 
 -- INSERTAR ROLES DE EMPLEADO
-INSERT INTO for_roles_empleado (descripcion) VALUES ('ADMINISTRATIVO');
-INSERT INTO for_roles_empleado (descripcion) VALUES ('INSTRUCTOR');
-INSERT INTO for_roles_empleado (descripcion) VALUES ('SUPERVISOR');
+INSERT INTO for_roles (descripcion) VALUES ('ADMINISTRATIVO');
+INSERT INTO for_roles (descripcion) VALUES ('INSTRUCTOR');
+INSERT INTO for_roles (descripcion) VALUES ('SUPERVISOR');
 
 -- INSERTAR SALA "FANTASMA"
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("A DESIGNAR", 0, 9999);
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);

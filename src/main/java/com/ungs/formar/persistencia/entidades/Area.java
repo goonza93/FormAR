@@ -1,21 +1,23 @@
 package com.ungs.formar.persistencia.entidades;
 
 public class Area {
-	private Integer areaID;
+	private Integer ID;
 	private String nombre, descripcion;
+	private Boolean activo;
 	
-	public Area(Integer areaID, String nombre, String descripcion) {
-		this.areaID = areaID;
+	public Area(Integer iD, String nombre, String descripcion, Boolean activo) {
+		this.ID = iD;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.activo = activo;
 	}
 
-	public Integer getAreaID() {
-		return areaID;
+	public Integer getID() {
+		return ID;
 	}
 
-	public void setAreaID(Integer areaID) {
-		this.areaID = areaID;
+	public void setID(Integer iD) {
+		this.ID = iD;
 	}
 
 	public String getNombre() {
@@ -32,6 +34,14 @@ public class Area {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 	
 }

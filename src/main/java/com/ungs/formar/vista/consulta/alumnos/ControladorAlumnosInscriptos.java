@@ -39,7 +39,7 @@ public class ControladorAlumnosInscriptos implements ActionListener{
 			Object[] fila = {
 					alumno.getApellido(),
 					alumno.getNombre(),
-					alumno.getDni(),
+					alumno.getDNI(),
 					alumno.getEmail(),
 					alumno.getTelefono()
 					};

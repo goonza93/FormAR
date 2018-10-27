@@ -12,23 +12,25 @@ import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
 
 public class AreaOBDMySQL extends ODB implements AreaOBD {
 	private final String tabla = "for_areas";
+	private final String campos = "nombre, descripcion, activo";
 
 	public List<Area> select() {
-		String condicion = "1=1";
+		String condicion = "true";
 		List<Area> areas = selectByCondicion(condicion);
 		return areas;
 	}
 
 	public Area selectByID(Integer ID) {
-		String condicion = "area_ID ="+ID;
+		String condicion = "ID ="+ID;
 		List<Area> areas = selectByCondicion(condicion);
-		return areas.get(0);
+		if (areas.size()>0)
+			return areas.get(0);
+		return null;
 	}
 	
 	private List<Area> selectByCondicion(String condicion) {
 		List<Area> areas = new ArrayList<Area>();
-		String campos = "area_ID, nombre, descripcion";
-		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 
@@ -38,9 +40,10 @@ public class AreaOBDMySQL extends ODB implements AreaOBD {
 	
 			while (resultados.next()) {
 				areas.add(new Area(
-						resultados.getInt("area_ID"),
+						resultados.getInt("ID"),
 						resultados.getString("nombre"),
-						resultados.getString("descripcion")
+						resultados.getString("descripcion"),
+						resultados.getBoolean("activo")
 						));
 			}
 			

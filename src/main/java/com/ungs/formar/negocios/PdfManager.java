@@ -21,10 +21,10 @@ public class PdfManager {
 	public static Pdf crearPdf(File archivo){
 		Pdf contenido = new Pdf();
 		ODB odb = new ODB();
-		if (odb.selectLastID("contenido_ID", "for_pdf")==null){
+		if (odb.selectLastID("for_archivos")==null){
 			contenido.setContenidoID(1);
 		} else {
-			contenido.setContenidoID(odb.selectLastID("contenido_ID", "for_pdf")+1);
+			contenido.setContenidoID(odb.selectLastID("for_archivos")+1);
 		}
 		contenido.setNombrepdf(archivo.getName());
 		try {

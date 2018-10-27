@@ -59,7 +59,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 
 		alumnos = AlumnoManager.traerAlumnos();
 		for (Alumno alumno : alumnos) {
-			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDni(), alumno.getEmail(),
+			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDNI(), alumno.getEmail(),
 					alumno.getTelefono() };
 			ventanaABM.getModeloAlumnos().addRow(fila);
 
@@ -213,7 +213,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 			else {
 				alumno.setApellido(apellido);
 				alumno.setNombre(nombre);
-				alumno.setDni(dni);
+				alumno.setDNI(dni);
 				alumno.setTelefono(telefono);
 				alumno.setEmail(email);
 				AlumnoManager.editarAlumno(alumno);
@@ -290,7 +290,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 			}
 
 			// caso: se esta editando uno existente
-			else if (alumnoBD.getClienteID() != alumnoEdicion.getClienteID()) {
+			else if (alumnoBD.getID() != alumnoEdicion.getID()) {
 				isOk = false;
 				mensaje += "    -El DNI ya esta siendo utilizado por otro alumno.\n";
 			}

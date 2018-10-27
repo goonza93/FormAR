@@ -11,68 +11,63 @@ import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
 
 public class SalaODBMySQL extends ODB implements SalaODB{
-	private final String campos = "numero, nombre, capacidad";
+	private final String campos = "numero, nombre, capacidad, activo";
 	private final String tabla = "for_salas";
-	private final String ID = "sala_ID";
 
 	public void insert(Sala sala) {
 		String nombre = sala.getNombre() == null ? null : "'"+sala.getNombre()+"'";
-		String valores =
-				sala.getNumero()
+		String valores = sala.getNumero()
 				+", "+nombre
-				+", "+sala.getCapacidad();
+				+", "+sala.getCapacidad()
+				+", "+sala.getActivo();
 				
 		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(sql);
 	}
 	
 	public void update(Sala sala) {
-		String condicion = ID+"="+sala.getSalaID();
+		String condicion = "ID = "+sala.getID();
 		String nombre = sala.getNombre() == null ? null : "'"+sala.getNombre()+"'";
-		String sql = "update "+tabla
-				+" set numero = "+sala.getNumero()+", "
-				+" nombre = "+nombre+", "
-				+" capacidad = "+sala.getCapacidad()
-				+" where ("+condicion+");";
-		
+		String valores =
+				" numero = "+sala.getNumero()
+				+", nombre = "+nombre
+				+", capacidad = "+sala.getCapacidad()
+				+", activo = "+sala.getActivo();
+		String sql = "update "+tabla+" set "+valores+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}
 	
 	public void delete(Sala sala) {
-		String condicion = ID+"="+sala.getSalaID();
+		String condicion = "ID = "+sala.getID();
 		String sql = "delete from "+tabla+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}
 	
 	public List<Sala> select() {
-		String condicion = "1=1";
+		String condicion = "true";
 		List<Sala> salas = selectByCondicion(condicion);
 		return salas;
 	}
 	
 	public Sala selectByID(Integer id){
-		String condicion = ID+" = "+id;
+		String condicion = "ID = "+id;
 		List<Sala> salas = selectByCondicion(condicion);
-		Sala sala = null;
 		if (salas.size()>0)
-			sala = salas.get(0); 
-		
-		return sala;
+			return salas.get(0); 
+		return null;
 	}
 	
 	public Sala selectByNumero(Integer numero){
 		String condicion = "numero = "+numero;
 		List<Sala> salas = selectByCondicion(condicion);
-		Sala sala = null;
 		if (salas.size()>0)
-			sala = salas.get(0); 
-		
-		return sala;
+			return salas.get(0); 
+		return null;
 	}
 
 	private List<Sala> selectByCondicion(String condicion) {
 		List<Sala> salas = new ArrayList<Sala>();
-		String comandoSQL = "select "+ID+", "+campos+" from "+tabla+" where ("+condicion+");";  
+		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
 			Class.forName(driver); 
@@ -82,10 +77,11 @@ public class SalaODBMySQL extends ODB implements SalaODB{
 	
 			while (resultados.next()) {
 				salas.add(new Sala(
-						resultados.getInt("sala_ID"),
+						resultados.getInt("ID"),
 						resultados.getInt("numero"),
 						resultados.getInt("capacidad"),
-						resultados.getString("nombre")
+						resultados.getString("nombre"),
+						resultados.getBoolean("activo")
 						));
 			}
 			

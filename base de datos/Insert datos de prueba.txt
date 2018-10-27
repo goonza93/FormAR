@@ -1,49 +1,51 @@
 ﻿USE formar;
 
 -- INSERTAR SALAS
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("Aula Magna", 1015, 300);
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES (NULL, 7226, 50);
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES (NULL, 3018, 45);
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("Aula Belgrano", 7112, 30);
-INSERT INTO for_salas (nombre, numero, capacidad) VALUES ("Aula San Martin", 1015, 40);
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("Aula Magna", 1015, 300, true);
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES (NULL, 7226, 50, true);
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES (NULL, 3018, 45, true);
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("Aula Belgrano", 7112, 30, true);
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("Aula San Martin", 1015, 40, true);
 
 -- INSERTAR AREAS DE INTERES
-INSERT INTO for_areas (nombre, descripcion) values ("Programación", "Cursos sobre lenguajes de programacion");
-INSERT INTO for_areas (nombre, descripcion) values ("Deportes", "Cursos sobre deportes");
-INSERT INTO for_areas (nombre, descripcion) values ("Contabilidad", "Cursos sobre contabilidad");
-INSERT INTO for_areas (nombre, descripcion) values ("Decoración", "Cursos sobre decoracion de interiores y exteriores");
+INSERT INTO for_areas (nombre, descripcion, activo) values ("Programación", "Cursos sobre lenguajes de programacion", true);
+INSERT INTO for_areas (nombre, descripcion, activo) values ("Deportes", "Cursos sobre deportes", true);
+INSERT INTO for_areas (nombre, descripcion, activo) values ("Contabilidad", "Cursos sobre contabilidad", true);
+INSERT INTO for_areas (nombre, descripcion, activo) values ("Decoración", "Cursos sobre decoracion de interiores y exteriores", true);
+
 
 -- INSERTAR PROGRAMAS
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (1, "Java I", 10, '2016-05-15',"Introduccion al lenguaje java y estructuras basicas de datos ");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (1, "Python I", 20, '2016-05-18',"Introduccion al lenguaje python y estructuras basicas de datos ");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (2, "Golf", 30, '2016-11-20',"Reglas basicas de golf y tecnicas de golpeo");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (2, "Squash", 40, '2018-09-21',"Reglas del squash, y practica para novatos");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (3, "Contabilidad I", 50, '2016-11-20',"Introduccion a la contabilidad");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (3, "Contabilidad II", 60, '2018-09-21',"Contabilidad avanzada");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (4, "Decoracion de Interiores", 70, '2016-11-20',"Como decorar interiores");
-INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion) values (4, "Decoracion de Exteriores", 80, '2018-09-21',"Como decorar exteriores");
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (1, "Java I", 10, '2016-05-15',"Introduccion al lenguaje java y estructuras basicas de datos.", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (1, "Python I", 20, '2016-05-18',"Introduccion al lenguaje python y estructuras basicas de datos ", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (2, "Golf", 30, '2016-11-20',"Reglas basicas de golf y tecnicas de golpeo", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (2, "Squash", 40, '2018-09-21',"Reglas del squash, y practica para novatos", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (3, "Contabilidad I", 50, '2016-11-20',"Introduccion a la contabilidad", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (3, "Contabilidad II", 60, '2018-09-21',"Contabilidad avanzada", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (4, "Decoracion de Interiores", 70, '2016-11-20',"Como decorar interiores", true);
+INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (4, "Decoracion de Exteriores", 80, '2018-09-21',"Como decorar exteriores", true);
+
 
 -- INSERTAR EMPLEADOS
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("38000000", 1, "Gonzalo", "Bruckmann Adm", "1150589887", "gbruckmann@gmail.com", '1997-08-21');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password)
+VALUES ("38000000", 1, "Gonzalo", "Bruckmann Adm", "1150589887", "gbruckmann@gmail.com", '1997-08-21', true, "user1", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("39000000", 1, "Gian Franco", "Grillo Adm", "1150638997", "gfgrillo3@gmail.com", '1996-11-20');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("39000000", 1, "Gian Franco", "Grillo Adm", "1150638997", "gfgrillo3@gmail.com", '1996-11-20', true, "user2", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("40000000", 1, "Benito", "Molina Adm", "1185421358", "bmolina@gmail.com", '1999-01-02');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("40000000", 1, "Benito", "Molina Adm", "1185421358", "bmolina@gmail.com", '1999-01-02', true, "user3", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("93000000", 1, "Carlos", "Caballero Adm", "1187412365", "ccaballero@gmail.com", '1998-05-01');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("93000000", 1, "Carlos", "Caballero Adm", "1187412365", "ccaballero@gmail.com", '1998-05-01', true, "user4", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("38000000", 2, "Gonzalo", "Bruckmann Ins", "1150589887", "gbruckmann@gmail.com", '1997-08-21');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("38000000", 2, "Gonzalo", "Bruckmann Ins", "1150589887", "gbruckmann@gmail.com", '1997-08-21', true, "user5", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("39000000", 2, "Gian Franco", "Grillo ins", "1150638997", "gfgrillo3@gmail.com", '1996-11-20');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("39000000", 2, "Gian Franco", "Grillo ins", "1150638997", "gfgrillo3@gmail.com", '1996-11-20', true, "user6", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("40000000", 2, "Benito", "Molina Ins", "1185421358", "bmolina@gmail.com", '1999-01-02');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("40000000", 2, "Benito", "Molina Ins", "1185421358", "bmolina@gmail.com", '1999-01-02', true, "user7", "123");
 
-INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso )
-VALUES ("93000000", 3, "Carlos", "Caballero Sup", "1187412365", "ccaballero@gmail.com", '1998-05-01');
+INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
+VALUES ("93000000", 3, "Carlos", "Caballero Sup", "1187412365", "ccaballero@gmail.com", '1998-05-01', true, "user8", "123");

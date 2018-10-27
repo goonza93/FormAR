@@ -12,7 +12,7 @@ public class EmpleadoManager {
 	public static void crearEmpleado(Rol rol, String DNI, String nombre, String apellido, String telefono, String email,
 			Date fechaIngreso, Date fechaEgreso) {
 		
-		Empleado empleado = new Empleado(-1, DNI, nombre, apellido, telefono, email, fechaIngreso, fechaEgreso, rol);
+		Empleado empleado = new Empleado(-1, DNI, nombre, apellido, telefono, email, nombre+"."+apellido, "123", fechaIngreso, fechaEgreso, rol, true);
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		odb.insert(empleado);
 	}
@@ -54,6 +54,12 @@ public class EmpleadoManager {
 	}
 
 	public static Empleado traerSegunDNI(String dni) {
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByDNI(dni);
+	}
+	
+	// TODO implementar
+	public static Empleado traerSegunUsuario(String dni) {
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		return odb.selectByDNI(dni);
 	}

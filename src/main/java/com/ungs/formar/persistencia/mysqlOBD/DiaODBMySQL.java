@@ -20,12 +20,12 @@ public class DiaODBMySQL extends ODB implements DiaOBD{
 	}
 
 	public Dia selectByID(Integer ID) {
-		return selectByCondicion("dia_ID="+ID).get(0);
+		return selectByCondicion("ID="+ID).get(0);
 	}
 	
 	private List<Dia> selectByCondicion(String condicion) {
 		List<Dia> dias = new ArrayList<Dia>();
-		String campos = "dia_ID, descripcion";
+		String campos = "ID, descripcion";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -36,7 +36,7 @@ public class DiaODBMySQL extends ODB implements DiaOBD{
 	
 			while (resultados.next()) {
 				dias.add(new Dia(
-						resultados.getInt("dia_ID"),
+						resultados.getInt("ID"),
 						resultados.getString("descripcion")
 						));
 			}

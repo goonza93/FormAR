@@ -50,7 +50,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 		for (int i = 0; i < this.salas_en_tabla.size(); i ++){
 			boolean disponible = SalaManager.validarHorarioDeCursada(horarioIngresado, this.salas_en_tabla.get(i));
 			String disponibilidad = "SI";
-			if(!disponible && this.salas_en_tabla.get(i).getSalaID()!=1){
+			if(!disponible && this.salas_en_tabla.get(i).getID()!=1){
 				disponibilidad = "NO";
 			}
 			Object[] fila = {this.salas_en_tabla.get(i).getNumero(), this.salas_en_tabla.get(i).getNombre(),
@@ -68,7 +68,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 				int row = this.ventana.getTablaSalas().getSelectedRow(); // indice row de la tabla
 				int modelFila = this.ventana.getTablaSalas().convertRowIndexToModel(row); // indice row del model de la row de la tabla
 				if(validarSalaSeleccionada(this.salas_en_tabla.get(modelFila)) || 
-						this.salas_en_tabla.get(modelFila).getSalaID() == 1){				//SI es la FANTASMA NO valido
+						this.salas_en_tabla.get(modelFila).getID() == 1){				//SI es la FANTASMA NO valido
 					if(this.salas_en_tabla.get(modelFila).getCapacidad()< this.capacidadMaxima){
 						int confirm = JOptionPane.showOptionDialog(null,
 								"La capacidad maxima de la sala es menor que la de la \n"

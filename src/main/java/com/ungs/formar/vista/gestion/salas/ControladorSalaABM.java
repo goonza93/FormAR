@@ -74,7 +74,7 @@ public class ControladorSalaABM implements ActionListener {
 	private void mostrarSalaModificacion() {
 		Sala sala = obtenerSalaSeleccionada();
 		if (sala != null) {
-			if(sala.getSalaID() == 1){
+			if(sala.getID() == 1){
 				JOptionPane.showMessageDialog(null, "La sala seleccionada no se puede editar.");
 			}
 			else if (!SalaManager.estaAsignada(sala)) {
@@ -93,7 +93,7 @@ public class ControladorSalaABM implements ActionListener {
 	private void borrarSala() {
 		Sala sala = obtenerSalaSeleccionada();
 		if (sala != null) {
-			if (sala.getSalaID() == 1) {
+			if (sala.getID() == 1) {
 				JOptionPane.showMessageDialog(null, "La sala seleccionada no se puede eliminar.");
 			} else {
 				int confirm = JOptionPane.showOptionDialog(null,
@@ -184,7 +184,7 @@ public class ControladorSalaABM implements ActionListener {
 			if (salaEdicion == null) {
 				isOk = false;
 				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";
-			} else if (salaBD.getSalaID() != salaEdicion.getSalaID()) {
+			} else if (salaBD.getID() != salaEdicion.getID()) {
 				isOk = false;
 				mensaje += "    -El NUMERO ya esta siendo utilizado por otra sala\n";
 			}
