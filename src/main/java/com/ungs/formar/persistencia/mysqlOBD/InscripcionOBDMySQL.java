@@ -49,7 +49,7 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	}
 
 	public Inscripcion selectByCursoAlumno(Curso curso, Alumno alumno) {
-		String condicion = "cliente = "+alumno.getID()+" and curso = "+curso.getID();
+		String condicion = "alumno = "+alumno.getID()+" and curso = "+curso.getID();
 		List<Inscripcion> inscripciones = selectByCondicion(condicion);
 		if (inscripciones.size()>0)
 			return inscripciones.get(0);
