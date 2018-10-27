@@ -302,70 +302,43 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 	}
 
 	private Curso obtenerCursoSeleccionado() {
-		int registroTabla = ventanaABM.getTablaCursos().getSelectedRow(); // Indice
-																			// de
-																			// la
-																			// tabla
-
+		int registroTabla = ventanaABM.getTablaCursos().getSelectedRow();
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-
-		int registro = ventanaABM.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix
-																							// para
-																							// el
-																							// filtro
+		int registro = ventanaABM.getTablaCursos().convertRowIndexToModel(registroTabla); 
 		return cursos.get(registro);
 	}
 
 	private Alumno obtenerAlumnosSeleccionados() {
-		int registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRow(); // Indice
-																			// de
-																			// la
-																			// tabla
-
+		int registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRow();
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
 
-		int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix
-																							// para
-																							// el
-																							// filtro
+		int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(registroTabla); 
 		return alumnos.get(registro);
 	}
 
 	private List<Alumno> obtenerAlumnosSeleccionados2() {
 		List<Alumno> ret = new ArrayList<Alumno>();
-		int[] registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRows(); // Indice
-																				// de
-																				// la
-																				// tabla
+		int[] registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRows();
 		// No habia ningun registro seleccionado
 		for (int fila : registroTabla) {
-			int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(fila); // Fix
-																						// para
-																						// el
-																						// filtro
+			int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(fila);
 			ret.add(alumnos.get(registro));
 		}
 		return ret;
 	}
 
 	private Alumno obtenerAlumnoSeleccionadoBaja() {
-		int registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRow(); // Indice
-																			// de
-																			// la
-																			// tabla
+		int registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRow(); 
 
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
 
-		int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(registroTabla); // Fix
-																							// para
-																							// el
-																							// filtro
+		int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(registroTabla);
 		return alumnos.get(registro);
 	}
 

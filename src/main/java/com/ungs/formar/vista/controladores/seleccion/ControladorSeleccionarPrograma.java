@@ -76,6 +76,7 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 				int modelFila = this.ventanaSeleccionarPrograma.getTablaProgramas().convertRowIndexToModel(row); 
 
 				this.controladorCrearCurso.setPrograma(this.programas_en_tabla.get(modelFila));
+				this.controladorCrearCurso.actualizarFechaFin();
 				this.ventanaSeleccionarPrograma.dispose();
 				this.controladorCrearCurso.inicializar();
 			}
