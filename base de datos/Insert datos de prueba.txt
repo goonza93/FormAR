@@ -26,26 +26,27 @@ INSERT INTO for_programas (area, nombre, horas, fecha_aprobacion, descripcion, a
 
 
 -- INSERTAR EMPLEADOS
+-- LAS CONTRASENAS ESTAN CIFRADAS PERO SON 123
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password)
-VALUES ("38000000", 1, "Gonzalo", "Bruckmann Adm", "1150589887", "gbruckmann@gmail.com", '1997-08-21', true, "user1", "123");
+VALUES ("38000000", 1, "Gonzalo", "Bruckmann Adm", "1150589887", "gbruckmann@gmail.com", '1997-08-21', true, "user1", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("39000000", 1, "Gian Franco", "Grillo Adm", "1150638997", "gfgrillo3@gmail.com", '1996-11-20', true, "user2", "123");
+VALUES ("39000000", 1, "Gian Franco", "Grillo Adm", "1150638997", "gfgrillo3@gmail.com", '1996-11-20', true, "user2", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("40000000", 1, "Benito", "Molina Adm", "1185421358", "bmolina@gmail.com", '1999-01-02', true, "user3", "123");
+VALUES ("40000000", 1, "Benito", "Molina Adm", "1185421358", "bmolina@gmail.com", '1999-01-02', true, "user3", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("93000000", 1, "Carlos", "Caballero Adm", "1187412365", "ccaballero@gmail.com", '1998-05-01', true, "user4", "123");
+VALUES ("93000000", 1, "Carlos", "Caballero Adm", "1187412365", "ccaballero@gmail.com", '1998-05-01', true, "user4", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("38000000", 2, "Gonzalo", "Bruckmann Ins", "1150589887", "gbruckmann@gmail.com", '1997-08-21', true, "user5", "123");
+VALUES ("38000000", 2, "Gonzalo", "Bruckmann Ins", "1150589887", "gbruckmann@gmail.com", '1997-08-21', true, "user5", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("39000000", 2, "Gian Franco", "Grillo ins", "1150638997", "gfgrillo3@gmail.com", '1996-11-20', true, "user6", "123");
+VALUES ("39000000", 2, "Gian Franco", "Grillo ins", "1150638997", "gfgrillo3@gmail.com", '1996-11-20', true, "user6", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("40000000", 2, "Benito", "Molina Ins", "1185421358", "bmolina@gmail.com", '1999-01-02', true, "user7", "123");
+VALUES ("40000000", 2, "Benito", "Molina Ins", "1185421358", "bmolina@gmail.com", '1999-01-02', true, "user7", "202cb962ac59075b964b07152d234b70");
 
 INSERT INTO for_empleados (dni, rol, nombre, apellido, telefono, email, fecha_ingreso, activo, usuario, password )
-VALUES ("93000000", 3, "Carlos", "Caballero Sup", "1187412365", "ccaballero@gmail.com", '1998-05-01', true, "user8", "123");
+VALUES ("93000000", 3, "Carlos", "Caballero Sup", "1187412365", "ccaballero@gmail.com", '1998-05-01', true, "user8", "202cb962ac59075b964b07152d234b70");
