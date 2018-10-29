@@ -26,6 +26,9 @@ public class PantallaPrincipal {
 	private JButton btnGestionarProgramas;
 	private JButton btnGestionarSalas;
 	private JButton btnGestionarInscripciones;
+	private JButton btnGestionarContacto;
+	private JButton btnGestionarPagos;
+	private JButton btnRecados;
 
 	public PantallaPrincipal() {
 		super();
@@ -34,7 +37,7 @@ public class PantallaPrincipal {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 485, 438);
+		frame.setBounds(100, 100, 634, 438);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// frame.getContentPane().setLayout(null);
 
@@ -66,24 +69,40 @@ public class PantallaPrincipal {
 		btnGestionarInscripciones = new JButton("GESTIONAR INSCRIPCIONES");
 		btnGestionarInscripciones.setFont(new Font("Arial", Font.PLAIN, 12));
 		
+		JButton btnGestionarPagos = new JButton("GESTIONAR PAGOS");
+		btnGestionarPagos.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		JButton btnGestionarContacto = new JButton("GESTIONAR CONTACTO");
+		btnGestionarContacto.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		JButton btnRecados = new JButton("RECADOS");
+		btnRecados.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnGestionarAlumnos, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-								.addComponent(btnGestionarInscripciones, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+								.addComponent(btnGestionarAlumnos, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnGestionarInscripciones, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnGestionarSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-								.addComponent(btnGestionarProgramas, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-								.addComponent(btnGestionarCursos, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))))
-					.addContainerGap())
+								.addComponent(btnGestionarSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+								.addComponent(btnGestionarProgramas, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+								.addComponent(btnGestionarCursos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnGestionarContacto, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+								.addComponent(btnRecados, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+								.addComponent(btnGestionarPagos, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+							.addGap(4))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -92,16 +111,25 @@ public class PantallaPrincipal {
 					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnGestionarSalas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnGestionarInscripciones, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnGestionarAlumnos, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnGestionarProgramas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-						.addComponent(btnGestionarCursos, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(65)
+							.addComponent(btnGestionarContacto, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRecados, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+									.addComponent(btnGestionarSalas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnGestionarPagos, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnGestionarInscripciones, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnGestionarAlumnos, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnGestionarProgramas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+								.addComponent(btnGestionarCursos, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
@@ -145,6 +173,18 @@ public class PantallaPrincipal {
 	
 	public JButton getBtnGestionarInscripciones(){
 		return btnGestionarInscripciones;
+	}
+	
+	public JButton getBtnGestionarContacto(){
+		return btnGestionarContacto;
+	}
+	
+	public JButton getBtnGestionarPagos(){
+		return btnGestionarPagos;
+	}
+	
+	public JButton getBtnRecados(){
+		return btnRecados;
 	}
 	
 	public void ocultar() {
