@@ -92,6 +92,7 @@ public class ControladorLogin implements ActionListener {
 	private void iniciarSesion() {
 		if (validarLogin()) {
 			//SETEAR EL USUARIO QUE ESTA USANDO EL SISTEMA
+			System.out.println("LOGIN");
 		}
 
 	}
@@ -100,9 +101,8 @@ public class ControladorLogin implements ActionListener {
 		String usuarioIngresado = ventanaIniciarSesion.getUsuario().getText();
 		if (validarUsuario(usuarioIngresado)) {
 			Empleado usuario = EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText());
-			String passCifrado = Hash.md5(usuario.getPassword());
+			String passCifrado = usuario.getPassword();
 			String passIngresado = Hash.md5(new String(ventanaIniciarSesion.getPassword().getPassword()));
-			
 			if(!passCifrado.equals(passIngresado)){
 				Popup.mostrar("- Contraseña incorrecta");
 				ventanaIniciarSesion.getPassword().setText("");
