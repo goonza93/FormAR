@@ -158,7 +158,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	}
 
 	public Empleado selectByUsuario(String usuario) {
-		String condicion = "usuario = "+usuario;
+		String condicion = "usuario = '"+usuario+"'";
 		List<Empleado> empleados = selectByCondicion(condicion);
 		Empleado empleado = null;
 		if (empleados.size()>0)
@@ -168,7 +168,7 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	}
 	
 	public Empleado selectByEmail(String email) {
-		String condicion = "email = "+email;
+		String condicion = "email = '"+email+"'";
 		List<Empleado> empleados = selectByCondicion(condicion);
 		Empleado empleado = null;
 		if (empleados.size()>0)
