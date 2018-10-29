@@ -80,4 +80,8 @@ public class VentanaRecuperarPassword {
 	public JButton getBtnRecuperarPass(){
 		return btnRecuperarPassword;
 	}
+	
+	public JTextField getTxtEmail(){
+		return txtEmail;
+	}
 }
