@@ -185,7 +185,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 			ventanaABM.getVentana().setEnabled(false);
 			llenarTablaBaja();
 		} else
-			Popup.mostrar("Seleccione exactamente 1 curso para poder gestonar bajas.");
+			Popup.mostrar("Seleccione exactamente 1 curso para poder gestionar bajas.");
 	}
 
 	private void cerrarVentanaAlta() {
