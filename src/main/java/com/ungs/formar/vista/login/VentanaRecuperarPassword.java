@@ -14,6 +14,7 @@ public class VentanaRecuperarPassword {
 
 	private JFrame frame;
 	private JTextField txtEmail;
+	private JButton btnRecuperarPassword, btnVolver;
 
 	/**
 	 * Launch the application.
@@ -61,11 +62,22 @@ public class VentanaRecuperarPassword {
 		JPanel panelBotones = new JPanel();
 		frame.getContentPane().add(panelBotones);
 		
-		JButton btnRecuperarPassword = new JButton("Recuperar password");
+		btnRecuperarPassword = new JButton("Recuperar password");
 		panelBotones.add(btnRecuperarPassword);
 		
-		JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Volver");
 		panelBotones.add(btnVolver);
 	}
 
+	public JFrame getVentana(){
+		return frame;
+	}
+	
+	public JButton getBtnVolver(){
+		return btnVolver;
+	}
+	
+	public JButton getBtnRecuperarPass(){
+		return btnRecuperarPassword;
+	}
 }
