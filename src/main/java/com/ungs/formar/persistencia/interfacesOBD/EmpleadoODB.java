@@ -22,4 +22,6 @@ public interface EmpleadoODB {
 	
 	public List<Empleado> selectByRol(Rol rol);
 	
+	public Empleado selectByUsuario(String usuario);
+	
 }

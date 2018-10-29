@@ -19,6 +19,10 @@ public class Validador {
 		return texto.matches("[a-zA-ZÀ-ÿ0-9\\u00f1\\u00d1\\s]+");
 	}
 	
+	private static boolean formatoNumeroLetra(String texto) {
+		return texto.matches("[a-zA-ZÀ-ÿ0-9\\u00f1\\u00d1]+");
+	}
+	
 	
 	// METODOS QUE USAN LOS DEMAS PARA VALIDAR CAMPOS
 	public static boolean validarEmail(String texto) {
@@ -43,6 +47,10 @@ public class Validador {
 	
 	public static boolean validarNumero(String texto) {
 		return (formatoNumero(texto));
+	}
+	
+	public static boolean validarUsuario(String texto) {
+		return (formatoNumeroLetra(texto));
 	}
 	
 	public static void main(String[] args) {

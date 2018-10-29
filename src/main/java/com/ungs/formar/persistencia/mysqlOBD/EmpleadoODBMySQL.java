@@ -157,5 +157,14 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 		return empleados;
 	}
 
+	public Empleado selectByUsuario(String usuario) {
+		String condicion = "usuario = "+usuario;
+		List<Empleado> empleados = selectByCondicion(condicion);
+		Empleado empleado = null;
+		if (empleados.size()>0)
+			empleado = empleados.get(0); 
+		
+		return empleado;
+	}
 	
 }

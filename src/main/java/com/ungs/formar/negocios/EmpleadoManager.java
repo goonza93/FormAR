@@ -59,9 +59,9 @@ public class EmpleadoManager {
 	}
 	
 	// TODO implementar
-	public static Empleado traerSegunUsuario(String dni) {
+	public static Empleado traerSegunUsuario(String usuario) {
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
-		return odb.selectByDNI(dni);
+		return odb.selectByUsuario(usuario);
 	}
 
 }
