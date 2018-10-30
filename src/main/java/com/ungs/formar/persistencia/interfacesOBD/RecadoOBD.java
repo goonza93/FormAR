@@ -1,0 +1,20 @@
+package com.ungs.formar.persistencia.interfacesOBD;
+
+import java.util.List;
+
+import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Recado;
+
+public interface RecadoOBD {
+
+	public void insert (Recado recado);
+	
+	public void update (Recado recado);
+	
+	public void delete (Recado recado);
+	
+	public List<Recado> select();
+	
+	public List<Recado> selectByReceptor(Empleado receptor);
+	
+}

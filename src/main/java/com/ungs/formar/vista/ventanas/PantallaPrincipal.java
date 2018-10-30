@@ -75,7 +75,7 @@ public class PantallaPrincipal {
 		JButton btnGestionarContacto = new JButton("GESTIONAR CONTACTO");
 		btnGestionarContacto.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JButton btnRecados = new JButton("RECADOS");
+		btnRecados = new JButton("RECADOS");
 		btnRecados.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		GroupLayout gl_panel = new GroupLayout(panel);

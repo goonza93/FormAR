@@ -6,6 +6,6 @@ public interface EmpleadoSeleccionable {
 
 	public void setEmpleado(Empleado empleado);
 	
-	public void inicializar();
+	public void mostrar();
 	
 }

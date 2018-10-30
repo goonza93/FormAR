@@ -69,13 +69,13 @@ public class ControladorSeleccionarEmpleado implements ActionListener {
 			
 			invocador.setEmpleado(empleados.get(modelFila));
 			ventana.dispose();
-			invocador.inicializar();
+			invocador.mostrar();
 		}
 	}
 		
 	private void cancelar() {
 		ventana.dispose();
-		invocador.inicializar();
+		invocador.mostrar();
 	}
 	
 }

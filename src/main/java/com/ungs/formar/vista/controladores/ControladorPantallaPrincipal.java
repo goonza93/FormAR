@@ -13,6 +13,8 @@ import com.ungs.formar.vista.gestion.inscripciones.ControladorInscripcionABM;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
+import com.ungs.formar.vista.recados.ControladorRecados;
+import com.ungs.formar.vista.recados.VentanaRecados;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
@@ -34,6 +36,8 @@ public class ControladorPantallaPrincipal implements ActionListener{
 			this.ventanaPantallaPrincipal.getBtnGestionarProgramas().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarSalas().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarInscripciones().addActionListener(this);
+			this.ventanaPantallaPrincipal.getBtnRecados().addActionListener(this);
+			
 		}
 		
 		public void inicializar()
@@ -81,5 +85,14 @@ public class ControladorPantallaPrincipal implements ActionListener{
 				ventanaPantallaPrincipal.ocultar();
 				new ControladorInscripcionABM(this, ventanaInscripcionABM);
 			}
+			
+			// BOTON GESTIONAR RECADOS
+			else if(e.getSource() == ventanaPantallaPrincipal.getBtnRecados()){
+				ventanaPantallaPrincipal.ocultar();
+				VentanaRecados recados = new VentanaRecados();
+				new ControladorRecados(recados, this);
+			}
+			
+						
 		}
 }
