@@ -21,8 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 

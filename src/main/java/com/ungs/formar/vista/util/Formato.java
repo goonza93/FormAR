@@ -1,6 +1,11 @@
-package com.ungs.formar.negocios;
+package com.ungs.formar.vista.util;
 
 import java.util.List;
+
+import com.ungs.formar.negocios.CursoManager;
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -8,6 +13,11 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 
 public class Formato {
+	
+	public static String empleado(Integer ID) {
+		Empleado empleado = EmpleadoManager.traerEmpleado(ID);
+		return empleado.getApellido()+" "+empleado.getNombre(); 
+	}
 	
 	public static String instructor(Curso curso) {
 		String ret = "Sin asignar";

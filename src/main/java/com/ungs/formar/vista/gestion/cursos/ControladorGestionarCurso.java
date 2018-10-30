@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
-import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.PdfManager;
@@ -25,6 +24,7 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorGestionarCurso implements ActionListener, Consultable {

@@ -7,15 +7,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.ungs.formar.persistencia.entidades.Recado;
+import com.ungs.formar.vista.util.Formato;
 
 public class TablaRecados extends JTable{
 	private static final long serialVersionUID = 1L;
-	private String[] columnas = { "Remitente", "Fecha", "Contenido"};
+	private String[] columnas = { "Emisor", "Receptor", "Fecha", "Contenido", "Leido", "Archivado"};
 	private DefaultTableModel modelo;
 	private List<Recado> recados;
 
 	public TablaRecados(List<Recado> recados) {
-		this.recados = recados;
 		modelo = new DefaultTableModel(null, columnas);
 		setModel(modelo);
 		recargar(recados);
@@ -29,9 +29,12 @@ public class TablaRecados extends JTable{
 
 		for (Recado recado: recados ) {
 			Object[] fila = {
-					recado.getEmisor(),
+					Formato.empleado(recado.getEmisor()),
+					Formato.empleado(recado.getReceptor()),
 					recado.getFecha(),
-					recado.getMensaje()
+					recado.getMensaje(),
+					recado.isLeido(),
+					recado.isArchivado()
 			};
 			modelo.addRow(fila);
 		}

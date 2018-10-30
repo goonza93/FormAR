@@ -10,13 +10,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
-import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.cursos.ControladorCursosInscriptos;
 import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.Popup;
 

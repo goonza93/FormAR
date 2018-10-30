@@ -1,18 +1,14 @@
 package com.ungs.formar.vista.recados;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
-
-import java.awt.BorderLayout;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class VentanaRecados {
 	private JFrame ventana;
@@ -30,7 +26,7 @@ public class VentanaRecados {
 		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
 		
 		Empleado empleado = EmpleadoManager.traerEmpleado(2);
-		tabla = new TablaRecados(Mensajero.traerRecadosRecibidos(empleado));
+		tabla = new TablaRecados(Mensajero.traerMensajesRecibidos(empleado));
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
 		ventana.getContentPane().add(panelTabla);
@@ -73,75 +69,36 @@ public class VentanaRecados {
 		ventana.setEnabled(true);
 	}
 	
-	
-	
-	public JButton getBtnNuevo() {
+	public JButton getNuevo() {
 		return btnNuevo;
 	}
 
-	public void setBtnNuevo(JButton btnNuevo) {
-		this.btnNuevo = btnNuevo;
-	}
-
-	public JButton getBtnLeer() {
+	public JButton getLeer() {
 		return btnLeer;
 	}
 
-	public void setBtnLeer(JButton btnLeer) {
-		this.btnLeer = btnLeer;
-	}
-
-	public JButton getBtnArchivar() {
+	public JButton getArchivar() {
 		return btnArchivar;
 	}
 
-	public void setBtnArchivar(JButton btnArchivar) {
-		this.btnArchivar = btnArchivar;
-	}
-
-	public JButton getBtnBorrar() {
+	public JButton getBorrar() {
 		return btnBorrar;
 	}
 
-	public void setBtnBorrar(JButton btnBorrar) {
-		this.btnBorrar = btnBorrar;
-	}
-
-	public JButton getBtnArchivo() {
+	public JButton getArchivo() {
 		return btnArchivo;
 	}
 
-	public void setBtnArchivo(JButton btnArchivo) {
-		this.btnArchivo = btnArchivo;
-	}
-
-	public JButton getBtnEnviados() {
+	public JButton getEnviados() {
 		return btnEnviados;
-	}
-
-	public void setBtnEnviados(JButton btnEnviados) {
-		this.btnEnviados = btnEnviados;
 	}
 
 	public JFrame getVentana() {
 		return ventana;
 	}
 
-	public void setVentana(JFrame ventana) {
-		this.ventana = ventana;
-	}
-
 	public TablaRecados getTabla() {
 		return tabla;
 	}
-
-	public void setTabla(TablaRecados tabla) {
-		this.tabla = tabla;
-	}
-
-
-	
-	
-	
-	
+		
 }

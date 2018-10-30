@@ -55,40 +55,20 @@ public class VentanaEnviarRecado {
 		return ventana;
 	}
 
-	public void setVentana(JFrame ventana) {
-		this.ventana = ventana;
-	}
-
-	public JButton getBtnSeleccionar() {
+	public JButton getSeleccionar() {
 		return btnSeleccionar;
 	}
 
-	public void setBtnSeleccionar(JButton btnSeleccionar) {
-		this.btnSeleccionar = btnSeleccionar;
-	}
-
-	public JButton getBtnEnviar() {
+	public JButton getEnviar() {
 		return btnEnviar;
 	}
 
-	public void setBtnEnviar(JButton btnEnviar) {
-		this.btnEnviar = btnEnviar;
-	}
-
-	public JButton getBtnCancelar() {
+	public JButton getCancelar() {
 		return btnCancelar;
 	}
 
-	public void setBtnCancelar(JButton btnCancelar) {
-		this.btnCancelar = btnCancelar;
-	}
-
-	public JTextField getInDestinatario() {
+	public JTextField getDestinatario() {
 		return inDestinatario;
-	}
-
-	public void setInDestinatario(JTextField inDestinatario) {
-		this.inDestinatario = inDestinatario;
 	}
 
 	public void ocultar() {
@@ -103,7 +83,5 @@ public class VentanaEnviarRecado {
 		ventana.setVisible(true);
 		ventana.setEnabled(true);
 	}
-	
-	
 	
 }

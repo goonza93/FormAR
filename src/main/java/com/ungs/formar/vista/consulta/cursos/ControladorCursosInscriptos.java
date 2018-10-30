@@ -5,11 +5,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-import com.ungs.formar.negocios.Formato;
+
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.vista.consulta.Consultable;
+import com.ungs.formar.vista.util.Formato;
 
 public class ControladorCursosInscriptos implements ActionListener{
 	private VentanaCursosInscriptos ventana;

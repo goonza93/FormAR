@@ -15,7 +15,6 @@ import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmailSender;
 import com.ungs.formar.negocios.EmpleadoManager;
-import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
@@ -30,6 +29,7 @@ import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionBaja;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 

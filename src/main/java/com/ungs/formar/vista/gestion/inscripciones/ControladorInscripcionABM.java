@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
-import com.ungs.formar.negocios.Formato;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
@@ -23,6 +22,7 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorInscripcionABM implements ActionListener, Consultable {
