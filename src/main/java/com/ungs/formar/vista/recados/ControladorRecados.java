@@ -12,17 +12,21 @@ import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.recados.archivo.ControladorArchivo;
+import com.ungs.formar.vista.recados.archivo.VentanaArchivo;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;
+import com.ungs.formar.vista.recados.leer.RecadoLegible;
 import com.ungs.formar.vista.seleccion.empleado.ControladorSeleccionarEmpleado;
 import com.ungs.formar.vista.seleccion.empleado.EmpleadoSeleccionable;
 import com.ungs.formar.vista.seleccion.empleado.VentanaSeleccionarEmpleado;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorRecados implements ActionListener, EmpleadoSeleccionable{
+public class ControladorRecados implements ActionListener, EmpleadoSeleccionable, RecadoLegible{
 	private ControladorPantallaPrincipal invocador;
 	private VentanaRecados ventana;
 	private VentanaEnviarRecado ventanaEnviar;
+	
 	private Empleado receptor;
 
 	public ControladorRecados(VentanaRecados v, ControladorPantallaPrincipal c) {
@@ -74,6 +78,11 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 		else if (e.getSource() == ventana.getArchivar())
 			archivarMensaje();
 		
+		// BOTON ver ARCHIVAs DE LA VENTANA RECADOS
+		else if (e.getSource() == ventana.getArchivo())
+			abrirVentanaArchivo();
+		
+		
 		else if (ventanaEnviar != null) {
 			
 			// BOTON CANCELAR DE LA VENTANA NUEVO MENSAJE
@@ -85,6 +94,13 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 				seleccionarDestinatario();
 		}
 		
+		
+		
+	}
+
+	private void abrirVentanaArchivo() {
+		ventana.ocultar();
+		new ControladorArchivo(this);
 	}
 
 	private void archivarMensaje() {
@@ -148,7 +164,10 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 
 	public void mostrar() {
 		ventana.mostrar();
-		
+	}
+
+	public void recargar() {
+		llenarTabla();
 	}
 
 }

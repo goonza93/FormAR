@@ -17,4 +17,6 @@ public interface RecadoOBD {
 	
 	public List<Recado> selectByReceptor(Empleado receptor);
 	
+	public List<Recado> selectByEmpleadoReceptorArchivado(Empleado empleado, Empleado receptor, boolean archivado);
+	
 }

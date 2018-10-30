@@ -13,7 +13,7 @@ public class MensajeroTest {
 		System.out.println("___ Enviar mensaje Test");
 		Mensajero.enviarMensaje(emisor, receptor, mensaje);
 	}
-	
+
 	public static void traerMensajesRecibidosTest(Empleado empleado) {
 		System.out.println("___ Traer mensajes recibidos Test");
 		List<Recado> recados = Mensajero.traerMensajesRecibidos(empleado);
@@ -22,11 +22,21 @@ public class MensajeroTest {
 		System.out.println("Cantidad de mensajes:"+recados.size());
 	}
 	
+
+	public static void traerMensajesArchivadosTest(Empleado empleado) {
+		System.out.println("___ Traer mensajes archivados Test");
+		List<Recado> recados = Mensajero.traermensajesArchivados(empleado);
+		for (Recado recado : recados)
+			System.out.println(recado.getMensaje());
+		System.out.println("Cantidad de mensajes:"+recados.size());
+	}
+	
 	public static void main(String[] args) {
 		Empleado empleado1 = EmpleadoManager.traerEmpleado(1);
 		Empleado empleado2 = EmpleadoManager.traerEmpleado(2);
-		enviarMensajeTest(empleado1, empleado2, "Mensaje 4");
-		traerMensajesRecibidosTest(empleado2);
+		enviarMensajeTest(empleado1, empleado2, "Mensaje 6");
+		//traerMensajesRecibidosTest(empleado2);
+		traerMensajesArchivadosTest(empleado2);
 	}
 	
 }

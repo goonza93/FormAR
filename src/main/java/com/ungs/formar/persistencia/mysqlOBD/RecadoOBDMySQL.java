@@ -61,6 +61,14 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 		return recados;
 	}
 
+	public List<Recado> selectByEmpleadoReceptorArchivado(Empleado empleado, Empleado receptor, boolean archivado) {
+		String condicion = "empleado = "+empleado.getID()
+				+" and receptor = "+receptor.getID()
+				+" and archivado = "+archivado;
+		List<Recado> recados = selectByCondicion(condicion);
+		return recados;
+	}
+	
 	private List<Recado> selectByCondicion(String condicion) {
 		List<Recado> recados = new ArrayList<Recado>();
 		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  

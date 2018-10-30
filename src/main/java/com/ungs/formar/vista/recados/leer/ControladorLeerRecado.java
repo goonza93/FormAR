@@ -9,10 +9,10 @@ import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.recados.ControladorRecados;
 
 public class ControladorLeerRecado implements ActionListener{
-	private ControladorRecados invocador;
+	private RecadoLegible invocador;
 	private VentanaLeerRecado ventana;
 
-	public ControladorLeerRecado(ControladorRecados invocador, Recado recado) {
+	public ControladorLeerRecado(RecadoLegible invocador, Recado recado) {
 		this.ventana = new VentanaLeerRecado(recado);
 		this.invocador = invocador;
 		this.ventana.getArchivar().addActionListener(this);
@@ -52,7 +52,7 @@ public class ControladorLeerRecado implements ActionListener{
 	private void archivarRecado() {
 		Recado recado = ventana.getRecado();
 		Mensajero.archivarMensaje(recado);
-		invocador.inicializar();
+		invocador.recargar();
 		volver();
 		
 	}
@@ -60,7 +60,8 @@ public class ControladorLeerRecado implements ActionListener{
 	private void borrarRecado() {
 		Recado recado = ventana.getRecado();
 		Mensajero.borrarMensaje(recado);
-		invocador.inicializar();
+		invocador.recargar();
+		invocador.mostrar();
 		volver();
 	}
 	
