@@ -1,7 +1,6 @@
 package com.ungs.formar.persistencia.mysqlOBD;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
-import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.persistencia.interfacesOBD.RecadoOBD;
@@ -18,36 +16,53 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 	private final String tabla = "for_recados";
 	private final String campos = "emisor, receptor, empleado, contenido, leido, archivado, fecha";
 
-
 	public void insert(Recado recado) {
-		// TODO Auto-generated method stub
-		
+		String valores = recado.getEmisor()
+				+", "+recado.getReceptor()
+				+", "+recado.getEmpleado()
+				+", '"+recado.getMensaje()+"'"
+				+", "+recado.isLeido()
+				+", "+recado.isArchivado()
+				+", '"+recado.getFecha()+"'";
+				
+		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
+		ejecutarSQL(consulta);
 	}
 
 	public void update(Recado recado) {
-		// TODO Auto-generated method stub
-		
+		String condicion = "ID ="+recado.getID();
+		String valores =
+				"emisor = "+recado.getEmisor()
+				+", receptor = "+recado.getReceptor()
+				+", empleado = "+recado.getEmpleado()
+				+", contenido = '"+recado.getMensaje()+"'"
+				+", leido = "+recado.isLeido()
+				+", archivado = "+recado.isArchivado()
+				+", fecha = '"+recado.getFecha()+"'";
+		String consulta = "update "+tabla+" set "+valores+""+"  where ("+condicion+");";
+		ejecutarSQL(consulta);	
 	}
-
+	
 	public void delete(Recado recado) {
-		// TODO Auto-generated method stub
-		
+		String condicion = "ID = "+recado.getID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);	
 	}
 
 	public List<Recado> select() {
 		String condicion = "true";
-		List<Recado> areas = selectByCondicion(condicion);
-		return areas;
+		List<Recado> recados = selectByCondicion(condicion);
+		return recados;
 	}
 
 	public List<Recado> selectByReceptor(Empleado receptor) {
 		String condicion = "receptor = "+receptor.getID();
-		List<Recado> areas = selectByCondicion(condicion);
-		return areas;
+		List<Recado> recados = selectByCondicion(condicion);
+		return recados;
 	}
 
 	private List<Recado> selectByCondicion(String condicion) {
-		List<Recado> areas = new ArrayList<Recado>();
+		List<Recado> recados = new ArrayList<Recado>();
 		String comandoSQL = "select ID, "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -57,7 +72,7 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 			ResultSet resultados = sentencia.executeQuery(comandoSQL);			
 	
 			while (resultados.next()) {
-				areas.add(new Recado(
+				recados.add(new Recado(
 						resultados.getInt("ID"),
 						resultados.getInt("empleado"),
 						resultados.getInt("receptor"),
@@ -78,10 +93,7 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 			e.printStackTrace();
 		}
 			
-		return areas;
+		return recados;
 	}
-
-	
-	
 	
 }

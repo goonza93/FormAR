@@ -4,6 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.Mensajero;
+import com.ungs.formar.persistencia.entidades.Empleado;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
@@ -12,9 +16,7 @@ import javax.swing.JScrollPane;
 
 public class VentanaRecados {
 	private JFrame ventana;
-	private JTable tabla;
-	private DefaultTableModel modelo;
-	private String[] columnas = { "Remitente", "Fecha", "Contenido"};
+	private TablaRecados tabla;
 	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnArchivo, btnEnviados;
 
 	public VentanaRecados() {
@@ -26,12 +28,13 @@ public class VentanaRecados {
 		ventana.setBounds(100, 100, 633, 300);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
-		// CREO LA TABLA DE ALUMNOS
-		modelo= new DefaultTableModel(null, columnas);
-		tabla= new JTable(modelo);
-		JScrollPane panelAlumnos = new JScrollPane();
-		panelAlumnos.setViewportView(tabla);
-		ventana.getContentPane().add(panelAlumnos);
+		
+		Empleado empleado = EmpleadoManager.traerEmpleado(2);
+		tabla = new TablaRecados(Mensajero.traerRecadosRecibidos(empleado));
+		JScrollPane panelTabla = new JScrollPane();
+		panelTabla.setViewportView(tabla);
+		ventana.getContentPane().add(panelTabla);
+		
 		
 		JPanel panelBotones = new JPanel();
 		ventana.getContentPane().add(panelBotones);
@@ -128,29 +131,14 @@ public class VentanaRecados {
 		this.ventana = ventana;
 	}
 
-	public JTable getTabla() {
+	public TablaRecados getTabla() {
 		return tabla;
 	}
 
-	public void setTabla(JTable tabla) {
+	public void setTabla(TablaRecados tabla) {
 		this.tabla = tabla;
 	}
 
-	public DefaultTableModel getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(DefaultTableModel modelo) {
-		this.modelo = modelo;
-	}
-
-	public String[] getColumnas() {
-		return columnas;
-	}
-
-	public void setColumnas(String[] columnas) {
-		this.columnas = columnas;
-	}
 
 	
 	

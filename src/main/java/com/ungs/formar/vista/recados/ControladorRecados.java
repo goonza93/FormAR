@@ -18,13 +18,13 @@ import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.seleccion.empleado.ControladorSeleccionarEmpleado;
 import com.ungs.formar.vista.seleccion.empleado.EmpleadoSeleccionable;
 import com.ungs.formar.vista.seleccion.empleado.VentanaSeleccionarEmpleado;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorRecados implements ActionListener, EmpleadoSeleccionable{
 	private ControladorPantallaPrincipal controlador;
 	private VentanaRecados ventana;
 	private VentanaEnviarRecado ventanaEnviar;
-	private List<Recado> recados;
 	private Empleado receptor;
 
 	public ControladorRecados(VentanaRecados v, ControladorPantallaPrincipal c) {
@@ -53,33 +53,15 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 	
 	public void inicializar() {
 		llenarTabla();
-		ventana.getVentana().setVisible(true);
-		ventana.getVentana().setEnabled(true);
+		ventana.mostrar();
 	}
 	
 	private void llenarTabla() {
-		ventana.getModelo().setRowCount(0);
-		ventana.getModelo().setColumnCount(0);
-		ventana.getModelo().setColumnIdentifiers(ventana.getColumnas());
-
-		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(1));
+		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(2));
 		Empleado actual = Sesion.getEmpleado();
-		recados = Mensajero.traerRecadosRecibidos(actual);
-		for (Recado recado: recados ) {
-			Object[] fila = {
-					recado.getEmisor(),
-					recado.getFecha(),
-					recado.getMensaje()
-			};
-			ventana.getModelo().addRow(fila);
-		}
+		List<Recado> recados = Mensajero.traerRecadosRecibidos(actual);
+		ventana.getTabla().recargar(recados);
 	}
-	
-	
-	
-	
-	
-	
 	
 	public void actionPerformed(ActionEvent e) {
 		
@@ -87,6 +69,9 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 		if (e.getSource() == ventana.getBtnNuevo())
 			abrirVentanaNuevoMensaje();
 		
+		// BOTON BORRAR DE LA VENTANA RECADOS
+		if (e.getSource() == ventana.getBtnBorrar())
+			borrarMensaje();
 		
 		
 		else if (ventanaEnviar != null) {
@@ -113,6 +98,17 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 		
 		
 		
+	}
+
+	private void borrarMensaje() {
+		List<Recado> recados = ventana.getTabla().obtenerSeleccion();
+		if (recados.size() == 0)
+			Popup.mostrar("Seleccione al menos un mensaje para borrar.");
+		else {
+			for (Recado recado : recados)
+				Mensajero.borrarMensaje(recado);
+			llenarTabla();
+		}
 	}
 
 	private void seleccionarDestinatario() {
