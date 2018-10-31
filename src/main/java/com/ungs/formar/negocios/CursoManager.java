@@ -25,6 +25,7 @@ public class CursoManager {
 		
 		Integer responsableID = (responsable == null) ? null: responsable.getID();
 		Integer instructorID = (instructor == null) ? null: instructor.getID();
+		contenido = (contenido == 0) ? null: contenido;
 		
 		// INSERTO EL CURSO EN LA BD
 		Curso curso = new Curso(-1, cupoMinimo, cupoMaximo, precio, horas, contenido, comision,
@@ -49,6 +50,7 @@ public class CursoManager {
 
 		Integer responsableID = (responsable == null) ? null: responsable.getID();
 		Integer instructorID = (instructor == null) ? null: instructor.getID();
+		contenido = (contenido == 0) ? null: contenido;
 		
 		// Actualizao el curso
 		Curso curso = new Curso(ID, cupoMinimo, cupoMaximo, precio, horas, contenido, comision,
