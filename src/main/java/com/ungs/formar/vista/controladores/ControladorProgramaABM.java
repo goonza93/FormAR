@@ -155,9 +155,6 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		if (lista.size()!=1){
 			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para editar seleccione exactamente un programa.");
 		}
-		else if(ProgramaManager.estaAsignado(lista.get(0))){
-			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "El programa seleccionado esta asignado y no puede editarse");
-		}
 		else {
 			Programa aEditar = lista.get(0);
 			this.ventanaProgramaAM = new VentanaProgramaAM(aEditar);
@@ -179,6 +176,11 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			});
 			this.ventanaProgramaAM.setVisible(true);
 			this.ventanaProgramaGestion.setEnabled(false);
+			
+			if(ProgramaManager.estaAsignado(lista.get(0))){
+				this.ventanaProgramaAM.getTxtNombre().setEnabled(false);
+				this.ventanaProgramaAM.getBtnSeleccionArea().setEnabled(false);
+			}
 		}
 	}
 
