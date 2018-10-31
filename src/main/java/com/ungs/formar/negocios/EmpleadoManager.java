@@ -90,4 +90,10 @@ public class EmpleadoManager {
 		return odb.selectByEmail(email);
 	}
 
+	public static void darDeAltaEmpleado(Empleado empleado) {
+		empleado.setActivo(true);
+		empleado.setFechaEgreso(null);
+		modificarEmpleado(empleado);
+	}
+
 }

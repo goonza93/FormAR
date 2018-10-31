@@ -34,6 +34,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		this.ventanaABM.getBorrar().addActionListener(this);
 		this.ventanaABM.getEditar().addActionListener(this);
 		this.ventanaABM.getCancelar().addActionListener(this);
+		this.ventanaABM.getDarDeAlta().addActionListener(this);
 		this.ventanaABM.getVentana().setTitle("GESTION DE "+rol);
 		this.ventanaABM.getLblRol().setText(rol+":");
 		this.inicializar();
@@ -81,6 +82,11 @@ public class ControladorEmpleadoABM implements ActionListener {
 		else if (e.getSource() == ventanaABM.getBorrar()) {
 			baja();
 		}
+		//BOTON DAR DE ALTA DEL ABM
+		else if (e.getSource() == ventanaABM.getDarDeAlta()) {
+			alta();
+		}
+		
 		// BOTON ACEPTAR DEL AM
 		else if (ventanaAM != null) {
 			if (e.getSource() == ventanaAM.getAceptar()) {
@@ -138,16 +144,16 @@ public class ControladorEmpleadoABM implements ActionListener {
 		List<Empleado> seleccionados = obtenerRegistrosSeleccionados();
 
 		if (seleccionados.size() == 0) {
-			Popup.mostrar("Seleccione al menos un empleado para poder borrarlo");
+			Popup.mostrar("Seleccione al menos un empleado para poder darlo de baja");
 			return;
 		}
 
 		boolean mostrarMensaje = false;
 		boolean mostrarMensajeYaBorrado = false;
-		String mensaje = "Los siguientes empleados no pueden ser borrados porque tiene asignado al menos un curso:";
+		String mensaje = "Los siguientes empleados no pueden ser dados de baja porque tiene asignado al menos un curso:";
 		String mensajeYaBorrado = "\nLos siguientes empleados ya no pertenecen a la institucion: ";
 		
-		if (Popup.confirmar("Esta seguro que quiere borrar los empleados seleccionados?")) {
+		if (Popup.confirmar("Esta seguro que quiere dar de baja los empleados seleccionados?")) {
 			for (Empleado empleado : seleccionados) {
 				if(empleado.getFechaEgreso()!=null){
 					mostrarMensajeYaBorrado = true;
@@ -172,6 +178,35 @@ public class ControladorEmpleadoABM implements ActionListener {
 
 	}
 
+	private void alta() {
+		List<Empleado> seleccionados = obtenerRegistrosSeleccionados();
+
+		if (seleccionados.size() == 0) {
+			Popup.mostrar("Seleccione al menos un empleado para poder Darlo de alta");
+			return;
+		}
+
+		boolean mostrarMensajeYaActivo = false;
+		String mensajeYaActivo = "Los siguientes empleados ya estan activos:";
+		
+		if (Popup.confirmar("Esta seguro que quiere dar de alta los empleados seleccionados?")) {
+			for (Empleado empleado : seleccionados) {
+				if(empleado.getActivo()){
+					mostrarMensajeYaActivo = true;
+					mensajeYaActivo += "\n    -" + empleado.getApellido() + ", " + empleado.getNombre();
+				}
+				else
+					EmpleadoManager.darDeAltaEmpleado(empleado);
+			}
+		}
+	
+		if(mostrarMensajeYaActivo)
+			Popup.mostrar(mensajeYaActivo);
+		
+		inicializar();
+
+	}
+	
 	private void cerrarVentanaAM() {
 		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?", "Confirmacion",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);

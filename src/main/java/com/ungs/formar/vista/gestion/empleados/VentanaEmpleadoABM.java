@@ -27,7 +27,7 @@ public class VentanaEmpleadoABM {
 	private DefaultTableModel modeloEmpleados;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
 	private JTable tablaEmpleados;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
+	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnDarDeAlta;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI, inFiltroFechaIngreso;
 	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso, lblInstructores ;
 	private final TableRowSorter<TableModel> filtro;
@@ -92,7 +92,7 @@ public class VentanaEmpleadoABM {
 				btnEditar = new JButton("EDITAR");
 				btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
 				
-				btnBorrar = new JButton("BORRAR");
+				btnBorrar = new JButton("DAR DE BAJA");
 				btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 				
 				btnCancelar = new JButton("CANCELAR");
@@ -101,6 +101,9 @@ public class VentanaEmpleadoABM {
 				lblInstructores = new JLabel("INSTRUCTORES:");
 				lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
 				lblInstructores.setFont(new Font("Arial", Font.BOLD, 12));
+				
+				btnDarDeAlta = new JButton("DAR DE ALTA");
+				btnDarDeAlta.setFont(new Font("Arial", Font.PLAIN, 12));
 				GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
 				groupLayout.setHorizontalGroup(
 					groupLayout.createParallelGroup(Alignment.LEADING)
@@ -109,13 +112,15 @@ public class VentanaEmpleadoABM {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+									.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+									.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-									.addGap(212)
-									.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+									.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
 								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
@@ -164,7 +169,8 @@ public class VentanaEmpleadoABM {
 								.addComponent(btnAgregar)
 								.addComponent(btnEditar)
 								.addComponent(btnBorrar)
-								.addComponent(btnCancelar))
+								.addComponent(btnCancelar)
+								.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 							.addContainerGap())
 				);
 				ventana.getContentPane().setLayout(groupLayout);
@@ -206,6 +212,10 @@ public class VentanaEmpleadoABM {
 
 	public JButton getBorrar() {
 		return btnBorrar;
+	}
+	
+	public JButton getDarDeAlta() {
+		return btnDarDeAlta;
 	}
 
 	public String[] getNombreColumnas() {
