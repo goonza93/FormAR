@@ -41,7 +41,7 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	
 	private List<HorarioCursada> selectByCondicion(String condicion) {
 		List<HorarioCursada> estados = new ArrayList<HorarioCursada>();
-		String campos = "ID, curso, horario, sala";
+		String campos = "ID, curso, horario, sala, activo";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -77,7 +77,7 @@ public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 		String condicion = "ID = "+horarioCursada.getID();
 		String sql = "update "+tabla+" set curso = "+horarioCursada.getCurso()+
 				", horario = "+horarioCursada.getHorario()+", sala = "+ horarioCursada.getSala()
-				+" where ("+condicion+");";
+				+", activo = "+horarioCursada.getActivo()+" where ("+condicion+");";
 		ejecutarSQL(sql);
 	}
 	

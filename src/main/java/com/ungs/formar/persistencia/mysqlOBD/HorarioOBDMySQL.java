@@ -13,7 +13,7 @@ import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
 public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 	private final String campos = "dia, hora_inicio, hora_fin, minuto_inicio, minuto_fin";
 	private final String tabla = "for_horarios";
-	private final String ID = "horario_ID";
+	private final String ID = "ID";
 
 	public void insert(Horario horario) {
 		String valores =
@@ -67,7 +67,7 @@ public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 	
 			while (resultados.next()) {
 				horarios.add(new Horario(
-						resultados.getInt("horario_ID"),
+						resultados.getInt("ID"),
 						resultados.getInt("dia"),
 						resultados.getInt("hora_inicio"),
 						resultados.getInt("hora_fin"),
