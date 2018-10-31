@@ -1,59 +1,58 @@
 package com.ungs.formar.vista.recados.nuevo;
 
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 
-public class VentanaNuevo {
-	private JFrame ventana;
-	private JTextField inDestinatario;
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.Ventana;
+
+public class VentanaNuevo extends Ventana {
+	private static final long serialVersionUID = 1L;
 	private JButton btnSeleccionar, btnEnviar, btnCancelar;
+	private JTextField inDestinatario;
 	private JTextArea inMensaje;
 	
 	public VentanaNuevo() {
-		initialize();
-	}
+		super("Enviar recado");
+		setBounds(100, 100, 450, 300);
 
-	private void initialize() {
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 450, 300);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
-		
-		JPanel panelDestinatario = new JPanel();
-		ventana.getContentPane().add(panelDestinatario);
-		
+		// DESTINATARIO
+		PanelHorizontal panelDestinatario = new PanelHorizontal();
 		JLabel lblDestinatario = new JLabel("Destinatario");
-		panelDestinatario.add(lblDestinatario);
 		
 		inDestinatario = new JTextField();
-		panelDestinatario.add(inDestinatario);
-		inDestinatario.setColumns(10);
 		inDestinatario.setEnabled(false);
+		inDestinatario.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
 		
 		btnSeleccionar = new JButton("Seleccionar");
-		panelDestinatario.add(btnSeleccionar);
-		
-		inMensaje = new JTextArea();
-		ventana.getContentPane().add(inMensaje);
-		
-		JPanel panelBotones = new JPanel();
-		ventana.getContentPane().add(panelBotones);
-		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.X_AXIS));
-		
-		btnEnviar = new JButton("Enviar");
-		panelBotones.add(btnEnviar);
-		
-		btnCancelar = new JButton("Cancelar");
-		panelBotones.add(btnCancelar);
-	}
 
-	public JFrame getVentana() {
-		return ventana;
+		panelDestinatario.add(lblDestinatario);		
+		panelDestinatario.add(inDestinatario);
+		panelDestinatario.add(btnSeleccionar);
+
+		// MENSAJE
+		inMensaje = new JTextArea();
+		PanelHorizontal panelMensaje = new PanelHorizontal();
+		panelMensaje.add(inMensaje);
+		
+		// BOTONES
+		btnEnviar = new JButton("Enviar");
+		btnCancelar = new JButton("Cancelar");
+		PanelHorizontal panelBotones = new PanelHorizontal();		
+		panelBotones.add(btnEnviar);
+		panelBotones.add(btnCancelar);
+		
+		// ORGANIZACION DE PANELES
+		PanelVertical panelPrincipal = new PanelVertical();
+		panelPrincipal.add(panelDestinatario);
+		panelPrincipal.add(panelMensaje);
+		panelPrincipal.add(panelBotones);
+		setContentPane(panelPrincipal);
 	}
 
 	public JButton getSeleccionar() {
@@ -72,22 +71,8 @@ public class VentanaNuevo {
 		return inDestinatario;
 	}
 
-	public void ocultar() {
-		ventana.setVisible(false);
-	}
-	
-	public void deshabilitar() {
-		ventana.setEnabled(false);
-	}
-	
-	public void mostrar() {
-		ventana.setVisible(true);
-		ventana.setEnabled(true);
-	}
-
-	public JTextArea getInMensaje() {
+	public JTextArea getMensaje() {
 		return inMensaje;
 	}
-	
 	
 }

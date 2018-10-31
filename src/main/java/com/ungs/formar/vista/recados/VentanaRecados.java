@@ -1,7 +1,6 @@
 package com.ungs.formar.vista.recados;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import com.ungs.formar.negocios.Mensajero;
@@ -10,20 +9,16 @@ import com.ungs.formar.vista.tablas.TablaRecados;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Sesion;
+import com.ungs.formar.vista.util.Ventana;
 
-public class VentanaRecados {
-	private JFrame ventana;
-	private TablaRecados tabla;
+public class VentanaRecados extends Ventana {
+	private static final long serialVersionUID = 1L;
 	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnArchivo, btnEnviados, btnVolver;
+	private TablaRecados tabla;
 
 	public VentanaRecados() {
-		initialize();
-	}
-
-	private void initialize() {
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 633, 300);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super("Recados");
+		setBounds(100, 100, 633, 300);
 		
 		// TABLA DE MENSAJES
 		Empleado empleado = Sesion.getEmpleado();
@@ -51,24 +46,11 @@ public class VentanaRecados {
 		
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
-		ventana.setContentPane(panelPrincipal);
+		setContentPane(panelPrincipal);
 		panelPrincipal.add(panelTabla);
 		panelPrincipal.add(panelBotones);
 	}
 
-	public void ocultar() {
-		ventana.setVisible(false);
-	}
-	
-	public void deshabilitar() {
-		ventana.setEnabled(false);
-	}
-	
-	public void mostrar() {
-		ventana.setVisible(true);
-		ventana.setEnabled(true);
-	}
-	
 	public JButton getNuevo() {
 		return btnNuevo;
 	}
@@ -95,10 +77,6 @@ public class VentanaRecados {
 
 	public JButton getVolver() {
 		return btnVolver;
-	}
-
-	public JFrame getVentana() {
-		return ventana;
 	}
 
 	public TablaRecados getTabla() {

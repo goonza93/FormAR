@@ -19,56 +19,49 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 	private VentanaNuevo ventana;
 	private Empleado receptor;
 
-	public ControladorNuevo(ControladorRecados c) {
-		this.ventana = new VentanaNuevo();
-		this.invocador = c;
-		this.ventana.getSeleccionar().addActionListener(this);
-		this.ventana.getCancelar().addActionListener(this);
-		this.ventana.getEnviar().addActionListener(this);
-
-		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
+	public ControladorNuevo(ControladorRecados invocador) {
+		this.invocador = invocador;
+		ventana = new VentanaNuevo();
+		ventana.getSeleccionar().addActionListener(this);
+		ventana.getCancelar().addActionListener(this);
+		ventana.getEnviar().addActionListener(this);
+		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//cerrarVentanaABM();
+				volver();
 			}
 		});
-		this.inicializar();
-	}
-	
-	public void inicializar() {
-		ventana.mostrar();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		// BOTON ENVIAR DE LA VENTANA NUEVO MENSAJE
 		if (e.getSource() == ventana.getEnviar())
-			enviarMensaje();
+			enviar();
 
 		// BOTON CANCELAR DE LA VENTANA NUEVO MENSAJE
 		else if (e.getSource() == ventana.getCancelar())
-			cancelar();
+			volver();
 
 
 		// BOTON SELECCIONAR DE LA VENTANA NUEVO MENSAJE
 		else if (e.getSource() == ventana.getSeleccionar())
-			abrirVentanaSeleccionarEmpleado();
-		
+			seleccionarEmpleado();
 	}
 
-	private void enviarMensaje() {
+	private void enviar() {
 		Empleado emisor = Sesion.getEmpleado();
-		String mensaje = ventana.getInMensaje().getText();
+		String mensaje = ventana.getMensaje().getText();
 		Mensajero.enviarMensaje(emisor, receptor, mensaje);
-		cancelar();
+		volver();
 	}
 
-	private void cancelar() {
-		ventana.getVentana().dispose();
+	private void volver() {
+		ventana.dispose();
 		ventana = null;
 		invocador.inicializar();
 	}
 
-	private void abrirVentanaSeleccionarEmpleado() {
+	private void seleccionarEmpleado() {
 		VentanaSeleccionarEmpleado v = new VentanaSeleccionarEmpleado(Rol.COMPLETO);
 		new ControladorSeleccionarEmpleado(v, this, Rol.COMPLETO);
 		ventana.deshabilitar();
@@ -76,12 +69,11 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 
 	public void setEmpleado(Empleado empleado) {
 		ventana.getDestinatario().setText(empleado.getNombre());
-		this.receptor = empleado;
+		receptor = empleado;
 	}
 
 	public void mostrar() {
 		ventana.mostrar();
 	}
-
 	
 }
