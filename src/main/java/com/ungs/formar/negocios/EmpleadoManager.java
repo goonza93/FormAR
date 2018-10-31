@@ -20,6 +20,7 @@ public class EmpleadoManager {
 	public static void eliminarEmpleado(Empleado empleado) {
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		empleado.setFechaEgreso(Almanaque.hoy());
+		empleado.setActivo(false);
 		odb.update(empleado);
 	}
 	
