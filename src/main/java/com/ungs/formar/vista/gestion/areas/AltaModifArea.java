@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.ventanas;
+package com.ungs.formar.vista.gestion.areas;
 
 import java.awt.EventQueue;
 
@@ -14,11 +14,12 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 
-public class AltaModifTema extends JFrame {
+public class AltaModifArea extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtNombre;
-	private JButton btnCancelar;
+	private JButton btnCancelar, btnGuardar;
+	private JTextField txtDescripcion;
 
 	/**
 	 * Launch the application.
@@ -27,7 +28,7 @@ public class AltaModifTema extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AltaModifTema frame = new AltaModifTema();
+					AltaModifArea frame = new AltaModifArea();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,14 +41,16 @@ public class AltaModifTema extends JFrame {
 	 * Comentario de prueba
 	 * segundo coemntario de prueba
 	 */
-	public AltaModifTema() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public AltaModifArea() {
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 423, 139);
+		setTitle("AREA");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -55,7 +58,7 @@ public class AltaModifTema extends JFrame {
 			}
 		});
 		
-		JLabel lblNombre = new JLabel("NOMBRE TEMA:");
+		JLabel lblNombre = new JLabel("NOMBRE:");
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNombre.setBounds(10, 14, 102, 14);
 		contentPane.add(lblNombre);
@@ -66,14 +69,44 @@ public class AltaModifTema extends JFrame {
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar = new JButton("GUARDAR");
 		btnGuardar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnGuardar.setBounds(10, 68, 98, 23);
+		btnGuardar.setBounds(10, 68, 102, 23);
+		btnGuardar.setActionCommand("guardar");
 		contentPane.add(btnGuardar);
 		
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(301, 68, 98, 23);
+		btnCancelar.setBounds(290, 68, 109, 23);
+		btnCancelar.setActionCommand("cancelar");
 		contentPane.add(btnCancelar);
+		
+		JLabel lblDescripcion = new JLabel("DESCRIPCION:");
+		lblDescripcion.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblDescripcion.setBounds(10, 41, 102, 14);
+		contentPane.add(lblDescripcion);
+		
+		txtDescripcion = new JTextField();
+		txtDescripcion.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtDescripcion.setColumns(10);
+		txtDescripcion.setBounds(140, 44, 259, 20);
+		contentPane.add(txtDescripcion);
 	}
+
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+
+	public JButton getBtnGuardar() {
+		return btnGuardar;
+	}
+
+	public JTextField getTxtDescripcion() {
+		return txtDescripcion;
+	}
+	
 }
