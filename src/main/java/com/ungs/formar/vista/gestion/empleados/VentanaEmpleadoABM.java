@@ -29,13 +29,12 @@ public class VentanaEmpleadoABM {
 	private JTable tablaEmpleados;
 	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI, inFiltroFechaIngreso;
-	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso;
+	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso, lblInstructores ;
 	private final TableRowSorter<TableModel> filtro;
 
 	public VentanaEmpleadoABM() {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 740, 452);
-		ventana.setTitle("Gestion de instructores");
 		ventana.setLocationRelativeTo(null);
 		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
 
@@ -99,7 +98,7 @@ public class VentanaEmpleadoABM {
 				btnCancelar = new JButton("CANCELAR");
 				btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 				
-				JLabel lblInstructores = new JLabel("INSTRUCTORES:");
+				lblInstructores = new JLabel("INSTRUCTORES:");
 				lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
 				lblInstructores.setFont(new Font("Arial", Font.BOLD, 12));
 				GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
@@ -248,5 +247,9 @@ public class VentanaEmpleadoABM {
 	
 	public JFrame getVentana(){
 		return ventana;
+	}
+	
+	public JLabel getLblRol(){
+		return lblInstructores;
 	}
 }

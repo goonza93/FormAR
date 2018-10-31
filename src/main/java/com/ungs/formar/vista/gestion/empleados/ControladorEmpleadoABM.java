@@ -34,6 +34,8 @@ public class ControladorEmpleadoABM implements ActionListener {
 		this.ventanaABM.getBorrar().addActionListener(this);
 		this.ventanaABM.getEditar().addActionListener(this);
 		this.ventanaABM.getCancelar().addActionListener(this);
+		this.ventanaABM.getVentana().setTitle("GESTION DE "+rol);
+		this.ventanaABM.getLblRol().setText(rol+":");
 		this.inicializar();
 	}
 
