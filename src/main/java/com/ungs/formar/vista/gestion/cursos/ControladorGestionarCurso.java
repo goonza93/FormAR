@@ -26,6 +26,7 @@ import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
+import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorGestionarCurso implements ActionListener, Consultable {
 	private GestionarCursos ventanaGestionarCursos;
@@ -133,7 +134,8 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			this.ventanaCrearCurso.setVisible(true);
 			this.ventanaCrearCurso.setTitle("CREAR CURSADA");
 			this.ventanaGestionarCursos.frame.setEnabled(false);
-			new ControladorCrearCurso(this.ventanaCrearCurso, this);
+			ControladorCrearCurso c = new ControladorCrearCurso(this.ventanaCrearCurso, this);
+			completarResponsable(c);
 		}
 
 		// BOTON BORRAR CURSO
@@ -453,5 +455,9 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 																										// el
 																										// filtro
 		return cursos_en_tabla.get(registro);
+	}
+
+	private void completarResponsable(ControladorCrearCurso c) {
+		c.setResponsable(Sesion.getEmpleado());
 	}
 }
