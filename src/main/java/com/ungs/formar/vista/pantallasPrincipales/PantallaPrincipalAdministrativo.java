@@ -17,7 +17,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PantallaPrincipal {
+public class PantallaPrincipalAdministrativo {
 	private JFrame frame;
 	private JButton btnGestionarInstructores;
 	private JButton btnGestionarCursos;
@@ -30,7 +30,7 @@ public class PantallaPrincipal {
 	private JButton btnGestionarPagos;
 	private JButton btnRecados;
 
-	public PantallaPrincipal() {
+	public PantallaPrincipalAdministrativo() {
 		super();
 		initialize();
 	}

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.definidos.Rol;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
@@ -22,7 +23,7 @@ import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
 public class ControladorPantallaPrincipal implements ActionListener{
-		private PantallaPrincipal ventanaPantallaPrincipal;
+		private PantallaPrincipalAdministrativo ventanaPantallaPrincipal;
 		private GestionarCursos ventanaGestionarCursos;
 		private VentanaAlumnoABM ventanaGestionarAlumnos;
 		private VentanaEmpleadoABM ventanaGestionarInstructores;
@@ -30,10 +31,15 @@ public class ControladorPantallaPrincipal implements ActionListener{
 		private VentanaSalaABM ventanaGestionarSalas;
 		private VentanaInscripcionABM ventanaInscripcionABM;
 		
-		public ControladorPantallaPrincipal(PantallaPrincipal ventanaPantallaPrincipal)
+		public ControladorPantallaPrincipal(Empleado user)
 		{
-			Sesion.setEmpleado(EmpleadoManager.traerEmpleado(2));
-			this.ventanaPantallaPrincipal = ventanaPantallaPrincipal;
+			Sesion.setEmpleado(EmpleadoManager.traerEmpleado(user.getID()));
+			if(user.getRol().equals(Rol.ADMINISTRATIVO))
+				pantallaAdministrativo();
+		}
+		
+		private void pantallaAdministrativo(){
+			this.ventanaPantallaPrincipal = new PantallaPrincipalAdministrativo();
 			this.ventanaPantallaPrincipal.getBtnGestionarAlumnos().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarCursos().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarInstructores().addActionListener(this);
@@ -41,7 +47,6 @@ public class ControladorPantallaPrincipal implements ActionListener{
 			this.ventanaPantallaPrincipal.getBtnGestionarSalas().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnGestionarInscripciones().addActionListener(this);
 			this.ventanaPantallaPrincipal.getBtnRecados().addActionListener(this);
-			
 		}
 		
 		public void inicializar()

@@ -29,16 +29,15 @@ import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionBaja;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
-import com.ungs.formar.vista.pantallasPrincipales.PantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.PantallaPrincipalAdministrativo;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorLogin implements ActionListener {
 	private VentanaIniciarSesion ventanaIniciarSesion;
-	private PantallaPrincipal pantallaPrincipal;
+	private PantallaPrincipalAdministrativo pantallaPrincipal;
 	private VentanaRecuperarPassword ventanaRecuperarPass;
 
-	
 	public ControladorLogin(VentanaIniciarSesion ventanaIniciarSesion) {
 		this.ventanaIniciarSesion = ventanaIniciarSesion;
 		this.ventanaIniciarSesion.getBtnIniciarSesion().addActionListener(this);
@@ -74,8 +73,8 @@ public class ControladorLogin implements ActionListener {
 		// BOTON SALIR
 		else if (e.getSource() == ventanaIniciarSesion.getBtnSalir())
 			salir();
-		
-		//BOTONES DE RECUPERAR PASSWORD
+
+		// BOTONES DE RECUPERAR PASSWORD
 		else if (ventanaRecuperarPass != null) {
 
 			// BOTON RECUPERAR DE VENTANA RECUPERACION
@@ -91,8 +90,10 @@ public class ControladorLogin implements ActionListener {
 
 	private void iniciarSesion() {
 		if (validarLogin()) {
-			//SETEAR EL USUARIO QUE ESTA USANDO EL SISTEMA
-			System.out.println("LOGIN");
+
+			new ControladorPantallaPrincipal(
+					EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText())).inicializar();
+			this.ventanaIniciarSesion.getVentana().dispose();
 		}
 
 	}
@@ -103,7 +104,7 @@ public class ControladorLogin implements ActionListener {
 			Empleado usuario = EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText());
 			String passCifrado = usuario.getPassword();
 			String passIngresado = Hash.md5(new String(ventanaIniciarSesion.getPassword().getPassword()));
-			if(!passCifrado.equals(passIngresado)){
+			if (!passCifrado.equals(passIngresado)) {
 				Popup.mostrar("- Contraseña incorrecta");
 				ventanaIniciarSesion.getPassword().setText("");
 				return false;
@@ -119,8 +120,7 @@ public class ControladorLogin implements ActionListener {
 			msj += "- Por favor ingrese un usuario.";
 		} else if (!Validador.validarUsuario(usuarioIngresado)) {
 			msj += "- El nombre de usuario consta solamente de letras y numeros.";
-		}
-		else if(EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText())== null){
+		} else if (EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()) == null) {
 			msj += "- El usuario ingresado no existe.";
 		}
 
@@ -131,12 +131,12 @@ public class ControladorLogin implements ActionListener {
 		return false;
 	}
 
-	private void salir(){
-		if(Popup.confirmar("Estas seguro que quieres salir de FormAR!?"))
+	private void salir() {
+		if (Popup.confirmar("Estas seguro que quieres salir de FormAR!?"))
 			System.exit(0);
 	}
 
-	private void abrirVentanaRecuperarPass(){
+	private void abrirVentanaRecuperarPass() {
 		ventanaRecuperarPass = new VentanaRecuperarPassword();
 		ventanaRecuperarPass.getVentana().setVisible(true);
 		ventanaRecuperarPass.getBtnRecuperarPass().addActionListener(this);
@@ -153,26 +153,25 @@ public class ControladorLogin implements ActionListener {
 		ventanaIniciarSesion.getVentana().setEnabled(false);
 	}
 
-	private void cerrarVentanaRecuperarPass(){
+	private void cerrarVentanaRecuperarPass() {
 		ventanaRecuperarPass.getVentana().dispose();
 		ventanaRecuperarPass = null;
 		inicializar();
 	}
 
-	private void recuperarPass(){
+	private void recuperarPass() {
 		String email = ventanaRecuperarPass.getTxtEmail().getText();
-		if(validarEmail(email)){
+		if (validarEmail(email)) {
 			Empleado usuario = EmpleadoManager.traerSegunEmail(email);
-			if(usuario == null){
+			if (usuario == null) {
 				Popup.mostrar("- No existe un usuario con el email ingresado.");
-			}
-			else{
+			} else {
 				enviarPassword(email);
 			}
 		}
 	}
-	
-	private boolean validarEmail(String email){
+
+	private boolean validarEmail(String email) {
 		String mensaje = "";
 		if (email == null) {
 			mensaje += "    -Por favor ingrese el E-MAIL.\n";
@@ -182,30 +181,30 @@ public class ControladorLogin implements ActionListener {
 		} else if (email.length() > 50) {
 			mensaje += "    -El E-MAIL debe tener una longitud maxima de 50\n";
 		}
-		
-		if(mensaje.isEmpty())
+
+		if (mensaje.isEmpty())
 			return true;
-		
+
 		Popup.mostrar(mensaje);
 		return false;
 	}
-	
-	private void enviarPassword(String email){
+
+	private void enviarPassword(String email) {
 		String nuevaPass = generarPassword();
 		actualizarPass(email, nuevaPass);
-		if(EmailSender.sendEmail(email, nuevaPass))
-			Popup.mostrar("Se envio su nueva contraseña a "+email);
-		else{
-			Popup.mostrar("Hubo un error al envair la nueva contraseña.\n"
-					+ "Por favor, intente nuevamente mas tarde.");
+		if (EmailSender.sendEmail(email, nuevaPass))
+			Popup.mostrar("Se envio su nueva contraseña a " + email);
+		else {
+			Popup.mostrar(
+					"Hubo un error al envair la nueva contraseña.\n" + "Por favor, intente nuevamente mas tarde.");
 		}
 	}
-	
-	private String generarPassword(){
+
+	private String generarPassword() {
 		return UUID.randomUUID().toString().substring(0, 8);
 	}
 
-	private void actualizarPass(String email, String nuevaPass){
+	private void actualizarPass(String email, String nuevaPass) {
 		Empleado e = EmpleadoManager.traerSegunEmail(email);
 		e.setPassword(Hash.md5(nuevaPass));
 		EmpleadoManager.modificarEmpleado(e);
