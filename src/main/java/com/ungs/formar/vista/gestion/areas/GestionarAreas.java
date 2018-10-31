@@ -196,6 +196,10 @@ public class GestionarAreas extends JFrame {
 				btnCancelar.doClick();
 			}
 		});
+	
+		DocumentListener listener = crearFiltroListener();
+		txtFiltroDescripcion.getDocument().addDocumentListener(listener);
+		txtFiltroNombre.getDocument().addDocumentListener(listener);
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
