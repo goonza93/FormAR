@@ -28,6 +28,7 @@ import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 public class ControladorPantallaPrincipal implements ActionListener {
 	private PantallaPrincipalAdministrativo pantallaAdministrativo;
 	private PantallaPrincipalSupervisor pantallaSupervisor;
+	private PantallaPrincipalInstructor pantallaInstructor;
 	private GestionarCursos ventanaGestionarCursos;
 	private VentanaAlumnoABM ventanaGestionarAlumnos;
 	private VentanaEmpleadoABM ventanaGestionarInstructores;
@@ -38,12 +39,14 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	public ControladorPantallaPrincipal(Empleado user) {
 		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(user.getID()));
 		if (user.getRol().equals(Rol.ADMINISTRATIVO))
-			pantallaAdministrativo();
-		if (user.getRol().equals(Rol.SUPERVISOR))
-			pantallaSupervisor();
+			mostrarPantallaAdministrativo();
+		else if (user.getRol().equals(Rol.SUPERVISOR))
+			mostrarPantallaSupervisor();
+		else if (user.getRol().equals(Rol.INSTRUCTOR))
+			mostrarPantallaInstructor();
 	}
 
-	private void pantallaAdministrativo() {
+	private void mostrarPantallaAdministrativo() {
 		this.pantallaAdministrativo = new PantallaPrincipalAdministrativo();
 		this.pantallaAdministrativo.getBtnMenuSupervisor().setVisible(false);
 		this.pantallaAdministrativo.getBtnGestionarAlumnos().addActionListener(this);
@@ -59,7 +62,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
 	}
 
-	private void pantallaSupervisor() {
+	private void mostrarPantallaSupervisor() {
 		this.pantallaSupervisor = new PantallaPrincipalSupervisor();
 		this.pantallaSupervisor.getBtnGestionarAdministrativos().addActionListener(this);
 		this.pantallaSupervisor.getBtnGestionarAreas().addActionListener(this);
@@ -71,11 +74,21 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		setBienvenido(this.pantallaSupervisor.getLabelBienvenido());
 	}
 
+	private void mostrarPantallaInstructor() {
+		this.pantallaInstructor = new PantallaPrincipalInstructor();
+		this.pantallaInstructor.getBtnMenuSupervisor().setVisible(false);
+		this.pantallaInstructor.getBtnGestionarAsistencias().addActionListener(this);
+		this.pantallaInstructor.getBtnGestionarNotas().addActionListener(this);
+		this.pantallaInstructor.getBtnRecados().addActionListener(this);
+		this.pantallaInstructor.getBtnCambiarPass().addActionListener(this);
+		setBienvenido(this.pantallaInstructor.getLabelBienvenido());
+	}
+
 	public void inicializar() {
 		if (this.pantallaAdministrativo != null)
 			this.pantallaAdministrativo.show();
-		/*else if(this.pantallaInstructor != null)
-			this.pantallaInstructor.show();*/
+		else if(this.pantallaInstructor != null)
+			this.pantallaInstructor.show();
 		else if (this.pantallaSupervisor != null)
 			this.pantallaSupervisor.show();
 	}
@@ -84,12 +97,12 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		if (this.pantallaAdministrativo != null) {
 			clickBtnPantallaAdministrativo(e);
 		}
+		else if(this.pantallaInstructor != null) {
+			clickBtnPantallaInstructor(e);
+		}
 		else if(this.pantallaSupervisor != null) {
 			clickBtnPantallaSupervisor(e);
 		}
-		/*else if(this.pantallaInstructor != null) {
-			clickBtnPantallaInstructor(e);
-		}*/
 	}
 	
 	private void clickBtnPantallaAdministrativo(ActionEvent e){
@@ -149,6 +162,16 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			new ControladorRecados(recados, this);
 		}
 		
+		//BOTON ABM PAGOS
+		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarPagos()) {
+			//VENTANA ABM PAGOS
+		}
+		
+		//BOTON GESTIONAR CONTACTOS
+		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarContacto()) {
+			//VENTANA GESTIONAR CONTACTO
+		}
+		
 		//BOTON CAMBIAR PASS
 		else if (e.getSource() == pantallaAdministrativo.getBtnCambiarPass()) {
 			//VENTANA CAMBIAR CONTRASENA
@@ -180,7 +203,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		
 		//BOTON MENU ADMINISTRATIVO
 		else if (e.getSource() == this.pantallaSupervisor.getBtnMenuAdministrativos()) {
-			pantallaAdministrativo();
+			mostrarPantallaAdministrativo();
 			this.pantallaAdministrativo.getBtnMenuSupervisor().setVisible(true);
 			this.pantallaAdministrativo.getBtnMenuSupervisor().addActionListener(this);
 			setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
@@ -198,9 +221,12 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		
 		// BOTON MENU INSTRUCTORES
 		else if (e.getSource() == pantallaSupervisor.getBtnMenuInstructores()) {
-			//this.pantallaInstructor = new PantallaPrincipalInstructor();
-			//this.pantallaSupervisor.ocultar();
-			//this.inicializar();
+			mostrarPantallaInstructor();
+			this.pantallaInstructor.getBtnMenuSupervisor().setVisible(true);
+			this.pantallaInstructor.getBtnMenuSupervisor().addActionListener(this);
+			setBienvenido(this.pantallaInstructor.getLabelBienvenido());
+			this.pantallaSupervisor.ocultar();
+			this.inicializar();
 		}
 
 		// BOTON GESTIONAR RECADOS
@@ -212,6 +238,38 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		
 	}
 
+private void clickBtnPantallaInstructor(ActionEvent e){
+		
+		//BOTON GESTIONAR ASISTENCIAS
+		if (e.getSource() == this.pantallaInstructor.getBtnGestionarAsistencias()) {
+			//VENTANA ASISTENCIAS
+		}
+		
+		//BOTON GESTIONAR NOTAS
+		else if (e.getSource() == this.pantallaInstructor.getBtnGestionarNotas()) {
+			//VENTANA NOTAS
+		} 
+
+		// BOTON GESTIONAR RECADOS
+		else if (e.getSource() == pantallaInstructor.getBtnRecados()) {
+			pantallaInstructor.ocultar();
+			VentanaRecados recados = new VentanaRecados();
+			new ControladorRecados(recados, this);
+		}
+		
+		//BOTON CAMBIAR PASS
+		else if (e.getSource() == pantallaInstructor.getBtnCambiarPass()) {
+			//VENTANA CAMBIAR CONTRASENA
+		}
+		
+		//BOTON MENU SUPERVISOR
+		else if (e.getSource() == pantallaInstructor.getBtnMenuSupervisor()) {
+			pantallaInstructor.ocultar();
+			this.pantallaInstructor = null;
+			this.inicializar();
+		}
+	}
+	
 	private void setBienvenido(JLabel label) {
 		Empleado e = Sesion.getEmpleado();
 		label.setText("BIENVENIDO " + Formato.empleado(e.getID()));
