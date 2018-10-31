@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.recados;
+package com.ungs.formar.vista.tablas;
 
 import java.util.ArrayList;
 import java.util.List;

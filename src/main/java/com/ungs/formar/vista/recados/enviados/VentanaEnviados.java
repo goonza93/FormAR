@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.recados.archivo;
+package com.ungs.formar.vista.recados.enviados;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,12 +11,12 @@ import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.tablas.TablaRecados;
 
-public class VentanaArchivo {
+public class VentanaEnviados {
 	private JFrame ventana;
 	private TablaRecados tabla;
 	private JButton btnLeer, btnBorrar, btnVolver;
 
-	public VentanaArchivo() {
+	public VentanaEnviados() {
 		initialize();
 	}
 
@@ -27,7 +27,7 @@ public class VentanaArchivo {
 		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
 		
 		Empleado empleado = EmpleadoManager.traerEmpleado(2);
-		tabla = new TablaRecados(Mensajero.traerMensajesArchivados(empleado));
+		tabla = new TablaRecados(Mensajero.traerMensajesEnviados(empleado));
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
 		ventana.getContentPane().add(panelTabla);

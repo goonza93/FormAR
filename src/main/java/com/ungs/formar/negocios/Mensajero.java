@@ -21,6 +21,11 @@ public class Mensajero {
 		return obd.selectByEmpleadoReceptorArchivado(empleado, empleado, false);
 	}
 
+	public static List<Recado> traerMensajesEnviados(Empleado empleado) {
+		RecadoOBD obd = FactoryODB.crearRecadoOBD();
+		return obd.selectByEmpleadoEmisorArchivado(empleado, empleado, false);
+	}
+
 	public static void borrarMensaje(Recado recado) {
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
 		obd.delete(recado);

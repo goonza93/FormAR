@@ -14,6 +14,7 @@ import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.recados.archivo.ControladorArchivo;
 import com.ungs.formar.vista.recados.archivo.VentanaArchivo;
+import com.ungs.formar.vista.recados.enviados.ControladorEnviados;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;
 import com.ungs.formar.vista.recados.leer.RecadoLegible;
 import com.ungs.formar.vista.recados.nuevo.ControladorNuevo;
@@ -82,11 +83,20 @@ public class ControladorRecados implements ActionListener, RecadoLegible{
 		else if (e.getSource() == ventana.getArchivo())
 			abrirVentanaArchivo();
 		
+		// BOTON VER ENVIADOS DE LA VENTANA RECADOS
+		else if (e.getSource() == ventana.getEnviados())
+			abrirVentanaEnviados();
+		
 		// BOTON VOLVER DE LA VENTANA RECADOS
 		else if (e.getSource() == ventana.getVolver())
 			volver();
 		
 		
+	}
+
+	private void abrirVentanaEnviados() {
+		ventana.ocultar();
+		new ControladorEnviados(this);		
 	}
 
 	private void volver() {

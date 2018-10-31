@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.tablas.TablaRecados;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Sesion;
