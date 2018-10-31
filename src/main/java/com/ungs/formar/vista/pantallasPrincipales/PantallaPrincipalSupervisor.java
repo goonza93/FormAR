@@ -200,6 +200,10 @@ public class PantallaPrincipalSupervisor {
 		return lblBienvenido;
 	}
 	
+	public JFrame getVentana(){
+		return frame;
+	}
+	
 	public void ocultar() {
 		this.frame.setVisible(false);
 	}

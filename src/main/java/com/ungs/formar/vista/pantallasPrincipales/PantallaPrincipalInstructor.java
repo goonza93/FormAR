@@ -153,6 +153,10 @@ public class PantallaPrincipalInstructor {
 		return lblBienvenido;
 	}
 	
+	public JFrame getVentana(){
+		return frame;
+	}
+	
 	public void ocultar() {
 		this.frame.setVisible(false);
 	}

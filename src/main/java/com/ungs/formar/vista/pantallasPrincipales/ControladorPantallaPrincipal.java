@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 
 import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.Hash;
+import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.controladores.ControladorProgramaABM;
@@ -22,7 +24,9 @@ import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
 import com.ungs.formar.vista.util.Formato;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
+import com.ungs.formar.vista.ventanas.CambiarPass;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
 public class ControladorPantallaPrincipal implements ActionListener {
@@ -35,6 +39,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	private VentanaProgramaGestion ventanaGestionarProgramas;
 	private VentanaSalaABM ventanaGestionarSalas;
 	private VentanaInscripcionABM ventanaInscripcionABM;
+	private CambiarPass ventanaCambiarPass;
 
 	public ControladorPantallaPrincipal(Empleado user) {
 		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(user.getID()));
@@ -83,6 +88,14 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaInstructor.getBtnCambiarPass().addActionListener(this);
 		setBienvenido(this.pantallaInstructor.getLabelBienvenido());
 	}
+	
+	private void mostrarCambiarPass(){
+		ventanaCambiarPass = new CambiarPass();
+		ventanaCambiarPass.setVisible(true);
+		ventanaCambiarPass.getBtnAceptar().addActionListener(this);
+		ventanaCambiarPass.getBtnCancelar().addActionListener(this);
+		ventanaCambiarPass.getBtnReglaContraseña().addActionListener(this);
+	}
 
 	public void inicializar() {
 		if (this.pantallaAdministrativo != null)
@@ -94,6 +107,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+	
 		if (this.pantallaAdministrativo != null) {
 			clickBtnPantallaAdministrativo(e);
 		}
@@ -102,6 +116,9 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		}
 		else if(this.pantallaSupervisor != null) {
 			clickBtnPantallaSupervisor(e);
+		}
+		if ( this.ventanaCambiarPass != null) {
+			clickBtnCambiarPass(e);
 		}
 	}
 	
@@ -184,6 +201,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.inicializar();
 		}
 	}
+
 	
 	
 	private void clickBtnPantallaSupervisor(ActionEvent e){
@@ -236,9 +254,15 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			new ControladorRecados(recados, this);
 		}
 		
+		//BOTON CAMBIAR PASS
+		else if (e.getSource() == pantallaSupervisor.getBtnCambiarPass()) {
+			pantallaSupervisor.getVentana().setEnabled(false);
+			mostrarCambiarPass();
+		}
+		
 	}
 
-private void clickBtnPantallaInstructor(ActionEvent e){
+	private void clickBtnPantallaInstructor(ActionEvent e){
 		
 		//BOTON GESTIONAR ASISTENCIAS
 		if (e.getSource() == this.pantallaInstructor.getBtnGestionarAsistencias()) {
@@ -270,8 +294,64 @@ private void clickBtnPantallaInstructor(ActionEvent e){
 		}
 	}
 	
+	private void clickBtnCambiarPass(ActionEvent e){
+		
+		//BOTON ACEPTAR
+		if(e.getSource() == ventanaCambiarPass.getBtnAceptar())
+			validarCambioPass();
+		
+		//BOTON CANCELAR
+		else if (e.getSource() == ventanaCambiarPass.getBtnCancelar()){
+			mostrarPantallaPrincipal();
+			ventanaCambiarPass.dispose();
+			this.ventanaCambiarPass = null;
+		}
+		
+		//BOTON REGLAS PASS
+		else if (e.getSource() == ventanaCambiarPass.getBtnReglaContraseña()) 			
+			msjReglasPass();
+	}	
+	
+	private void validarCambioPass(){
+		String pass1 = new String(ventanaCambiarPass.getTxtContraseña().getPassword());
+		String pass2 = new String(ventanaCambiarPass.getTxtRepetirContraseña().getPassword());
+		if(pass1.isEmpty() || pass2.isEmpty())
+			Popup.mostrar("Por favor ingrese la contraseña nueva y repitala.");
+		else if(!Validador.validarUsuario(pass1) || pass1.length()>8 || 
+				pass1.length()<6)
+			msjReglasPass();
+		else if(!pass1.equals(pass2))
+			Popup.mostrar("Las contraseñas ingresadas no coinciden");
+		else{
+			Empleado usuario = Sesion.getEmpleado();
+			String nuevaPassCifrada = Hash.md5(pass1);
+			usuario.setPassword(nuevaPassCifrada);
+			EmpleadoManager.modificarEmpleado(usuario);
+			Popup.mostrar("La contraseña fue cambiada con exito");
+			mostrarPantallaPrincipal();
+			ventanaCambiarPass.dispose();
+			this.ventanaCambiarPass = null;
+		}
+	}
+
+
+	private void mostrarPantallaPrincipal() {
+		if(this.pantallaAdministrativo !=null)
+			this.pantallaAdministrativo.getVentana().setEnabled(true);
+		else if(this.pantallaInstructor != null)
+			this.pantallaInstructor.getVentana().setEnabled(true);
+		else if (this.pantallaSupervisor != null)
+			this.pantallaSupervisor.getVentana().setEnabled(true);
+	}
+
+	
+	private void msjReglasPass(){
+		Popup.mostrar("La contraseña debe consistir de 6 a 8 caracteres alfanumericos.");
+	}
+	
 	private void setBienvenido(JLabel label) {
 		Empleado e = Sesion.getEmpleado();
 		label.setText("BIENVENIDO " + Formato.empleado(e.getID()));
 	}
+
 }
