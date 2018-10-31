@@ -279,10 +279,8 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		ventanaCrearCurso.getCupoMaximo().setText(curso.getCupoMaximo().toString());
 		ventanaCrearCurso.getFechaInicio().setDate(curso.getFechaInicio());
 		ventanaCrearCurso.getFechaFin().setDate(curso.getFechaFin());
-		ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierre());
 		ventanaCrearCurso.getHoras().setText(curso.getHoras().toString());
 		ventanaCrearCurso.getPrograma().setText(programa.getNombre());
-		// ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierreInscripcion);
 		ventanaCrearCurso.getTxtComision().setText(curso.getComision());
 		ventanaCrearCurso.getTxtPrecio().setText(curso.getPrecio().toString());
 
@@ -305,6 +303,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		controladorCursoEdicion.setPrograma(programa);
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();
+		ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierre());
 		this.ventanaGestionarCursos.frame.setEnabled(false);
 	}
 
