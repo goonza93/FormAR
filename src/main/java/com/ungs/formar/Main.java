@@ -1,5 +1,6 @@
 package com.ungs.formar;
 
+import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
@@ -9,14 +10,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		/*PantallaPrincipalAdministrativo ventanaPantallaPrincipal = new PantallaPrincipalAdministrativo();
-		ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(ventanaPantallaPrincipal);
+		ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(16));
 		controlador.inicializar();
-		*/
 		
-		VentanaIniciarSesion v = new VentanaIniciarSesion();
+		
+		/*VentanaIniciarSesion v = new VentanaIniciarSesion();
 		ControladorLogin c = new ControladorLogin(v);
-		c.inicializar();
+		c.inicializar();*/
 		
 	}
 	

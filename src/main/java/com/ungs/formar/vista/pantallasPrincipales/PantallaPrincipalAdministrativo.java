@@ -29,6 +29,9 @@ public class PantallaPrincipalAdministrativo {
 	private JButton btnGestionarContacto;
 	private JButton btnGestionarPagos;
 	private JButton btnRecados;
+	private JLabel lblBienvenido;
+	private JButton btnCambiarPass;
+	private JButton btnMenuSupervisor;
 
 	public PantallaPrincipalAdministrativo() {
 		super();
@@ -69,46 +72,69 @@ public class PantallaPrincipalAdministrativo {
 		btnGestionarInscripciones = new JButton("GESTIONAR INSCRIPCIONES");
 		btnGestionarInscripciones.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JButton btnGestionarPagos = new JButton("GESTIONAR PAGOS");
+		btnGestionarPagos = new JButton("GESTIONAR PAGOS");
 		btnGestionarPagos.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JButton btnGestionarContacto = new JButton("GESTIONAR CONTACTO");
+		btnGestionarContacto = new JButton("GESTIONAR CONTACTO");
 		btnGestionarContacto.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		btnRecados = new JButton("RECADOS");
 		btnRecados.setFont(new Font("Arial", Font.PLAIN, 12));
 		
+		lblBienvenido = new JLabel("");
+		lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenido.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		btnCambiarPass = new JButton("CAMBIAR CONTRASE\u00D1A");
+		btnCambiarPass.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		btnMenuSupervisor = new JButton("MENU SUPERVISOR");
+		btnMenuSupervisor.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+							.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
 							.addContainerGap())
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnGestionarAlumnos, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+								.addComponent(btnGestionarAlumnos, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnGestionarInscripciones, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnGestionarSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-								.addComponent(btnGestionarProgramas, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+								.addComponent(btnGestionarSalas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+								.addComponent(btnGestionarProgramas, GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
 								.addComponent(btnGestionarCursos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnGestionarContacto, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-								.addComponent(btnRecados, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-								.addComponent(btnGestionarPagos, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
-							.addGap(4))))
+								.addComponent(btnGestionarContacto, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+								.addComponent(btnRecados, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+								.addComponent(btnGestionarPagos, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+							.addGap(4))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblBienvenido, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+							.addGap(29)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnMenuSupervisor, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnCambiarPass, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+							.addContainerGap())))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(28)
-					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblBienvenido, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnCambiarPass, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(6)
+					.addComponent(btnMenuSupervisor)
+					.addGap(10)
+					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
@@ -130,7 +156,7 @@ public class PantallaPrincipalAdministrativo {
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnGestionarInstructores, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
 								.addComponent(btnGestionarCursos, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))))
-					.addContainerGap())
+					.addGap(11))
 		);
 		panel.setLayout(gl_panel);
 
@@ -185,6 +211,18 @@ public class PantallaPrincipalAdministrativo {
 	
 	public JButton getBtnRecados(){
 		return btnRecados;
+	}
+	
+	public JButton getBtnCambiarPass(){
+		return btnCambiarPass;
+	}
+	
+	public JButton getBtnMenuSupervisor(){
+		return btnMenuSupervisor;
+	}
+	
+	public JLabel getLabelBienvenido(){
+		return lblBienvenido;
 	}
 	
 	public void ocultar() {
