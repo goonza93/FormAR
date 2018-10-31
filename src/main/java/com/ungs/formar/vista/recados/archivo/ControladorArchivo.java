@@ -12,7 +12,6 @@ import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;
 import com.ungs.formar.vista.recados.leer.RecadoLegible;
-import com.ungs.formar.vista.recados.leer.VentanaLeerRecado;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
@@ -21,41 +20,34 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 	private VentanaArchivo ventana;
 
 	public ControladorArchivo(ControladorRecados invocador) {
-		this.ventana = new VentanaArchivo();
 		this.invocador = invocador;
-		this.ventana.getBtnBorrar().addActionListener(this);
-		this.ventana.getBtnLeer().addActionListener(this);
-		this.ventana.getBtnVolver().addActionListener(this);
-
-		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
+		ventana = new VentanaArchivo();
+		ventana.getBorrar().addActionListener(this);
+		ventana.getLeer().addActionListener(this);
+		ventana.getVolver().addActionListener(this);
+		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				//volver();
+				volver();
 			}
 		});
-		this.ventana.mostrar();
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
-	
-		// BOTON VOLVER DE ARCHIVO
-		if (e.getSource() == ventana.getBtnVolver())
-			volverDeArchivo();
+		// BOTON VOLVER DE VENTANA ARCHIVOS
+		if (e.getSource() == ventana.getVolver())
+			volver();
 
-		// BOTON CANCELAR DE LA VENTANA NUEVO MENSAJE
-		else if (e.getSource() == ventana.getBtnBorrar())
-			borrarArchivo();
+		// BOTON BORRAR DE VENTANA ARCHIVOS
+		else if (e.getSource() == ventana.getBorrar())
+			borrar();
 
-		// BOTON CANCELAR DE LA VENTANA NUEVO MENSAJE
-		else if (e.getSource() == ventana.getBtnLeer())
-			leerArchivo();
-
-
-		
+		// BOTON LEER DE VENTANA ARCHIVOS
+		else if (e.getSource() == ventana.getLeer())
+			leer();
 	}
 
-	private void leerArchivo() {
+	private void leer() {
 		List<Recado> recados = ventana.getTabla().obtenerSeleccion();
 		if (recados.size() != 1) {
 			Popup.mostrar("Debe seleccionar extamente 1 mensaje para leerlo.");
@@ -66,7 +58,7 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 		new ControladorLeerRecado(this, recados.get(0));
 	}
 
-	private void borrarArchivo() {
+	private void borrar() {
 		List<Recado> recados = ventana.getTabla().obtenerSeleccion();
 		if (recados.size() == 0)
 			Popup.mostrar("Seleccione al menos un mensaje para borrar.");
@@ -75,9 +67,6 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 				Mensajero.borrarMensaje(recado);
 			recargar();
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void recargar() {
@@ -86,9 +75,8 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 		ventana.getTabla().recargar(recados);
 	}
 	
-	
-	private void volverDeArchivo() {
-		ventana.getVentana().dispose();
+	private void volver() {
+		ventana.dispose();
 		ventana = null;
 		invocador.mostrar();
 	}

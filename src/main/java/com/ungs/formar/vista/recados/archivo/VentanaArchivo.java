@@ -1,85 +1,61 @@
 package com.ungs.formar.vista.recados.archivo;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.tablas.TablaRecados;
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.Sesion;
+import com.ungs.formar.vista.util.Ventana;
 
-public class VentanaArchivo {
-	private JFrame ventana;
+public class VentanaArchivo extends Ventana {
+	private static final long serialVersionUID = 1L;
 	private TablaRecados tabla;
 	private JButton btnLeer, btnBorrar, btnVolver;
 
 	public VentanaArchivo() {
-		initialize();
-	}
-
-	private void initialize() {
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 450, 300);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
+		super("Recados archivados");
+		setBounds(100, 100, 450, 300);
 		
-		Empleado empleado = EmpleadoManager.traerEmpleado(2);
+		// MENSAJES
+		Empleado empleado = Sesion.getEmpleado();
 		tabla = new TablaRecados(Mensajero.traerMensajesArchivados(empleado));
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
-		ventana.getContentPane().add(panelTabla);
 
-		
-		JPanel panel = new JPanel();
-		ventana.getContentPane().add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		
+		// BOTONES
 		btnLeer = new JButton("Leer");
-		panel.add(btnLeer);
-		
 		btnBorrar = new JButton("Borrar");
-		panel.add(btnBorrar);
-		
 		btnVolver = new JButton("Volver");
-		panel.add(btnVolver);
-	}
-
-	public JFrame getVentana() {
-		return ventana;
+		PanelHorizontal panelBotones = new PanelHorizontal();
+		panelBotones.add(btnLeer);		
+		panelBotones.add(btnBorrar);
+		panelBotones.add(btnVolver);
+		
+		// ORGANIZACION DE PANELES
+		PanelVertical panelPrincipal = new PanelVertical();
+		panelPrincipal.add(panelTabla);
+		panelPrincipal.add(panelBotones);
+		setContentPane(panelPrincipal);
 	}
 
 	public TablaRecados getTabla() {
 		return tabla;
 	}
 
-	public JButton getBtnLeer() {
+	public JButton getLeer() {
 		return btnLeer;
 	}
 
-	public JButton getBtnBorrar() {
+	public JButton getBorrar() {
 		return btnBorrar;
 	}
 
-	public JButton getBtnVolver() {
+	public JButton getVolver() {
 		return btnVolver;
 	}
-	
-	public void ocultar() {
-		ventana.setVisible(false);
-	}
-	
-	public void deshabilitar() {
-		ventana.setEnabled(false);
-	}
-	
-	public void mostrar() {
-		ventana.setVisible(true);
-		ventana.setEnabled(true);
-	}
-		
-	
 
 }
