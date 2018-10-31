@@ -82,10 +82,10 @@ public class GestionarCursos {
 		btnEditar = new JButton("EDITAR");
 		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		btnBorrar = new JButton("BORRAR");
+		btnBorrar = new JButton("CANCELAR");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("VOLVER");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		lblCursos = new JLabel("CURSADAS:");
@@ -169,24 +169,24 @@ public class GestionarCursos {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE)
 							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(btnAgregar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnBorrar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-							.addGap(123)
-							.addComponent(btnConsultarInscripciones, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+							.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addGap(125)
+							.addComponent(btnConsultarInscripciones, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCambiarEstado, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-							.addGap(308)
-							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+							.addComponent(btnCambiarEstado, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtCursoFiltro, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
 								.addComponent(lblCurso, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
@@ -207,7 +207,7 @@ public class GestionarCursos {
 								.addComponent(lblResponsable, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
 								.addComponent(txtResponsableFiltro, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
 							.addGap(359))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE)
 								.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE))
@@ -244,7 +244,7 @@ public class GestionarCursos {
 					.addGap(35)
 					.addComponent(lblCursos)
 					.addGap(9)
-					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)

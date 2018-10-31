@@ -78,7 +78,7 @@ public class CrearCurso extends JFrame {
 		panelprincipal.add(inCupoMinimo);
 		inCupoMinimo.setColumns(10);
 		
-		btnCrearCurso = new JButton("AGREGAR");
+		btnCrearCurso = new JButton("GUARDAR");
 		btnCrearCurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
