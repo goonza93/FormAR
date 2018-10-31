@@ -15,5 +15,7 @@ public interface ProgramaODB {
 	public void update(Programa programa);
 
 	public void delete(Programa programa);
+
+	public List<Programa> selectByArea(Integer id);
 	
 }

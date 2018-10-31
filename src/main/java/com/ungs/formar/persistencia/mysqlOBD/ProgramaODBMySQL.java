@@ -110,4 +110,8 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 		return programas;
 	}
 	
+	public List<Programa> selectByArea(Integer id) {
+		String condicion = "area = "+id;
+		return selectByCondicion(condicion); 
+	}
 }

@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Area;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
 
 public class AreaOBDMySQL extends ODB implements AreaOBD {
 	private final String tabla = "for_areas";
 	private final String campos = "nombre, descripcion, activo";
+	private final String ID = "ID";
 
 	public List<Area> select() {
 		String condicion = "true";
@@ -59,4 +61,34 @@ public class AreaOBDMySQL extends ODB implements AreaOBD {
 		return areas;
 	}
 
+	public void insert (Area area) {
+		String nombre = "'"+area.getNombre()+"'";		
+		String descripcion ="'"+area.getDescripcion()+"'";
+		
+		String valores =nombre
+				+", "+descripcion
+				+", "+true;
+						
+		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
+		ejecutarSQL(consulta);
+	}
+	
+	public void update(Area area) {
+		String nombre = "'"+area.getNombre()+"'";
+		String descripcion ="'"+area.getDescripcion()+"'";
+		String condicion = ID+"="+area.getID();
+		
+		String consulta = "update " + tabla
+				+" set nombre = "+nombre
+				+", descripcion = "+descripcion
+				+"  where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+	
+	public void delete(Area area){
+		String condicion = ID+"="+area.getID();
+		String consulta = "delete from "+tabla+" where ("+condicion+");";
+		ejecutarSQL(consulta);
+	}
+	
 }

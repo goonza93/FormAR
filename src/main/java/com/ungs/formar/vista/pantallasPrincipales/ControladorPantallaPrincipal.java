@@ -13,6 +13,8 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
+import com.ungs.formar.vista.gestion.areas.ControladorAreaABM;
+import com.ungs.formar.vista.gestion.areas.GestionarAreas;
 import com.ungs.formar.vista.gestion.cursos.ControladorGestionarCurso;
 import com.ungs.formar.vista.gestion.cursos.GestionarCursos;
 import com.ungs.formar.vista.gestion.empleados.ControladorEmpleadoABM;
@@ -40,6 +42,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	private VentanaSalaABM ventanaGestionarSalas;
 	private VentanaInscripcionABM ventanaInscripcionABM;
 	private CambiarPass ventanaCambiarPass;
+	private GestionarAreas ventanaGestionarAreas;
 
 	public ControladorPantallaPrincipal(Empleado user) {
 		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(user.getID()));
@@ -201,8 +204,6 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.inicializar();
 		}
 	}
-
-	
 	
 	private void clickBtnPantallaSupervisor(ActionEvent e){
 		
@@ -216,7 +217,10 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		
 		//BOTON ABM AREAS
 		else if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAreas()) {
-			//VENTANA ABM AREAS
+			this.ventanaGestionarAreas = new GestionarAreas();
+			this.ventanaGestionarAreas.setVisible(true);
+			this.pantallaSupervisor.ocultar();
+			new ControladorAreaABM(this.ventanaGestionarAreas, this);
 		} 
 		
 		//BOTON MENU ADMINISTRATIVO
@@ -334,7 +338,6 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		}
 	}
 
-
 	private void mostrarPantallaPrincipal() {
 		if(this.pantallaAdministrativo !=null)
 			this.pantallaAdministrativo.getVentana().setEnabled(true);
@@ -343,7 +346,6 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		else if (this.pantallaSupervisor != null)
 			this.pantallaSupervisor.getVentana().setEnabled(true);
 	}
-
 	
 	private void msjReglasPass(){
 		Popup.mostrar("La contraseña debe consistir de 6 a 8 caracteres alfanumericos.");

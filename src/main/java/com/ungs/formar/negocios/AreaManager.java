@@ -12,25 +12,33 @@ import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
 import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
 
 public class AreaManager {
-	
+
 	public static List<Area> traerTodo() {
 		AreaOBD obd = FactoryODB.crearAreaOBD();
 		return obd.select();
 	}
-	
-	public static void crearArea(String nombre, String descripcion){
-	}
-	
-	public static void editarArea(Area area) {
-		
-	}
-	
-	public static void eliminarArea(Area area) {
-	}
-	
-	public static boolean estaAsignada(Area area){
-		return false;
+
+	public static void crearArea(String nombre, String descripcion) {
+		Area area = new Area(-1, nombre, descripcion, true);
+		AreaOBD odb = FactoryODB.crearAreaOBD();
+		odb.insert(area);
 	}
 
+	public static void editarArea(Area area) {
+		AreaOBD odb = FactoryODB.crearAreaOBD();
+		odb.update(area);
+	}
+
+	public static void eliminarArea(Area area) {
+		AreaOBD odb = FactoryODB.crearAreaOBD();
+		odb.delete(area);
+	}
+
+	public static boolean estaAsignada(Area area) {
+		ProgramaODB obd = FactoryODB.crearProgramaODB();
+		List<Programa> programas = obd.selectByArea(area.getID());
+
+		return !(programas.isEmpty());
+	}
 
 }

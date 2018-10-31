@@ -8,5 +8,11 @@ public interface AreaOBD {
 	public List<Area> select();
 	
 	public Area selectByID(Integer ID);
+
+	public void insert(Area area);
+
+	public void update(Area area);
+
+	public void delete(Area area);
 		
 }
