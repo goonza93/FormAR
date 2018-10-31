@@ -42,7 +42,7 @@ public class ControladorSeleccionarResponsable implements ActionListener {
 		this.ventanaSeleccionarResponsable.getModelResponsables().setColumnCount(0);
 		this.ventanaSeleccionarResponsable.getModelResponsables().setColumnIdentifiers(this.ventanaSeleccionarResponsable.getNombreColumnas());
 		
-		this.responsables_en_tabla = EmpleadoManager.traerAdministrativos();
+		this.responsables_en_tabla = EmpleadoManager.traerAdministrativosActivos();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());

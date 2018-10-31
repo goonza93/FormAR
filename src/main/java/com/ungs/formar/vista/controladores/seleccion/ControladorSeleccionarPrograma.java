@@ -42,10 +42,7 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 	}
 
 	private void llenarTablaProgramas() {
-		this.ventanaSeleccionarPrograma.getModelTemas().setRowCount(0); // Para
-																		// vaciar
-																		// la
-																		// tabla
+		this.ventanaSeleccionarPrograma.getModelTemas().setRowCount(0);
 		this.ventanaSeleccionarPrograma.getModelTemas().setColumnCount(0);
 		this.ventanaSeleccionarPrograma.getModelTemas()
 				.setColumnIdentifiers(this.ventanaSeleccionarPrograma.getNombreColumnas());

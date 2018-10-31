@@ -32,7 +32,7 @@ public class ControladorSeleccionarInstructor implements ActionListener {
 		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnCount(0);
 		this.ventanaSeleccionarInstructor.getModelInstructores().setColumnIdentifiers(this.ventanaSeleccionarInstructor.getNombreColumnas());
 		
-		this.instructores_en_tabla = EmpleadoManager.traerInstructores();
+		this.instructores_en_tabla = EmpleadoManager.traerInstructoresActivos();
 		/*Collections.sort(this.personas_en_tabla, new Comparator<PersonaDTO>() {
 			   public int compare(PersonaDTO obj1, PersonaDTO obj2) {
 			      return obj1.getApellido().toUpperCase().compareTo(obj2.getApellido().toUpperCase());
