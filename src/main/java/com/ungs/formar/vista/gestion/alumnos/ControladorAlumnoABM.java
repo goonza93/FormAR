@@ -138,11 +138,11 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 
 		if (Popup.confirmar(pregunta)) {
 			for (Alumno alumno : seleccion) {
-				if (!AlumnoManager.estaCursando(alumno)) {
+				if (!AlumnoManager.tieneInscripcion(alumno)) {
 					AlumnoManager.eliminarAlumno(alumno);
 				}else{
 					if(msj.isEmpty())
-						msj +="Los siguientes alumnos no se pueden borrar porque estan inscriptos a cursadas:";
+						msj +="Los siguientes alumnos no se pueden borrar porque estan vinculados a cursadas:";
 					msj+="\n- " + alumno.getApellido() + ", " + alumno.getNombre();
 				}		
 			}
