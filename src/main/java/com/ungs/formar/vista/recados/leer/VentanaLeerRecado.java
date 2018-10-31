@@ -1,32 +1,23 @@
 package com.ungs.formar.vista.recados.leer;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
 import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
-import java.awt.Component;
+import com.ungs.formar.vista.util.Ventana;
 
-public class VentanaLeerRecado {
+public class VentanaLeerRecado extends Ventana{
+	private static final long serialVersionUID = 1L;
 	private JButton btnVolver, btnBorrar, btnArchivar;
-	private JFrame ventana;
-	private Recado recado;
 
 	public VentanaLeerRecado(Recado recado) {
-		this.recado = recado;
-		initialize();
-	}
-
-	private void initialize() {
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 450, 300);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		super("Leer recado");
+		setBounds(100, 100, 450, 300);
+		
 		// FICHA TECNICA DEL MENSAJE
 		JLabel lblEmisor = new JLabel("De "+Formato.empleado(recado.getEmisor()));
 		JLabel lblReceptor = new JLabel("Para "+Formato.empleado(recado.getReceptor()));
@@ -51,15 +42,13 @@ public class VentanaLeerRecado {
 		btnBorrar = new JButton("Borrar");
 
 		PanelHorizontal panelBotones = new PanelHorizontal();
-		panelBotones.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panelBotones.setAlignmentY(Component.CENTER_ALIGNMENT);
 		panelBotones.add(btnVolver);
 		panelBotones.add(btnArchivar);
 		panelBotones.add(btnBorrar);
 
 		// ORGANIZACION DE LOS PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
-		ventana.setContentPane(panelPrincipal);
+		setContentPane(panelPrincipal);
 
 		EmptyBorder bordeSimple = new EmptyBorder(10, 10, 10, 10);
 		panelPrincipal.setBorder(bordeSimple);
@@ -70,19 +59,6 @@ public class VentanaLeerRecado {
 		panelPrincipal.add(panelFicha);
 		panelPrincipal.add(panelMensaje);
 		panelPrincipal.add(panelBotones);
-	}
-
-	public void ocultar() {
-		ventana.setVisible(false);
-	}
-	
-	public void deshabilitar() {
-		ventana.setEnabled(false);
-	}
-	
-	public void mostrar() {
-		ventana.setVisible(true);
-		ventana.setEnabled(true);
 	}
 	
 	public JButton getVolver() {
@@ -97,12 +73,4 @@ public class VentanaLeerRecado {
 		return btnArchivar;
 	}
 
-	public Recado getRecado() {
-		return recado;
-	}
-
-	public JFrame getVentana() {
-		return ventana;
-	}
-	
 }
