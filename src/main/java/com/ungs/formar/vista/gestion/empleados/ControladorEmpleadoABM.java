@@ -16,7 +16,7 @@ import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorEmpleadoABM implements ActionListener {

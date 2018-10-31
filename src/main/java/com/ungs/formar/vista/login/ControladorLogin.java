@@ -27,11 +27,11 @@ import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
-import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionBaja;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.PantallaPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
-import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 
 public class ControladorLogin implements ActionListener {
 	private VentanaIniciarSesion ventanaIniciarSesion;

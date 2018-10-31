@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Sala;
-import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 
 public class ControladorSalaABM implements ActionListener {
 	private VentanaSalaABM ventanaSalaABM;

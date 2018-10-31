@@ -9,7 +9,7 @@ import java.util.List;
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
-import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.recados.archivo.ControladorArchivo;
 import com.ungs.formar.vista.recados.enviados.ControladorEnviados;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;

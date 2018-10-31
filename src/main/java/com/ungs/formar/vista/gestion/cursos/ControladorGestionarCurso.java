@@ -23,7 +23,7 @@ import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
-import com.ungs.formar.vista.controladores.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 

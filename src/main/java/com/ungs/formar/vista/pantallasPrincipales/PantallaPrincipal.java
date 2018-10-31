@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.ventanas;
+package com.ungs.formar.vista.pantallasPrincipales;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

@@ -16,6 +16,7 @@ import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;

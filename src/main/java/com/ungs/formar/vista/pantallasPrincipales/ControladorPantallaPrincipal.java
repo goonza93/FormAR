@@ -1,10 +1,11 @@
-package com.ungs.formar.vista.controladores;
+package com.ungs.formar.vista.pantallasPrincipales;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.definidos.Rol;
+import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
 import com.ungs.formar.vista.gestion.cursos.ControladorGestionarCurso;
@@ -18,7 +19,6 @@ import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
 import com.ungs.formar.vista.util.Sesion;
-import com.ungs.formar.vista.ventanas.PantallaPrincipal;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
 public class ControladorPantallaPrincipal implements ActionListener{
