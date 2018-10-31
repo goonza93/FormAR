@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.recados;
+package com.ungs.formar.vista.recados.nuevo;
 
 import javax.swing.JFrame;
 import javax.swing.BoxLayout;
@@ -8,12 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
-public class VentanaEnviarRecado {
+public class VentanaNuevo {
 	private JFrame ventana;
 	private JTextField inDestinatario;
 	private JButton btnSeleccionar, btnEnviar, btnCancelar;
-
-	public VentanaEnviarRecado() {
+	private JTextArea inMensaje;
+	
+	public VentanaNuevo() {
 		initialize();
 	}
 
@@ -37,7 +38,7 @@ public class VentanaEnviarRecado {
 		btnSeleccionar = new JButton("Seleccionar");
 		panelDestinatario.add(btnSeleccionar);
 		
-		JTextArea inMensaje = new JTextArea();
+		inMensaje = new JTextArea();
 		ventana.getContentPane().add(inMensaje);
 		
 		JPanel panelBotones = new JPanel();
@@ -83,5 +84,10 @@ public class VentanaEnviarRecado {
 		ventana.setVisible(true);
 		ventana.setEnabled(true);
 	}
+
+	public JTextArea getInMensaje() {
+		return inMensaje;
+	}
+	
 	
 }

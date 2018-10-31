@@ -1,19 +1,19 @@
 package com.ungs.formar.vista.recados;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.Sesion;
 
 public class VentanaRecados {
 	private JFrame ventana;
 	private TablaRecados tabla;
-	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnArchivo, btnEnviados;
+	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnArchivo, btnEnviados, btnVolver;
 
 	public VentanaRecados() {
 		initialize();
@@ -23,37 +23,36 @@ public class VentanaRecados {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 633, 300);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
 		
-		Empleado empleado = EmpleadoManager.traerEmpleado(2);
+		// TABLA DE MENSAJES
+		Empleado empleado = Sesion.getEmpleado();
 		tabla = new TablaRecados(Mensajero.traerMensajesRecibidos(empleado));
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
-		ventana.getContentPane().add(panelTabla);
 		
-		
-		JPanel panelBotones = new JPanel();
-		ventana.getContentPane().add(panelBotones);
-		panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.X_AXIS));
-		
+		// CREO LOS BOTONES
+		PanelHorizontal panelBotones = new PanelHorizontal();
 		btnNuevo = new JButton("Nuevo mensaje");
-		panelBotones.add(btnNuevo);
-		
 		btnLeer = new JButton("Leer");
-		panelBotones.add(btnLeer);
-		
 		btnArchivar = new JButton("Archivar");
-		panelBotones.add(btnArchivar);
-		
 		btnBorrar = new JButton("Borrar");
-		panelBotones.add(btnBorrar);
-		
 		btnArchivo = new JButton("Ver archivo");
-		panelBotones.add(btnArchivo);
-		
 		btnEnviados = new JButton("Ver enviados");
-		panelBotones.add(btnEnviados);
+		btnVolver = new JButton("Volver");
 		
+		panelBotones.add(btnNuevo);
+		panelBotones.add(btnLeer);
+		panelBotones.add(btnArchivar);
+		panelBotones.add(btnBorrar);
+		panelBotones.add(btnArchivo);
+		panelBotones.add(btnEnviados);
+		panelBotones.add(btnVolver);
+		
+		// ORGANIZACION DE PANELES
+		PanelVertical panelPrincipal = new PanelVertical();
+		ventana.setContentPane(panelPrincipal);
+		panelPrincipal.add(panelTabla);
+		panelPrincipal.add(panelBotones);
 	}
 
 	public void ocultar() {
@@ -91,6 +90,10 @@ public class VentanaRecados {
 
 	public JButton getEnviados() {
 		return btnEnviados;
+	}
+
+	public JButton getVolver() {
+		return btnVolver;
 	}
 
 	public JFrame getVentana() {

@@ -16,19 +16,18 @@ import com.ungs.formar.vista.recados.archivo.ControladorArchivo;
 import com.ungs.formar.vista.recados.archivo.VentanaArchivo;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;
 import com.ungs.formar.vista.recados.leer.RecadoLegible;
+import com.ungs.formar.vista.recados.nuevo.ControladorNuevo;
+import com.ungs.formar.vista.recados.nuevo.VentanaNuevo;
 import com.ungs.formar.vista.seleccion.empleado.ControladorSeleccionarEmpleado;
 import com.ungs.formar.vista.seleccion.empleado.EmpleadoSeleccionable;
 import com.ungs.formar.vista.seleccion.empleado.VentanaSeleccionarEmpleado;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorRecados implements ActionListener, EmpleadoSeleccionable, RecadoLegible{
+public class ControladorRecados implements ActionListener, RecadoLegible{
 	private ControladorPantallaPrincipal invocador;
 	private VentanaRecados ventana;
-	private VentanaEnviarRecado ventanaEnviar;
 	
-	private Empleado receptor;
-
 	public ControladorRecados(VentanaRecados v, ControladorPantallaPrincipal c) {
 		this.ventana = v;
 		this.invocador = c;
@@ -38,6 +37,7 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 		this.ventana.getEnviados().addActionListener(this);
 		this.ventana.getLeer().addActionListener(this);
 		this.ventana.getNuevo().addActionListener(this);
+		this.ventana.getVolver().addActionListener(this);
 
 		this.ventana.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
@@ -78,24 +78,21 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 		else if (e.getSource() == ventana.getArchivar())
 			archivarMensaje();
 		
-		// BOTON ver ARCHIVAs DE LA VENTANA RECADOS
+		// BOTON VER ARCHIVO DE LA VENTANA RECADOS
 		else if (e.getSource() == ventana.getArchivo())
 			abrirVentanaArchivo();
 		
+		// BOTON VOLVER DE LA VENTANA RECADOS
+		else if (e.getSource() == ventana.getVolver())
+			volver();
 		
-		else if (ventanaEnviar != null) {
-			
-			// BOTON CANCELAR DE LA VENTANA NUEVO MENSAJE
-			if (e.getSource() == ventanaEnviar.getCancelar())
-				cerrarVentanaNuevoMensaje();
+		
+	}
 
-			// BOTON CANCELAR DE LA VENTANA NUEVO MENSAJE
-			else if (e.getSource() == ventanaEnviar.getSeleccionar())
-				seleccionarDestinatario();
-		}
-		
-		
-		
+	private void volver() {
+		ventana.getVentana().dispose();
+		ventana = null;
+		invocador.inicializar();
 	}
 
 	private void abrirVentanaArchivo() {
@@ -136,31 +133,12 @@ public class ControladorRecados implements ActionListener, EmpleadoSeleccionable
 		}
 	}
 
-	private void seleccionarDestinatario() {
-		VentanaSeleccionarEmpleado v = new VentanaSeleccionarEmpleado(Rol.COMPLETO);
-		new ControladorSeleccionarEmpleado(v, this, Rol.COMPLETO);
-		ventanaEnviar.deshabilitar();
-	}
-
-	private void cerrarVentanaNuevoMensaje() {
-		ventanaEnviar.getVentana().dispose();
-		ventanaEnviar = null;
-		ventana.mostrar();
-	}
 
 	private void abrirVentanaNuevoMensaje() {
 		ventana.ocultar();
-		ventanaEnviar = new VentanaEnviarRecado();
-		ventanaEnviar.getVentana().setVisible(true);
-		ventanaEnviar.getSeleccionar().addActionListener(this);
-		ventanaEnviar.getEnviar().addActionListener(this);
-		ventanaEnviar.getCancelar().addActionListener(this);
+		new ControladorNuevo(this);
 	}
 
-	public void setEmpleado(Empleado empleado) {
-		ventanaEnviar.getDestinatario().setText(empleado.getNombre());
-		this.receptor = empleado;
-	}
 
 	public void mostrar() {
 		ventana.mostrar();

@@ -25,7 +25,7 @@ public class MensajeroTest {
 
 	public static void traerMensajesArchivadosTest(Empleado empleado) {
 		System.out.println("___ Traer mensajes archivados Test");
-		List<Recado> recados = Mensajero.traermensajesArchivados(empleado);
+		List<Recado> recados = Mensajero.traerMensajesArchivados(empleado);
 		for (Recado recado : recados)
 			System.out.println(recado.getMensaje());
 		System.out.println("Cantidad de mensajes:"+recados.size());
@@ -34,9 +34,9 @@ public class MensajeroTest {
 	public static void main(String[] args) {
 		Empleado empleado1 = EmpleadoManager.traerEmpleado(1);
 		Empleado empleado2 = EmpleadoManager.traerEmpleado(2);
-		enviarMensajeTest(empleado1, empleado2, "Mensaje 6");
-		//traerMensajesRecibidosTest(empleado2);
-		traerMensajesArchivadosTest(empleado2);
+		enviarMensajeTest(empleado1, empleado2, "Recado 5");
+		traerMensajesRecibidosTest(empleado2);
+		//traerMensajesArchivadosTest(empleado2);
 	}
 	
 }

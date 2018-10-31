@@ -27,7 +27,7 @@ public class VentanaArchivo {
 		ventana.getContentPane().setLayout(new BoxLayout(ventana.getContentPane(), BoxLayout.Y_AXIS));
 		
 		Empleado empleado = EmpleadoManager.traerEmpleado(2);
-		tabla = new TablaRecados(Mensajero.traermensajesArchivados(empleado));
+		tabla = new TablaRecados(Mensajero.traerMensajesArchivados(empleado));
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
 		ventana.getContentPane().add(panelTabla);

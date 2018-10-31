@@ -16,9 +16,9 @@ public class Mensajero {
 		obd.insert(recadoReceptor);
 	}
 
-	public static List<Recado> traerMensajesRecibidos(Empleado actual) {
+	public static List<Recado> traerMensajesRecibidos(Empleado empleado) {
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
-		return obd.selectByReceptor(actual);
+		return obd.selectByEmpleadoReceptorArchivado(empleado, empleado, false);
 	}
 
 	public static void borrarMensaje(Recado recado) {
@@ -32,7 +32,7 @@ public class Mensajero {
 		obd.update(recado);
 	}
 	
-	public static List<Recado> traermensajesArchivados(Empleado empleado) {
+	public static List<Recado> traerMensajesArchivados(Empleado empleado) {
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
 		return obd.selectByEmpleadoReceptorArchivado(empleado, empleado, true);
 	}

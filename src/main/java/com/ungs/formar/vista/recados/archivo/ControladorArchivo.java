@@ -82,7 +82,7 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 
 	public void recargar() {
 		Empleado empleado = Sesion.getEmpleado();
-		List<Recado> recados = Mensajero.traermensajesArchivados(empleado);
+		List<Recado> recados = Mensajero.traerMensajesArchivados(empleado);
 		ventana.getTabla().recargar(recados);
 	}
 	
