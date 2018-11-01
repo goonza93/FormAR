@@ -10,13 +10,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(16));
-		controlador.inicializar();
+		//ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(16));
+		//controlador.inicializar();
 		
 		
-		/*VentanaIniciarSesion v = new VentanaIniciarSesion();
+		VentanaIniciarSesion v = new VentanaIniciarSesion();
 		ControladorLogin c = new ControladorLogin(v);
-		c.inicializar();*/
+		c.inicializar();
 		
 	}
 	
