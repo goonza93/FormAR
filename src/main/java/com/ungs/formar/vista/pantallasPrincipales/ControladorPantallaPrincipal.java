@@ -194,7 +194,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		
 		//BOTON CAMBIAR PASS
 		else if (e.getSource() == pantallaAdministrativo.getBtnCambiarPass()) {
-			//VENTANA CAMBIAR CONTRASENA
+			pantallaAdministrativo.getVentana().setEnabled(false);
+			mostrarCambiarPass();
 		}
 		
 		//BOTON MENU SUPERVISOR
@@ -287,7 +288,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		
 		//BOTON CAMBIAR PASS
 		else if (e.getSource() == pantallaInstructor.getBtnCambiarPass()) {
-			//VENTANA CAMBIAR CONTRASENA
+			pantallaInstructor.getVentana().setEnabled(false);
+			mostrarCambiarPass();
 		}
 		
 		//BOTON MENU SUPERVISOR
