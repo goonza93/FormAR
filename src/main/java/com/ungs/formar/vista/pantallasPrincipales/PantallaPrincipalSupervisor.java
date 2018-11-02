@@ -24,7 +24,8 @@ public class PantallaPrincipalSupervisor {
 	private JLabel lblLogo;
 	private JLabel lblBienvenido;
 	private JButton btnGestionarSalas;
-	private JButton a;
+	private JButton btnGenerarBackUp;
+	private JButton btnObtenerBackUp;
 	private JButton btnGestionarAdministrativos;
 	private JButton btnRecados;
 	private JButton btnMenuInstructores;
@@ -61,14 +62,14 @@ public class PantallaPrincipalSupervisor {
 		btnGestionarSalas = new JButton("GESTIONAR SALAS");
 		btnGestionarSalas.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		JButton b = new JButton("a");
-		b.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnObtenerBackUp = new JButton("OBTENER BACKUP");
+		btnObtenerBackUp.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		JButton c = new JButton("c");
 		c.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		a = new JButton("a");
-		a.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnGenerarBackUp = new JButton("GENERAR BACKUP");
+		btnGenerarBackUp.setFont(new Font("Arial", Font.PLAIN, 12));
 		
 		lblBienvenido = new JLabel("");
 		lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,8 +109,8 @@ public class PantallaPrincipalSupervisor {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(c, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-								.addComponent(a, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-								.addComponent(b, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+								.addComponent(btnGenerarBackUp, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+								.addComponent(btnObtenerBackUp, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
 							.addGap(4))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblBienvenido, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
@@ -132,10 +133,10 @@ public class PantallaPrincipalSupervisor {
 							.addGap(65)
 							.addComponent(c, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(a, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnGenerarBackUp, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(b, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnObtenerBackUp, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnGestionarSalas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnGestionarAreas, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
@@ -194,6 +195,13 @@ public class PantallaPrincipalSupervisor {
 	
 	public JButton getBtnCambiarPass(){
 		return btnCambiarPass;
+	}
+	
+	public JButton getBtnGenerarBackUp(){
+		return btnGenerarBackUp;
+	}
+	public JButton getBtnObtenerBackUp(){
+		return btnObtenerBackUp;
 	}
 	
 	public JLabel getLabelBienvenido(){
