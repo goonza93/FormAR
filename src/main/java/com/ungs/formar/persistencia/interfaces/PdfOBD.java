@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.interfacesOBD;
+package com.ungs.formar.persistencia.interfaces;
 
 import com.ungs.formar.persistencia.entidades.Pdf;
 

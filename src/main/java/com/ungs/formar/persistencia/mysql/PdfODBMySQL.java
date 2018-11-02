@@ -1,8 +1,9 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Pdf;
-import com.ungs.formar.persistencia.interfacesOBD.PdfOBD;
+import com.ungs.formar.persistencia.interfaces.PdfOBD;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

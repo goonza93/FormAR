@@ -8,7 +8,7 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
-import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
+import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 
 public class InscripcionManager {
 	

@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +11,7 @@ import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
+import com.ungs.formar.persistencia.interfaces.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
 	private final String campos = "cupo_minimo, cupo_maximo, precio, comision, fecha_inicio, fecha_fin, fecha_cierre, contenido, horas, instructor, responsable, programa, estado";

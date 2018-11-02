@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Horario;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
+import com.ungs.formar.persistencia.interfaces.HorarioOBD;
 
 public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 	private final String campos = "dia, hora_inicio, hora_fin, minuto_inicio, minuto_fin";

@@ -1,29 +1,29 @@
 package com.ungs.formar.persistencia;
 
-import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
-import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
-import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
-import com.ungs.formar.persistencia.interfacesOBD.DiaOBD;
-import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
-import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
-import com.ungs.formar.persistencia.interfacesOBD.PdfOBD;
-import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
-import com.ungs.formar.persistencia.interfacesOBD.RecadoOBD;
-import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
-import com.ungs.formar.persistencia.mysqlOBD.AlumnoODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.AreaOBDMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.CursoODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.DiaODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.EmpleadoODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.HorarioCursadaODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.HorarioOBDMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.InscripcionOBDMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.PdfODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.ProgramaODBMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.RecadoOBDMySQL;
-import com.ungs.formar.persistencia.mysqlOBD.SalaODBMySQL;
+import com.ungs.formar.persistencia.interfaces.AlumnoODB;
+import com.ungs.formar.persistencia.interfaces.AreaOBD;
+import com.ungs.formar.persistencia.interfaces.CursoODB;
+import com.ungs.formar.persistencia.interfaces.DiaOBD;
+import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
+import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
+import com.ungs.formar.persistencia.interfaces.HorarioOBD;
+import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
+import com.ungs.formar.persistencia.interfaces.PdfOBD;
+import com.ungs.formar.persistencia.interfaces.ProgramaODB;
+import com.ungs.formar.persistencia.interfaces.RecadoOBD;
+import com.ungs.formar.persistencia.interfaces.SalaODB;
+import com.ungs.formar.persistencia.mysql.AlumnoODBMySQL;
+import com.ungs.formar.persistencia.mysql.AreaOBDMySQL;
+import com.ungs.formar.persistencia.mysql.CursoODBMySQL;
+import com.ungs.formar.persistencia.mysql.DiaODBMySQL;
+import com.ungs.formar.persistencia.mysql.EmpleadoODBMySQL;
+import com.ungs.formar.persistencia.mysql.HorarioCursadaODBMySQL;
+import com.ungs.formar.persistencia.mysql.HorarioOBDMySQL;
+import com.ungs.formar.persistencia.mysql.InscripcionOBDMySQL;
+import com.ungs.formar.persistencia.mysql.PdfODBMySQL;
+import com.ungs.formar.persistencia.mysql.ProgramaODBMySQL;
+import com.ungs.formar.persistencia.mysql.RecadoOBDMySQL;
+import com.ungs.formar.persistencia.mysql.SalaODBMySQL;
 
 public class FactoryODB {
 	

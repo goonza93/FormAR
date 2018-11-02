@@ -3,7 +3,7 @@ package com.ungs.formar.test.persistencia;
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
+import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 
 public class ProgramaODBTest {
 

@@ -9,7 +9,7 @@ import java.io.InputStream;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Pdf;
-import com.ungs.formar.persistencia.interfacesOBD.PdfOBD;
+import com.ungs.formar.persistencia.interfaces.PdfOBD;
 
 public class PdfManager {
 

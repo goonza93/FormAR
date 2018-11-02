@@ -14,8 +14,8 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
+import com.ungs.formar.persistencia.interfaces.CursoODB;
+import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
 
 public class CursoManager {
 

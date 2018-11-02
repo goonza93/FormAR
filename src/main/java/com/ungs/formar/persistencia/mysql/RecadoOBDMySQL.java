@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
-import com.ungs.formar.persistencia.interfacesOBD.RecadoOBD;
+import com.ungs.formar.persistencia.interfaces.RecadoOBD;
 
 public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 	private final String tabla = "for_recados";

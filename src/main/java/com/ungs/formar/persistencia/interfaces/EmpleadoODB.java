@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.interfacesOBD;
+package com.ungs.formar.persistencia.interfaces;
 
 import java.util.List;
 import com.ungs.formar.persistencia.definidos.Rol;
@@ -25,5 +25,7 @@ public interface EmpleadoODB {
 	public Empleado selectByUsuario(String usuario);
 
 	public Empleado selectByEmail(String email);
+	
+	public List<Empleado> selectByActivo(boolean activo);
 	
 }

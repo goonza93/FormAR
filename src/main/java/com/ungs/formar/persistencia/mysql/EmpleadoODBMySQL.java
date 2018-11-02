@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
+import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 
 public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	private final String campos = "rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso, usuario, password, activo";
@@ -78,6 +78,12 @@ public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	
 	public List<Empleado> select() {
 		String condicion = "1=1";
+		List<Empleado> empleados = selectByCondicion(condicion);
+		return empleados;
+	}
+	
+	public List<Empleado> selectByActivo(boolean activo) {
+		String condicion = "activo = "+activo;
 		List<Empleado> empleados = selectByCondicion(condicion);
 		return empleados;
 	}

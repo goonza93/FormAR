@@ -4,7 +4,7 @@ import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
+import com.ungs.formar.persistencia.interfaces.CursoODB;
 
 public class Instructor {
 	

@@ -7,9 +7,9 @@ import com.ungs.formar.persistencia.entidades.Dia;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Sala;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioOBD;
-import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
+import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
+import com.ungs.formar.persistencia.interfaces.HorarioOBD;
+import com.ungs.formar.persistencia.interfaces.SalaODB;
 
 public class HorarioCursadaManager {
 	

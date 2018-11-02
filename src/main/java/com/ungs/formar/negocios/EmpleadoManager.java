@@ -6,7 +6,7 @@ import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
+import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 
 public class EmpleadoManager {
 
@@ -35,6 +35,11 @@ public class EmpleadoManager {
 		return odb.select();
 	}
 	
+	public static List<Empleado> traerEmpleadosActivos() {
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByActivo(true);
+	}
+	
 	public static List<Empleado> traerAdministrativos(){
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		return odb.selectByRol(Rol.ADMINISTRATIVO);
@@ -45,6 +50,7 @@ public class EmpleadoManager {
 		return odb.selectByRol(Rol.INSTRUCTOR);
 	}
 	
+	// Carlos: por el amor de Dios, hagan un select
 	public static List<Empleado> traerInstructoresActivos(){
 		List<Empleado> instructores = traerInstructores();
 		List<Empleado> ret = new ArrayList<Empleado>();

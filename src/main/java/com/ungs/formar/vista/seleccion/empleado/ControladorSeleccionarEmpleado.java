@@ -35,7 +35,7 @@ public class ControladorSeleccionarEmpleado implements ActionListener {
 			empleados = EmpleadoManager.traerAdministrativos();
 		
 		if (rol.equals(Rol.COMPLETO))
-			empleados = EmpleadoManager.traerEmpleados();
+			empleados = EmpleadoManager.traerEmpleadosActivos();
 		
 		for (Empleado empleado : empleados) {
 			Object[] fila = {

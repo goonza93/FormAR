@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.interfacesOBD;
+package com.ungs.formar.persistencia.interfaces;
 
 import java.util.List;
 import com.ungs.formar.persistencia.entidades.Alumno;

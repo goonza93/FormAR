@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
+import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 
 public class AlumnoODBTest {
 	

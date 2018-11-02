@@ -5,7 +5,7 @@ import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
+import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 
 public class AlumnoManager {
 

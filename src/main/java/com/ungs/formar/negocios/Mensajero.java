@@ -4,7 +4,7 @@ import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
-import com.ungs.formar.persistencia.interfacesOBD.RecadoOBD;
+import com.ungs.formar.persistencia.interfaces.RecadoOBD;
 
 public class Mensajero {
 	

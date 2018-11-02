@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Sala;
-import com.ungs.formar.persistencia.interfacesOBD.SalaODB;
+import com.ungs.formar.persistencia.interfaces.SalaODB;
 
 public class SalaODBMySQL extends ODB implements SalaODB{
 	private final String campos = "numero, nombre, capacidad, activo";

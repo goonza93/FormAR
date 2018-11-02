@@ -3,7 +3,7 @@ package com.ungs.formar.test.persistencia;
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Area;
-import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
+import com.ungs.formar.persistencia.interfaces.AreaOBD;
 
 public class AreaOBDTest {
 

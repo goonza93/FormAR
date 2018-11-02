@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
-import com.ungs.formar.persistencia.interfacesOBD.InscripcionOBD;
+import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 
 public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	private final String campos = "alumno, empleado, curso, fecha, nota";

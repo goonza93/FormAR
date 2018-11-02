@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Dia;
-import com.ungs.formar.persistencia.interfacesOBD.DiaOBD;
+import com.ungs.formar.persistencia.interfaces.DiaOBD;
 
 public class DiaODBMySQL extends ODB implements DiaOBD{
 	private final String tabla = "for_dias";

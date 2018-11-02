@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
+import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 
 public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas, activo";

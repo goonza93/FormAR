@@ -3,7 +3,7 @@ package com.ungs.formar.test.persistencia;
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.interfacesOBD.EmpleadoODB;
+import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 
 public class EmpleadoODBTest {
 

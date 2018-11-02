@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
-import com.ungs.formar.persistencia.interfacesOBD.HorarioCursadaOBD;
+import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
 
 public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
 	private final String tabla = "for_horarios_cursada";

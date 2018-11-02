@@ -1,4 +1,4 @@
-package com.ungs.formar.persistencia.mysqlOBD;
+package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.interfacesOBD.AlumnoODB;
+import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 
 public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 	private final String campos = "DNI, nombre, apellido, telefono, email, activo";

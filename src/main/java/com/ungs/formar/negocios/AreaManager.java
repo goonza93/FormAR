@@ -7,9 +7,9 @@ import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.persistencia.interfacesOBD.AreaOBD;
-import com.ungs.formar.persistencia.interfacesOBD.CursoODB;
-import com.ungs.formar.persistencia.interfacesOBD.ProgramaODB;
+import com.ungs.formar.persistencia.interfaces.AreaOBD;
+import com.ungs.formar.persistencia.interfaces.CursoODB;
+import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 
 public class AreaManager {
 
