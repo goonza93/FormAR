@@ -16,6 +16,8 @@ public class ControladorLeerRecado implements ActionListener{
 	public ControladorLeerRecado(RecadoLegible invocador, Recado recado) {
 		this.invocador = invocador;
 		this.recado = recado;
+		Mensajero.marcarComoLeido(recado);
+		
 		ventana = new VentanaLeerRecado(recado);
 		ventana.getArchivar().addActionListener(this);
 		ventana.getBorrar().addActionListener(this);
@@ -29,7 +31,6 @@ public class ControladorLeerRecado implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
 		// BOTON BORRAR DE LEER RECADOS
 		if (e.getSource() == ventana.getBorrar())
 			borrarRecado();
@@ -46,19 +47,17 @@ public class ControladorLeerRecado implements ActionListener{
 	private void volver() {
 		ventana.dispose();
 		ventana = null;
+		invocador.recargar();
 		invocador.mostrar();
 	}
 
 	private void archivar() {
 		Mensajero.archivarMensaje(recado);
-		invocador.recargar();
 		volver();
 	}
 
 	private void borrarRecado() {
 		Mensajero.borrarMensaje(recado);
-		invocador.recargar();
-		invocador.mostrar();
 		volver();
 	}
 	

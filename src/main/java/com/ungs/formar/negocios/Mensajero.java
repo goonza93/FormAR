@@ -42,4 +42,10 @@ public class Mensajero {
 		return obd.selectByEmpleadoReceptorArchivado(empleado, empleado, true);
 	}
 
+	public static void marcarComoLeido(Recado recado) {
+		recado.setLeido(true);
+		RecadoOBD obd = FactoryODB.crearRecadoOBD();
+		obd.update(recado);	
+	}
+
 }
