@@ -37,7 +37,7 @@ public class VentanaAlumnoABM {
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.setTitle("Gestion de alumnos");
 		ventana.setLocationRelativeTo(null); // Centrar ventana
-		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
+		ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		
 		// CREO LA TABLA DE ALUMNOS
