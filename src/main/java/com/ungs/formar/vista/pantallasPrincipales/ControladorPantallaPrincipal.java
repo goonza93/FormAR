@@ -85,7 +85,6 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaSupervisor.getBtnGestionarAdministrativos().addActionListener(this);
 		this.pantallaSupervisor.getBtnGestionarAreas().addActionListener(this);
 		this.pantallaSupervisor.getBtnMenuAdministrativos().addActionListener(this);
-		this.pantallaSupervisor.getBtnMenuInstructores().addActionListener(this);
 		//this.pantallaSupervisor.getBtnGestionarSalas().addActionListener(this);
 		this.pantallaSupervisor.getBtnRecados().addActionListener(this);
 		this.pantallaSupervisor.getBtnCambiarPass().addActionListener(this);
@@ -242,16 +241,6 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaAdministrativo.getBtnMenuSupervisor().setVisible(true);
 			this.pantallaAdministrativo.getBtnMenuSupervisor().addActionListener(this);
 			setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
-			this.pantallaSupervisor.ocultar();
-			this.inicializar();
-		}
-
-		// BOTON MENU INSTRUCTORES
-		else if (e.getSource() == pantallaSupervisor.getBtnMenuInstructores()) {
-			mostrarPantallaInstructor();
-			this.pantallaInstructor.getBtnMenuSupervisor().setVisible(true);
-			this.pantallaInstructor.getBtnMenuSupervisor().addActionListener(this);
-			setBienvenido(this.pantallaInstructor.getLabelBienvenido());
 			this.pantallaSupervisor.ocultar();
 			this.inicializar();
 		}
