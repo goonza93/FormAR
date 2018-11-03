@@ -2,6 +2,8 @@ package com.ungs.formar.vista.login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -52,6 +54,14 @@ public class ControladorLogin implements ActionListener {
 				salir();
 			}
 		});
+		this.ventanaIniciarSesion.getPassword().addKeyListener(new KeyAdapter() {
+
+			  public void keyPressed(KeyEvent e) {
+			    if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			    	iniciarSesion();
+			    }
+			  }
+			});
 		inicializar();
 	}
 
