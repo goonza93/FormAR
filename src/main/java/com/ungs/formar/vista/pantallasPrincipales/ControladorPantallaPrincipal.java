@@ -8,14 +8,11 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.util.Date;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
@@ -35,6 +32,7 @@ import com.ungs.formar.vista.gestion.inscripciones.ControladorInscripcionABM;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
+import com.ungs.formar.vista.pagos.ControladorPagoABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
 import com.ungs.formar.vista.util.Formato;
@@ -197,6 +195,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		// BOTON ABM PAGOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarPagos()) {
 			// VENTANA ABM PAGOS
+			pantallaAdministrativo.ocultar();
+			new ControladorPagoABM(this);
 		}
 
 		// BOTON GESTIONAR CONTACTOS
