@@ -111,6 +111,7 @@ public class ControladorCrearCurso implements ActionListener {
 			int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
+				cancelarCambiosHorarios();
 				this.ventanaCrearCurso.dispose();
 				this.controladorGestionarCurso.inicializar();
 			}
@@ -230,6 +231,7 @@ public class ControladorCrearCurso implements ActionListener {
 			controlador.esEdicion = true;
 			controlador.indiceHorarioEdicion = indiceEnHorarios;
 			controlador.capacidadMaxima = Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText());
+			controlador.fechaInicio = this.ventanaCrearCurso.getFechaInicio().getDate();
 			controlador.setSala(SalaManager.traerSegunID(horarioSeleccionado.getSala()));
 		} else {
 			JOptionPane.showMessageDialog(null, msjError);
@@ -482,6 +484,14 @@ public class ControladorCrearCurso implements ActionListener {
 
 	public void setHorarios(List<HorarioCursada> horarios) {
 		this.horariosCursada = horarios;
+		if (horarios != null && !horarios.isEmpty()) {
+			for (HorarioCursada hc : horarios) {
+				Horario h = HorarioCursadaManager.traerHorarioSegunID(hc.getHorario());
+				Sala s = SalaManager.traerSegunID(hc.getSala());
+				this.horarios.add(h);
+				this.salas.add(s);
+			}
+		}
 	}
 
 	public void setContenido(Pdf contenido) {
@@ -501,6 +511,20 @@ public class ControladorCrearCurso implements ActionListener {
 		}
 	}
 
+	private void cancelarCambiosHorarios(){
+		if(this.horariosCursada!= null && !this.horariosCursada.isEmpty()){
+			for(int i=0; i<horariosCursada.size(); i++){
+				Horario h = horarios.get(i);
+				Sala s = salas.get(i);
+				horariosCursada.get(i).setHorario(h.getHorarioID());
+				if(s!=null)
+					horariosCursada.get(i).setSala(salas.get(i).getID());
+				HorarioCursadaManager.actualizarHorario(horarios.get(i));
+				HorarioCursadaManager.actualizarHorarioDeCursada(horariosCursada.get(i));
+			}
+		}
+	}
+	
 	private void iniciarDocumentListener() {
 		this.ventanaCrearCurso.getHoras().getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {
@@ -526,7 +550,7 @@ public class ControladorCrearCurso implements ActionListener {
 				Horario horario = HorarioCursadaManager.traerHorarioSegunID(hc.getHorario());
 				Sala sala = SalaManager.traerSegunID(hc.getSala());
 				java.util.Date fechaInicio = ventanaCrearCurso.getFechaInicio().getDate();
-				if(!SalaManager.validarHorarioDeCursada(horario, sala,fechaInicio)){
+				if(sala!= null && !SalaManager.validarHorarioDeCursada(horario, sala,fechaInicio)){
 					msj += "La sala "+sala.getNumero()+" NO esta disponible en el horario "+
 							HorarioCursadaManager.formatoHorarioCursada(hc);
 				}

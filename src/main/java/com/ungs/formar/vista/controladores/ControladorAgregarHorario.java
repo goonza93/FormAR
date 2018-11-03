@@ -167,7 +167,8 @@ public class ControladorAgregarHorario implements ActionListener {
 		HorarioCursadaManager.actualizarHorario(horarioEdicion);
 
 		// fix para que tome la sala
-		horarioCursadaEdicion.setSala(sala.getID());
+		if(sala!=null)
+			horarioCursadaEdicion.setSala(sala.getID());
 		
 		controladorCrearCurso.actualizarHorarioCursada(indiceHorarioEdicion, horarioCursadaEdicion);
 		controladorCrearCurso.actualizarFechaFin();

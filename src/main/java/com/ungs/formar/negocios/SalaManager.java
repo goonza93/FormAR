@@ -71,7 +71,6 @@ public class SalaManager {
 			Horario horario1 = horarioIngresado;
 			Horario horario2 = horarioOBD.selectByID(horarioCursada.getHorario());
 			cursoDeHorario = CursoManager.traerCursoPorId(horarioCursada.getCurso());
-			System.out.println(fechaInicio.toString());
 			if (cursoDeHorario.getEstado().equals(EstadoCurso.INICIADO)
 					&& cursoDeHorario.getFechaFin()!= null 
 					&& !cursoDeHorario.getFechaFin().before(fechaInicio)) {
