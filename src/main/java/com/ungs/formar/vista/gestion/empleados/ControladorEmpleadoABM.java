@@ -222,8 +222,8 @@ public class ControladorEmpleadoABM implements ActionListener {
 		if (validarCampos()) {
 			Empleado empleado = ventanaAM.getEmpleado();
 			Rol rol = ventanaAM.getRol();
-			String apellido = ventanaAM.getNombre().getText();
-			String nombre = ventanaAM.getApellido().getText();
+			String apellido = ventanaAM.getApellido().getText();
+			String nombre = ventanaAM.getNombre().getText();
 			String dni = ventanaAM.getDNI().getText();
 			String telefono = ventanaAM.getTelefono().getText();
 			String email = ventanaAM.getEmail().getText();
