@@ -12,6 +12,7 @@ import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.seleccion.empleado.ControladorSeleccionarEmpleado;
 import com.ungs.formar.vista.seleccion.empleado.EmpleadoSeleccionable;
 import com.ungs.formar.vista.seleccion.empleado.VentanaSeleccionarEmpleado;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
@@ -53,13 +54,17 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		String titulo = ventana.getTitulo().getText();
 		String mensaje = ventana.getMensaje().getText();
 		Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
-		volver();
-	}
-
-	private void volver() {
 		ventana.dispose();
 		ventana = null;
 		invocador.inicializar();
+	}
+
+	private void volver() {
+		if(Popup.confirmar("¿Esta seguro que desea cancelar?")){
+			ventana.dispose();
+			ventana = null;
+			invocador.inicializar();
+		}
 	}
 
 	private void seleccionarEmpleado() {

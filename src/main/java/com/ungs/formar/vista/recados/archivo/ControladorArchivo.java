@@ -63,9 +63,12 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 		if (recados.size() == 0)
 			Popup.mostrar("Seleccione al menos un mensaje para borrar.");
 		else {
-			for (Recado recado : recados)
-				Mensajero.borrarMensaje(recado);
-			recargar();
+			if(Popup.confirmar("¿Esta seguro desea borrar lo seleccionado?")){
+				for (Recado recado : recados){
+					Mensajero.borrarMensaje(recado);
+				}
+				recargar();
+			}
 		}
 	}
 

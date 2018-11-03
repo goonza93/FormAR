@@ -42,9 +42,9 @@ public class VentanaLeerRecado extends Ventana{
 		btnBorrar = new JButton("Borrar");
 
 		PanelHorizontal panelBotones = new PanelHorizontal();
-		panelBotones.add(btnVolver);
 		panelBotones.add(btnArchivar);
 		panelBotones.add(btnBorrar);
+		panelBotones.add(btnVolver);
 
 		// ORGANIZACION DE LOS PANELES
 		PanelVertical panelPrincipal = new PanelVertical();

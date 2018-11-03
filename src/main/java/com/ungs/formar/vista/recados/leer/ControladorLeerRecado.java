@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Recado;
+import com.ungs.formar.vista.util.Popup;
 
 public class ControladorLeerRecado implements ActionListener{
 	private RecadoLegible invocador;
@@ -57,8 +58,10 @@ public class ControladorLeerRecado implements ActionListener{
 	}
 
 	private void borrarRecado() {
-		Mensajero.borrarMensaje(recado);
-		volver();
+		if(Popup.confirmar("¿Esta seguro desea borrar este mensaje?")){
+			Mensajero.borrarMensaje(recado);
+			volver();
+		}
 	}
 	
 }
