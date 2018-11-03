@@ -64,4 +64,10 @@ public class InscripcionManager {
 		obd.delete(inscripcion);
 	}
 
+	public static Inscripcion traerInscripcion(Alumno alumno, Curso cursoSeleccionado) {
+		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
+		Inscripcion inscripcion = obd.selectByCursoAlumno(cursoSeleccionado, alumno); 
+		return inscripcion;
+	}
+
 }

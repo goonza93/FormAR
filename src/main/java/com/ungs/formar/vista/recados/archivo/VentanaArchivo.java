@@ -19,6 +19,7 @@ public class VentanaArchivo extends Ventana {
 	public VentanaArchivo() {
 		super("Recados archivados");
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		
 		// MENSAJES
 		Empleado empleado = Sesion.getEmpleado();

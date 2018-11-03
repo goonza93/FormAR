@@ -93,7 +93,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		alumnos = InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado);
 		for (Alumno alumno : alumnos) {
 			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDNI(), alumno.getEmail(),
-					alumno.getTelefono() };
+					alumno.getTelefono()}; //, InscripcionManager.traerInscripcion(alumno, cursoSeleccionado).getFecha() };
 			ventanaBaja.getModeloAlumnos().addRow(fila);
 		}
 	}

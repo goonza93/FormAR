@@ -19,6 +19,7 @@ public class VentanaEnviados extends Ventana {
 	public VentanaEnviados() {
 		super("Archivos enviados");
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 
 		// MENSAJES
 		Empleado empleado = Sesion.getEmpleado();

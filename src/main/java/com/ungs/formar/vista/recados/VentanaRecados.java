@@ -19,6 +19,7 @@ public class VentanaRecados extends Ventana {
 	public VentanaRecados() {
 		super("Recados");
 		setBounds(100, 100, 633, 300);
+		setLocationRelativeTo(null);
 		
 		// TABLA DE MENSAJES
 		Empleado empleado = Sesion.getEmpleado();

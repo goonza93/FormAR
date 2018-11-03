@@ -16,6 +16,7 @@ public class VentanaPagoABM extends Ventana{
 	public VentanaPagoABM() {
 		super("Administracion de pagos");
 		setBounds(100, 100, 713, 405);
+		setLocationRelativeTo(null);
 		
 		// TABLA DE PAGOS
 		tabla = new TablaPagos(Tesoreria.traerPagos());

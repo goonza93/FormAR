@@ -17,6 +17,7 @@ public class VentanaLeerRecado extends Ventana{
 	public VentanaLeerRecado(Recado recado) {
 		super("Leer recado");
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		
 		// FICHA TECNICA DEL MENSAJE
 		JLabel lblEmisor = new JLabel("De "+Formato.empleado(recado.getEmisor()));

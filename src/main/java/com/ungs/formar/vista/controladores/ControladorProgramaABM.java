@@ -137,7 +137,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "El programa seleccionado esta asignado y no puede borrarse");
 		}
 		else {
-			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar lo seleccionado!?",
+			int confirm = JOptionPane.showOptionDialog(null, "¿¡Estas seguro que queres borrar lo seleccionado!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				for(Programa actual : lista){
@@ -218,7 +218,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	}
 
 	private void cancelarAM() {
-		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir sin guardar!?",
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Estas seguro que quieres salir sin guardar!?",
 				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaProgramaAM.dispose();

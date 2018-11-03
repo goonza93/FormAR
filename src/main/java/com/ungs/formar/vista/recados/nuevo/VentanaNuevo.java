@@ -20,6 +20,7 @@ public class VentanaNuevo extends Ventana {
 	public VentanaNuevo() {
 		super("Enviar recado");
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 
 		// DESTINATARIO
 		JLabel lblDestinatario = new JLabel("Destinatario");

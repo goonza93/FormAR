@@ -32,6 +32,7 @@ public class VentanaPagoAM extends Ventana{
 	public VentanaPagoAM() {
 		super("Administracion de pagos");
 		setBounds(100, 100, 500, 231);
+		setLocationRelativeTo(null);
 		
 		// TABLA DE ENTRADAS
 		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
