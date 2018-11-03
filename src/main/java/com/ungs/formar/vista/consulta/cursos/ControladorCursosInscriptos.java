@@ -6,6 +6,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+import javax.swing.table.TableColumnModel;
+
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -37,23 +39,26 @@ public class ControladorCursosInscriptos implements ActionListener{
 		ventana.getModeloCursos().setColumnIdentifiers(ventana.getNombreColumnas());
 
 		cursos = InscripcionManager.traerCursosInscriptos(alumno);
-		System.out.println(cursos.get(0));
 		for (Curso curso : cursos) {
-			System.out.println(curso);
 			Object[] fila = {
 					Formato.nombre(curso),
 					Formato.area(curso),
 					Formato.estado(curso),
-					curso.getCupoMinimo(),
-					curso.getCupoMaximo(),
 					curso.getFechaInicio(),
 					curso.getFechaFin(),
 					Formato.instructor(curso),
 					Formato.responsable(curso),
 					Formato.horarios(curso),
+					InscripcionManager.traerInscripcion(alumno, curso).getFecha()
 					};
 			ventana.getModeloCursos().addRow(fila);
 		}
+		TableColumnModel colModel= ventana.getTablaCursos().getColumnModel();
+		colModel.getColumn(2).setPreferredWidth(25);
+		colModel.getColumn(3).setPreferredWidth(25);
+		colModel.getColumn(4).setPreferredWidth(25);
+		colModel.getColumn(8).setPreferredWidth(25);
+		colModel.getColumn(7).setPreferredWidth(100);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

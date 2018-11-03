@@ -18,8 +18,8 @@ public class VentanaCursosInscriptos {
 	private JFrame ventana;
 	private JButton btnVolver;
 	private DefaultTableModel modeloCursos;
-	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
-			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
+	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Fecha inicio",
+			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios", "Fecha Inscripcion" };
 	private JTable tablaCursos;
 
 	public VentanaCursosInscriptos() {
