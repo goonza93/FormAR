@@ -143,12 +143,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 	}
 
 	private void cancelarInscripcion() {
-		/*
-		 * Alumno alumno = obtenerAlumnoSeleccionadoBaja(); if (alumno != null)
-		 * { InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
-		 * cerrarVentanaBaja(); llenarTabla(); } else
-		 * Popup.mostrar("Seleccione exactamente 1 alumno para dar de baja");
-		 */
 		List<Alumno> alumnos = obtenerAlumnosSeleccionadosBaja2();
 		if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para dar de baja.");
@@ -203,15 +197,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 	}
 
 	private void inscribirAlumnos() {
-		/*
-		 * Alumno alumno = obtenerAlumnosSeleccionados(); if (alumno != null) {
-		 * try { InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
-		 * cerrarVentanaAlta(); } catch (Exception e) {
-		 * Popup.mostrar(e.getMessage()); } } else {
-		 * Popup.mostrar("Seleccione exactamente 1 alumno para poder inscribir."
-		 * ); }
-		 */
-
 		List<Alumno> alumnos = obtenerAlumnosSeleccionados2();
 		boolean continuar = true;
 		if (alumnos.size() == 0) {
@@ -247,16 +232,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 			ventanaABM = null;
 		}
 		controlador.inicializar();
-	}
-
-	private void abrirVentanaConsultar() {
-		cursoSeleccionado = obtenerCursoSeleccionado();
-		if (cursoSeleccionado != null) {
-			VentanaAlumnosInscriptos ventanaAlumnos = new VentanaAlumnosInscriptos(cursoSeleccionado);
-			new ControladorAlumnosInscriptos(ventanaAlumnos, this, cursoSeleccionado);
-			ventanaABM.getVentana().setEnabled(false);
-		} else
-			Popup.mostrar("Seleccione exactamente 1 curso para poder inscribir.");
 	}
 
 	private void abrirVentanaAlta() {
@@ -312,16 +287,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		return cursos.get(registro);
 	}
 
-	private Alumno obtenerAlumnosSeleccionados() {
-		int registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRow();
-		// No habia ningun registro seleccionado
-		if (registroTabla == -1)
-			return null;
-
-		int registro = ventanaAlta.getTablaAlumnos().convertRowIndexToModel(registroTabla); 
-		return alumnos.get(registro);
-	}
-
 	private List<Alumno> obtenerAlumnosSeleccionados2() {
 		List<Alumno> ret = new ArrayList<Alumno>();
 		int[] registroTabla = ventanaAlta.getTablaAlumnos().getSelectedRows();
@@ -331,17 +296,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 			ret.add(alumnos.get(registro));
 		}
 		return ret;
-	}
-
-	private Alumno obtenerAlumnoSeleccionadoBaja() {
-		int registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRow(); 
-
-		// No habia ningun registro seleccionado
-		if (registroTabla == -1)
-			return null;
-
-		int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(registroTabla);
-		return alumnos.get(registro);
 	}
 
 	private List<Alumno> obtenerAlumnosSeleccionadosBaja2() {

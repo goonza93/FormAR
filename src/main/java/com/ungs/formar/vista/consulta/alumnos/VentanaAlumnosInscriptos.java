@@ -30,9 +30,9 @@ public class VentanaAlumnosInscriptos {
 	private JFrame ventana;
 	private JTable tablaAlumnos;
 	private DefaultTableModel modeloAlumnos;
-	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono" };
+	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha Inscripcion" };
 	private JButton btnVolver;
-	private JTextField inApellido, inNombre, inEmail, inDNI, inTelefono;
+	private JTextField inApellido, inNombre, inEmail, inDNI, inTelefono, inFechaInscripcion;
 	private final TableRowSorter<TableModel> filtro;
 	private PanelHorizontal panelConFiltros;
 	
@@ -62,6 +62,7 @@ public class VentanaAlumnosInscriptos {
 		inEmail = new JTextField();
 		inDNI = new JTextField();
 		inTelefono = new JTextField();
+		inFechaInscripcion = new JTextField();
 		
 		// ALTURA MAXIMA DE 25 PARA LAS ENTRADAS
 		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
@@ -70,6 +71,7 @@ public class VentanaAlumnosInscriptos {
 		inEmail.setMaximumSize(largoEntrada);
 		inDNI.setMaximumSize(largoEntrada);
 		inTelefono.setMaximumSize(largoEntrada);
+		inFechaInscripcion.setMaximumSize(largoEntrada);
 		
 		filtro = new TableRowSorter<TableModel>(modeloAlumnos);
 		tablaAlumnos.getTableHeader().setReorderingAllowed(false);
@@ -82,6 +84,7 @@ public class VentanaAlumnosInscriptos {
 		inDNI.getDocument().addDocumentListener(listener);
 		inEmail.getDocument().addDocumentListener(listener);
 		inTelefono.getDocument().addDocumentListener(listener);
+		inFechaInscripcion.getDocument().addDocumentListener(listener);
 		
 		// UBICO LOS FILTROS EN PANELES PARA FACIL MANIPULACION
 		PanelVertical filtroApellido = new PanelVertical();
@@ -104,12 +107,17 @@ public class VentanaAlumnosInscriptos {
 		filtroTelefono.add(new JLabel("Telefono"));
 		filtroTelefono.add(inTelefono);
 		
+		PanelVertical filtroFechaInscripcion = new PanelVertical();
+		filtroFechaInscripcion.add(new JLabel("Fecha Inscripcion"));
+		filtroFechaInscripcion.add(inFechaInscripcion);
+		
 		panelConFiltros = new PanelHorizontal();
 		panelConFiltros.add(filtroApellido);
 		panelConFiltros.add(filtroNombre);
 		panelConFiltros.add(filtroDNI);
 		panelConFiltros.add(filtroEmail);
 		panelConFiltros.add(filtroTelefono);
+		panelConFiltros.add(filtroFechaInscripcion);
 		
 		// CREO LOS BOTONES
 		btnVolver = new JButton("Volver a la vista anterior");
@@ -134,6 +142,7 @@ public class VentanaAlumnosInscriptos {
 		filtros.add(RowFilter.regexFilter("(?i)" + inDNI.getText(), 2));
 		filtros.add(RowFilter.regexFilter("(?i)" + inEmail.getText(), 3));
 		filtros.add(RowFilter.regexFilter("(?i)" + inTelefono.getText(), 4));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFechaInscripcion.getText(), 5));
 		return filtros;
 	}
 	

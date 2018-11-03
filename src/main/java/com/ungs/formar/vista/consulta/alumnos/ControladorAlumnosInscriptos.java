@@ -41,7 +41,8 @@ public class ControladorAlumnosInscriptos implements ActionListener{
 					alumno.getNombre(),
 					alumno.getDNI(),
 					alumno.getEmail(),
-					alumno.getTelefono()
+					alumno.getTelefono(),
+					InscripcionManager.traerInscripcion(alumno, curso).getFecha()
 					};
 			ventana.getModeloAlumnos().addRow(fila);
 		}

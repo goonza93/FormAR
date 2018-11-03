@@ -37,6 +37,7 @@ public class ControladorCursosInscriptos implements ActionListener{
 		ventana.getModeloCursos().setColumnIdentifiers(ventana.getNombreColumnas());
 
 		cursos = InscripcionManager.traerCursosInscriptos(alumno);
+		System.out.println(cursos.get(0));
 		for (Curso curso : cursos) {
 			System.out.println(curso);
 			Object[] fila = {

@@ -3,6 +3,7 @@ package com.ungs.formar.negocios;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -41,6 +42,7 @@ public class InscripcionManager {
 	public static List<Curso> traerCursosInscriptos(Alumno alumno) {
 		List<Inscripcion> inscripciones = traerInscripciones(alumno);
 		List<Curso> cursos = new ArrayList<Curso>();
+		System.out.println(inscripciones.get(0).getCurso());
 		
 		for (Inscripcion inscripcion : inscripciones)
 			cursos.add(CursoManager.traerCursoPorId(inscripcion.getCurso()));

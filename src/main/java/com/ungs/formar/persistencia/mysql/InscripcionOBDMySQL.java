@@ -70,8 +70,8 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 				inscripciones.add(new Inscripcion(
 						resultados.getInt("ID"),
 						resultados.getInt("alumno"),
-						resultados.getInt("curso"),
 						resultados.getInt("empleado"),
+						resultados.getInt("curso"),
 						resultados.getDate("fecha"),
 						resultados.getDouble("nota")
 						));
