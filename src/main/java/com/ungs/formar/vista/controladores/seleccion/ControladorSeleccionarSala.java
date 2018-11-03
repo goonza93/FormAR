@@ -2,6 +2,7 @@ package com.ungs.formar.vista.controladores.seleccion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 	private List<Sala> salas_en_tabla;
 	private Horario horarioIngresado;
 	public int capacidadMaxima;
+	public Date fechaInicio;
 
  	public ControladorSeleccionarSala(SeleccionarSala ventana, ControladorAgregarHorario controlador) {
 		this.ventana = ventana;
@@ -48,7 +50,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 			});
 		*/
 		for (int i = 0; i < this.salas_en_tabla.size(); i ++){
-			boolean disponible = SalaManager.validarHorarioDeCursada(horarioIngresado, this.salas_en_tabla.get(i));
+			boolean disponible = SalaManager.validarHorarioDeCursada(horarioIngresado, this.salas_en_tabla.get(i), fechaInicio);
 			String disponibilidad = "SI";
 			if(!disponible && this.salas_en_tabla.get(i).getID()!=1){
 				disponibilidad = "NO";
@@ -97,7 +99,7 @@ public class ControladorSeleccionarSala implements ActionListener {
 	}
 	
 	private boolean validarSalaSeleccionada(Sala salaSeleccionada){	
-		return SalaManager.validarHorarioDeCursada(horarioIngresado, salaSeleccionada);	
+		return SalaManager.validarHorarioDeCursada(horarioIngresado, salaSeleccionada, fechaInicio);	
 	}
 	
 	public void setHorarioIngresado(Horario horarioIngresado){

@@ -2,6 +2,7 @@ package com.ungs.formar.vista.controladores;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComboBox;
@@ -28,6 +29,7 @@ public class ControladorAgregarHorario implements ActionListener {
 	public boolean esEdicion = false;
 	public int indiceHorarioEdicion = -1;
 	public int capacidadMaxima;
+	public Date fechaInicio;
 
 	public ControladorAgregarHorario(ABMHorario ventanaAltaModifDiaHorario,
 			ControladorCrearCurso controladorCrearCurso) {
@@ -72,8 +74,9 @@ public class ControladorAgregarHorario implements ActionListener {
 
 			Horario horarioIngresado = crearHorarioIngresado();
 			controlador.setHorarioIngresado(horarioIngresado);
-			controlador.inicializar();
 			controlador.capacidadMaxima = this.capacidadMaxima;
+			controlador.fechaInicio = this.fechaInicio;
+			controlador.inicializar();
 			this.ventanaAgregarHorario.setEnabled(false);
 		} else {
 			JOptionPane.showMessageDialog(null, msjError);
@@ -253,10 +256,10 @@ public class ControladorAgregarHorario implements ActionListener {
 					+ " \nser posterior al horario de inicio\n";
 		}
 		// Validaciones disponibilidad de la sala en el horario
-		if (!this.esEdicion && this.sala != null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala)) {
+		if (!this.esEdicion && this.sala != null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala, this.fechaInicio)) {
 			msjError += "- La sala no esta disponible en el horario ingresado, seleccione otra sala.\n";
 		}
-		else if(this.esEdicion && this.sala!= null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala)){
+		else if(this.esEdicion && this.sala!= null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala, this.fechaInicio)){
 			msjError += "- La sala no esta disponible en el horario ingresado, seleccione otra sala.\n";
 		}
 		return msjError;

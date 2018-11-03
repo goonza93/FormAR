@@ -35,6 +35,8 @@ import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarInstructor;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarResponsable;
+import com.ungs.formar.vista.util.Formato;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.ventanas.ABMHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
@@ -194,6 +196,7 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaCrearCurso.setEnabled(false);
 			ControladorAgregarHorario controlador = new ControladorAgregarHorario(this.ventanaABMHorario, this);
 			controlador.capacidadMaxima = Integer.parseInt(this.ventanaCrearCurso.getCupoMaximo().getText());
+			controlador.fechaInicio = this.ventanaCrearCurso.getFechaInicio().getDate();
 		}
 	}
 
@@ -345,7 +348,8 @@ public class ControladorCrearCurso implements ActionListener {
 
 		if (!msjError.isEmpty()) {
 			JOptionPane.showMessageDialog(null, msjError);
-		} else {
+		
+		} else if(validarHorariosCursada()){
 			// El agregar paso todas las validadciones
 			if (this.idEdicion == -1) {
 				crearCurso();
@@ -515,4 +519,23 @@ public class ControladorCrearCurso implements ActionListener {
 		});
 	}
 
+	private boolean validarHorariosCursada(){
+		String msj = "";
+		if(!this.horariosCursada.isEmpty()){
+			for(HorarioCursada hc : horariosCursada){
+				Horario horario = HorarioCursadaManager.traerHorarioSegunID(hc.getHorario());
+				Sala sala = SalaManager.traerSegunID(hc.getSala());
+				java.util.Date fechaInicio = ventanaCrearCurso.getFechaInicio().getDate();
+				if(!SalaManager.validarHorarioDeCursada(horario, sala,fechaInicio)){
+					msj += "La sala "+sala.getNumero()+" NO esta disponible en el horario "+
+							HorarioCursadaManager.formatoHorarioCursada(hc);
+				}
+			}
+		}
+		if(!msj.isEmpty()){
+			Popup.mostrar(msj);
+			return false;
+		}
+		return true;
+	}
 }
