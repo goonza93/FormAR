@@ -108,7 +108,7 @@ public class ControladorCrearCurso implements ActionListener {
 
 			// BOTON CANCELAR
 		} else if (e.getSource() == ventanaCrearCurso.getBtnCancelar()) {
-			int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?", "Confirmacion",
+			int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				this.ventanaCrearCurso.dispose();

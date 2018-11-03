@@ -114,7 +114,7 @@ public class ControladorAreaABM implements ActionListener{
 			JOptionPane.showMessageDialog(this.ventanaAreaGestion, "El area seleccionado esta asignado y no puede borrarse");
 		}
 		else {
-			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar lo seleccionado!?",
+			int confirm = JOptionPane.showOptionDialog(null, "¿¡Estas seguro que queres borrar lo seleccionado!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				for(Area actual : lista){
@@ -182,7 +182,7 @@ public class ControladorAreaABM implements ActionListener{
 	}
 
 	private void cancelarAM() {
-		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir sin guardar!?",
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Estas seguro que quieres salir sin guardar!?",
 				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaAreaAM.dispose();

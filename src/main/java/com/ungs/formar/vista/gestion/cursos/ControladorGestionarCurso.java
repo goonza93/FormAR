@@ -140,7 +140,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 		// BOTON BORRAR CURSO
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnBorrar()) {
-			int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que queres borrar la cursada!?",
+			int confirm = JOptionPane.showOptionDialog(null, "에Estas seguro que queres borrar la cursada!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				borrarCurso();
@@ -319,7 +319,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			if (aEditar.getEstado() == EstadoCurso.CREADO) {
 				if (validarCambioaPublicado(aEditar)) {
 					int confirm = JOptionPane.showOptionDialog(null,
-							"Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
+							"에Estas seguro que queres cambiar el estado \n" + "de CREADO a PUBLICADO!?", "Confirmacion",
 							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (confirm == 0) {
 						aEditar.setEstado(EstadoCurso.PUBLICADO);
@@ -334,7 +334,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 					if (aEditar.getCupoMinimo() > InscripcionManager.traerAlumnosInscriptos(aEditar).size()) {
 						int confirm = JOptionPane.showOptionDialog(null,
 								"La cantidad de inscriptos no cubre el cupo minimo.\n"
-										+ "Estas seguro que queres cambiar el estado \n" 
+										+ "에Estas seguro que queres cambiar el estado \n" 
 										+ "de PUBLICADO a INICIADO!?",
 								"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
 								null);
@@ -344,7 +344,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 						}
 					} else {
 						int confirm = JOptionPane.showOptionDialog(null,
-								"Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?",
+								"에Estas seguro que queres cambiar el estado /n" + "de PUBLICADO a INICIADO!?",
 								"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
 								null);
 						if (confirm == 0) {
@@ -360,11 +360,11 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 				if (aEditar.getFechaFin().after(Almanaque.hoy())) {
 					confirm = JOptionPane.showOptionDialog(null,
 							"Aun no se llego a la fecha de fin de curso. \n"
-									+ "Estas seguro que queres cambiar el estado \n" + "de INICIADO a FINALIZADO!?",
+									+ "에Estas seguro que queres cambiar el estado \n" + "de INICIADO a FINALIZADO!?",
 							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				} else {
 					confirm = JOptionPane.showOptionDialog(null,
-							"Estas seguro que queres cambiar el estado \n" + "de INICIADO a FINALIZADO!?",
+							"에Estas seguro que queres cambiar el estado \n" + "de INICIADO a FINALIZADO!?",
 							"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				}
 				if (confirm == 0) {

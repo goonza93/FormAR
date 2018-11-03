@@ -167,7 +167,7 @@ public class PantallaPrincipalAdministrativo {
 		this.frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de FormAR!?",
+				int confirm = JOptionPane.showOptionDialog(null, "¿¡Estas seguro que quieres salir de FormAR!?",
 						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					System.exit(0);

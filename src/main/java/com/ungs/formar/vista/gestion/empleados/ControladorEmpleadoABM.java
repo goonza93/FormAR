@@ -153,7 +153,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		String mensaje = "Los siguientes empleados no pueden ser dados de baja porque tiene asignado al menos un curso:";
 		String mensajeYaBorrado = "\nLos siguientes empleados ya no pertenecen a la institucion: ";
 		
-		if (Popup.confirmar("Esta seguro que quiere dar de baja los empleados seleccionados?")) {
+		if (Popup.confirmar("¿Esta seguro que quiere dar de baja los empleados seleccionados?")) {
 			for (Empleado empleado : seleccionados) {
 				if(empleado.getFechaEgreso()!=null){
 					mostrarMensajeYaBorrado = true;
@@ -189,7 +189,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		boolean mostrarMensajeYaActivo = false;
 		String mensajeYaActivo = "Los siguientes empleados ya estan activos:";
 		
-		if (Popup.confirmar("Esta seguro que quiere dar de alta los empleados seleccionados?")) {
+		if (Popup.confirmar("¿Esta seguro que quiere dar de alta los empleados seleccionados?")) {
 			for (Empleado empleado : seleccionados) {
 				if(empleado.getActivo()){
 					mostrarMensajeYaActivo = true;
@@ -208,7 +208,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 	}
 	
 	private void cerrarVentanaAM() {
-		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?", "Confirmacion",
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaAM.dispose();

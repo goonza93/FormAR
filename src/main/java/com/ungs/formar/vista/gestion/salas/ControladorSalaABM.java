@@ -97,7 +97,7 @@ public class ControladorSalaABM implements ActionListener {
 				JOptionPane.showMessageDialog(null, "La sala seleccionada no se puede eliminar.");
 			} else {
 				int confirm = JOptionPane.showOptionDialog(null,
-						"Estas seguro que queres eliminar la sala seleccionada!?", "Confirmacion",
+						"¿¡Estas seguro que queres eliminar la sala seleccionada!?", "Confirmacion",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					if (!SalaManager.estaAsignada(sala)) {
@@ -113,7 +113,7 @@ public class ControladorSalaABM implements ActionListener {
 	}
 
 	private void cerrarVentanaAM() {
-		int confirm = JOptionPane.showOptionDialog(null, "Esta seguro de salir sin guardar!?",
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?",
 				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaSalaAM.dispose();

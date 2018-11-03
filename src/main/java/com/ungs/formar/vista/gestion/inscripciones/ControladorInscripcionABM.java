@@ -153,7 +153,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para dar de baja.");
 		} else {
-			if (Popup.confirmar("Estas seguro que deseas dar de bajo a los alumnos seleccionados?")) {
+			if (Popup.confirmar("¿Estas seguro que deseas dar de bajo a los alumnos seleccionados?")) {
 				for (Alumno alumno : alumnos) {
 					InscripcionManager.cancelarInscripcion(alumno, cursoSeleccionado);
 				}
@@ -280,7 +280,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		}
 		if (InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).size() >= cursoSeleccionado.getCupoMaximo()) {
 			mostrar = false;
-			int confirm = JOptionPane.showOptionDialog(null, "El curso seleccionado esta lleno, deseas continuar!?",
+			int confirm = JOptionPane.showOptionDialog(null, "El curso seleccionado esta lleno ¿Desea continuar?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 			if (confirm == 0) {
 				mostrar = true;

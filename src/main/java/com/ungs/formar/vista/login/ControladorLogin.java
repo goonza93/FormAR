@@ -134,7 +134,7 @@ public class ControladorLogin implements ActionListener {
 	}
 
 	private void salir() {
-		if (Popup.confirmar("Estas seguro que quieres salir de FormAR!?"))
+		if (Popup.confirmar("¿¡Estas seguro que quieres salir de FormAR!?"))
 			System.exit(0);
 	}
 
