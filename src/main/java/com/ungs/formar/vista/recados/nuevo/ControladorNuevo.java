@@ -50,8 +50,9 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 
 	private void enviar() {
 		Empleado emisor = Sesion.getEmpleado();
+		String titulo = ventana.getTitulo().getText();
 		String mensaje = ventana.getMensaje().getText();
-		Mensajero.enviarMensaje(emisor, receptor, mensaje);
+		Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
 		volver();
 	}
 

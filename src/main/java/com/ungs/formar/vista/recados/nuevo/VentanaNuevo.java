@@ -14,7 +14,7 @@ import com.ungs.formar.vista.util.Ventana;
 public class VentanaNuevo extends Ventana {
 	private static final long serialVersionUID = 1L;
 	private JButton btnSeleccionar, btnEnviar, btnCancelar;
-	private JTextField inDestinatario;
+	private JTextField inDestinatario, inTitulo;
 	private JTextArea inMensaje;
 	
 	public VentanaNuevo() {
@@ -22,22 +22,29 @@ public class VentanaNuevo extends Ventana {
 		setBounds(100, 100, 450, 300);
 
 		// DESTINATARIO
-		PanelHorizontal panelDestinatario = new PanelHorizontal();
 		JLabel lblDestinatario = new JLabel("Destinatario");
+		btnSeleccionar = new JButton("Seleccionar");
 		
 		inDestinatario = new JTextField();
 		inDestinatario.setEnabled(false);
-		inDestinatario.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
-		
-		btnSeleccionar = new JButton("Seleccionar");
+		inDestinatario.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));		
 
+		PanelHorizontal panelDestinatario = new PanelHorizontal();
 		panelDestinatario.add(lblDestinatario);		
 		panelDestinatario.add(inDestinatario);
 		panelDestinatario.add(btnSeleccionar);
-
+		
 		// MENSAJE
-		inMensaje = new JTextArea();
-		PanelHorizontal panelMensaje = new PanelHorizontal();
+		PanelHorizontal panelTitulo = new PanelHorizontal();
+		JLabel lblTitulo = new JLabel("Titulo");
+		inTitulo = new JTextField();
+		inTitulo.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
+		panelTitulo.add(lblTitulo);
+		panelTitulo.add(inTitulo);
+		
+		inMensaje = new JTextArea();		
+		PanelVertical panelMensaje = new PanelVertical();
+		panelMensaje.add(panelTitulo);
 		panelMensaje.add(inMensaje);
 		
 		// BOTONES
@@ -73,6 +80,10 @@ public class VentanaNuevo extends Ventana {
 
 	public JTextArea getMensaje() {
 		return inMensaje;
+	}
+	
+	public JTextField getTitulo() {
+		return inTitulo;
 	}
 	
 }

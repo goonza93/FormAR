@@ -8,9 +8,9 @@ import com.ungs.formar.persistencia.interfaces.RecadoOBD;
 
 public class Mensajero {
 	
-	public static void enviarMensaje(Empleado emisor, Empleado receptor, String mensaje) {
-		Recado recadoEmisor = new Recado(-1, emisor.getID(), receptor.getID(), emisor.getID(), mensaje, false, false, Almanaque.hoy());
-		Recado recadoReceptor = new Recado(-1, receptor.getID(), receptor.getID(), emisor.getID(), mensaje, false, false, Almanaque.hoy());
+	public static void enviarMensaje(Empleado emisor, Empleado receptor, String titulo, String contenido) {
+		Recado recadoEmisor = new Recado(-1, emisor.getID(), receptor.getID(), emisor.getID(), contenido, titulo, false, false, Almanaque.hoy());
+		Recado recadoReceptor = new Recado(-1, receptor.getID(), receptor.getID(), emisor.getID(), contenido, titulo, false, false, Almanaque.hoy());
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
 		obd.insert(recadoEmisor);
 		obd.insert(recadoReceptor);

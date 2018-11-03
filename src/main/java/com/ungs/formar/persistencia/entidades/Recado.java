@@ -4,17 +4,18 @@ import java.sql.Date;
 
 public class Recado {
 	private Integer ID, empleado, receptor, emisor;
-	private String mensaje;
+	private String contenido, titulo;
 	private boolean leido, archivado;
 	private Date fecha;
 
-	public Recado(Integer ID, Integer empleado, Integer receptor, Integer emisor, String mensaje, boolean leido,
-			boolean archivado, Date fecha) {
+	public Recado(Integer ID, Integer empleado, Integer receptor, Integer emisor, String contenido, String titulo,
+			boolean leido, boolean archivado, Date fecha) {
 		this.ID = ID;
 		this.empleado = empleado;
 		this.receptor = receptor;
 		this.emisor = emisor;
-		this.mensaje = mensaje;
+		this.titulo = titulo;
+		this.contenido = contenido;
 		this.leido = leido;
 		this.archivado = archivado;
 		this.fecha = fecha;
@@ -52,12 +53,20 @@ public class Recado {
 		this.emisor = emisor;
 	}
 
-	public String getMensaje() {
-		return mensaje;
+	public String getContenido() {
+		return contenido;
 	}
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public boolean isLeido() {

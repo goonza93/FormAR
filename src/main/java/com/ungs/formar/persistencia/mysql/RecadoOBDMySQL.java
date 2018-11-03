@@ -14,13 +14,14 @@ import com.ungs.formar.persistencia.interfaces.RecadoOBD;
 
 public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 	private final String tabla = "for_recados";
-	private final String campos = "emisor, receptor, empleado, contenido, leido, archivado, fecha";
+	private final String campos = "emisor, receptor, empleado, contenido, titulo, leido, archivado, fecha";
 
 	public void insert(Recado recado) {
 		String valores = recado.getEmisor()
 				+", "+recado.getReceptor()
 				+", "+recado.getEmpleado()
-				+", '"+recado.getMensaje()+"'"
+				+", '"+recado.getContenido()+"'"
+				+", '"+recado.getTitulo()+"'"
 				+", "+recado.isLeido()
 				+", "+recado.isArchivado()
 				+", '"+recado.getFecha()+"'";
@@ -35,7 +36,8 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 				"emisor = "+recado.getEmisor()
 				+", receptor = "+recado.getReceptor()
 				+", empleado = "+recado.getEmpleado()
-				+", contenido = '"+recado.getMensaje()+"'"
+				+", contenido = '"+recado.getContenido()+"'"
+				+", titulo = '"+recado.getTitulo()+"'"
 				+", leido = "+recado.isLeido()
 				+", archivado = "+recado.isArchivado()
 				+", fecha = '"+recado.getFecha()+"'";
@@ -94,6 +96,7 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 						resultados.getInt("receptor"),
 						resultados.getInt("emisor"),
 						resultados.getString("contenido"),
+						resultados.getString("titulo"),
 						resultados.getBoolean("leido"),
 						resultados.getBoolean("archivado"),
 						resultados.getDate("fecha")

@@ -61,7 +61,7 @@ CREATE TABLE for_estados_curso (
 -- ESQUEMA DE PROGRAMAS
 CREATE TABLE for_programas (
 	ID INT(4) AUTO_INCREMENT,
-	area INT(11), -- FK AREAS DE INTERES
+	area INT(11),
 	nombre VARCHAR(50) NOT NULL,
 	fecha_aprobacion DATE DEFAULT NULL,
 	descripcion VARCHAR(500) NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE for_programas (
 -- ESQUEMAS HORARIOS
 CREATE TABLE for_horarios (
 	ID INT(4) AUTO_INCREMENT,
-	dia INT(1) NOT NULL, -- FK DIAS DE LA SEMANA
+	dia INT(1) NOT NULL,
 	hora_inicio INT(2) NOT NULL,
 	hora_fin INT(2) NOT NULL,
     minuto_inicio INT(2) NOT NULL,
@@ -218,6 +218,7 @@ CREATE TABLE for_recados (
 	emisor INT(4) NOT NULL,
 	receptor INT(4) NOT NULL,
     empleado INT(4) NOT NULL,
+    titulo VARCHAR(20) NOT NULL,
     contenido VARCHAR(100) NOT NULL,
 	leido BOOLEAN NOT NULL,
 	archivado BOOLEAN NOT NULL,
@@ -228,6 +229,30 @@ CREATE TABLE for_recados (
 	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
 );
 
+-- ESQUEMA MESES
+CREATE TABLE for_meses(
+	ID INT(4) AUTO_INCREMENT,
+	descripcion VARCHAR(20),
+	PRIMARY KEY (ID)
+);
+
+-- ESQUEMA PAGOS
+CREATE TABLE for_pagos (
+	ID INT(4) AUTO_INCREMENT,
+	alumno INT(4) NOT NULL,
+	cursada INT(4) NOT NULL,
+    empleado INT(4) NOT NULL,
+    monto INT(10) NOT NULL,
+	mes INT(2) NOT NULL,
+	pago_en_termino BOOLEAN NOT NULL,
+	pago_completo BOOLEAN NOT NULL,
+	fecha DATE NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID),
+	FOREIGN KEY (cursada) REFERENCES for_cursos(ID),
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
+    FOREIGN KEY (mes) REFERENCES for_meses(ID)
+);
 
 
 
@@ -244,6 +269,20 @@ INSERT INTO for_dias (descripcion) VALUES ("Miércoles");
 INSERT INTO for_dias (descripcion) VALUES ("Jueves");
 INSERT INTO for_dias (descripcion) VALUES ("Viernes");
 INSERT INTO for_dias (descripcion) VALUES ("Sábado");
+
+-- INSERTAR MESES DEL AÑO
+INSERT INTO for_meses (descripcion) VALUES ("Enero");
+INSERT INTO for_meses (descripcion) VALUES ("Febrero");
+INSERT INTO for_meses (descripcion) VALUES ("Marzo");
+INSERT INTO for_meses (descripcion) VALUES ("Abril");
+INSERT INTO for_meses (descripcion) VALUES ("Mayo");
+INSERT INTO for_meses (descripcion) VALUES ("Junio");
+INSERT INTO for_meses (descripcion) VALUES ("Julio");
+INSERT INTO for_meses (descripcion) VALUES ("Agosto");
+INSERT INTO for_meses (descripcion) VALUES ("Septiembre");
+INSERT INTO for_meses (descripcion) VALUES ("Octubre");
+INSERT INTO for_meses (descripcion) VALUES ("Noviembre");
+INSERT INTO for_meses (descripcion) VALUES ("Diciembre");
 
 -- INSERTAR ESTADOS DE CURSO
 INSERT INTO for_estados_curso (descripcion) VALUES ("Creado");

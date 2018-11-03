@@ -31,7 +31,7 @@ public class VentanaLeerRecado extends Ventana{
 		panelFicha.add(lblArchivado);
 		
 		// EL MENSAJE
-		JTextArea outMensaje = new JTextArea(recado.getMensaje());
+		JTextArea outMensaje = new JTextArea(recado.getContenido());
 		outMensaje.setEditable(false);
 		PanelHorizontal panelMensaje = new PanelHorizontal();
 		panelMensaje.add(outMensaje);

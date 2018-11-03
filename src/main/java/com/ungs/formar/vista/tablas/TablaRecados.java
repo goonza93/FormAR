@@ -32,7 +32,7 @@ public class TablaRecados extends JTable{
 					Formato.empleado(recado.getEmisor()),
 					Formato.empleado(recado.getReceptor()),
 					recado.getFecha(),
-					recado.getMensaje(),
+					recado.getTitulo(),
 					recado.isLeido(),
 					recado.isArchivado()
 			};

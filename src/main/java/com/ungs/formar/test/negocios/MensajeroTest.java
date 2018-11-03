@@ -9,16 +9,16 @@ import com.ungs.formar.persistencia.entidades.Recado;
 
 public class MensajeroTest {
 	
-	public static void enviarMensajeTest(Empleado emisor, Empleado receptor, String mensaje) {
+	public static void enviarMensajeTest(Empleado emisor, Empleado receptor, String titulo, String mensaje) {
 		System.out.println("___ Enviar mensaje Test");
-		Mensajero.enviarMensaje(emisor, receptor, mensaje);
+		Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
 	}
 
 	public static void traerMensajesRecibidosTest(Empleado empleado) {
 		System.out.println("___ Traer mensajes recibidos Test");
 		List<Recado> recados = Mensajero.traerMensajesRecibidos(empleado);
 		for (Recado recado : recados)
-			System.out.println(recado.getMensaje());
+			System.out.println(recado.getContenido());
 		System.out.println("Cantidad de mensajes:"+recados.size());
 	}
 	
@@ -27,14 +27,14 @@ public class MensajeroTest {
 		System.out.println("___ Traer mensajes archivados Test");
 		List<Recado> recados = Mensajero.traerMensajesArchivados(empleado);
 		for (Recado recado : recados)
-			System.out.println(recado.getMensaje());
+			System.out.println(recado.getContenido());
 		System.out.println("Cantidad de mensajes:"+recados.size());
 	}
 	
 	public static void main(String[] args) {
 		Empleado empleado1 = EmpleadoManager.traerEmpleado(1);
 		Empleado empleado2 = EmpleadoManager.traerEmpleado(2);
-		enviarMensajeTest(empleado1, empleado2, "Recado 5");
+		enviarMensajeTest(empleado1, empleado2, "Prueba 1", "Recado 5");
 		traerMensajesRecibidosTest(empleado2);
 		//traerMensajesArchivadosTest(empleado2);
 	}
