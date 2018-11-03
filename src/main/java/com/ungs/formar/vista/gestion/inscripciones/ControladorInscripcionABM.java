@@ -24,6 +24,7 @@ import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
+import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorInscripcionABM implements ActionListener, Consultable {
 	private ControladorPantallaPrincipal controlador;
@@ -38,7 +39,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		this.controlador = controlador;
 		this.ventanaABM = ventanaABM;
 		this.ventanaABM.getInscribir().addActionListener(this);
-		this.ventanaABM.getConsultar().addActionListener(this);
 		this.ventanaABM.getVolver().addActionListener(this);
 		this.ventanaABM.getBorrar().addActionListener(this);
 
@@ -104,10 +104,12 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		if (e.getSource() == ventanaABM.getInscribir())
 			abrirVentanaAlta();
 
+		/* redundante este boton... al cancelar se abre 
+		//esta misma ventana pero con el boton para borrar.
 		// BOTON CONSULTAR DEL ABM
 		else if (e.getSource() == ventanaABM.getConsultar())
 			abrirVentanaConsultar();
-
+*/
 		// BOTON CANCELAR INSCRIPCION DEL ABM
 		else if (e.getSource() == ventanaABM.getBorrar())
 			abrirVentanaBaja();
@@ -229,7 +231,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		if (continuar) {
 			for (Alumno alumno : alumnos) {
 				try {
-					InscripcionManager.inscribir(cursoSeleccionado, alumno, null);
+					InscripcionManager.inscribir(cursoSeleccionado, alumno, Sesion.getEmpleado());
 				} catch (Exception e) {
 					Popup.mostrar(e.getMessage());
 				}

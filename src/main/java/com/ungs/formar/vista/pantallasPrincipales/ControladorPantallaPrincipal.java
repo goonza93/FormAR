@@ -86,7 +86,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaSupervisor.getBtnGestionarAreas().addActionListener(this);
 		this.pantallaSupervisor.getBtnMenuAdministrativos().addActionListener(this);
 		this.pantallaSupervisor.getBtnMenuInstructores().addActionListener(this);
-		this.pantallaSupervisor.getBtnGestionarSalas().addActionListener(this);
+		//this.pantallaSupervisor.getBtnGestionarSalas().addActionListener(this);
 		this.pantallaSupervisor.getBtnRecados().addActionListener(this);
 		this.pantallaSupervisor.getBtnCambiarPass().addActionListener(this);
 		this.pantallaSupervisor.getBtnGenerarBackUp().addActionListener(this);
@@ -244,14 +244,6 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
 			this.pantallaSupervisor.ocultar();
 			this.inicializar();
-		}
-
-		// BOTON ABM SALAS
-		else if (e.getSource() == this.pantallaSupervisor.getBtnGestionarSalas()) {
-			this.ventanaGestionarSalas = new VentanaSalaABM();
-			this.ventanaGestionarSalas.mostrar();
-			this.pantallaSupervisor.ocultar();
-			new ControladorSalaABM(this.ventanaGestionarSalas, this);
 		}
 
 		// BOTON MENU INSTRUCTORES

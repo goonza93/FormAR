@@ -26,7 +26,7 @@ import com.ungs.formar.vista.util.PanelVertical;
 
 public class VentanaInscripcionABM {
 	private JFrame ventana;
-	private JButton btnInscribir, btnConsultar, btnBorrar, btnVolver;
+	private JButton btnInscribir, btnBorrar, btnVolver;
 	private DefaultTableModel modeloCursos;
 	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
 			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
@@ -124,13 +124,11 @@ public class VentanaInscripcionABM {
 		
 		// CREO LOS BOTONES
 		btnInscribir = new JButton("Inscribir");
-		btnConsultar = new JButton("Consultar");
 		btnVolver = new JButton("Volver");
-		btnBorrar = new JButton("Cancelar inscripcion");
+		btnBorrar = new JButton("Consultar inscripciones");
 		PanelHorizontal panelBotones = new PanelHorizontal();		
 		panelBotones.add(btnInscribir);
 		panelBotones.add(btnBorrar);
-		panelBotones.add(btnConsultar);
 		panelBotones.add(btnVolver);
 		
 		// CONFIGURO LOS PANALES
@@ -174,10 +172,6 @@ public class VentanaInscripcionABM {
 	
 	public JButton getInscribir() {
 		return btnInscribir;
-	}
-
-	public JButton getConsultar() {
-		return btnConsultar;
 	}
 
 	public JButton getBorrar() {
