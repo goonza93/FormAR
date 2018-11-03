@@ -13,7 +13,8 @@ public class EmpleadoManager {
 	public static void crearEmpleado(Rol rol, String DNI, String nombre, String apellido, String telefono, String email,
 			Date fechaIngreso, Date fechaEgreso) {
 		
-		Empleado empleado = new Empleado(-1, DNI, nombre, apellido, telefono, email, nombre+"."+apellido, "123", fechaIngreso, fechaEgreso, rol, true);
+		Empleado empleado = new Empleado(-1, DNI, nombre, apellido, telefono, email, 
+				nombre.charAt(0)+apellido.substring(0, Math.min(6, apellido.length())), Hash.md5(DNI), fechaIngreso, fechaEgreso, rol, true);
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		odb.insert(empleado);
 	}
