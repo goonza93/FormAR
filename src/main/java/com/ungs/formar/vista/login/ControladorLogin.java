@@ -118,9 +118,7 @@ public class ControladorLogin implements ActionListener {
 		String msj = "";
 		if (usuarioIngresado.isEmpty()) {
 			msj += "- Por favor ingrese un usuario.";
-		} else if (!Validador.validarUsuario(usuarioIngresado)) {
-			msj += "- El nombre de usuario consta solamente de letras y numeros.";
-		} else if (EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()) == null) {
+		} else if (EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()) == null ) {
 			msj += "- El usuario ingresado no existe.";
 		} else if (!EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()).getActivo()) {
 			msj += "- El usuario ingresado no pertenece a un empleado en actividad.";

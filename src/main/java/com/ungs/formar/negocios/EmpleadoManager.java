@@ -89,7 +89,10 @@ public class EmpleadoManager {
 	
 	public static Empleado traerSegunUsuario(String usuario) {
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
-		return odb.selectByUsuario(usuario);
+		Empleado a = odb.selectByUsuario(usuario);
+		if(a == null)
+			return odb.selectByEmail(usuario);
+		return a;
 	}
 	
 	public static Empleado traerSegunEmail(String email) {
