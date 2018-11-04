@@ -39,6 +39,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		this.controlador = controlador;
 		this.ventanaABM = ventanaABM;
 		this.ventanaABM.getInscribir().addActionListener(this);
+		this.ventanaABM.getPagar().addActionListener(this);
 		this.ventanaABM.getVolver().addActionListener(this);
 		this.ventanaABM.getBorrar().addActionListener(this);
 
@@ -104,12 +105,10 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		if (e.getSource() == ventanaABM.getInscribir())
 			abrirVentanaAlta();
 
-		/* redundante este boton... al cancelar se abre 
-		//esta misma ventana pero con el boton para borrar.
-		// BOTON CONSULTAR DEL ABM
-		else if (e.getSource() == ventanaABM.getConsultar())
-			abrirVentanaConsultar();
-*/
+		// BOTON PAGAR DEL ABM
+		if (e.getSource() == ventanaABM.getPagar())
+			abrirVentanaPagar();
+
 		// BOTON CANCELAR INSCRIPCION DEL ABM
 		else if (e.getSource() == ventanaABM.getBorrar())
 			abrirVentanaBaja();
@@ -140,6 +139,11 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 				cerrarVentanaBaja();
 		}
 
+	}
+
+	private void abrirVentanaPagar() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void cancelarInscripcion() {

@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.pagos.registrar;
+package com.ungs.formar.vista.pagos.inscripcion;
 
 import java.awt.Dimension;
 
@@ -7,46 +7,64 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.ungs.formar.negocios.AlumnoManager;
+import com.ungs.formar.negocios.CursoManager;
+import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Inscripcion;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.util.Ventana;
 
-public class VentanaPagoAM extends Ventana{
+public class VentanaPagoDeInscripcion extends Ventana{
 	private static final long serialVersionUID = 1L;
-	private JButton btnRegistrar, btnCancelar, btnAlumno, btnCursada;
-	private JTextField inAlumno, inCursada, inMonto, inMes;
+	private JTextField inEmpleado, inAlumno, inCursada, inMonto, inMes;
+	private JButton btnRegistrar, btnCancelar;
 	private JCheckBox inPagoEnTermino, inPagoCompleto;
+	private Alumno alumno;
+	private Curso curso;
 	
-	public VentanaPagoAM() {
-		super("Registrar pago");
+	public VentanaPagoDeInscripcion(Inscripcion inscripcion) {
+		super("Pagar inscripcion");
 		setBounds(100, 100, 500, 231);
 		setLocationRelativeTo(null);
 		
-		// TABLA DE ENTRADAS
+		// ENTRADAS
 		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
 		Dimension largoLabel = new Dimension(100, 25);
 		
+		Empleado empleado = Sesion.getEmpleado();
+		JLabel lblEmpleado = new JLabel("Empleado");
+		lblEmpleado.setPreferredSize(largoLabel);
+		inEmpleado = new JTextField(empleado.getApellido()+", "+empleado.getNombre());
+		inEmpleado.setEnabled(false);
+		inEmpleado.setMaximumSize(largoEntrada);
+		PanelHorizontal panelEmpleado = new PanelHorizontal();
+		panelEmpleado.add(lblEmpleado);
+		panelEmpleado.add(inEmpleado);
+		
+		alumno = AlumnoManager.traerAlumnoSegunID(inscripcion.getAlumno());
 		JLabel lblAlumno = new JLabel("Alumno");
 		lblAlumno.setPreferredSize(largoLabel);
-		inAlumno = new JTextField();
+		inAlumno = new JTextField(alumno.getApellido()+", "+alumno.getNombre());
 		inAlumno.setEnabled(false);
 		inAlumno.setMaximumSize(largoEntrada);
-		btnAlumno = new JButton("Seleccionar");
 		PanelHorizontal panelAlumno = new PanelHorizontal();
 		panelAlumno.add(lblAlumno);
 		panelAlumno.add(inAlumno);
-		panelAlumno.add(btnAlumno);
 
+		curso = CursoManager.traerCursoPorId(inscripcion.getCurso());
 		JLabel lblCursada = new JLabel("Cursada");
 		lblCursada.setPreferredSize(largoLabel);
-		inCursada = new JTextField();
+		inCursada = new JTextField(Formato.nombre(curso));
 		inCursada.setEnabled(false);
 		inCursada.setMaximumSize(largoEntrada);
-		btnCursada = new JButton("Seleccionar");
 		PanelHorizontal panelCursada = new PanelHorizontal();
 		panelCursada.add(lblCursada);
 		panelCursada.add(inCursada);
-		panelCursada.add(btnCursada);
 		
 		JLabel lblMonto = new JLabel("Monto");
 		lblMonto.setPreferredSize(largoLabel);
@@ -80,6 +98,7 @@ public class VentanaPagoAM extends Ventana{
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
 		setContentPane(panelPrincipal);
+		panelPrincipal.add(panelEmpleado);
 		panelPrincipal.add(panelAlumno);
 		panelPrincipal.add(panelCursada);
 		panelPrincipal.add(panelMonto);
@@ -95,14 +114,6 @@ public class VentanaPagoAM extends Ventana{
 	public JButton getCancelar() {
 		return btnCancelar;
 	}
-	
-	public JTextField getAlumno() {
-		return inAlumno;
-	}
-
-	public JTextField getCursada() {
-		return inCursada;
-	}
 
 	public JTextField getMonto() {
 		return inMonto;
@@ -110,14 +121,6 @@ public class VentanaPagoAM extends Ventana{
 
 	public JTextField getMes() {
 		return inMes;
-	}
-
-	public JButton getSelAlumno() {
-		return btnAlumno;
-	}
-
-	public JButton getSelCursada() {
-		return btnCursada;
 	}
 
 	public JCheckBox getPagoEnTermino() {
@@ -128,4 +131,12 @@ public class VentanaPagoAM extends Ventana{
 		return inPagoCompleto;
 	}
 
+	public Alumno getAlumno() {
+		return alumno;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+	
 }

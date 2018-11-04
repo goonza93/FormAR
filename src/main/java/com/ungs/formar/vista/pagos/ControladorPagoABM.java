@@ -67,8 +67,8 @@ public class ControladorPagoABM implements ActionListener {
 			return;
 		}
 		
-		ventana.deshabilitar();
-		new ControladorPagoAM(this, pagos.get(0));
+		//ventana.deshabilitar();
+		//new ControladorPagoAM(this, pagos.get(0));
 	}
 	
 	private void eliminar() {
@@ -92,6 +92,10 @@ public class ControladorPagoABM implements ActionListener {
 		invocador.inicializar();
 	}
 
+	public void mostrar() {
+		ventana.mostrar();
+	}
+	
 	public void recargar() {
 		ventana.getTabla().recargar(Tesoreria.traerPagos());
 	}
