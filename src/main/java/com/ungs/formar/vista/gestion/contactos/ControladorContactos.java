@@ -13,6 +13,7 @@ import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Popup;
 
 public class ControladorContactos implements ActionListener {
 	private VentanaContactos ventanaGestionarContactos;
@@ -98,18 +99,48 @@ public class ControladorContactos implements ActionListener {
 	}
 	
 	private void abrirVentanaModificacion() {
-		// TODO Auto-generated method stub
-		
+		List<Interesado> seleccionados = obtenerSeleccionados();
+
+		if (seleccionados.size() != 1) {
+			Popup.mostrar("Seleccione exactamente un contacto para poder editarlo");
+			return;
+		}
+
+		ventanaAM = new VentanaContactosAM(seleccionados.get(0));
+		ventanaAM.getAceptar().addActionListener(this);
+		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaAM();
+			}
+		});
+		ventanaAM.setVisible(true);
+		ventanaGestionarContactos.getVentana().setEnabled(false);
 	}
 	
 	private void borrar() {
-		// TODO Auto-generated method stub
+		List<Interesado> seleccionados = obtenerSeleccionados();
+
+		if (seleccionados.size() == 0) {
+			Popup.mostrar("Seleccione al menos un contacto para poder borrarlo");
+			return;
+		}
 		
+		// ACA BORRO EL CONTACTO, PERO QUEDA LA INTERACCION SIN BORRARSE,
+		// HABRIA QUE AGREGARLE ESO
+		if (Popup.confirmar("¿Esta seguro que quiere borrar los contactos seleccionados?")) {
+			for (Interesado contacto : seleccionados) {
+				ContactoManager.eliminarContacto(contacto);
+			}
+		}		
+		inicializar();
 	}
 
 	private void cerrarVentanaContactos() {
-		// TODO Auto-generated method stub
-		
+		ventanaGestionarContactos.getVentana().dispose();
+		ventanaGestionarContactos = null;
+		controlador.inicializar();
 	}
 	
 	private void aceptarAM() {
@@ -129,6 +160,7 @@ public class ControladorContactos implements ActionListener {
 				contacto.setDNI(dni);
 				contacto.setTelefono(telefono);
 				contacto.setEmail(email);
+				ContactoManager.editarContacto(contacto);
 			}
 
 			ventanaAM.dispose();
@@ -207,7 +239,7 @@ public class ControladorContactos implements ActionListener {
 			Interesado contactoEdicion = ventanaAM.getContacto();
 			Interesado contactoBD = ContactoManager.traerSegunDNI(dni);
 
-			// caso: es un nuevo empleado
+			// caso: es un nuevo contacto
 			if (contactoEdicion == null) {
 				isOk = false;
 				mensaje += "    -El DNI ya esta siendo utilizado por otro contacto.\n";
