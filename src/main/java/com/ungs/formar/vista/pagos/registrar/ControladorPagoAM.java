@@ -18,6 +18,7 @@ import com.ungs.formar.vista.seleccion.alumnos.ControladorSeleccionarAlumno;
 import com.ungs.formar.vista.seleccion.cursos.ControladorSeleccionarCurso;
 import com.ungs.formar.vista.seleccion.cursos.CursoSeleccionable;
 import com.ungs.formar.vista.util.Formato;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, CursoSeleccionable{
@@ -95,21 +96,25 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 		boolean pagoEnTermino = ventana.getPagoEnTermino().isSelected();
 		boolean pagoCompleto = ventana.getPagoCompleto().isSelected();
 		
-		if (pago == null)
-			Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
-		else {
-			pago.setAlumno(alumno.getID());
-			pago.setCursada(curso.getID());
-			pago.setMonto(monto);
-			pago.setMes(mes);
-			pago.setPagoCompleto(pagoCompleto);
-			pago.setPagoEnTermino(pagoEnTermino);
-			Tesoreria.actualizarPago(pago);
+		try {
+			if (pago == null)
+				Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
+			else {
+				pago.setAlumno(alumno.getID());
+				pago.setCursada(curso.getID());
+				pago.setMonto(monto);
+				pago.setMes(mes);
+				pago.setPagoCompleto(pagoCompleto);
+				pago.setPagoEnTermino(pagoEnTermino);
+				Tesoreria.actualizarPago(pago);
+			}
+			ventana.dispose();
+			ventana = null;
+			invocador.recargar();
+			invocador.mostrar();
+		} catch (Exception e) {
+			Popup.mostrar(e.getMessage());
 		}
-		ventana.dispose();
-		ventana = null;
-		invocador.recargar();
-		invocador.mostrar();
 	}
 
 	private void cancelar() {

@@ -47,7 +47,7 @@ public class ControladorPagoDeInscripcion implements ActionListener{
 		Integer mes = Integer.decode(ventana.getMes().getText());
 		boolean pagoEnTermino = ventana.getPagoEnTermino().isSelected();
 		boolean pagoCompleto = ventana.getPagoCompleto().isSelected();
-		Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
+		//Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
 		ventana.dispose();
 		ventana = null;
 		invocador.mostrar();

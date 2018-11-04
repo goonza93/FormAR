@@ -7,11 +7,17 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.persistencia.interfaces.PagoOBD;
+import com.ungs.formar.vista.util.Formato;
 
 public class Tesoreria {
 	
 	public static void registrarPago(Alumno alumno, Curso curso, Empleado empleado, Integer monto, Integer mes,
-			boolean pagoEnTermino, boolean pagoCompleto) {
+			boolean pagoEnTermino, boolean pagoCompleto) throws Exception {
+		
+		// Si no esta inscripto no puede pagar
+		if (!InscripcionManager.estaInscripto(curso, alumno))
+			throw new Exception("El alumno "+alumno.getApellido()+" no esta inscripto a "+Formato.nombre(curso)+".");
+		
 		Pago pago = new Pago(-1, alumno.getID(), curso.getID(), empleado.getID(), monto, mes, pagoEnTermino, pagoCompleto, Almanaque.hoy());
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		obd.insert(pago);
@@ -27,7 +33,14 @@ public class Tesoreria {
 		obd.delete(pago);
 	}
 
-	public static void actualizarPago(Pago pago) {
+	public static void actualizarPago(Pago pago) throws Exception {
+		Curso curso = CursoManager.traerCursoPorId(pago.getCursada());
+		Alumno alumno = AlumnoManager.traerAlumnoSegunID(pago.getAlumno());
+
+		// Si no esta inscripto no puede pagar
+		if (!InscripcionManager.estaInscripto(curso, alumno))
+			throw new Exception("El alumno "+alumno.getApellido()+" no esta inscripto a "+Formato.nombre(curso)+".");
+		
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		obd.update(pago);
 	}
