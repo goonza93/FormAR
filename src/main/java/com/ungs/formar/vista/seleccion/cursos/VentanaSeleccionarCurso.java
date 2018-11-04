@@ -2,6 +2,7 @@ package com.ungs.formar.vista.seleccion.cursos;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import com.ungs.formar.negocios.CursoManager;
@@ -21,7 +22,9 @@ public class VentanaSeleccionarCurso extends JFrame {
 
 		// LA TABLA
 		tabla = new TablaCursos(CursoManager.traerCursos());
-
+		JScrollPane panelTabla = new JScrollPane();
+		panelTabla.setViewportView(tabla);
+		
 		// BOTONES
 		btnSeleccionar = new JButton("SELECCIONAR");
 		btnCancelar = new JButton("CANCELAR");
@@ -33,7 +36,7 @@ public class VentanaSeleccionarCurso extends JFrame {
 		PanelVertical panelPrincipal = new PanelVertical();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
-		panelPrincipal.add(tabla);
+		panelPrincipal.add(panelTabla);
 		panelPrincipal.add(panelBotones);
 	}
 

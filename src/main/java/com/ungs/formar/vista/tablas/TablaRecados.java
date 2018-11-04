@@ -1,12 +1,9 @@
 package com.ungs.formar.vista.tablas;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.ungs.formar.persistencia.entidades.Recado;

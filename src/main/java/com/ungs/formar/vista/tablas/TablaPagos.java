@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.ungs.formar.persistencia.entidades.Pago;
+import com.ungs.formar.vista.util.Formato;
 
 public class TablaPagos extends JTable{
 	private static final long serialVersionUID = 1L;
@@ -28,10 +29,10 @@ public class TablaPagos extends JTable{
 
 		for (Pago pago : pagos) {
 			Object[] fila = {
-					pago.getAlumno(),
-					pago.getCursada(),
-					pago.getEmpleado(),
-					pago.getMonto(),
+					Formato.alumno(pago),
+					Formato.curso(pago),
+					Formato.empleado(pago.getEmpleado()),
+					Formato.precio(pago.getMonto()),
 					pago.getMes(),
 					pago.isPagoEnTermino(),
 					pago.isPagoCompleto(),

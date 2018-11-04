@@ -67,8 +67,8 @@ public class ControladorPagoABM implements ActionListener {
 			return;
 		}
 		
-		//ventana.deshabilitar();
-		//new ControladorPagoAM(this, pagos.get(0));
+		ventana.deshabilitar();
+		new ControladorPagoAM(this, pagos.get(0));
 	}
 	
 	private void eliminar() {
@@ -83,7 +83,7 @@ public class ControladorPagoABM implements ActionListener {
 	}
 	
 	private void verFactura() {
-		// TODO mas adelante con reportes
+		Popup.mostrar("Esta funcionalidad aun no esta disponible.\nDisculpe las molestias.");
 	}
 
 	private void volver() {

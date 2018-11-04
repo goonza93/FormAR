@@ -2,7 +2,6 @@ package com.ungs.formar.vista.seleccion.alumnos;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import com.ungs.formar.negocios.AlumnoManager;
@@ -12,11 +11,11 @@ import com.ungs.formar.vista.util.PanelVertical;
 
 public class VentanaSeleccionarAlumno extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private TablaAlumnos tabla;
 	private JButton btnSeleccionar, btnCancelar;
+	private TablaAlumnos tabla;
 
 	public VentanaSeleccionarAlumno() {
-		setBounds(100, 100, 518, 362);
+		setBounds(100, 100, 700, 400);
 		setTitle("Seleccionar alumno");
 		setLocationRelativeTo(null);
 
@@ -24,8 +23,8 @@ public class VentanaSeleccionarAlumno extends JFrame {
 		tabla = new TablaAlumnos(AlumnoManager.traerAlumnos());
 
 		// BOTONES
-		btnSeleccionar = new JButton("SELECCIONAR");
-		btnCancelar = new JButton("CANCELAR");
+		btnSeleccionar = new JButton("Seleccionar");
+		btnCancelar = new JButton("Cancelar");
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnSeleccionar);
 		panelBotones.add(btnCancelar);

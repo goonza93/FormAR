@@ -2,21 +2,24 @@ package com.ungs.formar.vista.util;
 
 import java.util.List;
 
+import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.ProgramaManager;
+import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
+import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.persistencia.entidades.Programa;
 
 public class Formato {
 	
 	public static String empleado(Integer ID) {
 		Empleado empleado = EmpleadoManager.traerEmpleado(ID);
-		return empleado.getApellido()+" "+empleado.getNombre(); 
+		return empleado.getApellido()+", "+empleado.getNombre(); 
 	}
 	
 	public static String instructor(Curso curso) {
@@ -58,6 +61,18 @@ public class Formato {
 	public static String precio(Integer precio) {
 		return "$ "+precio+",00";
 	}
+
+	public static String alumno(Pago pago) {
+		Alumno alumno = AlumnoManager.traerAlumnoSegunID(pago.getAlumno()); 
+		return alumno.getApellido()+", "+alumno.getNombre();
+	}
+	
+	public static String curso(Pago pago) {
+		Curso curso = CursoManager.traerCursoPorId(pago.getCursada()); 
+		return nombre(curso);
+	}
+	
+	
 	
 	public static String prueba1(int cantidad) {
 		String ret = "<html>prueba<br>";
@@ -99,5 +114,5 @@ public class Formato {
 		
 		return renglonesMaximo*20;
 	}
-	
+
 }

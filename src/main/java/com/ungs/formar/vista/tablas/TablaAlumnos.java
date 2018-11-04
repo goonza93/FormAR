@@ -87,10 +87,8 @@ public class TablaAlumnos extends PanelVertical {
 		panelFiltrar = new PanelHorizontal();
 		panelFiltrar.setBorder(bordeSimple);
 		
-		add(panelTabla);
 		add(panelConFiltros);
-		
-		
+		add(panelTabla);
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {

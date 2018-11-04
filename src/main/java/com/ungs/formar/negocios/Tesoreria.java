@@ -27,4 +27,9 @@ public class Tesoreria {
 		obd.delete(pago);
 	}
 
+	public static void actualizarPago(Pago pago) {
+		PagoOBD obd = FactoryODB.crearPagoOBD();
+		obd.update(pago);
+	}
+
 }
