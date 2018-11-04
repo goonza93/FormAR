@@ -209,7 +209,7 @@ CREATE TABLE for_interacciones (
 	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
 	FOREIGN KEY (interesado) REFERENCES for_interesados(ID),
 	FOREIGN KEY (area) REFERENCES for_areas(ID),
-	FOREIGN KEY (curso) REFERENCES for_cursos(ID)
+	FOREIGN KEY (curso) REFERENCES for_programas(ID)
 );
 
 -- ESQUEMA RECADOS

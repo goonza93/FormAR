@@ -12,12 +12,15 @@ import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Interesado;
+import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
+import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteracciones;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorContactos implements ActionListener {
 	private VentanaContactos ventanaGestionarContactos;
 	private VentanaContactosAM ventanaAM;
+	private VentanaInteracciones ventanaGestionarInteracciones;
 	private ControladorPantallaPrincipal controlador;
 	private List<Interesado> contactos;
 	
@@ -29,6 +32,7 @@ public class ControladorContactos implements ActionListener {
 		this.ventanaGestionarContactos.getAgregar().addActionListener(this);
 		this.ventanaGestionarContactos.getBorrar().addActionListener(this);
 		this.ventanaGestionarContactos.getEditar().addActionListener(this);
+		this.ventanaGestionarContactos.getVerInteracciones().addActionListener(this);
 		this.ventanaGestionarContactos.getCancelar().addActionListener(this);
 		this.ventanaGestionarContactos.getVentana().setTitle("GESTION DE CONTACTOS");
 		this.inicializar();
@@ -70,6 +74,11 @@ public class ControladorContactos implements ActionListener {
 		// BOTON BORRAR DEL ABM
 		else if (e.getSource() == ventanaGestionarContactos.getBorrar()) {
 			borrar();
+		}
+		
+		// BOTON VER INTERACCIONES DEL ABM
+		else if (e.getSource() == ventanaGestionarContactos.getVerInteracciones()){
+			abrirGestionInteracciones();
 		}
 		
 		// BOTON ACEPTAR DEL AM
@@ -135,6 +144,19 @@ public class ControladorContactos implements ActionListener {
 			}
 		}		
 		inicializar();
+	}
+	
+	private void abrirGestionInteracciones(){
+		List<Interesado> seleccionados = obtenerSeleccionados();
+
+		if (seleccionados.size() != 1) {
+			Popup.mostrar("Seleccione exactamente un contacto para poder editarlo");
+			return;
+		}
+		this.ventanaGestionarInteracciones = new VentanaInteracciones();
+		this.ventanaGestionarInteracciones.mostrar();
+		this.ventanaGestionarContactos.ocultar();
+		new ControladorInteracciones(this.ventanaGestionarInteracciones, this, seleccionados.get(0));
 	}
 
 	private void cerrarVentanaContactos() {

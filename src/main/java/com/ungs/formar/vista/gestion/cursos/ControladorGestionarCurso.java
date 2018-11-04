@@ -109,7 +109,6 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			ventanaGestionarCursos.getTablaCursos().setRowHeight(registro, altura);
 
 		}
-		System.out.println(ventanaGestionarCursos.getTablaCursos().getColumnModel().getTotalColumnWidth());
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(0).setPreferredWidth(122);
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(1).setPreferredWidth(30);
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(2).setPreferredWidth(60);

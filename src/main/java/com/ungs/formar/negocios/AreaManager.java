@@ -17,6 +17,11 @@ public class AreaManager {
 		AreaOBD obd = FactoryODB.crearAreaOBD();
 		return obd.select();
 	}
+	
+	public static Area traerPorID(Integer id){
+		AreaOBD odb = FactoryODB.crearAreaOBD();
+		return odb.selectByID(id);
+	}
 
 	public static void crearArea(String nombre, String descripcion) {
 		Area area = new Area(-1, nombre, descripcion, true);

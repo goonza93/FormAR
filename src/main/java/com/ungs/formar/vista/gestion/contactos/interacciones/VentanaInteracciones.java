@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.gestion.contactos;
+package com.ungs.formar.vista.gestion.contactos.interacciones;
 
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -23,61 +23,68 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class VentanaContactos {
+public class VentanaInteracciones {
 	private JFrame ventana;
-	private DefaultTableModel modeloContactos;
-	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono"};
-	private JTable tablaContactos;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnVerInteracciones;
-	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI;
-	private JLabel lblFiltros, lblNombre, lblDni, lblContactos ;
+	private DefaultTableModel modeloInteracciones;
+	private String[] nombreColumnas = { "Empleado asociado", "Fecha interaccion", "Area de interes", "Curso de interes", "Descripcion"};
+	private JTable tablaInteracciones;
+	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
+	private JTextField inFiltroFecha, inFiltroEmpleado, inFiltroArea;
+	private JLabel lblFiltros, lblFecha, lblArea, lblContactos ;
 	private final TableRowSorter<TableModel> filtro;
+	private JTextField inFiltroCurso;
 	
-	public VentanaContactos(){
+	public VentanaInteracciones(){
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setLocationRelativeTo(null);
 		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
+		ventana.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				btnCancelar.doClick();
+			}
+		});
 
 		
-		modeloContactos = new DefaultTableModel(null, nombreColumnas);
-		filtro = new TableRowSorter<TableModel>(modeloContactos);
+		modeloInteracciones = new DefaultTableModel(null, nombreColumnas);
+		filtro = new TableRowSorter<TableModel>(modeloInteracciones);
 		
 		JScrollPane spEmpleados = new JScrollPane();
-		tablaContactos = new JTable(modeloContactos);
-		tablaContactos.setFont(new Font("Arial", Font.PLAIN, 12));
-		spEmpleados.setViewportView(tablaContactos);
-		tablaContactos.setDefaultEditor(Object.class, null);
-		tablaContactos.getTableHeader().setReorderingAllowed(false);
-		tablaContactos.setRowSorter(filtro);
+		tablaInteracciones = new JTable(modeloInteracciones);
+		tablaInteracciones.setFont(new Font("Arial", Font.PLAIN, 12));
+		spEmpleados.setViewportView(tablaInteracciones);
+		tablaInteracciones.setDefaultEditor(Object.class, null);
+		tablaInteracciones.getTableHeader().setReorderingAllowed(false);
+		tablaInteracciones.setRowSorter(filtro);
 		
 		lblFiltros = new JLabel("FILTROS:");
 		lblFiltros.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFiltros.setFont(new Font("Arial", Font.BOLD, 12));
 		
-		JLabel lblFiltrar = new JLabel("APELLIDO");
-		lblFiltrar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFiltrar.setFont(new Font("Arial", Font.PLAIN, 12));
+		JLabel lblEmpleado = new JLabel("EMPLEADO");
+		lblEmpleado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmpleado.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		inFiltroApellido = new JTextField();
-		inFiltroApellido.setFont(new Font("Arial", Font.PLAIN, 12));
-		inFiltroApellido.setColumns(10);
+		inFiltroEmpleado = new JTextField();
+		inFiltroEmpleado.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroEmpleado.setColumns(10);
 		
-		lblNombre = new JLabel("NOMBRE");
-		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblFecha = new JLabel("FECHA");
+		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFecha.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		inFiltroNombre = new JTextField();
-		inFiltroNombre.setFont(new Font("Arial", Font.PLAIN, 12));
-		inFiltroNombre.setColumns(10);
+		inFiltroFecha = new JTextField();
+		inFiltroFecha.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroFecha.setColumns(10);
 		
-		lblDni = new JLabel("DNI");
-		lblDni.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDni.setFont(new Font("Arial", Font.PLAIN, 12));
+		lblArea = new JLabel("AREA");
+		lblArea.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		inFiltroDNI = new JTextField();
-		inFiltroDNI.setFont(new Font("Arial", Font.PLAIN, 12));
-		inFiltroDNI.setColumns(10);
+		inFiltroArea = new JTextField();
+		inFiltroArea.setFont(new Font("Arial", Font.PLAIN, 12));
+		inFiltroArea.setColumns(10);
 		
 				btnAgregar = new JButton("AGREGAR");
 				btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -95,8 +102,13 @@ public class VentanaContactos {
 				lblContactos.setHorizontalAlignment(SwingConstants.CENTER);
 				lblContactos.setFont(new Font("Arial", Font.BOLD, 12));
 				
-				btnVerInteracciones = new JButton("CONSULTAR INTERACCIONES");
-				btnVerInteracciones.setFont(new Font("Arial", Font.PLAIN, 12));
+				inFiltroCurso = new JTextField();
+				inFiltroCurso.setFont(new Font("Arial", Font.PLAIN, 12));
+				inFiltroCurso.setColumns(10);
+				
+				JLabel lblCurso = new JLabel("CURSO");
+				lblCurso.setHorizontalAlignment(SwingConstants.CENTER);
+				lblCurso.setFont(new Font("Arial", Font.PLAIN, 12));
 				
 				GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
 				groupLayout.setHorizontalGroup(
@@ -111,25 +123,27 @@ public class VentanaContactos {
 									.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
 									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
 								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(inFiltroEmpleado, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(inFiltroFecha, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-									.addGap(208))
+									.addComponent(inFiltroArea, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(inFiltroCurso, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addGap(38))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(lblEmpleado, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(lblFecha, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-									.addGap(208))
+									.addComponent(lblArea, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblCurso, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addGap(38))
 								.addComponent(lblContactos, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
 							.addContainerGap())
 				);
@@ -140,14 +154,16 @@ public class VentanaContactos {
 							.addComponent(lblFiltros)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNombre)
-								.addComponent(lblDni))
+								.addComponent(lblEmpleado, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblFecha)
+								.addComponent(lblArea)
+								.addComponent(lblCurso, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(inFiltroApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inFiltroNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inFiltroDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(inFiltroEmpleado, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+								.addComponent(inFiltroFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(inFiltroArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(inFiltroCurso, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblContactos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -157,16 +173,16 @@ public class VentanaContactos {
 								.addComponent(btnAgregar)
 								.addComponent(btnEditar)
 								.addComponent(btnBorrar)
-								.addComponent(btnCancelar)
-								.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnCancelar))
 							.addContainerGap())
 				);
 				ventana.getContentPane().setLayout(groupLayout);
 		
 				DocumentListener listener = crearFiltroListener();
-				inFiltroApellido.getDocument().addDocumentListener(listener);
-				inFiltroNombre.getDocument().addDocumentListener(listener);
-				inFiltroDNI.getDocument().addDocumentListener(listener);
+				inFiltroEmpleado.getDocument().addDocumentListener(listener);
+				inFiltroFecha.getDocument().addDocumentListener(listener);
+				inFiltroArea.getDocument().addDocumentListener(listener);
+				inFiltroCurso.getDocument().addDocumentListener(listener);
 		
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
@@ -200,28 +216,25 @@ public class VentanaContactos {
 	public JButton getBorrar() {
 		return btnBorrar;
 	}
-	
-	public JButton getVerInteracciones(){
-		return btnVerInteracciones;
-	}
 
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
 
-	public DefaultTableModel getModeloContactos() {
-		return modeloContactos;
+	public DefaultTableModel getModeloInteracciones() {
+		return modeloInteracciones;
 	}
 
-	public JTable getTablaContactos() {
-		return tablaContactos;
+	public JTable getTablaInteracciones() {
+		return tablaInteracciones;
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
 		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroApellido.getText(), 0));
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroNombre.getText(), 1));
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroDNI.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroEmpleado.getText(), 0));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroFecha.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroArea.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroCurso.getText(), 3));
 		return filtros;
 	}
 	
