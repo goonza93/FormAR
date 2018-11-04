@@ -24,7 +24,7 @@ public class TablaAlumnos extends PanelVertical {
 	private String[] columnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono" };
 	private JTextField inApellido, inNombre, inEmail, inDNI, inTelefono;
 	private PanelHorizontal panelConFiltros, panelFiltrar;
-	private final TableRowSorter<TableModel> filtro;	
+	private final TableRowSorter<TableModel> filtro;
 	private DefaultTableModel modelo;
 	private List<Alumno> alumnos;
 	private JTable tabla;
@@ -40,6 +40,12 @@ public class TablaAlumnos extends PanelVertical {
 		recargar(alumnos);
 		
 		// CREO EL FILTRO
+		inApellido = new JTextField();
+		inNombre = new JTextField();
+		inDNI = new JTextField();
+		inEmail = new JTextField();
+		inTelefono = new JTextField();
+		
 		filtro = new TableRowSorter<TableModel>(modelo);
 		tabla.setRowSorter(filtro);
 		DocumentListener listener = crearFiltroListener();
@@ -80,6 +86,11 @@ public class TablaAlumnos extends PanelVertical {
 		EmptyBorder bordeSimple = new EmptyBorder(10, 10, 10, 10);
 		panelFiltrar = new PanelHorizontal();
 		panelFiltrar.setBorder(bordeSimple);
+		
+		add(panelTabla);
+		add(panelConFiltros);
+		
+		
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
