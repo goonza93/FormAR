@@ -13,5 +13,7 @@ public interface InteresadoOBD {
 	public void delete (Interesado interesado);
 	
 	public List<Interesado> select();
+	
+	public List<Interesado> selectByID(Integer id);
 
 }

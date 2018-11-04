@@ -13,5 +13,11 @@ public interface InteraccionOBD {
 	public void delete (Interaccion interaccion);
 	
 	public List<Interaccion> select();
+	
+	public List<Interaccion> selectByID(Integer id);
+	
+	public List<Interaccion> selectByInteresado(Integer interesadoID);
+	
+	public List<Interaccion> selectByEmpleado(Integer empleadoID);
 
 }
