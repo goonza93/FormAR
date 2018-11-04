@@ -1,6 +1,7 @@
 package com.ungs.formar.persistencia.interfaces;
 
 import java.util.List;
+
 import com.ungs.formar.persistencia.entidades.Interesado;
 
 
@@ -15,5 +16,7 @@ public interface InteresadoOBD {
 	public List<Interesado> select();
 	
 	public List<Interesado> selectByID(Integer id);
+
+	public Interesado selectByDNI(String dni);
 
 }

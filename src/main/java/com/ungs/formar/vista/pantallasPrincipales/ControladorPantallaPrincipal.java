@@ -24,6 +24,8 @@ import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
 import com.ungs.formar.vista.gestion.areas.ControladorAreaABM;
 import com.ungs.formar.vista.gestion.areas.GestionarAreas;
+import com.ungs.formar.vista.gestion.contactos.ControladorContactos;
+import com.ungs.formar.vista.gestion.contactos.VentanaContactos;
 import com.ungs.formar.vista.gestion.cursos.ControladorGestionarCurso;
 import com.ungs.formar.vista.gestion.cursos.GestionarCursos;
 import com.ungs.formar.vista.gestion.empleados.ControladorEmpleadoABM;
@@ -51,6 +53,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	private VentanaProgramaGestion ventanaGestionarProgramas;
 	private VentanaSalaABM ventanaGestionarSalas;
 	private VentanaInscripcionABM ventanaInscripcionABM;
+	private VentanaContactos ventanaGestionarContactos;
 	private CambiarPass ventanaCambiarPass;
 	private GestionarAreas ventanaGestionarAreas;
 
@@ -201,6 +204,10 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		// BOTON GESTIONAR CONTACTOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarContacto()) {
 			// VENTANA GESTIONAR CONTACTO
+			this.ventanaGestionarContactos = new VentanaContactos();
+			this.ventanaGestionarContactos.mostrar();
+			this.pantallaAdministrativo.ocultar();
+			new ControladorContactos(this.ventanaGestionarContactos, this);
 		}
 
 		// BOTON CAMBIAR PASS

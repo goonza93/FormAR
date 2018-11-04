@@ -8,6 +8,8 @@ import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfaces.HorarioOBD;
 import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
+import com.ungs.formar.persistencia.interfaces.InteraccionOBD;
+import com.ungs.formar.persistencia.interfaces.InteresadoOBD;
 import com.ungs.formar.persistencia.interfaces.PagoOBD;
 import com.ungs.formar.persistencia.interfaces.PdfOBD;
 import com.ungs.formar.persistencia.interfaces.ProgramaODB;
@@ -21,6 +23,8 @@ import com.ungs.formar.persistencia.mysql.EmpleadoODBMySQL;
 import com.ungs.formar.persistencia.mysql.HorarioCursadaODBMySQL;
 import com.ungs.formar.persistencia.mysql.HorarioOBDMySQL;
 import com.ungs.formar.persistencia.mysql.InscripcionOBDMySQL;
+import com.ungs.formar.persistencia.mysql.InteraccionOBDMySQL;
+import com.ungs.formar.persistencia.mysql.InteresadoOBDMySQL;
 import com.ungs.formar.persistencia.mysql.PagoOBDMySQL;
 import com.ungs.formar.persistencia.mysql.PdfODBMySQL;
 import com.ungs.formar.persistencia.mysql.ProgramaODBMySQL;
@@ -81,4 +85,11 @@ public class FactoryODB {
 		return new PagoOBDMySQL();
 	}
 	
+	public static InteresadoOBD crearInteresadoOBD(){
+		return new InteresadoOBDMySQL();
+	}
+	
+	public static InteraccionOBD crearInteraccionOBD(){
+		return new InteraccionOBDMySQL();
+	}
 }
