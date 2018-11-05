@@ -14,6 +14,7 @@ import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.cursos.ControladorCrearCurso;
 import com.ungs.formar.vista.gestion.cursos.CrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarDiaHorario;
@@ -25,12 +26,22 @@ import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 public class ControladorSeleccionarPrograma implements ActionListener {
 	private SeleccionarPrograma ventanaSeleccionarPrograma;
 	private ControladorCrearCurso controladorCrearCurso;
+	private ControladorInteracciones controladorInteracciones;
 	private List<Programa> programas_en_tabla;
 
 	public ControladorSeleccionarPrograma(SeleccionarPrograma ventanaSeleccionarPrograma,
 			ControladorCrearCurso controladorCrearCurso) {
 		this.ventanaSeleccionarPrograma = ventanaSeleccionarPrograma;
 		this.controladorCrearCurso = controladorCrearCurso;
+		this.ventanaSeleccionarPrograma.getBtnCancelar().addActionListener(this);
+		this.ventanaSeleccionarPrograma.getBtnSeleccionar().addActionListener(this);
+		this.inicializar();
+	}
+	
+	public ControladorSeleccionarPrograma(SeleccionarPrograma ventanaSeleccionarPrograma,
+			ControladorInteracciones controladorinteracciones) {
+		this.ventanaSeleccionarPrograma = ventanaSeleccionarPrograma;
+		this.controladorInteracciones = controladorinteracciones;
 		this.ventanaSeleccionarPrograma.getBtnCancelar().addActionListener(this);
 		this.ventanaSeleccionarPrograma.getBtnSeleccionar().addActionListener(this);
 		this.inicializar();
@@ -72,14 +83,25 @@ public class ControladorSeleccionarPrograma implements ActionListener {
 				int row = this.ventanaSeleccionarPrograma.getTablaProgramas().getSelectedRow(); 
 				int modelFila = this.ventanaSeleccionarPrograma.getTablaProgramas().convertRowIndexToModel(row); 
 
-				this.controladorCrearCurso.setPrograma(this.programas_en_tabla.get(modelFila));
-				this.controladorCrearCurso.actualizarFechaFin();
-				this.ventanaSeleccionarPrograma.dispose();
-				this.controladorCrearCurso.inicializar();
+				if(controladorCrearCurso != null){
+					this.controladorCrearCurso.setPrograma(this.programas_en_tabla.get(modelFila));
+					this.controladorCrearCurso.actualizarFechaFin();
+					this.ventanaSeleccionarPrograma.dispose();
+					this.controladorCrearCurso.inicializar();
+				} else {
+					this.controladorInteracciones.setPrograma(this.programas_en_tabla.get(modelFila));
+					this.ventanaSeleccionarPrograma.dispose();
+					this.controladorInteracciones.enableAM();
+				}
 			}
 		} else if (e.getSource() == ventanaSeleccionarPrograma.getBtnCancelar()) {
-			this.ventanaSeleccionarPrograma.dispose();
-			this.controladorCrearCurso.inicializar();
+			if(controladorCrearCurso != null){
+				this.ventanaSeleccionarPrograma.dispose();
+				this.controladorCrearCurso.inicializar();
+			} else {
+				this.ventanaSeleccionarPrograma.dispose();
+				this.controladorInteracciones.inicializar();
+			}
 		}
 	}
 }

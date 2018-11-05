@@ -18,8 +18,8 @@ public class InteraccionOBDMySQL extends ODB implements InteraccionOBD {
 	public void insert(Interaccion interaccion) {
 		String empleado = "'"+interaccion.getEmpleadoID()+"'";
 		String interesado = "'"+interaccion.getInteresadoID()+"'";
-		String area = "'"+interaccion.getAreaID()+"'";
-		String curso = "'"+interaccion.getCursoID()+"'";
+		String area = interaccion.getAreaID() == null ? null : "'"+interaccion.getAreaID()+"'";
+		String curso = interaccion.getCursoID() == null ? null : "'"+interaccion.getCursoID()+"'";
 		String fecha = interaccion.getFechaInteraccion() == null ? null : "'"+interaccion.getFechaInteraccion()+"'";
 		
 		String valores = empleado
@@ -27,7 +27,7 @@ public class InteraccionOBDMySQL extends ODB implements InteraccionOBD {
 				+", "+ area
 				+", "+ curso
 				+", "+ fecha
-				+", "+ interaccion.getDescripcion();
+				+", '"+ interaccion.getDescripcion()+"'";
 		
 		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(consulta);
@@ -36,8 +36,8 @@ public class InteraccionOBDMySQL extends ODB implements InteraccionOBD {
 	public void update(Interaccion interaccion) {
 		String empleado = "'"+interaccion.getEmpleadoID()+"'";
 		String interesado = "'"+interaccion.getInteresadoID()+"'";
-		String area = "'"+interaccion.getAreaID()+"'";
-		String curso = "'"+interaccion.getCursoID()+"'";
+		String area = interaccion.getAreaID() == null ? null : "'"+interaccion.getAreaID()+"'";
+		String curso = interaccion.getCursoID() == null ? null : "'"+interaccion.getCursoID()+"'";
 		String fecha = interaccion.getFechaInteraccion() == null ? null : "'"+interaccion.getFechaInteraccion()+"'";
 		String condicion = "ID = " + interaccion.getID();
 		
@@ -47,8 +47,8 @@ public class InteraccionOBDMySQL extends ODB implements InteraccionOBD {
 				+", area = "+ area
 				+", curso = "+ curso
 				+", fecha = "+ fecha
-				+", descripcion = "+ interaccion.getDescripcion()
-				+" where (" + condicion + ");";
+				+", descripcion = '"+ interaccion.getDescripcion()
+				+"' where (" + condicion + ");";
 		ejecutarSQL(consulta);
 	}
 
