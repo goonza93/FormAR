@@ -180,6 +180,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			if(ProgramaManager.estaAsignado(lista.get(0))){
 				this.ventanaProgramaAM.getTxtNombre().setEnabled(false);
 				this.ventanaProgramaAM.getBtnSeleccionArea().setEnabled(false);
+				this.ventanaProgramaAM.getTxtCargaHoraria().setEnabled(false);
 			}
 		}
 	}
