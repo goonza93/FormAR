@@ -165,6 +165,10 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnConsultarInscripciones()) {
 			Curso curso = obtenerCursoSeleccionado();
 			if (curso != null) {
+				if (InscripcionManager.traerInscripciones(curso).isEmpty()){
+					Popup.mostrar("La cursada seleccionada no tiene inscripciones");
+					return;
+				}
 				VentanaAlumnosInscriptos v = new VentanaAlumnosInscriptos(curso);
 				new ControladorAlumnosInscriptos(v, this, curso);
 				ventanaGestionarCursos.frame.setEnabled(false);

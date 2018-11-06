@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
+import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.vista.consulta.Consultable;
@@ -113,12 +114,16 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 
 	private void mostrarInscripciones() {
 		List<Alumno> seleccion = obtenerAlumnosSeleccionados();
-
+		
+		
 		if (seleccion.size() != 1) {
 			Popup.mostrar("Seleccione exactamente 1 alumno para ver sus inscripciones");
 			return;
 		}
-
+		else if (InscripcionManager.traerInscripciones(seleccion.get(0)).isEmpty()){
+			Popup.mostrar("El alumno seleccionado no tiene inscripciones");
+			return;
+		}
 		Alumno alumno = seleccion.get(0);
 		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
 		ventanaABM.getVentana().setEnabled(false);
