@@ -14,12 +14,15 @@ import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.PdfManager;
 import com.ungs.formar.negocios.ProgramaManager;
+import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Pdf;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
@@ -430,36 +433,53 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			JOptionPane.showMessageDialog(null, msjError);
 			return false;
 		}
+		if(!validarHorariosCursada(curso))
+			return false;
 		// Si el cupo minimo es menor que la cantidad de inscriptos
 		if (curso.getCupoMinimo() < InscripcionManager.traerAlumnosInscriptos(curso).size()) {
 			int confirm = JOptionPane.showOptionDialog(null,
 					"La cursada tiene menos inscriptos que el cupo minimo. \n" + "Desea iniciarla de todas maneras!?",
 					"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-			if (confirm == 0) {
-				return true;
+			if (confirm != 0) {
+				return false;
 			}
 		}
 		return true;
 	}
 
 	private Curso obtenerCursoSeleccionado() {
-		int registroTabla = ventanaGestionarCursos.getTablaCursos().getSelectedRow(); // Indice
-																						// de
-																						// la
-																						// tabla
+		int registroTabla = ventanaGestionarCursos.getTablaCursos().getSelectedRow(); 
 
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
 
-		int registro = ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(registroTabla); // Fix
-																										// para
-																										// el
-																										// filtro
+		int registro = ventanaGestionarCursos.getTablaCursos().convertRowIndexToModel(registroTabla);
 		return cursos_en_tabla.get(registro);
 	}
 
 	private void completarResponsable(ControladorCrearCurso c) {
 		c.setResponsable(Sesion.getEmpleado());
+	}
+
+	private boolean validarHorariosCursada(Curso curso){
+		String msj = "";
+		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(curso);
+		if(!horariosCursada.isEmpty()){
+			for(HorarioCursada hc : horariosCursada){
+				Horario horario = HorarioCursadaManager.traerHorarioSegunID(hc.getHorario());
+				Sala sala = SalaManager.traerSegunID(hc.getSala());
+				java.util.Date fechaInicio = curso.getFechaInicio();
+				if(sala!= null && !SalaManager.validarHorarioDeCursada(horario, sala,fechaInicio)){
+					msj += "La sala "+sala.getNumero()+" NO esta disponible en el horario "+
+							HorarioCursadaManager.formatoHorarioCursada(hc);
+				}
+			}
+		}
+		if(!msj.isEmpty()){
+			Popup.mostrar(msj);
+			return false;
+		}
+		return true;
 	}
 }
