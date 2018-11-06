@@ -216,6 +216,8 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 				continuar = false;
 			}
 		}
+		else if(!Popup.confirmar("Desea inscribir a los alumnos seleccionados!?"))
+			continuar = false;
 
 		if (continuar) {
 			for (Alumno alumno : alumnos) {
