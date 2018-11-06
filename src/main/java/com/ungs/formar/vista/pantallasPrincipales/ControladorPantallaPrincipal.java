@@ -384,7 +384,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 						nombrebackup = new File(RealizarBackupMySQL.getSelectedFile().toString().trim());
 
 						Process p = Runtime.getRuntime().exec(
-								"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysql -uroot -proot formar");
+								"C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysql -uroot -proot formar");
 
 						OutputStream os = p.getOutputStream();
 						FileInputStream fis = new FileInputStream(nombrebackup);
@@ -432,7 +432,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 						+ Almanaque.hoy().toString() + ".sql");
 				FileWriter fw = new FileWriter(backupFile);
 				Process child = runtime.exec(
-						"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysqldump --opt --password=root --user=root --databases formar");
+						"C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --opt --password=root --user=root --databases formar");
 				
 				InputStreamReader irs = new InputStreamReader(child.getInputStream());
 				BufferedReader br = new BufferedReader(irs);
