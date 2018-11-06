@@ -16,6 +16,7 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
+import com.ungs.formar.vista.util.Popup;
 
 public class CursoManager {
 
@@ -88,7 +89,11 @@ public class CursoManager {
 		if (curso.getEstado() == EstadoCurso.CREADO) {
 			// elimino sus horarios de cursada y luego al curso en si
 			List<HorarioCursada> horarioCursadas = CursoManager.obtenerHorariosDeCursada(curso);
-			if (!horarioCursadas.isEmpty()) {
+			if(!InscripcionManager.traerAlumnosInscriptos(curso).isEmpty()){
+				Popup.mostrar("La cursada tiene alumnos inscrpitos, por favor cancele las inscripciones.");
+				return;
+			}
+			else if (!horarioCursadas.isEmpty()) {
 				for (HorarioCursada horarioCursada : horarioCursadas)
 					HorarioCursadaManager.eliminarHorarioDeCursada(horarioCursada);
 			}
