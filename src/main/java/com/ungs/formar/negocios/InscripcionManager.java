@@ -9,6 +9,8 @@ import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Horario;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 import com.ungs.formar.vista.util.Formato;
@@ -88,8 +90,10 @@ public class InscripcionManager {
 			for (Curso cursada : cursosInscripto) {
 				if (cursada.getFechaFin()!= null && curso.getFechaFin()!= null &&
 						seSuperponenFechas(curso, cursada)) {
-					msj += "- Se le superpone la cursada de " + Formato.nombre(curso) + " con \n la de "
+					if(seSuperponenHorarios(curso, cursada)){
+						msj += "- Se le superpone la cursada de " + Formato.nombre(curso) + " con \n la de "
 							+ Formato.nombre(cursada) + "\n";
+					}
 				}
 			}
 		}
@@ -106,4 +110,24 @@ public class InscripcionManager {
 			return true;
 		return false;
 	}
+
+	private static boolean seSuperponenHorarios(Curso curso, Curso cursada){
+		List<HorarioCursada> horariosCurso = CursoManager.obtenerHorariosDeCursada(curso);
+		List<HorarioCursada> horariosCursada = CursoManager.obtenerHorariosDeCursada(cursada);
+
+		if(!horariosCurso.isEmpty() && !horariosCursada.isEmpty()){
+			for(HorarioCursada hc : horariosCurso){
+				Horario h = HorarioCursadaManager.traerHorarioSegunID(hc.getHorario());
+				
+				for(HorarioCursada hcursada : horariosCursada){
+					Horario otroHorario = HorarioCursadaManager.traerHorarioSegunID(hcursada.getHorario());
+					
+					if(SalaManager.horariosSupuerpuestos(h, otroHorario))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 }
