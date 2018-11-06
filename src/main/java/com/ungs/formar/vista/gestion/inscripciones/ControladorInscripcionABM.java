@@ -146,9 +146,12 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		
 	}
 
-	private void cancelarInscripcion() {
+	private void cancelarInscripcion() {		
 		List<Alumno> alumnos = obtenerAlumnosSeleccionadosBaja2();
-		if (alumnos.size() == 0) {
+		if (cursoSeleccionado.getEstado() == EstadoCurso.FINALIZADO || cursoSeleccionado.getEstado() == EstadoCurso.CANCELADO) {
+			Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
+		}
+		else if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para dar de baja.");
 		} else {
 			if (Popup.confirmar("¿Estas seguro que deseas dar de bajo a los alumnos seleccionados?")) {
@@ -163,11 +166,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 	private void abrirVentanaBaja() {
 		cursoSeleccionado = obtenerCursoSeleccionado();
 		if (cursoSeleccionado != null) {
-
-			if (cursoSeleccionado.getEstado() == EstadoCurso.FINALIZADO || cursoSeleccionado.getEstado() == EstadoCurso.CANCELADO) {
-				Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
-				return;
-			}
 
 			ventanaBaja = new VentanaInscripcionBaja(cursoSeleccionado);
 			ventanaBaja.getVentana().setVisible(true);
