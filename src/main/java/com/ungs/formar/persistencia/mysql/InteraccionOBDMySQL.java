@@ -81,6 +81,18 @@ public class InteraccionOBDMySQL extends ODB implements InteraccionOBD {
 		List<Interaccion> interacciones = selectByCondicion(condicion);
 		return interacciones;
 	}
+	
+	public List<Interaccion> selectByArea(Integer areaID) {
+		String condicion = "area = "+ areaID;
+		List<Interaccion> interacciones = selectByCondicion(condicion);
+		return interacciones;
+	}
+	
+	public List<Interaccion> selectByPrograma(Integer cursoID) {
+		String condicion = "curso = "+ cursoID;
+		List<Interaccion> interacciones = selectByCondicion(condicion);
+		return interacciones;
+	}
 
 	private List<Interaccion> selectByCondicion(String condicion) {
 		List<Interaccion> interacciones = new ArrayList<Interaccion>();

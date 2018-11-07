@@ -62,10 +62,14 @@ public class InteresadoOBDMySQL extends ODB implements InteresadoOBD {
 		return interesados;
 	}
 	
-	public List<Interesado> selectByID(Integer id) {
+	public Interesado selectByID(Integer id) {
 		String condicion = "ID = " + id;
 		List<Interesado> interesados = selectByCondicion(condicion);
-		return interesados;
+		Interesado interesado = null;
+		if (interesados.size()>0){
+			interesado = interesados.get(0);
+		}
+		return interesado;
 	}
 	
 	public Interesado selectByDNI(String dni) {

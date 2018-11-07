@@ -11,19 +11,23 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
+import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.consulta.Consultable;
+import com.ungs.formar.vista.consulta.contactos.ControladorConsultaInteresados;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.ventanas.VentanaProgramaAM;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
-public class ControladorProgramaABM implements ActionListener, AreaSeleccionable{
+public class ControladorProgramaABM implements ActionListener, AreaSeleccionable , Consultable {
 	private VentanaProgramaGestion ventanaProgramaGestion;
 	private VentanaProgramaAM ventanaProgramaAM;
 	private VentanaSeleccionarArea ventanaSeleccionarArea;
@@ -38,6 +42,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		this.ventanaProgramaGestion.getBtnAgregar().addActionListener(this);
 		this.ventanaProgramaGestion.getBtnEditar().addActionListener(this);
 		this.ventanaProgramaGestion.getBtnBorrar().addActionListener(this);
+		this.ventanaProgramaGestion.getBtnVerInteresados().addActionListener(this);
 		this.inicializar();
 	}
 
@@ -50,6 +55,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		});
 		llenarTabla();
 		ventanaProgramaGestion.mostrar();
+		ventanaProgramaGestion.setEnabled(true);
 	}
 
 	private void llenarTabla() {
@@ -83,6 +89,19 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		}
 		else if (e.getSource() == ventanaProgramaGestion.getBtnCancelar()){
 			retroceder();
+		}
+		else if(e.getSource() == ventanaProgramaGestion.getBtnVerInteresados()){
+			List<Programa> programas = obtenerProgramasSeleccionados();
+			if (programas.size() != 1) {
+				Popup.mostrar("Seleccione exactamente un curso para ver sus interesados.");
+			} else {
+				if (ContactoManager.traerInteresadosPrograma(programas.get(0).getProgramaID()).isEmpty()){
+					Popup.mostrar("El curso seleccionada no tiene interesados.");
+					return;
+				}
+				new ControladorConsultaInteresados(this, programas.get(0));
+				ventanaProgramaGestion.setEnabled(false);
+			}
 		}
 		else if (e.getActionCommand() == "aceptar") {
 			aceptarAM();

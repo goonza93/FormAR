@@ -87,7 +87,7 @@ public class VentanaInteraccionesAM extends JFrame {
 		panelCurso.add(inCurso);
 		panelCurso.add(btnSeleccionarCurso);
 		
-		JLabel lblDescripcion = new JLabel("Area");
+		JLabel lblDescripcion = new JLabel("Descripcion");
 		inDescripcion = new JTextArea();
 		inDescripcion.setMaximumSize(new Dimension(Short.MAX_VALUE, 500));
 		
