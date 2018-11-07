@@ -54,7 +54,7 @@ public class ContactoManager {
 		for(Interaccion interaccion : interacciones){
 			boolean esta = false;
 			for(Interesado interesado : interesados){
-				if(interesado.getID() == interaccion.getID()){
+				if(interesado.getID() == interaccion.getInteresadoID()){
 					esta = true;
 				}
 			}
@@ -72,7 +72,7 @@ public class ContactoManager {
 		for(Interaccion interaccion : interacciones){
 			boolean esta = false;
 			for(Interesado interesado : interesados){
-				if(interesado.getID() == interaccion.getID()){
+				if(interesado.getID() == interaccion.getInteresadoID()){
 					esta = true;
 				}
 			}
