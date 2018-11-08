@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.pantallasPrincipales;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -8,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -18,9 +20,11 @@ import org.apache.log4j.chainsaw.Main;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
+import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
@@ -86,6 +90,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaAdministrativo.getBtnGestionarContacto().addActionListener(this);
 		this.pantallaAdministrativo.getBtnGestionarPagos().addActionListener(this);
 		setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
+		revisarRecadosNuevos();
 	}
 
 	private void mostrarPantallaSupervisor() {
@@ -122,12 +127,18 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	}
 
 	public void inicializar() {
-		if (this.pantallaAdministrativo != null)
+		if (this.pantallaAdministrativo != null){
+			revisarRecadosNuevos();
 			this.pantallaAdministrativo.show();
-		else if (this.pantallaInstructor != null)
+		}
+		else if (this.pantallaInstructor != null){
+			revisarRecadosNuevos();
 			this.pantallaInstructor.show();
-		else if (this.pantallaSupervisor != null)
+		}
+		else if (this.pantallaSupervisor != null){
+			revisarRecadosNuevos();
 			this.pantallaSupervisor.show();
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -493,6 +504,43 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			}
 		} else if (resp == JFileChooser.CANCEL_OPTION) {
 			JOptionPane.showMessageDialog(null, "Ha sido cancelada la generacion del Backup");
+		}
+	}
+	
+	private void revisarRecadosNuevos() {
+		List<Recado> nuevos = Mensajero.traerMensajesSinLeer(Sesion.getEmpleado());
+		if(!nuevos.isEmpty()){
+			if (this.pantallaAdministrativo != null){
+				this.pantallaAdministrativo.getBtnRecados().setText("RECADOS ("+nuevos.size()+")");
+				this.pantallaAdministrativo.getBtnRecados().setFont(
+						this.pantallaAdministrativo.getBtnRecados().getFont().deriveFont(Font.BOLD));
+			}
+			else if (this.pantallaInstructor != null){
+				this.pantallaInstructor.getBtnRecados().setText("RECADOS ("+nuevos.size()+")");
+				this.pantallaInstructor.getBtnRecados().setFont(
+						this.pantallaInstructor.getBtnRecados().getFont().deriveFont(Font.BOLD));
+			}
+			else if (this.pantallaSupervisor != null){
+				this.pantallaSupervisor.getBtnRecados().setText("RECADOS ("+nuevos.size()+")");
+				this.pantallaSupervisor.getBtnRecados().setFont(
+						this.pantallaSupervisor.getBtnRecados().getFont().deriveFont(Font.BOLD));
+			}
+		} else {
+			if (this.pantallaAdministrativo != null){
+				this.pantallaAdministrativo.getBtnRecados().setText("RECADOS");
+				this.pantallaAdministrativo.getBtnRecados().setFont(
+						this.pantallaAdministrativo.getBtnRecados().getFont().deriveFont(Font.PLAIN));
+			}
+			else if (this.pantallaInstructor != null){
+				this.pantallaInstructor.getBtnRecados().setText("RECADOS");
+				this.pantallaInstructor.getBtnRecados().setFont(
+						this.pantallaInstructor.getBtnRecados().getFont().deriveFont(Font.PLAIN));
+			}
+			else if (this.pantallaSupervisor != null){
+				this.pantallaSupervisor.getBtnRecados().setText("RECADOS");
+				this.pantallaSupervisor.getBtnRecados().setFont(
+						this.pantallaSupervisor.getBtnRecados().getFont().deriveFont(Font.PLAIN));
+			}
 		}
 	}
 
