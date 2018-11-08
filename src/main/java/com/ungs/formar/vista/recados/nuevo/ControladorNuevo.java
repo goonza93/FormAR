@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.definidos.Rol;
@@ -18,7 +19,7 @@ import com.ungs.formar.vista.util.Sesion;
 public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 	private ControladorRecados invocador;
 	private VentanaNuevo ventana;
-	private Empleado receptor;
+	private List<Empleado> receptores;
 
 	public ControladorNuevo(ControladorRecados invocador) {
 		this.invocador = invocador;
@@ -53,7 +54,9 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		Empleado emisor = Sesion.getEmpleado();
 		String titulo = ventana.getTitulo().getText();
 		String mensaje = ventana.getMensaje().getText();
-		Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
+		for(Empleado receptor: receptores){
+			Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
+		}
 		ventana.dispose();
 		ventana = null;
 		invocador.inicializar();
@@ -73,9 +76,13 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		ventana.deshabilitar();
 	}
 
-	public void setEmpleado(Empleado empleado) {
-		ventana.getDestinatario().setText(empleado.getNombre());
-		receptor = empleado;
+	public void setEmpleado(List<Empleado> empleados) {
+		String nombres = "";
+		for(Empleado uno: empleados){
+			nombres += uno.getNombre() +", ";
+		}
+		ventana.getDestinatario().setText(nombres);
+		receptores = empleados;
 	}
 
 	public void mostrar() {
