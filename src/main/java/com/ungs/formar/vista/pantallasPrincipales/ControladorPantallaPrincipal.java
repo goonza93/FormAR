@@ -13,6 +13,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.chainsaw.Main;
+
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
@@ -34,6 +36,8 @@ import com.ungs.formar.vista.gestion.inscripciones.ControladorInscripcionABM;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
+import com.ungs.formar.vista.login.ControladorLogin;
+import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
@@ -78,6 +82,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaAdministrativo.getBtnGestionarInscripciones().addActionListener(this);
 		this.pantallaAdministrativo.getBtnRecados().addActionListener(this);
 		this.pantallaAdministrativo.getBtnCambiarPass().addActionListener(this);
+		this.pantallaAdministrativo.getLogOut().addActionListener(this);
 		this.pantallaAdministrativo.getBtnGestionarContacto().addActionListener(this);
 		this.pantallaAdministrativo.getBtnGestionarPagos().addActionListener(this);
 		setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
@@ -91,6 +96,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		//this.pantallaSupervisor.getBtnGestionarSalas().addActionListener(this);
 		this.pantallaSupervisor.getBtnRecados().addActionListener(this);
 		this.pantallaSupervisor.getBtnCambiarPass().addActionListener(this);
+		this.pantallaSupervisor.getLogOut().addActionListener(this);
 		this.pantallaSupervisor.getBtnGenerarBackUp().addActionListener(this);
 		this.pantallaSupervisor.getBtnObtenerBackUp().addActionListener(this);
 		setBienvenido(this.pantallaSupervisor.getLabelBienvenido());
@@ -103,6 +109,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaInstructor.getBtnGestionarNotas().addActionListener(this);
 		this.pantallaInstructor.getBtnRecados().addActionListener(this);
 		this.pantallaInstructor.getBtnCambiarPass().addActionListener(this);
+		this.pantallaInstructor.getLogOut().addActionListener(this);
 		setBienvenido(this.pantallaInstructor.getLabelBienvenido());
 	}
 
@@ -222,6 +229,18 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaAdministrativo = null;
 			this.inicializar();
 		}
+		
+		else if(e.getSource() == pantallaAdministrativo.getLogOut()){
+			if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+				pantallaAdministrativo.dispose();
+				pantallaAdministrativo = null;
+				Sesion.setEmpleado(null);
+				VentanaIniciarSesion v = new VentanaIniciarSesion();
+				ControladorLogin c = new ControladorLogin(v);
+				c.inicializar();
+			}
+		}
+		
 	}
 
 	private void clickBtnPantallaSupervisor(ActionEvent e) {
@@ -274,6 +293,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		else if (e.getSource() == pantallaSupervisor.getBtnObtenerBackUp()) {
 			ActualizarBackupMySQL();
 		}
+		
+		else if(e.getSource() == pantallaSupervisor.getLogOut()){
+			if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+				pantallaSupervisor.dispose();
+				pantallaSupervisor = null;
+				Sesion.setEmpleado(null);
+				VentanaIniciarSesion v = new VentanaIniciarSesion();
+				ControladorLogin c = new ControladorLogin(v);
+				c.inicializar();
+			}
+		}
 
 	}
 
@@ -307,6 +337,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			pantallaInstructor.ocultar();
 			this.pantallaInstructor = null;
 			this.inicializar();
+		}
+		
+		else if(e.getSource() == pantallaInstructor.getLogOut()){
+			if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+				pantallaInstructor.dispose();
+				pantallaInstructor = null;
+				Sesion.setEmpleado(null);
+				VentanaIniciarSesion v = new VentanaIniciarSesion();
+				ControladorLogin c = new ControladorLogin(v);
+				c.inicializar();
+			}
 		}
 	}
 

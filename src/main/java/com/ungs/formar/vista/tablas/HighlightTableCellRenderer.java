@@ -6,6 +6,8 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import com.ungs.formar.vista.util.Sesion;
+
 public class HighlightTableCellRenderer extends DefaultTableCellRenderer
 {
 	private static final long serialVersionUID = 1L;

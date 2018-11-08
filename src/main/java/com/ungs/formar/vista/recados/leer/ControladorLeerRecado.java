@@ -14,15 +14,17 @@ public class ControladorLeerRecado implements ActionListener{
 	private VentanaLeerRecado ventana;
 	private Recado recado;
 
-	public ControladorLeerRecado(RecadoLegible invocador, Recado recado) {
+	public ControladorLeerRecado(RecadoLegible invocador, Recado recado, boolean enviados) {
 		this.invocador = invocador;
 		this.recado = recado;
 		Mensajero.marcarComoLeido(recado);
-		
 		ventana = new VentanaLeerRecado(recado);
 		ventana.getArchivar().addActionListener(this);
 		ventana.getBorrar().addActionListener(this);
 		ventana.getVolver().addActionListener(this);
+		if(enviados){
+			ventana.getArchivar().hide();
+		}
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

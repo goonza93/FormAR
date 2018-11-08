@@ -10,6 +10,7 @@ import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.PantallaPrincipalAdministrativo;
 import com.ungs.formar.vista.util.Notifier;
+import com.ungs.formar.vista.util.Sesion;
 
 public class Main {
 

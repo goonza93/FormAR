@@ -10,6 +10,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -21,9 +24,12 @@ public class PantallaPrincipalInstructor {
 	private JLabel lblLogo;
 	private JLabel lblBienvenido;
 	private JButton btnGestionarAsistencias;
-	private JButton btnCambiarPass;
 	private JButton btnMenuSupervisor;
 	private JButton btnRecados;
+	private JMenuBar menuBar;
+	private JMenu mnOpciones;
+	private JMenuItem mntmCerrarSesin;
+	private JMenuItem mntmCambiarContrasea;
 	
 
 	public PantallaPrincipalInstructor() {
@@ -54,9 +60,6 @@ public class PantallaPrincipalInstructor {
 		lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenido.setFont(new Font("Arial", Font.BOLD, 15));
 		
-		btnCambiarPass = new JButton("CAMBIAR CONTRASE\u00D1A");
-		btnCambiarPass.setFont(new Font("Arial", Font.PLAIN, 12));
-		
 		btnGestionarAsistencias = new JButton("GESTIONAR ASISTENCIAS");
 		btnGestionarAsistencias.setFont(new Font("Arial", Font.PLAIN, 12));
 		
@@ -72,36 +75,32 @@ public class PantallaPrincipalInstructor {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+						.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblBienvenido, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+							.addComponent(lblBienvenido, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnCambiarPass, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnMenuSupervisor, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnMenuSupervisor, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnGestionarNotas, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+							.addComponent(btnGestionarNotas, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnRecados, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-								.addComponent(btnGestionarAsistencias, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))))
+								.addComponent(btnRecados, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+								.addComponent(btnGestionarAsistencias, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE, false)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnCambiarPass)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnMenuSupervisor, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 							.addGap(1))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(1)
 							.addComponent(lblBienvenido, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)))
 					.addGap(39)
-					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
 					.addGap(45)
 					.addComponent(btnRecados, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -112,6 +111,17 @@ public class PantallaPrincipalInstructor {
 		);
 		panel.setLayout(gl_panel);
 
+		menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		
+		mnOpciones = new JMenu("Opciones");
+		menuBar.add(mnOpciones);
+		
+		mntmCambiarContrasea = new JMenuItem("Cambiar contrase\u00F1a");
+		mnOpciones.add(mntmCambiarContrasea);
+		
+		mntmCerrarSesin = new JMenuItem("Cerrar sesi\u00F3n");
+		mnOpciones.add(mntmCerrarSesin);
 	}
 
 	public void show() {
@@ -137,10 +147,14 @@ public class PantallaPrincipalInstructor {
 		return btnGestionarAsistencias;
 	}
 	
-	public JButton getBtnCambiarPass(){
-		return btnCambiarPass;
+	public JMenuItem getBtnCambiarPass(){
+		return mntmCambiarContrasea;
 	}
 	
+	public JMenuItem getLogOut() {
+		return mntmCerrarSesin;
+	}
+
 	public JButton getBtnMenuSupervisor(){
 		return btnMenuSupervisor;
 	}
@@ -160,4 +174,9 @@ public class PantallaPrincipalInstructor {
 	public void ocultar() {
 		this.frame.setVisible(false);
 	}
+	
+	public void dispose(){
+		this.frame.dispose();
+	}
+
 }

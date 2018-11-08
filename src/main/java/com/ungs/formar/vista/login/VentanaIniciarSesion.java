@@ -52,6 +52,7 @@ public class VentanaIniciarSesion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.setLocationRelativeTo(null);
+		frame.setTitle("Inicio de sesión");
 		
 		JPanel panelUsuario = new JPanel();
 		frame.getContentPane().add(panelUsuario);
