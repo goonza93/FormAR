@@ -388,7 +388,10 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		else if (!Validador.validarUsuario(pass1) || pass1.length() > 8 || pass1.length() < 6)
 			msjReglasPass();
 		else if (!pass1.equals(pass2))
-			Popup.mostrar("Las contraseñas ingresadas no coinciden");
+			Popup.mostrar("Las contraseñas nuevas ingresadas no coinciden.");
+		else if(!validarPasswordActual()){
+			Popup.mostrar("La contraseña actual es incorrecta.");
+		}
 		else {
 			Empleado usuario = Sesion.getEmpleado();
 			String nuevaPassCifrada = Hash.md5(pass1);
@@ -399,6 +402,15 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			ventanaCambiarPass.dispose();
 			this.ventanaCambiarPass = null;
 		}
+	}
+	
+	private boolean validarPasswordActual(){
+		String passCifrado = Sesion.getEmpleado().getPassword();
+		String passIngresado = Hash.md5(new String(ventanaCambiarPass.getPassword().getPassword()));
+		if (!passCifrado.equals(passIngresado)) {
+			return false;
+		}
+		return true;
 	}
 
 	private void mostrarPantallaPrincipal() {
