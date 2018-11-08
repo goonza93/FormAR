@@ -54,6 +54,18 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		Empleado emisor = Sesion.getEmpleado();
 		String titulo = ventana.getTitulo().getText();
 		String mensaje = ventana.getMensaje().getText();
+		if(receptores==null || receptores.isEmpty()){
+			Popup.mostrar("No hay ningun destinatario seleccionado.");
+			return;
+		}
+		if(titulo.equals("")){
+			titulo = "Sin titulo";
+		}
+		if(mensaje.equals("")){
+			Popup.mostrar("El mensaje esta vacio.");
+			return;
+		}
+		
 		for(Empleado receptor: receptores){
 			Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
 		}
