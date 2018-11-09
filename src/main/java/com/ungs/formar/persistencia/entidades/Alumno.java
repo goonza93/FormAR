@@ -3,10 +3,10 @@ package com.ungs.formar.persistencia.entidades;
 public class Alumno {
 	private Integer ID;
 	private String DNI, nombre, apellido, telefono, email;
-	private Boolean activo;
+	private Boolean activo, bloqueado;
 	
 	public Alumno(Integer iD, String dNI, String nombre, String apellido, String telefono, String email,
-			Boolean activo) {
+			Boolean activo, Boolean bloqueado) {
 		this.ID = iD;
 		this.DNI = dNI;
 		this.nombre = nombre;
@@ -14,6 +14,7 @@ public class Alumno {
 		this.telefono = telefono;
 		this.email = email;
 		this.activo = activo;
+		this.bloqueado = bloqueado;
 	}
 
 	public Integer getID() {
@@ -71,5 +72,13 @@ public class Alumno {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-	
+
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
+
 }

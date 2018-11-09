@@ -1,8 +1,8 @@
 package com.ungs.formar.negocios;
 
 import java.util.List;
+
 import com.ungs.formar.persistencia.FactoryODB;
-import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfaces.AlumnoODB;
@@ -10,7 +10,7 @@ import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 public class AlumnoManager {
 
 	public static void crearAlumno(String dni, String nombre, String apellido, String telefono, String email) {
-		Alumno alumno = new Alumno(-1, dni, nombre, apellido, telefono, email, true);
+		Alumno alumno = new Alumno(-1, dni, nombre, apellido, telefono, email, true, false);
 		AlumnoODB odb = FactoryODB.crearAlumnoODB();
 		odb.insert(alumno);
 	}
@@ -53,4 +53,6 @@ public class AlumnoManager {
 		
 		return false;
 	}
+	
+	
 }

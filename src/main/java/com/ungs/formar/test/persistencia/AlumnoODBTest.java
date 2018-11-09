@@ -24,7 +24,7 @@ public class AlumnoODBTest {
 	}
 	
 	public static void main(String[] args) {
-		Alumno alumno = new Alumno(-1, "37905623", "gonzalo", "bruckmann", "1531769550", "goonza.93@live.com.ar", true);
+		Alumno alumno = new Alumno(-1, "37905623", "gonzalo", "bruckmann", "1531769550", "goonza.93@live.com.ar", true, false);
 		insertTest(alumno);
 		selectTest();
 	}	

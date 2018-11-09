@@ -1,10 +1,7 @@
 package com.ungs.formar;
 
 import com.ungs.formar.negocios.EmpleadoManager;
-import com.ungs.formar.vista.login.ControladorLogin;
-import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
-import com.ungs.formar.vista.pantallasPrincipales.PantallaPrincipalAdministrativo;
 
 public class Main {
 

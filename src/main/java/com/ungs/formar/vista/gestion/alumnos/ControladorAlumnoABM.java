@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
+import com.ungs.formar.negocios.Concurrencia;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.vista.consulta.Consultable;
@@ -161,6 +162,12 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		}
 
 		Alumno alumno = seleccion.get(0);
+		if (Concurrencia.estaBloqueado(alumno)) {
+			Popup.mostrar("No se puede acceder al alumno seleccionado.\nEsta siendo editado por otra persona en este momento");
+			return;
+		}
+		
+		Concurrencia.bloquear(alumno);
 		ventanaAM = new VentanaAlumnoAM(alumno);
 		ventanaAM.getAceptar().addActionListener(this);
 		ventanaAM.getCancelar().addActionListener(this);
@@ -217,6 +224,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 				alumno.setTelefono(telefono);
 				alumno.setEmail(email);
 				AlumnoManager.editarAlumno(alumno);
+				Concurrencia.desbloquear(alumno);
 			}
 
 			llenarTabla();
@@ -231,6 +239,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
+			Concurrencia.desbloquear(ventanaAM.getAlumno());
 			ventanaAM.dispose();
 			ventanaAM = null;
 			ventanaABM.getVentana().setEnabled(true);

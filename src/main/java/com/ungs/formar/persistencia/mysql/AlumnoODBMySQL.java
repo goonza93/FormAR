@@ -11,7 +11,7 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 
 public class AlumnoODBMySQL extends ODB implements AlumnoODB{
-	private final String campos = "DNI, nombre, apellido, telefono, email, activo";
+	private final String campos = "DNI, nombre, apellido, telefono, email, activo, bloqueado";
 	private final String tabla = "for_alumnos";
 	
 	public void insert (Alumno alumno) {
@@ -26,7 +26,8 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 				+", "+apellido
 				+", "+telefono
 				+", "+mail
-				+", "+alumno.getActivo();
+				+", "+alumno.getActivo()
+				+", "+alumno.getBloqueado();
 				
 		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(consulta);
@@ -47,6 +48,7 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 				+", telefono = "+telefono
 				+", email = "+ mail
 				+", activo = "+ alumno.getActivo()
+				+", bloqueado = "+ alumno.getBloqueado()
 				+"  where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
@@ -105,7 +107,8 @@ public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 						resultados.getString("apellido"),
 						resultados.getString("telefono"),
 						resultados.getString("email"),
-						resultados.getBoolean("activo")
+						resultados.getBoolean("activo"),
+						resultados.getBoolean("bloqueado")
 						));
 				}
 			

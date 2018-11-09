@@ -39,6 +39,7 @@ CREATE TABLE for_alumnos (
 	telefono VARCHAR(50),
 	email VARCHAR(50) NOT NULL,
 	activo BOOLEAN NOT NULL,
+	bloqueado BOOLEAN NOT NULL,
 	PRIMARY KEY (ID)
 );
 
