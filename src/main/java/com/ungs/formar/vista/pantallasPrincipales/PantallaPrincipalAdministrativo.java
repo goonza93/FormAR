@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
@@ -41,6 +42,8 @@ public class PantallaPrincipalAdministrativo {
 	private JMenu mnOpciones;
 	private JMenuItem mntmCerrarSesin;
 	private JMenuItem mntmCambiarContrasea;
+	private JMenuBar notifBar;
+	private JMenuItem mntmNotif;
 
 	public PantallaPrincipalAdministrativo() {
 		super();
@@ -163,7 +166,6 @@ public class PantallaPrincipalAdministrativo {
 		panel.setLayout(gl_panel);
 
 		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
 		
 		mnOpciones = new JMenu("Opciones");
 		menuBar.add(mnOpciones);
@@ -173,6 +175,16 @@ public class PantallaPrincipalAdministrativo {
 		
 		mntmCerrarSesin = new JMenuItem("Cerrar sesi\u00F3n");
 		mnOpciones.add(mntmCerrarSesin);
+		
+		notifBar = new JMenuBar();
+		mntmNotif = new JMenuItem("Notificaciones");
+		notifBar.add(mntmNotif);
+		
+		
+		JPanel menuPanel = new JPanel( new BorderLayout() );
+        menuPanel.add(menuBar, BorderLayout.CENTER);
+        menuPanel.add(notifBar, BorderLayout.EAST);
+        frame.add(menuPanel, BorderLayout.NORTH);
 	}
 
 	public void show() {
@@ -232,6 +244,10 @@ public class PantallaPrincipalAdministrativo {
 	
 	public JMenuItem getLogOut() {
 		return mntmCerrarSesin;
+	}
+	
+	public JMenuItem getBtnNotif(){
+		return mntmNotif;
 	}
 	
 	public JButton getBtnMenuSupervisor(){
