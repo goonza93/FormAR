@@ -55,7 +55,7 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 		}
 		
 		ventana.deshabilitar();
-		new ControladorLeerRecado(this, recados.get(0));
+		new ControladorLeerRecado(this, recados.get(0), false);
 	}
 
 	private void borrar() {
@@ -75,7 +75,7 @@ public class ControladorArchivo implements ActionListener, RecadoLegible{
 	public void recargar() {
 		Empleado empleado = Sesion.getEmpleado();
 		List<Recado> recados = Mensajero.traerMensajesArchivados(empleado);
-		ventana.getTabla().recargar(recados);
+		ventana.getTabla().recargar(recados,"recibidos");
 	}
 	
 	private void volver() {

@@ -188,6 +188,7 @@ public class ControladorAgregarHorario implements ActionListener {
 
 	private void validarAgregarHorario() {
 		String msjError = obtenerMsjError();
+		msjError += validarDisponibilidadSalaEnHorario();
 
 		String minI = this.ventanaAgregarHorario.getTxtMinutosInicio().getText();
 		String minF = this.ventanaAgregarHorario.getTxtMinutosFin().getText();
@@ -256,7 +257,12 @@ public class ControladorAgregarHorario implements ActionListener {
 			msjError += "- Por favor, ingrese nuevamente los horarios. El horario fin debe"
 					+ " \nser posterior al horario de inicio\n";
 		}
-		// Validaciones disponibilidad de la sala en el horario
+		
+		return msjError;
+	}
+
+	private String validarDisponibilidadSalaEnHorario(){
+		String msjError = "";
 		if (!this.esEdicion && this.sala != null && !SalaManager.validarHorarioDeCursada(crearHorarioIngresado(), this.sala, this.fechaInicio)) {
 			msjError += "- La sala no esta disponible en el horario ingresado, seleccione otra sala.\n";
 		}
@@ -265,5 +271,4 @@ public class ControladorAgregarHorario implements ActionListener {
 		}
 		return msjError;
 	}
-
 }

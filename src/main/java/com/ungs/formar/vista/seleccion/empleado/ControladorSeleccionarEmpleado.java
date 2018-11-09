@@ -2,10 +2,13 @@ package com.ungs.formar.vista.seleccion.empleado;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
+
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Interaccion;
 
 public class ControladorSeleccionarEmpleado implements ActionListener {
 	private VentanaSeleccionarEmpleado ventana;
@@ -51,26 +54,24 @@ public class ControladorSeleccionarEmpleado implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// BOTON SELECCIONAR
 		if (e.getSource() == ventana.getBtnSeleccionar())
-			seleccionarEmpleado();
+			seleccionarEmpleados();
 	
 		// BOTON CANCELAR
 		else if (e.getSource() == ventana.getBtnCancelar())
 			cancelar();
 	}
 	
-	private void seleccionarEmpleado() {
-		int fila_seleccionada = ventana.getTablaEmpleados().getSelectedRow();
-		if (fila_seleccionada != -1) {
-			// ESTE ES EL FIX PARA QUE FUNCIONE TMB CON FILTROS...
-			// BASICAMENTE TOMO EL INDICE DE LA ROW Y LA TRADUZCO A LA DEL MODEL QUE EL CORRESPONDE
-			int row = ventana.getTablaEmpleados().getSelectedRow(); // indice row de la tabla
-			int modelFila = ventana.getTablaEmpleados().convertRowIndexToModel(row); // indice row del model de 
-			//la row de la tabla
-			
-			invocador.setEmpleado(empleados.get(modelFila));
-			ventana.dispose();
-			invocador.mostrar();
+	private void seleccionarEmpleados() {		
+		List<Empleado> registros = new ArrayList<Empleado>();
+		int[] indices = ventana.getTablaEmpleados().getSelectedRows();
+
+		for (int indice : indices) {
+			int registro = ventana.getTablaEmpleados().convertRowIndexToModel(indice);
+			registros.add(empleados.get(registro));
 		}
+		invocador.setEmpleado(registros);
+		ventana.dispose();
+		invocador.mostrar();
 	}
 		
 	private void cancelar() {

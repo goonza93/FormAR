@@ -12,19 +12,28 @@ import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AreaManager;
+import com.ungs.formar.negocios.ContactoManager;
+import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Programa;
+import com.ungs.formar.vista.consulta.Consultable;
+import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
+import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
+import com.ungs.formar.vista.consulta.contactos.ControladorConsultaInteresados;
+import com.ungs.formar.vista.consulta.contactos.VentanaConsultaInteresados;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
+import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.ventanas.VentanaProgramaAM;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
-public class ControladorAreaABM implements ActionListener{
+public class ControladorAreaABM implements ActionListener, Consultable {
 	private GestionarAreas ventanaAreaGestion;
 	private AltaModifArea ventanaAreaAM;
 	private VentanaSeleccionarArea ventanaSeleccionarArea;
@@ -39,6 +48,7 @@ public class ControladorAreaABM implements ActionListener{
 		this.ventanaAreaGestion.getBtnAgregar().addActionListener(this);
 		this.ventanaAreaGestion.getBtnEditar().addActionListener(this);
 		this.ventanaAreaGestion.getBtnBorrar().addActionListener(this);
+		this.ventanaAreaGestion.getBtnVerInteresados().addActionListener(this);
 		this.inicializar();
 	}
 
@@ -51,6 +61,7 @@ public class ControladorAreaABM implements ActionListener{
 		});
 		llenarTabla();
 		ventanaAreaGestion.setVisible(true);
+		ventanaAreaGestion.setEnabled(true);
 	}
 
 	private void llenarTabla() {
@@ -68,6 +79,9 @@ public class ControladorAreaABM implements ActionListener{
 					};
 			ventanaAreaGestion.getModelTemas().addRow(fila);
 		}
+
+		ventanaAreaGestion.getTablaAreas().getColumnModel().getColumn(0).setPreferredWidth(120);
+		ventanaAreaGestion.getTablaAreas().getColumnModel().getColumn(1).setPreferredWidth(400);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -82,6 +96,19 @@ public class ControladorAreaABM implements ActionListener{
 		}
 		else if (e.getSource() == ventanaAreaGestion.getBtnCancelar()){
 			retroceder();
+		}
+		else if(e.getSource() == ventanaAreaGestion.getBtnVerInteresados()){
+			List<Area> areas = obtenerAreasSeleccionados();
+			if (areas.size() != 1) {
+				Popup.mostrar("Seleccione exactamente un area para ver sus interesados.");
+			} else {
+				if (ContactoManager.traerInteresadosArea(areas.get(0).getID()).isEmpty()){
+					Popup.mostrar("El area seleccionada no tiene interesados.");
+					return;
+				}
+				new ControladorConsultaInteresados(this, areas.get(0));
+				ventanaAreaGestion.setEnabled(false);
+			}
 		}
 		else if (e.getActionCommand() == "guardar") {
 			aceptarAM();

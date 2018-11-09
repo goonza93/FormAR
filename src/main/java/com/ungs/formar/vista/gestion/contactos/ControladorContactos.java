@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.Validador;
+import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteracciones;
@@ -140,7 +141,17 @@ public class ControladorContactos implements ActionListener {
 		// HABRIA QUE AGREGARLE ESO
 		if (Popup.confirmar("¿Esta seguro que quiere borrar los contactos seleccionados?")) {
 			for (Interesado contacto : seleccionados) {
-				ContactoManager.eliminarContacto(contacto);
+				List<Interaccion> interaccionesAsociadas = ContactoManager.traerInteraccionPorContacto(contacto.getID());
+				if(interaccionesAsociadas.size()>0){
+					if(Popup.confirmar("El contacto "+ contacto.getNombre()+" tiene interacciones asociadas ¿desea continuar?")){
+						for(Interaccion inter : interaccionesAsociadas){
+							ContactoManager.eliminarInteraccion(inter);
+						}
+						ContactoManager.eliminarContacto(contacto);
+					}
+				} else {
+					ContactoManager.eliminarContacto(contacto);
+				}
 			}
 		}		
 		inicializar();

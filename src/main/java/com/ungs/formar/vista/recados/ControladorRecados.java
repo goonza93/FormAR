@@ -49,7 +49,7 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 	private void llenarTabla() {
 		Empleado empleado = Sesion.getEmpleado();
 		List<Recado> recados = Mensajero.traerMensajesRecibidos(empleado);
-		ventana.getTabla().recargar(recados);
+		ventana.getTabla().recargar(recados, "recibidos");
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -117,7 +117,7 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 		}
 		
 		ventana.deshabilitar();
-		new ControladorLeerRecado(this, recados.get(0));
+		new ControladorLeerRecado(this, recados.get(0), false);
 	}
 
 	private void borrar() {

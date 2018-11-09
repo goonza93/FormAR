@@ -12,13 +12,22 @@ public class Mensajero {
 		Recado recadoEmisor = new Recado(-1, emisor.getID(), receptor.getID(), emisor.getID(), contenido, titulo, false, false, Almanaque.hoy());
 		Recado recadoReceptor = new Recado(-1, receptor.getID(), receptor.getID(), emisor.getID(), contenido, titulo, false, false, Almanaque.hoy());
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
-		obd.insert(recadoEmisor);
-		obd.insert(recadoReceptor);
+		if(emisor.getID() == receptor.getID()){
+			obd.insert(recadoEmisor);
+		}else {
+			obd.insert(recadoEmisor);
+			obd.insert(recadoReceptor);
+		}
 	}
 
 	public static List<Recado> traerMensajesRecibidos(Empleado empleado) {
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
-		return obd.selectByEmpleadoReceptorArchivado(empleado, empleado, false);
+		return obd.selectByReceptor(empleado);
+	}
+	
+	public static List<Recado> traerMensajesSinLeer(Empleado empleado){
+		RecadoOBD obd = FactoryODB.crearRecadoOBD();
+		return obd.selectByEmpleadoReceptorSinLeer(empleado);
 	}
 
 	public static List<Recado> traerMensajesEnviados(Empleado empleado) {

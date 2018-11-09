@@ -2,9 +2,12 @@ package com.ungs.formar.vista.tablas;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import com.ungs.formar.vista.util.Sesion;
 
 public class HighlightTableCellRenderer extends DefaultTableCellRenderer
 {
@@ -21,10 +24,10 @@ public class HighlightTableCellRenderer extends DefaultTableCellRenderer
         {
         	if (table.getModel().getValueAt(row, 4).equals(false))
             {
-            	c.setBackground(Color.ORANGE);
-            } else {
-                c.setBackground(table.getBackground());
+            	//c.setBackground(Color.ORANGE);
+            	c.setFont(this.getFont().deriveFont(Font.BOLD + Font.ITALIC));
             }
+        	c.setBackground(table.getBackground());
         }
         return c;
     }

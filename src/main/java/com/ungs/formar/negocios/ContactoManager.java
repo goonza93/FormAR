@@ -1,12 +1,15 @@
 package com.ungs.formar.negocios;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 import com.ungs.formar.persistencia.interfaces.InteraccionOBD;
 import com.ungs.formar.persistencia.interfaces.InteresadoOBD;
@@ -34,9 +37,51 @@ public class ContactoManager {
 		return odb.select();
 	}
 	
-	public static List<Interesado> traerContactoPorID(Integer id) {
+	public static Interesado traerContactoPorID(Integer id) {
 		InteresadoOBD odb = FactoryODB.crearInteresadoOBD();
 		return odb.selectByID(id);
+	}
+	
+	public static List<Interesado> traerInteresadosCurso(Integer id){
+		List<Interesado> interesados = null;
+		
+		return interesados;
+	}
+	
+	public static List<Interesado> traerInteresadosArea(Integer id){
+		List<Interesado> interesados = new ArrayList<Interesado>();
+		List<Interaccion> interacciones = traerInteraccionPorArea(id);
+		for(Interaccion interaccion : interacciones){
+			boolean esta = false;
+			for(Interesado interesado : interesados){
+				if(interesado.getID() == interaccion.getInteresadoID()){
+					esta = true;
+				}
+			}
+			if(!esta){
+				interesados.add(traerContactoPorID(interaccion.getInteresadoID()));
+			}
+			
+		}
+		return interesados;
+	}
+	
+	public static List<Interesado> traerInteresadosPrograma(Integer id){
+		List<Interesado> interesados = new ArrayList<Interesado>();
+		List<Interaccion> interacciones = traerInteraccionPorPrograma(id);
+		for(Interaccion interaccion : interacciones){
+			boolean esta = false;
+			for(Interesado interesado : interesados){
+				if(interesado.getID() == interaccion.getInteresadoID()){
+					esta = true;
+				}
+			}
+			if(!esta){
+				interesados.add(traerContactoPorID(interaccion.getInteresadoID()));
+			}
+			
+		}
+		return interesados;
 	}
 	
 	public static boolean estaEnUsoDNI(String dni) {
@@ -83,6 +128,16 @@ public class ContactoManager {
 	public static List<Interaccion> traerInteraccionPorEmpleado(Integer id) {
 		InteraccionOBD odb = FactoryODB.crearInteraccionOBD();
 		return odb.selectByEmpleado(id);
+	}
+	
+	public static List<Interaccion> traerInteraccionPorArea(Integer id){
+		InteraccionOBD odb = FactoryODB.crearInteraccionOBD();
+		return odb.selectByArea(id);
+	}
+	
+	public static List<Interaccion> traerInteraccionPorPrograma(Integer id){
+		InteraccionOBD odb = FactoryODB.crearInteraccionOBD();
+		return odb.selectByPrograma(id);
 	}
 	
 }

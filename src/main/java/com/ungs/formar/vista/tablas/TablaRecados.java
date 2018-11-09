@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.ungs.formar.persistencia.entidades.Recado;
@@ -15,16 +16,22 @@ public class TablaRecados extends JTable{
 	private DefaultTableModel modelo;
 	private List<Recado> recados;
 
-	public TablaRecados(List<Recado> recados) {
+	public TablaRecados(List<Recado> recados, String tipo) {
+		modelo = new DefaultTableModel(null, columnas);
+		setModel(modelo);
+		setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
+		recargar(recados, tipo);
+	}
+	
+	public TablaRecados(List<Recado> recados, String tipo, boolean coloreable) {
 		modelo = new DefaultTableModel(null, columnas);
 		HighlightTableCellRenderer render = new HighlightTableCellRenderer();
 		setModel(modelo);
 		setDefaultRenderer(Object.class, render);
-		recargar(recados);
-		
-	}	
+		recargar(recados, tipo);
+	}
 	
-	public void recargar(List<Recado> recados) {
+	public void recargar(List<Recado> recados, String tipo) {
 		this.recados = recados;
 		modelo.setRowCount(0);
 		modelo.setColumnCount(0);
@@ -41,6 +48,12 @@ public class TablaRecados extends JTable{
 			modelo.addRow(fila);
 		}
 		removeColumn(getColumnModel().getColumn(4));
+		if(tipo.equals("recibidos")){
+			removeColumn(getColumnModel().getColumn(1));
+		}
+		else if(tipo.equals("enviados")){
+			removeColumn(getColumnModel().getColumn(0));
+		}
 	}
 	
 	public List<Recado> obtenerSeleccion() {

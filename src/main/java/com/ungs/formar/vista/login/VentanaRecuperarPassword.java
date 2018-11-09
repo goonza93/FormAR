@@ -47,6 +47,7 @@ public class VentanaRecuperarPassword {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.setLocationRelativeTo(null);
 		
 		JPanel panelEntrada = new JPanel();
 		frame.getContentPane().add(panelEntrada);

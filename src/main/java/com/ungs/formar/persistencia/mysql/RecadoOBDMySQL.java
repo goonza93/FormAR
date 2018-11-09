@@ -58,7 +58,17 @@ public class RecadoOBDMySQL extends ODB implements RecadoOBD{
 	}
 
 	public List<Recado> selectByReceptor(Empleado receptor) {
-		String condicion = "receptor = "+receptor.getID();
+		String condicion = "empleado = "+receptor.getID()
+				+" and receptor = "+receptor.getID();
+		List<Recado> recados = selectByCondicion(condicion);
+		return recados;
+	}
+	
+	public List<Recado> selectByEmpleadoReceptorSinLeer(Empleado receptor) {
+		boolean leido = false;
+		String condicion = "empleado = "+receptor.getID()
+				+" and receptor = "+receptor.getID()
+				+" and leido = "+ leido;
 		List<Recado> recados = selectByCondicion(condicion);
 		return recados;
 	}

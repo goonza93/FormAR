@@ -23,7 +23,7 @@ public class VentanaRecados extends Ventana {
 		
 		// TABLA DE MENSAJES
 		Empleado empleado = Sesion.getEmpleado();
-		tabla = new TablaRecados(Mensajero.traerMensajesRecibidos(empleado));
+		tabla = new TablaRecados(Mensajero.traerMensajesRecibidos(empleado), "recibidos", true);
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
 		

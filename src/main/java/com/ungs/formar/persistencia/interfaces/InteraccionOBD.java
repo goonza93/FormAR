@@ -19,5 +19,9 @@ public interface InteraccionOBD {
 	public List<Interaccion> selectByInteresado(Integer interesadoID);
 	
 	public List<Interaccion> selectByEmpleado(Integer empleadoID);
+	
+	public List<Interaccion> selectByArea(Integer areaID);
+	
+	public List<Interaccion> selectByPrograma(Integer programaID);
 
 }

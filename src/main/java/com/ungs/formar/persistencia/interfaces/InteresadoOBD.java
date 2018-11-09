@@ -15,7 +15,7 @@ public interface InteresadoOBD {
 	
 	public List<Interesado> select();
 	
-	public List<Interesado> selectByID(Integer id);
+	public Interesado selectByID(Integer id);
 
 	public Interesado selectByDNI(String dni);
 

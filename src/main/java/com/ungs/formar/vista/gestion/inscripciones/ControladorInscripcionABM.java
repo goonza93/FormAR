@@ -94,7 +94,9 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		alumnos = InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado);
 		for (Alumno alumno : alumnos) {
 			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDNI(), alumno.getEmail(),
-					alumno.getTelefono()}; //, InscripcionManager.traerInscripcion(alumno, cursoSeleccionado).getFecha() };
+					alumno.getTelefono() }; // ,
+											// InscripcionManager.traerInscripcion(alumno,
+											// cursoSeleccionado).getFecha() };
 			ventanaBaja.getModeloAlumnos().addRow(fila);
 		}
 	}
@@ -143,12 +145,15 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 	private void abrirVentanaPagar() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void cancelarInscripcion() {
 		List<Alumno> alumnos = obtenerAlumnosSeleccionadosBaja2();
-		if (alumnos.size() == 0) {
+		if (cursoSeleccionado.getEstado() == EstadoCurso.FINALIZADO
+				|| cursoSeleccionado.getEstado() == EstadoCurso.CANCELADO) {
+			Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
+		} else if (alumnos.size() == 0) {
 			Popup.mostrar("Seleccione al menos 1 alumno para dar de baja.");
 		} else {
 			if (Popup.confirmar("¿Estas seguro que deseas dar de bajo a los alumnos seleccionados?")) {
@@ -163,27 +168,25 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 	private void abrirVentanaBaja() {
 		cursoSeleccionado = obtenerCursoSeleccionado();
 		if (cursoSeleccionado != null) {
+			if (InscripcionManager.traerAlumnosInscriptos(cursoSeleccionado).isEmpty())
+				Popup.mostrar("La cursada seleccionado no tiene inscripciones");
+			else {
+				ventanaBaja = new VentanaInscripcionBaja(cursoSeleccionado);
+				ventanaBaja.getVentana().setVisible(true);
+				ventanaBaja.getBaja().addActionListener(this);
+				ventanaBaja.getVolver().addActionListener(this);
 
-			if (cursoSeleccionado.getEstado() == EstadoCurso.FINALIZADO || cursoSeleccionado.getEstado() == EstadoCurso.CANCELADO) {
-				Popup.mostrar("No se pueden cancelar inscripciones de un curso cuando esta finalizado o cerrado");
-				return;
+				ventanaBaja.getVentana().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				ventanaBaja.getVentana().addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						cerrarVentanaBaja();
+					}
+				});
+
+				ventanaABM.getVentana().setEnabled(false);
+				llenarTablaBaja();
 			}
-
-			ventanaBaja = new VentanaInscripcionBaja(cursoSeleccionado);
-			ventanaBaja.getVentana().setVisible(true);
-			ventanaBaja.getBaja().addActionListener(this);
-			ventanaBaja.getVolver().addActionListener(this);
-
-			ventanaBaja.getVentana().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-			ventanaBaja.getVentana().addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosing(WindowEvent e) {
-					cerrarVentanaBaja();
-				}
-			});
-
-			ventanaABM.getVentana().setEnabled(false);
-			llenarTablaBaja();
 		} else
 			Popup.mostrar("Seleccione exactamente 1 curso para poder gestionar bajas.");
 	}
@@ -215,7 +218,8 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 			if (confirm != 0) {
 				continuar = false;
 			}
-		}
+		} else if (!Popup.confirmar("Desea inscribir a los alumnos seleccionados!?"))
+			continuar = false;
 
 		if (continuar) {
 			for (Alumno alumno : alumnos) {
@@ -287,7 +291,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
 			return null;
-		int registro = ventanaABM.getTablaCursos().convertRowIndexToModel(registroTabla); 
+		int registro = ventanaABM.getTablaCursos().convertRowIndexToModel(registroTabla);
 		return cursos.get(registro);
 	}
 
@@ -304,10 +308,10 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 	private List<Alumno> obtenerAlumnosSeleccionadosBaja2() {
 		List<Alumno> ret = new ArrayList<Alumno>();
-		int[] registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRows(); 
+		int[] registroTabla = ventanaBaja.getTablaAlumnos().getSelectedRows();
 		// No habia ningun registro seleccionado
 		for (int fila : registroTabla) {
-			int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(fila); 
+			int registro = ventanaBaja.getTablaAlumnos().convertRowIndexToModel(fila);
 			ret.add(alumnos.get(registro));
 		}
 		return ret;

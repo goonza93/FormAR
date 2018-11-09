@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.ungs.formar.vista.util.FormatoLimitado;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Ventana;
@@ -39,7 +40,8 @@ public class VentanaNuevo extends Ventana {
 		PanelHorizontal panelTitulo = new PanelHorizontal();
 		JLabel lblTitulo = new JLabel("Titulo");
 		inTitulo = new JTextField();
-		inTitulo.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
+		inTitulo.setMaximumSize(new Dimension(Short.MAX_VALUE, 20));
+		inTitulo.setDocument(new FormatoLimitado(20));
 		panelTitulo.add(lblTitulo);
 		panelTitulo.add(inTitulo);
 		

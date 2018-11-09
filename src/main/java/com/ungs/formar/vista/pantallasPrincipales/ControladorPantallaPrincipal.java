@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.pantallasPrincipales;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -8,17 +9,22 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.chainsaw.Main;
+
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
+import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
@@ -34,6 +40,8 @@ import com.ungs.formar.vista.gestion.inscripciones.ControladorInscripcionABM;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
+import com.ungs.formar.vista.login.ControladorLogin;
+import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
@@ -78,9 +86,11 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaAdministrativo.getBtnGestionarInscripciones().addActionListener(this);
 		this.pantallaAdministrativo.getBtnRecados().addActionListener(this);
 		this.pantallaAdministrativo.getBtnCambiarPass().addActionListener(this);
+		this.pantallaAdministrativo.getLogOut().addActionListener(this);
 		this.pantallaAdministrativo.getBtnGestionarContacto().addActionListener(this);
 		this.pantallaAdministrativo.getBtnGestionarPagos().addActionListener(this);
 		setBienvenido(this.pantallaAdministrativo.getLabelBienvenido());
+		revisarRecadosNuevos();
 	}
 
 	private void mostrarPantallaSupervisor() {
@@ -91,6 +101,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		//this.pantallaSupervisor.getBtnGestionarSalas().addActionListener(this);
 		this.pantallaSupervisor.getBtnRecados().addActionListener(this);
 		this.pantallaSupervisor.getBtnCambiarPass().addActionListener(this);
+		this.pantallaSupervisor.getLogOut().addActionListener(this);
 		this.pantallaSupervisor.getBtnGenerarBackUp().addActionListener(this);
 		this.pantallaSupervisor.getBtnObtenerBackUp().addActionListener(this);
 		setBienvenido(this.pantallaSupervisor.getLabelBienvenido());
@@ -103,6 +114,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		this.pantallaInstructor.getBtnGestionarNotas().addActionListener(this);
 		this.pantallaInstructor.getBtnRecados().addActionListener(this);
 		this.pantallaInstructor.getBtnCambiarPass().addActionListener(this);
+		this.pantallaInstructor.getLogOut().addActionListener(this);
 		setBienvenido(this.pantallaInstructor.getLabelBienvenido());
 	}
 
@@ -115,12 +127,18 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	}
 
 	public void inicializar() {
-		if (this.pantallaAdministrativo != null)
+		if (this.pantallaAdministrativo != null){
+			revisarRecadosNuevos();
 			this.pantallaAdministrativo.show();
-		else if (this.pantallaInstructor != null)
+		}
+		else if (this.pantallaInstructor != null){
+			revisarRecadosNuevos();
 			this.pantallaInstructor.show();
-		else if (this.pantallaSupervisor != null)
+		}
+		else if (this.pantallaSupervisor != null){
+			revisarRecadosNuevos();
 			this.pantallaSupervisor.show();
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -222,6 +240,18 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaAdministrativo = null;
 			this.inicializar();
 		}
+		
+		else if(e.getSource() == pantallaAdministrativo.getLogOut()){
+			if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+				pantallaAdministrativo.dispose();
+				pantallaAdministrativo = null;
+				Sesion.setEmpleado(null);
+				VentanaIniciarSesion v = new VentanaIniciarSesion();
+				ControladorLogin c = new ControladorLogin(v);
+				c.inicializar();
+			}
+		}
+		
 	}
 
 	private void clickBtnPantallaSupervisor(ActionEvent e) {
@@ -274,6 +304,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		else if (e.getSource() == pantallaSupervisor.getBtnObtenerBackUp()) {
 			ActualizarBackupMySQL();
 		}
+		
+		else if(e.getSource() == pantallaSupervisor.getLogOut()){
+			if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+				pantallaSupervisor.dispose();
+				pantallaSupervisor = null;
+				Sesion.setEmpleado(null);
+				VentanaIniciarSesion v = new VentanaIniciarSesion();
+				ControladorLogin c = new ControladorLogin(v);
+				c.inicializar();
+			}
+		}
 
 	}
 
@@ -308,6 +349,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaInstructor = null;
 			this.inicializar();
 		}
+		
+		else if(e.getSource() == pantallaInstructor.getLogOut()){
+			if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+				pantallaInstructor.dispose();
+				pantallaInstructor = null;
+				Sesion.setEmpleado(null);
+				VentanaIniciarSesion v = new VentanaIniciarSesion();
+				ControladorLogin c = new ControladorLogin(v);
+				c.inicializar();
+			}
+		}
 	}
 
 	private void clickBtnCambiarPass(ActionEvent e) {
@@ -336,7 +388,10 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		else if (!Validador.validarUsuario(pass1) || pass1.length() > 8 || pass1.length() < 6)
 			msjReglasPass();
 		else if (!pass1.equals(pass2))
-			Popup.mostrar("Las contraseñas ingresadas no coinciden");
+			Popup.mostrar("Las contraseñas nuevas ingresadas no coinciden.");
+		else if(!validarPasswordActual()){
+			Popup.mostrar("La contraseña actual es incorrecta.");
+		}
 		else {
 			Empleado usuario = Sesion.getEmpleado();
 			String nuevaPassCifrada = Hash.md5(pass1);
@@ -347,6 +402,15 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			ventanaCambiarPass.dispose();
 			this.ventanaCambiarPass = null;
 		}
+	}
+	
+	private boolean validarPasswordActual(){
+		String passCifrado = Sesion.getEmpleado().getPassword();
+		String passIngresado = Hash.md5(new String(ventanaCambiarPass.getPassword().getPassword()));
+		if (!passCifrado.equals(passIngresado)) {
+			return false;
+		}
+		return true;
 	}
 
 	private void mostrarPantallaPrincipal() {
@@ -384,7 +448,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 						nombrebackup = new File(RealizarBackupMySQL.getSelectedFile().toString().trim());
 
 						Process p = Runtime.getRuntime().exec(
-								"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysql -uroot -proot formar");
+								"C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysql -uroot -proot formar");
 
 						OutputStream os = p.getOutputStream();
 						FileInputStream fis = new FileInputStream(nombrebackup);
@@ -432,7 +496,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 						+ Almanaque.hoy().toString() + ".sql");
 				FileWriter fw = new FileWriter(backupFile);
 				Process child = runtime.exec(
-						"C:\\Program Files (x86)\\MySQL\\MySQL Server 5.7\\bin\\mysqldump --opt --password=root --user=root --databases formar");
+						"C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --opt --password=root --user=root --databases formar");
 				
 				InputStreamReader irs = new InputStreamReader(child.getInputStream());
 				BufferedReader br = new BufferedReader(irs);
@@ -452,6 +516,43 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			}
 		} else if (resp == JFileChooser.CANCEL_OPTION) {
 			JOptionPane.showMessageDialog(null, "Ha sido cancelada la generacion del Backup");
+		}
+	}
+	
+	private void revisarRecadosNuevos() {
+		List<Recado> nuevos = Mensajero.traerMensajesSinLeer(Sesion.getEmpleado());
+		if(!nuevos.isEmpty()){
+			if (this.pantallaAdministrativo != null){
+				this.pantallaAdministrativo.getBtnRecados().setText("RECADOS ("+nuevos.size()+")");
+				this.pantallaAdministrativo.getBtnRecados().setFont(
+						this.pantallaAdministrativo.getBtnRecados().getFont().deriveFont(Font.BOLD));
+			}
+			else if (this.pantallaInstructor != null){
+				this.pantallaInstructor.getBtnRecados().setText("RECADOS ("+nuevos.size()+")");
+				this.pantallaInstructor.getBtnRecados().setFont(
+						this.pantallaInstructor.getBtnRecados().getFont().deriveFont(Font.BOLD));
+			}
+			else if (this.pantallaSupervisor != null){
+				this.pantallaSupervisor.getBtnRecados().setText("RECADOS ("+nuevos.size()+")");
+				this.pantallaSupervisor.getBtnRecados().setFont(
+						this.pantallaSupervisor.getBtnRecados().getFont().deriveFont(Font.BOLD));
+			}
+		} else {
+			if (this.pantallaAdministrativo != null){
+				this.pantallaAdministrativo.getBtnRecados().setText("RECADOS");
+				this.pantallaAdministrativo.getBtnRecados().setFont(
+						this.pantallaAdministrativo.getBtnRecados().getFont().deriveFont(Font.PLAIN));
+			}
+			else if (this.pantallaInstructor != null){
+				this.pantallaInstructor.getBtnRecados().setText("RECADOS");
+				this.pantallaInstructor.getBtnRecados().setFont(
+						this.pantallaInstructor.getBtnRecados().getFont().deriveFont(Font.PLAIN));
+			}
+			else if (this.pantallaSupervisor != null){
+				this.pantallaSupervisor.getBtnRecados().setText("RECADOS");
+				this.pantallaSupervisor.getBtnRecados().setFont(
+						this.pantallaSupervisor.getBtnRecados().getFont().deriveFont(Font.PLAIN));
+			}
 		}
 	}
 
