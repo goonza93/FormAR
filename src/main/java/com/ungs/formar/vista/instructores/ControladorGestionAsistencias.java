@@ -4,8 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
+import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.vista.instructores.tomar.ControladorTomarAsistencia;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Popup;
 
 public class ControladorGestionAsistencias implements ActionListener {
 	private ControladorPantallaPrincipal invocador;
@@ -44,14 +48,14 @@ public class ControladorGestionAsistencias implements ActionListener {
 	}
 
 	private void tomar() {
-		/*List<Pago> pagos = ventana.getTabla().obtenerSeleccion();
-		if (pagos.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 pago para modificarlo.");
+		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Debe seleccionar extamente 1 curso para tomarle asistencia.");
 			return;
 		}
 		
 		ventana.deshabilitar();
-		new ControladorPagoAM(this, pagos.get(0));*/
+		new ControladorTomarAsistencia(this, seleccion.get(0));
 	}
 	
 	private void volver() {
