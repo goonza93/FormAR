@@ -40,6 +40,7 @@ import com.ungs.formar.vista.gestion.inscripciones.ControladorInscripcionABM;
 import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
+import com.ungs.formar.vista.instructores.ControladorGestionAsistencias;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
@@ -322,7 +323,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 
 		// BOTON GESTIONAR ASISTENCIAS
 		if (e.getSource() == this.pantallaInstructor.getBtnGestionarAsistencias()) {
-			// VENTANA ASISTENCIAS
+			pantallaInstructor.ocultar();
+			new ControladorGestionAsistencias(this);
 		}
 
 		// BOTON GESTIONAR NOTAS

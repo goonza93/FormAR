@@ -8,10 +8,13 @@ import com.ungs.formar.persistencia.interfaces.CursoODB;
 
 public class Instructor {
 	
-	public static boolean tieneAsignaciones(Empleado empleado) {
+	public static boolean tieneAsignaciones(Empleado instructor) {
+		return traerCursos(instructor).size()>0;
+	}
+	
+	public static List<Curso> traerCursos(Empleado instructor) {
 		CursoODB odb = FactoryODB.crearCursoODB();
-		List<Curso> cursos = odb.selectByInstructor(empleado);
-		return cursos.size()>0;
+		return odb.selectByInstructor(instructor);
 	}
 
 }
