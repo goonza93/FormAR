@@ -35,17 +35,17 @@ public class Main {
 		*/
 		if(SystemTray.isSupported()){
 			SystemTray tray = SystemTray.getSystemTray();
-			ImageIcon image2 = new ImageIcon("imagenes/icono.png");
+			ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
 			Image image = image2.getImage();
 			TrayIcon trayIcon = new TrayIcon(image);
 			trayIcon.setImageAutoSize(true);
+
 			try {
 				tray.add(trayIcon);
 			} catch (AWTException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.INFO);
+			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
 		}
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();
