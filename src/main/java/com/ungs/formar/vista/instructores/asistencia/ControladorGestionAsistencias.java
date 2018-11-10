@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.instructores;
+package com.ungs.formar.vista.instructores.asistencia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.vista.instructores.tomar.ControladorTomarAsistencia;
+import com.ungs.formar.vista.instructores.asistencia.tomar.ControladorTomarAsistencia;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
@@ -18,7 +18,6 @@ public class ControladorGestionAsistencias implements ActionListener {
 	public ControladorGestionAsistencias(ControladorPantallaPrincipal invocador) {
 		this.invocador = invocador;
 		ventana = new VentanaGestionAsistencias();
-		recargar();
 		ventana.botonConsultar().addActionListener(this);
 		ventana.botonTomar().addActionListener(this);
 		ventana.getVolver().addActionListener(this);
@@ -43,8 +42,7 @@ public class ControladorGestionAsistencias implements ActionListener {
 	}
 
 	private void consultar() {
-		//ventana.deshabilitar();
-		//new ControladorPagoAM(this);
+		Popup.mostrar("Funcionalidad aun no disponible.\nDisculpe las molestias.");
 	}
 
 	private void tomar() {
@@ -66,10 +64,6 @@ public class ControladorGestionAsistencias implements ActionListener {
 
 	public void mostrar() {
 		ventana.mostrar();
-	}
-	
-	public void recargar() {
-		//ventana.getTabla().recargar(Tesoreria.traerPagos());
 	}
 	
 }

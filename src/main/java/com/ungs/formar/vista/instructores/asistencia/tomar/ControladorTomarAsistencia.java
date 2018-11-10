@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.instructores.tomar;
+package com.ungs.formar.vista.instructores.asistencia.tomar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +16,7 @@ import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.vista.consulta.Consultable;
-import com.ungs.formar.vista.instructores.ControladorGestionAsistencias;
+import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorTomarAsistencia implements ActionListener, Consultable {

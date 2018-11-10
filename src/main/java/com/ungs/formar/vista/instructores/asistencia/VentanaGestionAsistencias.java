@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.instructores;
+package com.ungs.formar.vista.instructores.asistencia;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;

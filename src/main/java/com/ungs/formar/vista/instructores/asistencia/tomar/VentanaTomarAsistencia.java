@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.instructores.tomar;
+package com.ungs.formar.vista.instructores.asistencia.tomar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
