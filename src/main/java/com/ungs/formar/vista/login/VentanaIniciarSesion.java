@@ -1,114 +1,89 @@
 package com.ungs.formar.vista.login;
 
-import java.awt.EventQueue;
+import java.awt.Dimension;
 
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.JPanel;
-import java.awt.Font;
-import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
+import javax.swing.JSeparator;
 
 public class VentanaIniciarSesion {
-
-	private JFrame frame;
+	private JFrame ventana;
 	private JTextField txtUsuario;
-	private JButton btnIniciarSesion, btnRecuperarPassword, btnSalir;
 	private JPasswordField txtPassword;
+	private JButton btnIniciar, btnRecuperar, btnSalir;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaIniciarSesion window = new VentanaIniciarSesion();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public VentanaIniciarSesion() {
-		initialize();
-	}
+		ventana = new JFrame();
+		ventana.setBounds(100, 100, 400, 200);
+		ventana.setLocationRelativeTo(null);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventana.setTitle("Inicio de sesión");
+		
+		// ENTRADAS
+		Dimension largoInput = new Dimension(Short.MAX_VALUE, 25);
+		Dimension largoLabel = new Dimension(100, 25);
+		
+		JLabel lblUsuario = new JLabel("Usuario");
+		JLabel lblPassword = new JLabel("Contraseña");
+		lblUsuario.setPreferredSize(largoLabel);
+		lblPassword.setPreferredSize(largoLabel);
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.setLocationRelativeTo(null);
-		frame.setTitle("Inicio de sesión");
-		
-		JPanel panelUsuario = new JPanel();
-		frame.getContentPane().add(panelUsuario);
-		
-		JLabel lblUsuario = new JLabel("USUARIO");
-		lblUsuario.setFont(new Font("Arial", Font.PLAIN, 12));
-		panelUsuario.add(lblUsuario);
-		
 		txtUsuario = new JTextField();
-		txtUsuario.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtPassword = new JPasswordField();		
+		txtUsuario.setMaximumSize(largoInput);
+		txtPassword.setMaximumSize(largoInput);
+		
+		PanelHorizontal panelUsuario = new PanelHorizontal();
+		PanelHorizontal panelPassword = new PanelHorizontal();
+		panelUsuario.add(lblUsuario);
 		panelUsuario.add(txtUsuario);
-		txtUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		txtUsuario.setColumns(10);
-		
-		JPanel panelPassword = new JPanel();
-		frame.getContentPane().add(panelPassword);
-		
-		JLabel lblPassword = new JLabel("CONTRASEÑA");
-		lblPassword.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPassword.add(lblPassword);
-		
-		txtPassword = new JPasswordField();
-		txtPassword.setFont(new Font("Arial", Font.PLAIN, 12));
 		panelPassword.add(txtPassword);
-		txtPassword.setColumns(10);
 		
-		JPanel panelBotones = new JPanel();
-		frame.getContentPane().add(panelBotones);
+		// BOTONES
+		btnIniciar = new JButton("Iniciar Sesion");
+		btnRecuperar = new JButton("Recuperar contraseña");
+		btnSalir = new JButton("Salir");
 		
-		btnIniciarSesion = new JButton("INICIAR SESION");
-		btnIniciarSesion.setFont(new Font("Arial", Font.PLAIN, 12));
-		panelBotones.add(btnIniciarSesion);
-		
-		btnRecuperarPassword = new JButton("RECUPERAR CONTRASEÑA");
-		btnRecuperarPassword.setFont(new Font("Arial", Font.PLAIN, 12));
-		panelBotones.add(btnRecuperarPassword);
-		
-		btnSalir = new JButton("SALIR");
-		btnSalir.setFont(new Font("Arial", Font.PLAIN, 12));
+		PanelHorizontal panelBotones = new PanelHorizontal();
+		panelBotones.add(btnIniciar);		
+		panelBotones.add(btnRecuperar);
 		panelBotones.add(btnSalir);
+		
+		// ORGANIZACION DE PANELES
+		PanelVertical panelPrincipal = new PanelVertical();
+		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
+		ventana.setContentPane(panelPrincipal);
+		
+		panelPrincipal.add(panelUsuario);
+		panelPrincipal.add(panelPassword);
+		
+		JSeparator separator = new JSeparator();
+		panelPrincipal.add(separator);
+		panelPrincipal.add(panelBotones);
 	}
 	
-	public JButton getBtnIniciarSesion(){
-		return this.btnIniciarSesion;
+	public JButton botonIniciar(){
+		return this.btnIniciar;
 	}
 	
-	public JButton getBtnRecuperarPass(){
-		return this.btnRecuperarPassword;
+	public JButton botonRecuperar(){
+		return this.btnRecuperar;
 	}
 	
-	public JButton getBtnSalir(){
+	public JButton botonSalir(){
 		return this.btnSalir;
 	}
 
 	public JFrame getVentana(){
-		return this.frame;
+		return this.ventana;
 	}
 	
 	public JTextField getUsuario(){
@@ -118,4 +93,5 @@ public class VentanaIniciarSesion {
 	public JPasswordField getPassword(){
 		return this.txtPassword;
 	}
+
 }

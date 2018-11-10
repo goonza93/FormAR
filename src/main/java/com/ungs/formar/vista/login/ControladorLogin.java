@@ -6,45 +6,28 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-import com.ungs.formar.negocios.AlumnoManager;
-import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmailSender;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
-import com.ungs.formar.negocios.InscripcionManager;
-import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
-import com.ungs.formar.persistencia.definidos.EstadoCurso;
-import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.vista.consulta.Consultable;
-import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
-import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
-import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionBaja;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
-import com.ungs.formar.vista.pantallasPrincipales.PantallaPrincipalAdministrativo;
-import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorLogin implements ActionListener {
 	private VentanaIniciarSesion ventanaIniciarSesion;
-	private PantallaPrincipalAdministrativo pantallaPrincipal;
+	//private PantallaPrincipalAdministrativo pantallaPrincipal;
 	private VentanaRecuperarPassword ventanaRecuperarPass;
 
 	public ControladorLogin(VentanaIniciarSesion ventanaIniciarSesion) {
 		this.ventanaIniciarSesion = ventanaIniciarSesion;
-		this.ventanaIniciarSesion.getBtnIniciarSesion().addActionListener(this);
-		this.ventanaIniciarSesion.getBtnRecuperarPass().addActionListener(this);
-		this.ventanaIniciarSesion.getBtnSalir().addActionListener(this);
+		this.ventanaIniciarSesion.botonIniciar().addActionListener(this);
+		this.ventanaIniciarSesion.botonRecuperar().addActionListener(this);
+		this.ventanaIniciarSesion.botonSalir().addActionListener(this);
 
 		this.ventanaIniciarSesion.getVentana()
 				.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -73,26 +56,26 @@ public class ControladorLogin implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// BOTON INICIAR SESION
-		if (e.getSource() == ventanaIniciarSesion.getBtnIniciarSesion())
+		if (e.getSource() == ventanaIniciarSesion.botonIniciar())
 			iniciarSesion();
 
 		// BOTON RECUPERAR CONTRASENA
-		else if (e.getSource() == ventanaIniciarSesion.getBtnRecuperarPass())
+		else if (e.getSource() == ventanaIniciarSesion.botonRecuperar())
 			abrirVentanaRecuperarPass();
 
 		// BOTON SALIR
-		else if (e.getSource() == ventanaIniciarSesion.getBtnSalir())
+		else if (e.getSource() == ventanaIniciarSesion.botonSalir())
 			salir();
 
 		// BOTONES DE RECUPERAR PASSWORD
 		else if (ventanaRecuperarPass != null) {
 
 			// BOTON RECUPERAR DE VENTANA RECUPERACION
-			if (e.getSource() == ventanaRecuperarPass.getBtnRecuperarPass())
+			if (e.getSource() == ventanaRecuperarPass.botonRecuperar())
 				recuperarPass();
 
 			// BOTON VOLVER DE VENTANA RECUPERACION
-			else if (e.getSource() == ventanaRecuperarPass.getBtnVolver())
+			else if (e.getSource() == ventanaRecuperarPass.botonVolver())
 				cerrarVentanaRecuperarPass();
 		}
 
@@ -149,8 +132,8 @@ public class ControladorLogin implements ActionListener {
 	private void abrirVentanaRecuperarPass() {
 		ventanaRecuperarPass = new VentanaRecuperarPassword();
 		ventanaRecuperarPass.getVentana().setVisible(true);
-		ventanaRecuperarPass.getBtnRecuperarPass().addActionListener(this);
-		ventanaRecuperarPass.getBtnVolver().addActionListener(this);
+		ventanaRecuperarPass.botonRecuperar().addActionListener(this);
+		ventanaRecuperarPass.botonVolver().addActionListener(this);
 
 		ventanaRecuperarPass.getVentana().setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventanaRecuperarPass.getVentana().addWindowListener(new WindowAdapter() {

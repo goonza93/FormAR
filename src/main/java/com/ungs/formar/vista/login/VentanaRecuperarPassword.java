@@ -1,88 +1,78 @@
 package com.ungs.formar.vista.login;
 
-import java.awt.EventQueue;
+import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
+import javax.swing.JSeparator;
 
 public class VentanaRecuperarPassword {
-
-	private JFrame frame;
+	private JFrame ventana;
 	private JTextField txtEmail;
-	private JButton btnRecuperarPassword, btnVolver;
+	private JButton btnRecuperar, btnVolver;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRecuperarPassword window = new VentanaRecuperarPassword();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public VentanaRecuperarPassword() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-		frame.setLocationRelativeTo(null);
+		ventana = new JFrame();
+		ventana.setBounds(100, 100, 600, 200);
+		ventana.setLocationRelativeTo(null);
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel panelEntrada = new JPanel();
-		frame.getContentPane().add(panelEntrada);
+		// ENTRADAS
+		Dimension largoInput = new Dimension(Short.MAX_VALUE, 25);
+		Dimension largoLabel = new Dimension(100, 25);
 		
+		JLabel lblTip = new JLabel("Ingrese su E-Mail y presione recuperar password.");
 		JLabel lblEmail = new JLabel("E-Mail");
-		panelEntrada.add(lblEmail);
+		lblEmail.setPreferredSize(largoLabel);
 		
 		txtEmail = new JTextField();
-		panelEntrada.add(txtEmail);
-		txtEmail.setText("Email");
-		txtEmail.setColumns(10);
+		txtEmail.setMaximumSize(largoInput);
 		
-		JPanel panelBotones = new JPanel();
-		frame.getContentPane().add(panelBotones);
+		PanelHorizontal panelEmail = new PanelHorizontal();
+		panelEmail.add(lblEmail);
+		panelEmail.add(txtEmail);
 		
-		btnRecuperarPassword = new JButton("Recuperar password");
-		panelBotones.add(btnRecuperarPassword);
-		
+		// BOTONES
+		btnRecuperar = new JButton("Recuperar password");
 		btnVolver = new JButton("Volver");
+		
+		PanelHorizontal panelBotones = new PanelHorizontal();
+		panelBotones.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+		panelBotones.add(btnRecuperar);
 		panelBotones.add(btnVolver);
+		
+		// ORGANIZACION DE PANELES
+		PanelVertical panelPrincipal = new PanelVertical();
+		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
+		ventana.setContentPane(panelPrincipal);
+		
+		panelPrincipal.add(lblTip);
+		panelPrincipal.add(panelEmail);
+		panelPrincipal.add(new JSeparator());
+		panelPrincipal.add(panelBotones);
 	}
 
 	public JFrame getVentana(){
-		return frame;
+		return ventana;
 	}
 	
-	public JButton getBtnVolver(){
+	public JButton botonVolver(){
 		return btnVolver;
 	}
 	
-	public JButton getBtnRecuperarPass(){
-		return btnRecuperarPassword;
+	public JButton botonRecuperar(){
+		return btnRecuperar;
 	}
 	
 	public JTextField getTxtEmail(){
 		return txtEmail;
 	}
+
 }
