@@ -1,4 +1,4 @@
-package com.ungs.formar.vista.instructores.asistencia.tomar;
+package com.ungs.formar.vista.instructores.notas.alta;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,16 +19,16 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias;
 import com.ungs.formar.vista.util.Popup;
 
-public class ControladorTomarAsistencia implements ActionListener, Consultable {
-	private VentanaTomarAsistencia ventana;
+public class ControladorCargarExamen implements ActionListener, Consultable {
+	private VentanaCargarExamen ventana;
 	private ControladorGestionAsistencias controlador;
 	private List<Asistencia> asistencias;
 	private Curso curso;
 
-	public ControladorTomarAsistencia(ControladorGestionAsistencias controlador, Curso curso) {
+	public ControladorCargarExamen(ControladorGestionAsistencias controlador, Curso curso) {
 		this.controlador = controlador;
 		this.curso = curso;
-		this.ventana = new VentanaTomarAsistencia();
+		this.ventana = new VentanaCargarExamen();
 		this.ventana.botonGuardar().addActionListener(this);
 		this.ventana.botonCancelar().addActionListener(this);
 

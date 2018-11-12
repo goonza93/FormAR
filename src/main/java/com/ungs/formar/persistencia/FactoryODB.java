@@ -6,6 +6,7 @@ import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 import com.ungs.formar.persistencia.interfaces.DiaOBD;
 import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
+import com.ungs.formar.persistencia.interfaces.ExamenOBD;
 import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfaces.HorarioOBD;
 import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
@@ -22,6 +23,7 @@ import com.ungs.formar.persistencia.mysql.AsistenciaOBDMySQL;
 import com.ungs.formar.persistencia.mysql.CursoODBMySQL;
 import com.ungs.formar.persistencia.mysql.DiaODBMySQL;
 import com.ungs.formar.persistencia.mysql.EmpleadoODBMySQL;
+import com.ungs.formar.persistencia.mysql.ExamenOBDMySQL;
 import com.ungs.formar.persistencia.mysql.HorarioCursadaODBMySQL;
 import com.ungs.formar.persistencia.mysql.HorarioOBDMySQL;
 import com.ungs.formar.persistencia.mysql.InscripcionOBDMySQL;
@@ -97,6 +99,10 @@ public class FactoryODB {
 	
 	public static AsistenciaOBD crearAsistenciaOBD() {
 		return new AsistenciaOBDMySQL();
+	}
+
+	public static ExamenOBD crearExamenOBD() {
+		return new ExamenOBDMySQL();
 	}
 	
 }

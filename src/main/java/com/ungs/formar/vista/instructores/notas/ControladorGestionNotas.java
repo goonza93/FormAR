@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.vista.instructores.asistencia.tomar.ControladorTomarAsistencia;
+import com.ungs.formar.vista.instructores.asistencia.alta.ControladorTomarAsistencia;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 

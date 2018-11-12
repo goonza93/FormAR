@@ -1,30 +1,49 @@
-package com.ungs.formar.vista.instructores.asistencia.tomar;
+package com.ungs.formar.vista.instructores.notas.alta;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JDateChooser;
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
-public class VentanaTomarAsistencia {
-	private JFrame ventana;
-	private JTable tabla;
+public class VentanaCargarExamen {
+	private String[] columnas = { "Apellido", "Nombre", "Calificacion" };
 	private DefaultTableModel modelo;
-	private String[] columnas = { "Apellido", "Nombre", "Presente" };
+	private JTextField inNombre;
+	private JDateChooser inFecha;
 	private JButton btnGuardar, btnCancelar;
+	private JTable tabla;
+	private JFrame ventana;
 	
-	public VentanaTomarAsistencia() {
+	public VentanaCargarExamen() {
 		
 		// PROPIEDADES DE LA VENTANA
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 750, 600);
 		ventana.setLocationRelativeTo(null);
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		ventana.setTitle("Tomar asistencias");
+		ventana.setTitle("Cargar notas de examen");
+		
+		// DATOS DE EXAMEN
+		JLabel lblNombre = new JLabel("Nombre de examen");
+		JLabel lblFecha = new JLabel("Fecha");
+		inNombre = new JTextField();
+		inFecha = new JDateChooser();
+		inFecha.setDate(Almanaque.hoy());
+		
+		PanelHorizontal panelDatos = new PanelHorizontal();
+		panelDatos.add(lblNombre);
+		panelDatos.add(inNombre);
+		panelDatos.add(lblFecha);
+		panelDatos.add(inFecha);		
 		
 		// TABLA
 		modelo = new DefaultTableModel(null, columnas);
@@ -40,11 +59,10 @@ public class VentanaTomarAsistencia {
 	                case 1:
 	                    return String.class;
 	                default:
-	                    return Boolean.class;
+	                    return Integer.class;
 	            }
 	        }
 		};
-				
 				
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
@@ -62,17 +80,25 @@ public class VentanaTomarAsistencia {
 		ventana.setContentPane(panelPrincipal);
 		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
+		panelPrincipal.add(panelDatos);
 		panelPrincipal.add(panelTabla);
 		panelPrincipal.add(panelBotones);
 	}
 
-	
 	public JButton botonGuardar() {
 		return btnGuardar;
 	}
 
 	public JButton botonCancelar() {
 		return btnCancelar;
+	}
+
+	public JTextField getNombre() {
+		return inNombre;
+	}
+
+	public JDateChooser getFecha() {
+		return inFecha;
 	}
 
 	public DefaultTableModel getModelo() {
