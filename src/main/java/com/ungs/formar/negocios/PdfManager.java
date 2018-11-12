@@ -55,7 +55,8 @@ public class PdfManager {
 		PdfOBD obd = FactoryODB.crearPdfOBD();
 		String nombrepdf = obd.abrir(id);
 		try {
-            Desktop.getDesktop().open(new File(nombrepdf));
+			String path = System.getProperty("java.io.tmpdir")+File.separatorChar+nombrepdf;
+            Desktop.getDesktop().open(new File(path));
         } catch (Exception ex) {
         }
 

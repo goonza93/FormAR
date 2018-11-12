@@ -5,6 +5,7 @@ import com.ungs.formar.persistencia.entidades.Pdf;
 import com.ungs.formar.persistencia.interfaces.PdfOBD;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -189,8 +190,8 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
             int tamanoInput = bos.available();
             byte[] datosPDF = new byte[tamanoInput];
             bos.read(datosPDF, 0, tamanoInput);
-
-            OutputStream out = new FileOutputStream(nombre);
+            String path = System.getProperty("java.io.tmpdir")+File.separatorChar+ nombre;
+            OutputStream out = new FileOutputStream(path);
             out.write(datosPDF);
 
             //abrir archivo

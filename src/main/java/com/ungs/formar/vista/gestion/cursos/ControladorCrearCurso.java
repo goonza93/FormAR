@@ -167,9 +167,7 @@ public class ControladorCrearCurso implements ActionListener {
 		} else if (e.getSource() == ventanaCrearCurso.getBtnVerPdf()) {
 			if (this.contenido == null || this.contenido.getContenidoID() == null) {
 				JOptionPane.showMessageDialog(null, "No hay ningun contenido especifico para mostrar.");
-
 			} else {
-				System.out.println("entro");
 				PdfManager.abrirPdf(this.contenido.getContenidoID());
 			}
 		}
