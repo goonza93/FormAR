@@ -15,8 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import org.apache.log4j.chainsaw.Main;
-
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
@@ -41,6 +39,7 @@ import com.ungs.formar.vista.gestion.inscripciones.VentanaInscripcionABM;
 import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
 import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias;
+import com.ungs.formar.vista.instructores.notas.ControladorGestionNotas;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
@@ -329,7 +328,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 
 		// BOTON GESTIONAR NOTAS
 		else if (e.getSource() == this.pantallaInstructor.getBtnGestionarNotas()) {
-			// VENTANA NOTAS
+			pantallaInstructor.ocultar();
+			new ControladorGestionNotas(this);
 		}
 
 		// BOTON GESTIONAR RECADOS
