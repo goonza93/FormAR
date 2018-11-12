@@ -12,20 +12,20 @@ import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.vista.consulta.Consultable;
-import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias;
+import com.ungs.formar.vista.instructores.notas.ControladorGestionNotas;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorCargarExamen implements ActionListener, Consultable {
 	private VentanaCargarExamen ventana;
-	private ControladorGestionAsistencias controlador;
-	private List<Asistencia> asistencias;
+	private ControladorGestionNotas controlador;
+	private List<Examen> examenes;
 	private Curso curso;
 
-	public ControladorCargarExamen(ControladorGestionAsistencias controlador, Curso curso) {
+	public ControladorCargarExamen(ControladorGestionNotas controlador, Curso curso) {
 		this.controlador = controlador;
 		this.curso = curso;
 		this.ventana = new VentanaCargarExamen();
@@ -52,20 +52,20 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 		ventana.getModelo().setColumnCount(0);
 		ventana.getModelo().setColumnIdentifiers(ventana.getColumnas());
 
-		Date fecha = Instructor.proximaFechaTomarAsistencia();
+		
 		List<Inscripcion> inscripciones = InscripcionManager.traerInscripciones(curso);
-		asistencias = new ArrayList<Asistencia>();
+		examenes = new ArrayList<Examen>();
 		
 		for (Inscripcion inscripcion : inscripciones)
-			asistencias.add(new Asistencia(-1, curso.getID(), inscripcion.getAlumno(), fecha, false));
+			examenes.add(new Examen(-1, inscripcion.getAlumno(), inscripcion.getCurso(), null, null, null));
 			
-		for (Asistencia asistencia: asistencias) {
-			Alumno alumno = AlumnoManager.traerAlumnoSegunID(asistencia.getAlumno());
+		for (Examen examen: examenes) {
+			Alumno alumno = AlumnoManager.traerAlumnoSegunID(examen.getAlumno());
 			
 			Object[] fila = {
 					alumno.getApellido(),
 					alumno.getNombre(),
-					asistencia.isPresente()
+					null
 					};
 			ventana.getModelo().addRow(fila);
 		}
@@ -82,13 +82,18 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 	}
 
 	private void guardar() {
+		Date fecha = new Date(ventana.getFecha().getDate().getTime());
+		String descripcion = ventana.getNombre().getText();
 		
-		// Coloco a mi lista de asistencias los presentes que tomo el instructor
-		for (int i=0; i < asistencias.size(); i++)
-			asistencias.get(i).setPresente((Boolean)ventana.getModelo().getValueAt(i, 2)); // 2 es la columna presente, i es la fila
+		for (int i=0; i < examenes.size(); i++) {
+			Examen examen = examenes.get(i);
+			examen.setFecha(fecha);
+			examen.setDescripcion(descripcion);
+			examen.setNota((Integer)ventana.getModelo().getValueAt(i, 2)); // 2 es la columna presente, i es la fila
+		}
 		
-		Instructor.guardarAsistencias(asistencias);
-		Popup.mostrar("Las asistencias se han guardado correctamente.");
+		Instructor.guardarNotasDeExamen(examenes);
+		Popup.mostrar("Las notas se han guardado correctamente.");
 		volver();
 	}
 

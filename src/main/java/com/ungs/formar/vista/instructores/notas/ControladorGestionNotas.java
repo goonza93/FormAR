@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.vista.instructores.asistencia.alta.ControladorTomarAsistencia;
+import com.ungs.formar.vista.instructores.notas.alta.ControladorCargarExamen;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
@@ -52,8 +52,8 @@ public class ControladorGestionNotas implements ActionListener {
 			return;
 		}
 		
-		//ventana.deshabilitar();
-		//new ControladorTomarAsistencia(this, seleccion.get(0));
+		ventana.deshabilitar();
+		new ControladorCargarExamen(this, seleccion.get(0));
 	}
 	
 	private void volver() {

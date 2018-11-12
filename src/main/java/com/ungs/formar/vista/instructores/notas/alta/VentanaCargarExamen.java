@@ -1,5 +1,7 @@
 package com.ungs.formar.vista.instructores.notas.alta;
 
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,10 +35,16 @@ public class VentanaCargarExamen {
 		ventana.setTitle("Cargar notas de examen");
 		
 		// DATOS DE EXAMEN
+		Dimension dimension = new Dimension(200, 25);
 		JLabel lblNombre = new JLabel("Nombre de examen");
 		JLabel lblFecha = new JLabel("Fecha");
+		lblNombre.setPreferredSize(dimension);
+		lblFecha.setPreferredSize(dimension);
+		
 		inNombre = new JTextField();
+		inNombre.setMaximumSize(dimension);
 		inFecha = new JDateChooser();
+		inFecha.setMaximumSize(dimension);
 		inFecha.setDate(Almanaque.hoy());
 		
 		PanelHorizontal panelDatos = new PanelHorizontal();

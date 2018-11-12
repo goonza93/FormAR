@@ -6,8 +6,10 @@ import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
+import com.ungs.formar.persistencia.interfaces.ExamenOBD;
 
 public class Instructor {
 	
@@ -21,16 +23,20 @@ public class Instructor {
 	}
 	
 	public static Date proximaFechaTomarAsistencia() {
-		
+		// COMPLETAR TODO
 		return Almanaque.hoy();
 	}
 	
 	public static void guardarAsistencias(List<Asistencia> asistencias) {
-		for (Asistencia asistencia : asistencias) {
-			AsistenciaOBD obd = FactoryODB.crearAsistenciaOBD();
+		AsistenciaOBD obd = FactoryODB.crearAsistenciaOBD();
+		for (Asistencia asistencia : asistencias)
 			obd.insert(asistencia);
-			System.out.println(asistencia.isPresente());
-		}
+	}
+	
+	public static void guardarNotasDeExamen(List<Examen> examenes) {
+		ExamenOBD obd = FactoryODB.crearExamenOBD();
+		for (Examen examen : examenes)
+			obd.insert(examen);
 	}
 
 }
