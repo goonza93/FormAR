@@ -1,6 +1,7 @@
 package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -28,6 +29,12 @@ public class AsistenciaOBDMySQL extends ODB implements AsistenciaOBD {
 		String condicion = "true";
 		List<Asistencia> areas = selectByCondicion(condicion);
 		return areas;
+	}
+	
+	public List<Asistencia> selectByCursoFecha(Integer cursoID, Date fecha){
+		String condicion = "curso = "+ cursoID + " and fecha = '" +fecha+"'";
+		List<Asistencia> lista = selectByCondicion(condicion);
+		return lista;		
 	}
 	
 	private List<Asistencia> selectByCondicion(String condicion) {

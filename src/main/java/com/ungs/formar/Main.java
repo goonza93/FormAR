@@ -24,8 +24,6 @@ public class Main {
 		//ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(8));
 		//controlador.inicializar();
 		
-		
-		SystemTray.getSystemTray();
 		/* CODIGO PARA NOTIFICACIONES
 		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 		Runnable task = new Notifier();

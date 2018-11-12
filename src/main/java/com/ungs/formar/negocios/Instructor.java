@@ -1,12 +1,20 @@
 package com.ungs.formar.negocios;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Examen;
+import com.ungs.formar.persistencia.entidades.Horario;
+import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 import com.ungs.formar.persistencia.interfaces.ExamenOBD;
@@ -22,9 +30,50 @@ public class Instructor {
 		return odb.selectByInstructor(instructor);
 	}
 	
-	public static Date proximaFechaTomarAsistencia() {
-		// COMPLETAR TODO
-		return Almanaque.hoy();
+	public static List<Date> traerFechasTomarAsistencia(Curso curso){
+		List<Date> ret = new ArrayList<Date>();
+		
+		//List<HorarioCursada> hc, Integer horas, Date fechaInicio
+		List<HorarioCursada> hc = CursoManager.obtenerHorariosDeCursada(curso);
+		Integer horas = curso.getHoras();
+		Date fechaInicio = curso.getFechaInicio();
+		boolean[] dias = { false, false, false, false, false, false, false };
+		Integer[] minutosdia = { 0, 0, 0, 0, 0, 0, 0 };
+		// encontrarlos.
+		for (HorarioCursada a : hc) {
+			Horario b = HorarioCursadaManager.traerHorarioSegunID(a.getHorario());
+			dias[b.getDia() - 1] = true;
+			minutosdia[b.getDia() - 1] += (CursoManager.diferencia(b.getHoraInicio(), b.getHoraFin(), b.getMinutoInicio(),
+					b.getMinutoFin())); // falta traducir horarios a matematica
+		}
+		
+		// segunda mitad, ya con dias y tiempo por dia en arrays
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fechaInicio);
+		Integer quedan = horas * 60; // pase a minutos asi es mas facil
+		while ((quedan) > 0) {
+			int indexActual = cal.get(Calendar.DAY_OF_WEEK) - 1;
+			if (dias[indexActual]) {
+				// este dia esta en la cursada entonces lo agrego
+				ret.add(new Date(cal.getTimeInMillis()));
+				quedan -= minutosdia[indexActual];
+			}
+			cal.add(Calendar.DATE, 1);
+		}
+		return ret;
+	}
+	
+	public static Date proximaFechaTomarAsistencia(Curso curso) {
+		// las trae ordenadas...
+		List<Date> fechas = traerFechasTomarAsistencia(curso);
+		AsistenciaOBD obd = FactoryODB.crearAsistenciaOBD();
+		for(Date fecha : fechas){
+			if(obd.selectByCursoFecha(curso.getID(), fecha).isEmpty()){
+				return fecha;
+			}
+		}
+		return null;
 	}
 	
 	public static void guardarAsistencias(List<Asistencia> asistencias) {
@@ -38,5 +87,5 @@ public class Instructor {
 		for (Examen examen : examenes)
 			obd.insert(examen);
 	}
-
+	
 }

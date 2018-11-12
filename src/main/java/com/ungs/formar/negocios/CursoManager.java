@@ -132,7 +132,7 @@ public class CursoManager {
 
 	}
 
-	private static Integer diferencia(Integer hIn, Integer hFin, Integer mIn, Integer mFin) {
+	public static Integer diferencia(Integer hIn, Integer hFin, Integer mIn, Integer mFin) {
 		String dateStart = "11/03/14 " + String.valueOf(hIn) + ":" + String.valueOf(mIn) + ":00";
 		String dateStop = "11/03/14 " + String.valueOf(hFin) + ":" + String.valueOf(mFin) + ":00";
 

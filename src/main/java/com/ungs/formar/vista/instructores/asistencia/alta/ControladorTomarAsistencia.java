@@ -52,7 +52,7 @@ public class ControladorTomarAsistencia implements ActionListener, Consultable {
 		ventana.getModelo().setColumnCount(0);
 		ventana.getModelo().setColumnIdentifiers(ventana.getColumnas());
 
-		Date fecha = Instructor.proximaFechaTomarAsistencia();
+		Date fecha = Instructor.proximaFechaTomarAsistencia(curso);
 		List<Inscripcion> inscripciones = InscripcionManager.traerInscripciones(curso);
 		asistencias = new ArrayList<Asistencia>();
 		
