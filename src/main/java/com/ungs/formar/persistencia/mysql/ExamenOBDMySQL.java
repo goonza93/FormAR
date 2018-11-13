@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.interfaces.ExamenOBD;
 
@@ -66,5 +67,29 @@ public class ExamenOBDMySQL extends ODB implements ExamenOBD {
 		return ret;
 	}
 
+	public List<String> selectExamenes(Curso curso) {
+		List<String> ret = new ArrayList<String>();
+		String comandoSQL = "select distinct descripcion from "+tabla+" where (curso = "+curso.getID()+");";  
 		
+		try { 
+			Class.forName(driver); 
+			Connection conexion = DriverManager.getConnection(cadenaConexion, usuarioBD, passwordBD); 
+			Statement sentencia = conexion.createStatement ();
+			ResultSet resultados = sentencia.executeQuery(comandoSQL);			
+	
+			while (resultados.next())
+				ret.add(resultados.getString("descripcion"));
+
+			resultados.close();
+			sentencia.close();
+			conexion.close();
+			
+		}catch(Exception e) {
+			System.out.println(comandoSQL);
+			e.printStackTrace();
+		}
+			
+		return ret;
+	}
+
 }

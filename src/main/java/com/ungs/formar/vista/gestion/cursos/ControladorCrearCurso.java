@@ -166,7 +166,7 @@ public class ControladorCrearCurso implements ActionListener {
 			logicaFileChooser();
 		} else if (e.getSource() == ventanaCrearCurso.getBtnVerPdf()) {
 			if (this.contenido == null || this.contenido.getContenidoID() == null) {
-				JOptionPane.showMessageDialog(null, "No hay ningun contenido especifico para mostrar.");
+				JOptionPane.showMessageDialog(null, "No hay ningun programa especifico para mostrar.");
 			} else {
 				PdfManager.abrirPdf(this.contenido.getContenidoID());
 			}
@@ -424,7 +424,6 @@ public class ControladorCrearCurso implements ActionListener {
 		Integer precio = Integer.decode(ventanaCrearCurso.getTxtPrecio().getText());
 
 		// if(responsable ==null)
-		System.out.println("HASTA ACA OK");
 		Integer contenidoID = 0;
 		if (this.contenido != null) {
 			contenidoID = this.contenido.getContenidoID();

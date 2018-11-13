@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Asistencia;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 
 public class AsistenciaOBDMySQL extends ODB implements AsistenciaOBD {
@@ -36,6 +38,19 @@ public class AsistenciaOBDMySQL extends ODB implements AsistenciaOBD {
 		List<Asistencia> lista = selectByCondicion(condicion);
 		return lista;		
 	}
+	
+	public Asistencia selectByCursoAlumnoFecha(Curso curso, Alumno alumno, Date fecha){
+		String condicion =
+				"curso = "+curso.getID()
+				+" AND alumno = "+alumno.getID()
+				+" AND fecha = '" +fecha+"'";
+		List<Asistencia> lista = selectByCondicion(condicion);
+		if (lista.size()>0)
+			return lista.get(0);
+		return null;
+	}
+
+
 	
 	private List<Asistencia> selectByCondicion(String condicion) {
 		List<Asistencia> ret = new ArrayList<Asistencia>();

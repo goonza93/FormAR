@@ -70,7 +70,6 @@ public class HorarioCursadaManager {
 		if(ret == "<html>"){
 			return "A DESIGNAR";
 		}
-		System.out.println(ret);
 		return ret += "</html>";
 	}
 	

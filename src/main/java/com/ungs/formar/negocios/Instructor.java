@@ -1,14 +1,12 @@
 package com.ungs.formar.negocios;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -86,6 +84,16 @@ public class Instructor {
 		ExamenOBD obd = FactoryODB.crearExamenOBD();
 		for (Examen examen : examenes)
 			obd.insert(examen);
+	}
+	
+	public static List<String> traerExamenesDeCurso(Curso curso) {
+		ExamenOBD obd = FactoryODB.crearExamenOBD();
+		return obd.selectExamenes(curso);
+	}
+	
+	public static Asistencia traerAsistencia(Curso curso, Alumno alumno, Date fecha) {
+		AsistenciaOBD obd = FactoryODB.crearAsistenciaOBD();
+		return obd.selectByCursoAlumnoFecha(curso, alumno, fecha);
 	}
 	
 }

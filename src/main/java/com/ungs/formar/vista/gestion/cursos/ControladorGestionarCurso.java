@@ -279,7 +279,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 		// LLeno todos los campos del curso
 		ventanaCrearCurso = new CrearCurso();
-		ventanaCrearCurso.getBtnCancelar().setVisible(false);
+		ventanaCrearCurso.getBtnCancelar().setVisible(true);
 		ventanaCrearCurso.setTitle("EDITAR CURSADA");
 		ventanaCrearCurso.getCupoMinimo().setText(curso.getCupoMinimo().toString());
 		ventanaCrearCurso.getCupoMaximo().setText(curso.getCupoMaximo().toString());
