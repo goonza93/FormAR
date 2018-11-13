@@ -91,4 +91,9 @@ public class Instructor {
 		return obd.selectByCursoAlumnoFecha(curso, alumno, fecha);
 	}
 	
+	public static List<String> traerExamenesDeCurso(Curso curso) {
+		ExamenOBD obd = FactoryODB.crearExamenOBD();
+		return obd.selectExamenes(curso);
+	}
+	
 }
