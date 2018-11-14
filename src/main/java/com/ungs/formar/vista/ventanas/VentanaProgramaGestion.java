@@ -44,7 +44,7 @@ public class VentanaProgramaGestion extends JFrame {
 
 	public VentanaProgramaGestion() {
 		setBounds(100, 100, 669, 393);
-		setTitle("Gestion de programas");
+		setTitle("Gestion de cursos");
 		setLocationRelativeTo(null);
 		setExtendedState(MAXIMIZED_BOTH);
 
@@ -136,7 +136,7 @@ public class VentanaProgramaGestion extends JFrame {
 						.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtAreaFiltro, Alignment.LEADING, 146, 146, 146)
+								.addComponent(txtAreaFiltro, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 								.addComponent(lblArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
