@@ -35,7 +35,6 @@ public class Instructor {
 		
 		//validacion que deberia estar en el controlador.
 		if(!(curso.getEstado() == EstadoCurso.INICIADO || curso.getEstado() == EstadoCurso.FINALIZADO)){
-			Popup.mostrar("El curso seleccionado no esta iniciado o finalizado.");
 			return ret;
 		}
 		
