@@ -14,6 +14,8 @@ public interface AsistenciaOBD {
 	public List<Asistencia> select();
 	
 	public List<Asistencia> selectByCursoFecha(Integer cursoID, Date fecha);
+
+	public Asistencia selectByCursoAlumnoFecha(Curso curso, Alumno alumno, Date fecha);
 	
 	public Asistencia selectByCursoAlumnoFecha(Curso curso, Alumno alumno, Date fecha);
 	

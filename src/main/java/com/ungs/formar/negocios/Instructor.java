@@ -86,14 +86,14 @@ public class Instructor {
 			obd.insert(examen);
 	}
 	
-	public static List<String> traerExamenesDeCurso(Curso curso) {
-		ExamenOBD obd = FactoryODB.crearExamenOBD();
-		return obd.selectExamenes(curso);
-	}
-	
 	public static Asistencia traerAsistencia(Curso curso, Alumno alumno, Date fecha) {
 		AsistenciaOBD obd = FactoryODB.crearAsistenciaOBD();
 		return obd.selectByCursoAlumnoFecha(curso, alumno, fecha);
+	}
+	
+	public static List<String> traerExamenesDeCurso(Curso curso) {
+		ExamenOBD obd = FactoryODB.crearExamenOBD();
+		return obd.selectExamenes(curso);
 	}
 	
 }

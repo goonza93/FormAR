@@ -2,6 +2,7 @@ package com.ungs.formar.vista.instructores.notas.alta;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -79,6 +80,8 @@ public class VentanaCargarExamen {
 		btnGuardar = new JButton("Guardar");
 		btnCancelar = new JButton("Volver");
 		
+		ImageIcon iconoGuardar = new ImageIcon("imagenes/guardar.jpg");
+		btnGuardar.setIcon(iconoGuardar);
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnGuardar);
 		panelBotones.add(btnCancelar);

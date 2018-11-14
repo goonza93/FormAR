@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.vista.instructores.asistencia.alta.ControladorTomarAsistencia;
+import com.ungs.formar.vista.instructores.asistencia.consultar.ControladorConsultarAsistencia;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
@@ -42,7 +43,14 @@ public class ControladorGestionAsistencias implements ActionListener {
 	}
 
 	private void consultar() {
-		Popup.mostrar("Funcionalidad aun no disponible.\nDisculpe las molestias.");
+		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar su asistencia.");
+			return;
+		}
+		
+		ventana.deshabilitar();
+		new ControladorConsultarAsistencia(this, seleccion.get(0));
 	}
 
 	private void tomar() {

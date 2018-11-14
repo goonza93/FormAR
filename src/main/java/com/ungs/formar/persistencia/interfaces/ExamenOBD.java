@@ -10,6 +10,8 @@ public interface ExamenOBD {
 	public void insert(Examen examen);
 	
 	public List<Examen> select();
+
+	public List<String> selectExamenes(Curso curso);
 	
 	public List<String> selectExamenes(Curso curso);
 	

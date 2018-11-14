@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.util;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.ungs.formar.negocios.AlumnoManager;
@@ -113,6 +114,16 @@ public class Formato {
 		}
 		
 		return renglonesMaximo*20;
+	}
+
+	public static String[] columnasDeAsistencia(List<Date> fechas) {
+		String[] ret = new String[fechas.size()+2];
+		ret[0] = "Nombre";
+		ret[1] = "Apellido";
+		for (int i=0; i<fechas.size(); i++)
+			ret[i+2] = fechas.get(i).toString();
+		
+		return ret;
 	}
 
 }

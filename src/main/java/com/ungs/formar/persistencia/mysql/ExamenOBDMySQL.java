@@ -66,7 +66,7 @@ public class ExamenOBDMySQL extends ODB implements ExamenOBD {
 			
 		return ret;
 	}
-
+	
 	public List<String> selectExamenes(Curso curso) {
 		List<String> ret = new ArrayList<String>();
 		String comandoSQL = "select distinct descripcion from "+tabla+" where (curso = "+curso.getID()+");";  
@@ -91,5 +91,5 @@ public class ExamenOBDMySQL extends ODB implements ExamenOBD {
 			
 		return ret;
 	}
-
+		
 }
