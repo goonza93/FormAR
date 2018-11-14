@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -16,6 +17,7 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 import com.ungs.formar.persistencia.interfaces.ExamenOBD;
+import com.ungs.formar.vista.util.Popup;
 
 public class Instructor {
 	
@@ -31,7 +33,11 @@ public class Instructor {
 	public static List<Date> traerFechasTomarAsistencia(Curso curso){
 		List<Date> ret = new ArrayList<Date>();
 		
-		//List<HorarioCursada> hc, Integer horas, Date fechaInicio
+		//validacion que deberia estar en el controlador.
+		if(!(curso.getEstado() == EstadoCurso.INICIADO || curso.getEstado() == EstadoCurso.FINALIZADO)){
+			Popup.mostrar("El curso seleccionado no esta iniciado o finalizado.");
+			return ret;
+		}
 		List<HorarioCursada> hc = CursoManager.obtenerHorariosDeCursada(curso);
 		Integer horas = curso.getHoras();
 		Date fechaInicio = curso.getFechaInicio();
