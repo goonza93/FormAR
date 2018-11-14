@@ -25,6 +25,11 @@ public class Mensajero {
 		return obd.selectByReceptor(empleado);
 	}
 	
+	public static List<Recado> traerMensajesRecibidosSinArchivar(Empleado empleado) {
+		RecadoOBD obd = FactoryODB.crearRecadoOBD();
+		return obd.selectByEmpleadoReceptorArchivado(empleado, empleado, false);
+	}
+	
 	public static List<Recado> traerMensajesSinLeer(Empleado empleado){
 		RecadoOBD obd = FactoryODB.crearRecadoOBD();
 		return obd.selectByEmpleadoReceptorSinLeer(empleado);

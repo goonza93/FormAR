@@ -1,7 +1,14 @@
 package com.ungs.formar.vista.recados;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
@@ -13,8 +20,10 @@ import com.ungs.formar.vista.util.Ventana;
 
 public class VentanaRecados extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnArchivo, btnEnviados, btnVolver;
+	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnVolver;
 	private TablaRecados tabla;
+	private JCheckBox chckbxNoLeidos;
+	private final TableRowSorter<TableModel> filtro;
 
 	public VentanaRecados() {
 		super("Recados");
@@ -26,6 +35,10 @@ public class VentanaRecados extends Ventana {
 		tabla = new TablaRecados(Mensajero.traerMensajesRecibidos(empleado), "recibidos", true);
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
+		filtro = new TableRowSorter<TableModel>(tabla.getModel());
+		tabla.getTableHeader().setReorderingAllowed(false);
+		tabla.setDefaultEditor(Object.class, null);
+		tabla.setRowSorter(filtro);
 		
 		// CREO LOS BOTONES
 		PanelHorizontal panelBotones = new PanelHorizontal();
@@ -33,16 +46,16 @@ public class VentanaRecados extends Ventana {
 		btnLeer = new JButton("Leer");
 		btnArchivar = new JButton("Archivar");
 		btnBorrar = new JButton("Borrar");
-		btnArchivo = new JButton("Ver archivo");
-		btnEnviados = new JButton("Ver enviados");
 		btnVolver = new JButton("Volver");
+		
+		chckbxNoLeidos = new JCheckBox("No leidos");
+		chckbxNoLeidos.addItemListener(checkListener());
+		panelBotones.add(chckbxNoLeidos);
 		
 		panelBotones.add(btnNuevo);
 		panelBotones.add(btnLeer);
 		panelBotones.add(btnArchivar);
 		panelBotones.add(btnBorrar);
-		panelBotones.add(btnArchivo);
-		panelBotones.add(btnEnviados);
 		panelBotones.add(btnVolver);
 		
 		// ORGANIZACION DE PANELES
@@ -50,6 +63,22 @@ public class VentanaRecados extends Ventana {
 		setContentPane(panelPrincipal);
 		panelPrincipal.add(panelTabla);
 		panelPrincipal.add(panelBotones);
+	}
+	
+	public ItemListener checkListener(){
+		ItemListener nuevo = new ItemListener(){
+
+			public void itemStateChanged(ItemEvent e) {
+				if(chckbxNoLeidos.isSelected()){
+					filtro.setRowFilter(RowFilter.regexFilter("false"));
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)", 4));
+				}
+				
+			}
+			
+		};
+		return nuevo;
 	}
 
 	public JButton getNuevo() {
@@ -67,7 +96,11 @@ public class VentanaRecados extends Ventana {
 	public JButton getBorrar() {
 		return btnBorrar;
 	}
-
+	
+	public JCheckBox getCheckBoxNoLeidos(){
+		return chckbxNoLeidos;
+	}
+/*
 	public JButton getArchivo() {
 		return btnArchivo;
 	}
@@ -75,7 +108,7 @@ public class VentanaRecados extends Ventana {
 	public JButton getEnviados() {
 		return btnEnviados;
 	}
-
+*/
 	public JButton getVolver() {
 		return btnVolver;
 	}

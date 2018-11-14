@@ -2,6 +2,8 @@ package com.ungs.formar.vista.recados;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -26,9 +28,9 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 		this.ventana = v;
 		this.invocador = c;
 		this.ventana.getArchivar().addActionListener(this);
-		this.ventana.getArchivo().addActionListener(this);
+		//this.ventana.getArchivo().addActionListener(this);
 		this.ventana.getBorrar().addActionListener(this);
-		this.ventana.getEnviados().addActionListener(this);
+		//this.ventana.getEnviados().addActionListener(this);
 		this.ventana.getLeer().addActionListener(this);
 		this.ventana.getNuevo().addActionListener(this);
 		this.ventana.getVolver().addActionListener(this);
@@ -48,38 +50,40 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 	
 	private void llenarTabla() {
 		Empleado empleado = Sesion.getEmpleado();
-		List<Recado> recados = Mensajero.traerMensajesRecibidos(empleado);
+		List<Recado> recados = Mensajero.traerMensajesRecibidosSinArchivar(empleado);
 		ventana.getTabla().recargar(recados, "recibidos");
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		// BOTON NUEVO DE LA VENTANA RECADOS
-		if (e.getSource() == ventana.getNuevo())
+		if (e.getSource() == ventana.getNuevo()){
 			nuevoMensaje();
-		
+		}
 		// BOTON BORRAR DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getBorrar())
+		else if (e.getSource() == ventana.getBorrar()){
 			borrar();
-		
+		}
 		// BOTON LEER DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getLeer())
+		else if (e.getSource() == ventana.getLeer()){
 			leer();
-		
+		}
 		// BOTON ARCHIVAR DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getArchivar())
+		else if (e.getSource() == ventana.getArchivar()){
 			archivar();
-		
+		}
 		// BOTON VER ARCHIVO DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getArchivo())
+		/*
+		else if (e.getSource() == ventana.getArchivo()){
 			verArchivos();
-		
+		}
 		// BOTON VER ENVIADOS DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getEnviados())
+		else if (e.getSource() == ventana.getEnviados()){
 			verEnviados();
-		
+		}*/
 		// BOTON VOLVER DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getVolver())
+		else if (e.getSource() == ventana.getVolver()){
 			volver();
+		}
 	}
 
 	private void verEnviados() {

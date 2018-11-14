@@ -22,7 +22,8 @@ public class HighlightTableCellRenderer extends DefaultTableCellRenderer
         }
         else
         {
-        	if (table.getModel().getValueAt(row, 4).equals(false))
+        	int row2 = table.convertRowIndexToModel(row);
+        	if (table.getModel().getValueAt(row2, 4).equals(false))
             {
             	//c.setBackground(Color.ORANGE);
             	c.setFont(this.getFont().deriveFont(Font.BOLD + Font.ITALIC));
