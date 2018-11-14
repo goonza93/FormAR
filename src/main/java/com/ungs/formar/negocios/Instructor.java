@@ -38,6 +38,7 @@ public class Instructor {
 			Popup.mostrar("El curso seleccionado no esta iniciado o finalizado.");
 			return ret;
 		}
+		
 		List<HorarioCursada> hc = CursoManager.obtenerHorariosDeCursada(curso);
 		Integer horas = curso.getHoras();
 		Date fechaInicio = curso.getFechaInicio();
@@ -48,14 +49,12 @@ public class Instructor {
 			Horario b = HorarioCursadaManager.traerHorarioSegunID(a.getHorario());
 			dias[b.getDia() - 1] = true;
 			minutosdia[b.getDia() - 1] += (CursoManager.diferencia(b.getHoraInicio(), b.getHoraFin(), b.getMinutoInicio(),
-					b.getMinutoFin())); // falta traducir horarios a matematica
+					b.getMinutoFin()));
 		}
-		
-		// segunda mitad, ya con dias y tiempo por dia en arrays
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(fechaInicio);
-		Integer quedan = horas * 60; // pase a minutos asi es mas facil
+		Integer quedan = horas * 60;
 		while ((quedan) > 0) {
 			int indexActual = cal.get(Calendar.DAY_OF_WEEK) - 1;
 			if (dias[indexActual]) {
