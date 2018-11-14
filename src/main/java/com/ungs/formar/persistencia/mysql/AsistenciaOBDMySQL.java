@@ -49,17 +49,6 @@ public class AsistenciaOBDMySQL extends ODB implements AsistenciaOBD {
 			return lista.get(0);
 		return null;
 	}
-	
-	public Asistencia selectByCursoAlumnoFecha(Curso curso, Alumno alumno, Date fecha){
-		String condicion =
-				"curso = "+curso.getID()
-				+" AND alumno = "+alumno.getID()
-				+" AND fecha = '" +fecha+"'";
-		List<Asistencia> lista = selectByCondicion(condicion);
-		if (lista.size()>0)
-			return lista.get(0);
-		return null;
-	}
 
 
 	

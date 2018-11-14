@@ -17,6 +17,4 @@ public interface AsistenciaOBD {
 
 	public Asistencia selectByCursoAlumnoFecha(Curso curso, Alumno alumno, Date fecha);
 	
-	public Asistencia selectByCursoAlumnoFecha(Curso curso, Alumno alumno, Date fecha);
-	
 }

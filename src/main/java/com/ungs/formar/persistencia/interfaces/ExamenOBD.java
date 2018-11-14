@@ -13,8 +13,6 @@ public interface ExamenOBD {
 
 	public List<String> selectExamenes(Curso curso);
 	
-	public List<String> selectExamenes(Curso curso);
-	
 	public List<Examen> selectByDescripcion(String descripcion);
 
 }
