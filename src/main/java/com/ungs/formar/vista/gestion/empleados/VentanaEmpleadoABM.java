@@ -24,10 +24,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaEmpleadoABM {
 	private JFrame ventana;
-	private DefaultTableModel modeloEmpleados;
-	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
-	private JTable tablaEmpleados;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnDarDeAlta;
+	private DefaultTableModel modelo;
+	private String[] columnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
+	private JTable tabla;
+	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnDarDeAlta, btnVerCursos;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI, inFiltroFechaIngreso;
 	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso, lblInstructores ;
 	private final TableRowSorter<TableModel> filtro;
@@ -36,19 +36,18 @@ public class VentanaEmpleadoABM {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
-
+		ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
-		modeloEmpleados = new DefaultTableModel(null, nombreColumnas);
-		filtro = new TableRowSorter<TableModel>(modeloEmpleados);
+		modelo = new DefaultTableModel(null, columnas);
+		filtro = new TableRowSorter<TableModel>(modelo);
 		
 		JScrollPane spEmpleados = new JScrollPane();
-		tablaEmpleados = new JTable(modeloEmpleados);
-		tablaEmpleados.setFont(new Font("Arial", Font.PLAIN, 12));
-		spEmpleados.setViewportView(tablaEmpleados);
-		tablaEmpleados.setDefaultEditor(Object.class, null);
-		tablaEmpleados.getTableHeader().setReorderingAllowed(false);
-		tablaEmpleados.setRowSorter(filtro);
+		tabla = new JTable(modelo);
+		tabla.setFont(new Font("Arial", Font.PLAIN, 12));
+		spEmpleados.setViewportView(tabla);
+		tabla.setDefaultEditor(Object.class, null);
+		tabla.getTableHeader().setReorderingAllowed(false);
+		tabla.setRowSorter(filtro);
 		
 		lblFiltros = new JLabel("FILTROS:");
 		lblFiltros.setHorizontalAlignment(SwingConstants.CENTER);
@@ -85,27 +84,29 @@ public class VentanaEmpleadoABM {
 		inFiltroFechaIngreso = new JTextField();
 		inFiltroFechaIngreso.setFont(new Font("Arial", Font.PLAIN, 12));
 		inFiltroFechaIngreso.setColumns(10);
+
+		btnAgregar = new JButton("AGREGAR");
+		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-				btnAgregar = new JButton("AGREGAR");
-				btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-				
-				btnEditar = new JButton("EDITAR");
-				btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
-				
-				btnBorrar = new JButton("DAR DE BAJA");
-				btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-				
-				btnCancelar = new JButton("CANCELAR");
-				btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-				
-				lblInstructores = new JLabel("INSTRUCTORES:");
-				lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
-				lblInstructores.setFont(new Font("Arial", Font.BOLD, 12));
-				
-				btnDarDeAlta = new JButton("DAR DE ALTA");
-				btnDarDeAlta.setFont(new Font("Arial", Font.PLAIN, 12));
-				GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
-				groupLayout.setHorizontalGroup(
+		btnAgregar = new JButton("Ver cursos");
+
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		btnBorrar = new JButton("DAR DE BAJA");
+		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		lblInstructores = new JLabel("INSTRUCTORES:");
+		lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInstructores.setFont(new Font("Arial", Font.BOLD, 12));
+		
+		btnDarDeAlta = new JButton("DAR DE ALTA");
+		btnDarDeAlta.setFont(new Font("Arial", Font.PLAIN, 12));
+		GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
+		groupLayout.setHorizontalGroup(
 					groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
@@ -219,15 +220,15 @@ public class VentanaEmpleadoABM {
 	}
 
 	public String[] getNombreColumnas() {
-		return nombreColumnas;
+		return columnas;
 	}
 
 	public DefaultTableModel getModeloEmpleados() {
-		return modeloEmpleados;
+		return modelo;
 	}
 
 	public JTable getTablaEmpleados() {
-		return tablaEmpleados;
+		return tabla;
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {

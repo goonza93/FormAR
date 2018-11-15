@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.negocios.Almanaque;
+import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
@@ -77,12 +78,11 @@ public class VentanaCargarExamen {
 		panelTabla.setViewportView(tabla);
 		
 		// CREO LOS BOTONES
-		btnGuardar = new JButton("Guardar");
-		btnCancelar = new JButton("Volver");
-		
-		ImageIcon iconoGuardar = new ImageIcon("imagenes/guardar.jpg");
-		btnGuardar.setIcon(iconoGuardar);
 		PanelHorizontal panelBotones = new PanelHorizontal();
+		btnGuardar = new JButton("Guardar");
+		btnCancelar = new JButton("Cancelar");
+		btnGuardar.setIcon(Imagen.traerIconoGuardar());
+		btnCancelar.setIcon(Imagen.traerIconoCancelar());		
 		panelBotones.add(btnGuardar);
 		panelBotones.add(btnCancelar);
 		
