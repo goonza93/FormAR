@@ -7,6 +7,7 @@ import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
+import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
@@ -124,6 +125,17 @@ public class Formato {
 		ret[1] = "Apellido";
 		for (int i=0; i<fechas.size(); i++)
 			ret[i+2] = fechas.get(i).toString();
+		
+		return ret;
+	}
+
+	public static String[] columnasDeNotas(Curso curso) {
+		List<String> lista = Instructor.traerExamenesDeCurso(curso);
+		String[] ret = new String[lista.size()+2];
+		ret[0] = "Nombre";
+		ret[1] = "Apellido";
+		for (int i=0; i<lista.size(); i++)
+			ret[i+2] = lista.get(i).toString();
 		
 		return ret;
 	}

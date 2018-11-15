@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.interfaces.ExamenOBD;
@@ -90,6 +91,17 @@ public class ExamenOBDMySQL extends ODB implements ExamenOBD {
 		}
 			
 		return ret;
+	}
+
+	
+	public Examen selectByCursoAlumnoDescripcion(Curso curso, Alumno alumno, String descripcion) {
+		String condicion = "curso = "+curso.getID()
+				+" and alumno = "+alumno.getID()
+				+" and descripcion = '"+descripcion+"'";
+		List<Examen> lista = selectByCondicion(condicion);
+		if (lista.size()>0)
+			return lista.get(0);
+		return null;
 	}
 		
 }

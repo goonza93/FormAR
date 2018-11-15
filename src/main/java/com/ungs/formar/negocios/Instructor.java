@@ -97,5 +97,10 @@ public class Instructor {
 		ExamenOBD obd = FactoryODB.crearExamenOBD();
 		return obd.selectExamenes(curso);
 	}
+
+	public static Examen traerNota(Curso curso, Alumno alumno, String examen) {
+		ExamenOBD obd = FactoryODB.crearExamenOBD();
+		return obd.selectByCursoAlumnoDescripcion(curso, alumno, examen);
+	}
 	
 }
