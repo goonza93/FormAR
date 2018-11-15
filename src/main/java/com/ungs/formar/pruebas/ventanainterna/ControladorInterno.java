@@ -4,7 +4,7 @@ import javax.swing.JInternalFrame;
 
 public interface ControladorInterno {
 	
-	public void finalizar();
+	public boolean finalizar();
 	
 	public JInternalFrame getVentana();
 
