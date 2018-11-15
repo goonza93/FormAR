@@ -25,8 +25,8 @@ public class InstructorTest {
 	
 	public static void main(String[] args) {
 		Curso curso = CursoManager.traerCursoPorId(1);
-		//traerFechasTest(curso);
-		traerProximaFechasTest(curso);
+		traerFechasTest(curso);
+		//traerProximaFechasTest(curso);
 	}
 
 }

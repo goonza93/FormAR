@@ -28,7 +28,7 @@ public class ControladorTomarAsistencia implements ActionListener, Consultable {
 	public ControladorTomarAsistencia(ControladorGestionAsistencias controlador, Curso curso) {
 		this.controlador = controlador;
 		this.curso = curso;
-		this.ventana = new VentanaTomarAsistencia();
+		this.ventana = new VentanaTomarAsistencia(curso);
 		this.ventana.botonGuardar().addActionListener(this);
 		this.ventana.botonCancelar().addActionListener(this);
 

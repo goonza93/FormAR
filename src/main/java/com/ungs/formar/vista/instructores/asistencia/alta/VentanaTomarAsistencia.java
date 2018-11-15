@@ -1,12 +1,17 @@
 package com.ungs.formar.vista.instructores.asistencia.alta;
 
+import java.sql.Date;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.ungs.formar.negocios.Instructor;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
@@ -17,7 +22,7 @@ public class VentanaTomarAsistencia {
 	private String[] columnas = { "Apellido", "Nombre", "Presente" };
 	private JButton btnGuardar, btnCancelar;
 	
-	public VentanaTomarAsistencia() {
+	public VentanaTomarAsistencia(Curso curso) {
 		
 		// PROPIEDADES DE LA VENTANA
 		ventana = new JFrame();
@@ -62,6 +67,8 @@ public class VentanaTomarAsistencia {
 		ventana.setContentPane(panelPrincipal);
 		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
+		Date fecha = Instructor.proximaFechaTomarAsistencia(curso);
+		panelPrincipal.add(new JLabel("Fecha: "+fecha));
 		panelPrincipal.add(panelTabla);
 		panelPrincipal.add(panelBotones);
 	}

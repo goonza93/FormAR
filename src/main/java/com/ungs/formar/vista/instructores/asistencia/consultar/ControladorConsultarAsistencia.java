@@ -59,9 +59,12 @@ public class ControladorConsultarAsistencia implements ActionListener, Consultab
 			fila[0] = alumno.getNombre();
 			fila[1] = alumno.getApellido();
 			
-			for (int i=0; i<fila.length; i++) {
+			for (int i=0; i<fechas.size(); i++) {
 				Asistencia asistencia = Instructor.traerAsistencia(curso, alumno, fechas.get(i));
-				fila[i+2] = asistencia.isPresente();
+				if (asistencia != null)
+					fila[i+2] = Formato.presente(asistencia.isPresente());
+				else
+					fila[i+2] = "";
 			}
 			
 			ventana.getModelo().addRow(fila);

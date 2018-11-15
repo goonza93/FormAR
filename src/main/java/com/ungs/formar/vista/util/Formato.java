@@ -73,7 +73,9 @@ public class Formato {
 		return nombre(curso);
 	}
 	
-	
+	public static String presente(boolean presente) {
+		return (presente) ? "Presente" : "Ausente";
+	}
 	
 	public static String prueba1(int cantidad) {
 		String ret = "<html>prueba<br>";

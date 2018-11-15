@@ -17,7 +17,6 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 import com.ungs.formar.persistencia.interfaces.ExamenOBD;
-import com.ungs.formar.vista.util.Popup;
 
 public class Instructor {
 	
@@ -67,7 +66,6 @@ public class Instructor {
 	}
 	
 	public static Date proximaFechaTomarAsistencia(Curso curso) {
-		// las trae ordenadas...
 		List<Date> fechas = traerFechasTomarAsistencia(curso);
 		AsistenciaOBD obd = FactoryODB.crearAsistenciaOBD();
 		for(Date fecha : fechas){
