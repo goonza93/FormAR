@@ -47,6 +47,8 @@ public class Main {
 		}
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();
+		v.getUsuario().setText("user8"); // sacar antes de entregar
+		v.getPassword().setText("123"); // sacar antes de entregar
 		ControladorLogin c = new ControladorLogin(v);
 		c.inicializar();
 		

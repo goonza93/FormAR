@@ -70,7 +70,7 @@ public class VentanaRecados extends Ventana {
 
 			public void itemStateChanged(ItemEvent e) {
 				if(chckbxNoLeidos.isSelected()){
-					filtro.setRowFilter(RowFilter.regexFilter("false"));
+					filtro.setRowFilter(RowFilter.regexFilter("false", 4)); //agregar , 4
 				} else {
 					filtro.setRowFilter(RowFilter.regexFilter("(?i)", 4));
 				}

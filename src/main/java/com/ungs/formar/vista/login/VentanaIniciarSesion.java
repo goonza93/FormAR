@@ -37,10 +37,8 @@ public class VentanaIniciarSesion {
 
 		txtUsuario = new JTextField();
 		txtPassword = new JPasswordField();
-		txtUsuario.setText("user5");// para pruebas, sacar antes de la entrega
 		txtUsuario.setMaximumSize(largoInput);
 		txtPassword.setMaximumSize(largoInput);
-		txtPassword.setText("123");// para pruebas, sacar antes de la entrega
 		
 		PanelHorizontal panelUsuario = new PanelHorizontal();
 		PanelHorizontal panelPassword = new PanelHorizontal();

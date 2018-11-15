@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Interaccion;
@@ -34,6 +35,7 @@ public class ControladorContactos implements ActionListener {
 		this.ventanaGestionarContactos.getBorrar().addActionListener(this);
 		this.ventanaGestionarContactos.getEditar().addActionListener(this);
 		this.ventanaGestionarContactos.getVerInteracciones().addActionListener(this);
+		this.ventanaGestionarContactos.getConvertirEnAlumno().addActionListener(this);
 		this.ventanaGestionarContactos.getCancelar().addActionListener(this);
 		this.ventanaGestionarContactos.getVentana().setTitle("GESTION DE CONTACTOS");
 		this.inicializar();
@@ -80,6 +82,10 @@ public class ControladorContactos implements ActionListener {
 		// BOTON VER INTERACCIONES DEL ABM
 		else if (e.getSource() == ventanaGestionarContactos.getVerInteracciones()){
 			abrirGestionInteracciones();
+		}
+		
+		else if (e.getSource() == ventanaGestionarContactos.getConvertirEnAlumno()){
+			convertirEnAlumno();
 		}
 		
 		// BOTON ACEPTAR DEL AM
@@ -212,6 +218,29 @@ public class ControladorContactos implements ActionListener {
 			ventanaAM = null;
 			ventanaGestionarContactos.getVentana().setEnabled(true);
 			ventanaGestionarContactos.getVentana().setVisible(true);
+		}
+	}
+	
+	private void convertirEnAlumno(){
+		List<Interesado> seleccionados = obtenerSeleccionados();
+
+		if (seleccionados.size() == 0) {
+			Popup.mostrar("Seleccione al menos un contacto para convertirlo en alumno.");
+			return;
+		}
+		
+		if (Popup.confirmar("¿Esta seguro que quiere convertir en alumno los contactos seleccionados?")) {
+			String msj = "";
+			for (Interesado contacto : seleccionados) {
+				if(AlumnoManager.estaEnUsoDNI(contacto.getDNI())){
+					msj += "El contacto "+contacto.getApellido()+", "+contacto.getNombre()+" ya es un alumno. \n";
+				} else {
+					AlumnoManager.crearAlumno(contacto.getDNI(), contacto.getNombre(), contacto.getApellido(), contacto.getTelefono(), contacto.getEmail());
+				}
+			}
+			if(!(msj.equals(""))){
+				Popup.mostrar(msj);
+			}
 		}
 	}
 	

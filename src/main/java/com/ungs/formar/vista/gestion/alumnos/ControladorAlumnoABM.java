@@ -10,30 +10,48 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
-
 import com.ungs.formar.negocios.Concurrencia;
-
+import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.InscripcionManager;
-
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Area;
+import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Interaccion;
+import com.ungs.formar.persistencia.entidades.Interesado;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.cursos.ControladorCursosInscriptos;
 import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
+import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
+import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
+import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccionesAM;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
+import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
+import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.Popup;
+import com.ungs.formar.vista.util.Sesion;
+import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
 
-public class ControladorAlumnoABM implements ActionListener, Consultable {
+public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSeleccionable {
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
+	private VentanaInteraccionesAM ventanaInteraccionesAM;
+	private VentanaSeleccionarArea ventanaSeleccionarArea;
+	private SeleccionarPrograma ventanaSeleccionarPrograma;
 	private ControladorPantallaPrincipal controlador;
 	private List<Alumno> alumnos;
+	private Interesado contactoTemp;
+	private Area areaSeleccionada;
+	private Programa cursoSeleccionado;
 
 	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPantallaPrincipal controlador) {
 		this.ventanaABM = ventanaABM;
 		this.controlador = controlador;
+		this.contactoTemp = null;
 		this.ventanaABM.getCancelar().addActionListener(this);
 		this.ventanaABM.getAgregar().addActionListener(this);
 		this.ventanaABM.getEditar().addActionListener(this);
@@ -41,6 +59,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		this.ventanaABM.getMostrar().addActionListener(this);
 		this.ventanaABM.getOcultar().addActionListener(this);
 		this.ventanaABM.getInscripciones().addActionListener(this);
+		this.ventanaABM.getCrearInteraccion().addActionListener(this);
 
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
@@ -96,6 +115,10 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		else if (e.getSource() == ventanaABM.getInscripciones())
 			mostrarInscripciones();
 
+		// BOTON CREAR INTERACCION
+		else if (e.getSource() == ventanaABM.getCrearInteraccion())
+			crearInteraccion();
+			
 		// BOTON MOSTRAR FILTROS
 		else if (e.getSource() == ventanaABM.getMostrar())
 			mostrarFiltros();
@@ -114,8 +137,68 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 				cancelarAM();
 			}
 		}
+		
+		// BOTON ACEPTAR DEL AM INTERACCION
+		else if (ventanaInteraccionesAM != null) {
+			if (e.getSource() == ventanaInteraccionesAM.getAceptar()) {
+				aceptarInteraccionAM();
+			}
+			else if (e.getSource() == ventanaInteraccionesAM.getBtnSeleccionarArea()){
+				mostrarSeleccionarArea();
+			}
+			else if (e.getSource() == ventanaInteraccionesAM.getBtnSeleccionarCurso()){
+				this.ventanaSeleccionarPrograma = new SeleccionarPrograma();
+				this.ventanaInteraccionesAM.setEnabled(false);
+				new ControladorSeleccionarPrograma(this.ventanaSeleccionarPrograma, this);
+			}
+			// BOTON CANCELAR DEL AM interaccion
+			else if (e.getSource() == ventanaInteraccionesAM.getCancelar()) {
+				cerrarVentanaInteraccionesAM();
+			}
+		}
+	}
+	
+	private void aceptarInteraccionAM(){
+		Interesado contacto = ventanaInteraccionesAM.getContacto();
+		if(contactoTemp!=null){
+			ContactoManager.crearContacto(contactoTemp.getDNI(), contactoTemp.getNombre(), contactoTemp.getApellido()
+					, contactoTemp.getTelefono(), contactoTemp.getEmail());
+			contacto = ContactoManager.traerSegunDNI(contactoTemp.getDNI());
+			contactoTemp = null;
+		}
+		Empleado asociado = Sesion.getEmpleado();
+		String descripcion = ventanaInteraccionesAM.getInDescripcion().getText();
+		Area area = ventanaInteraccionesAM.getArea();
+		Programa curso = ventanaInteraccionesAM.getPrograma();
+		Integer cursoID = curso == null ? null : curso.getProgramaID();
+		Integer areaID = area == null ? null : area.getID();
+
+		ContactoManager.crearInteraccion(asociado.getID(), contacto.getID(), areaID, cursoID, descripcion);
+		
+		ventanaInteraccionesAM.dispose();
+		ventanaInteraccionesAM = null;
+		ventanaABM.getVentana().setEnabled(true);
+		ventanaABM.getVentana().setVisible(true);
+		
 	}
 
+	private void mostrarSeleccionarArea() {
+		ventanaSeleccionarArea = new VentanaSeleccionarArea();
+		ventanaSeleccionarArea.getSeleccionar().addActionListener(this);
+		ventanaSeleccionarArea.getCancelar().addActionListener(this);
+		ventanaSeleccionarArea.addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ventanaSeleccionarArea.getCancelar().doClick();
+			}
+		});
+		
+		new ControladorSeleccionarArea(ventanaSeleccionarArea, this);
+		
+		ventanaSeleccionarArea.setVisible(true);
+		ventanaInteraccionesAM.setEnabled(false);
+	}
+	
 	private void mostrarInscripciones() {
 		List<Alumno> seleccion = obtenerAlumnosSeleccionados();
 		
@@ -131,6 +214,53 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		Alumno alumno = seleccion.get(0);
 		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
 		ventanaABM.getVentana().setEnabled(false);
+	}
+	
+	private void crearInteraccion() {
+		List<Alumno> seleccion = obtenerAlumnosSeleccionados();
+		
+		if(seleccion.size() != 1) {
+			Popup.mostrar("Seleccione exactamente 1 alumno para crearle una interaccion.");
+			return;
+		}
+		else if (!(ContactoManager.estaEnUsoDNI(seleccion.get(0).getDNI()))){
+			Popup.mostrar("No existe el contacto");
+			Alumno sel = seleccion.get(0);
+			contactoTemp = new Interesado(-1, sel.getDNI(), sel.getNombre(), sel.getApellido(), sel.getTelefono(), sel.getEmail());
+			abrirVentanaInteraccionesABM(contactoTemp);
+		} else {
+			Alumno alumno = seleccion.get(0);
+			abrirVentanaInteraccionesABM(ContactoManager.traerSegunDNI(alumno.getDNI()));
+		}
+	}
+
+	private void abrirVentanaInteraccionesABM(Interesado contacto) {
+		ventanaInteraccionesAM = new VentanaInteraccionesAM(contacto);
+		ventanaInteraccionesAM.getBtnSeleccionarArea().addActionListener(this);
+		ventanaInteraccionesAM.getBtnSeleccionarCurso().addActionListener(this);
+		ventanaInteraccionesAM.getAceptar().addActionListener(this);
+		ventanaInteraccionesAM.getCancelar().addActionListener(this);
+		ventanaInteraccionesAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaInteraccionesAM();
+			}
+		});
+		ventanaInteraccionesAM.setVisible(true);
+		ventanaABM.getVentana().setEnabled(false);
+	}
+	
+	
+	
+	private void cerrarVentanaInteraccionesAM() {
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			ventanaInteraccionesAM.dispose();
+			ventanaInteraccionesAM = null;
+			ventanaABM.getVentana().setEnabled(true);
+			ventanaABM.getVentana().setVisible(true);
+		}
 	}
 
 	private void eliminarSeleccion() {
@@ -373,6 +503,25 @@ public class ControladorAlumnoABM implements ActionListener, Consultable {
 		panel.removeAll();
 		panel.add(ventanaABM.getMostrar());
 		panel.revalidate();
+	}
+
+	public void setArea(Area area) {
+		this.areaSeleccionada = area;
+		ventanaInteraccionesAM.setArea(area);
+		ventanaInteraccionesAM.getInArea().setText(area.getNombre());
+	}
+	
+	public void setPrograma(Programa curso){
+		this.cursoSeleccionado = curso;
+		ventanaInteraccionesAM.setPrograma(curso);
+		ventanaInteraccionesAM.getInCurso().setText(curso.getNombre());
+	}
+
+	public void enableAM() {
+		this.ventanaInteraccionesAM.setEnabled(true);
+		this.ventanaABM.getVentana().toFront();
+		this.ventanaInteraccionesAM.toFront();
+		
 	}
 
 }

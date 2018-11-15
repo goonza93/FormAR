@@ -1,6 +1,7 @@
 package com.ungs.formar.vista.gestion.contactos;
 
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -28,16 +29,16 @@ public class VentanaContactos {
 	private DefaultTableModel modeloContactos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono"};
 	private JTable tablaContactos;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnVerInteracciones;
+	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnVerInteracciones, btnConvertirEnAlumno;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI;
-	private JLabel lblFiltros, lblNombre, lblDni, lblContactos ;
+	private JLabel lblFiltros, lblNombre, lblDni, lblContactos;
 	private final TableRowSorter<TableModel> filtro;
 	
 	public VentanaContactos(){
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
+		ventana.setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		
 		modeloContactos = new DefaultTableModel(null, nombreColumnas);
@@ -98,6 +99,9 @@ public class VentanaContactos {
 				btnVerInteracciones = new JButton("CONSULTAR INTERACCIONES");
 				btnVerInteracciones.setFont(new Font("Arial", Font.PLAIN, 12));
 				
+				btnConvertirEnAlumno = new JButton("CONVERTIR EN ALUMNO");
+				btnConvertirEnAlumno.setFont(new Font("Arial", Font.PLAIN, 12));
+				
 				GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
 				groupLayout.setHorizontalGroup(
 					groupLayout.createParallelGroup(Alignment.LEADING)
@@ -113,6 +117,8 @@ public class VentanaContactos {
 									.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
 								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
@@ -158,7 +164,8 @@ public class VentanaContactos {
 								.addComponent(btnEditar)
 								.addComponent(btnBorrar)
 								.addComponent(btnCancelar)
-								.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 							.addContainerGap())
 				);
 				ventana.getContentPane().setLayout(groupLayout);
@@ -203,6 +210,10 @@ public class VentanaContactos {
 	
 	public JButton getVerInteracciones(){
 		return btnVerInteracciones;
+	}
+	
+	public JButton getConvertirEnAlumno(){
+		return btnConvertirEnAlumno;
 	}
 
 	public String[] getNombreColumnas() {
