@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
 
 public class VentanaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
-	JMenuItem menu1opcion1, menu1opcion2, menu1opcion3, menu2opcion1, menu2opcion2;
+	private JMenuItem menu1opcion1, menu1opcion2, menu1opcion3, menu2opcion1, menu2opcion2, instructorAltaAsistencia;
 
 	public VentanaPrincipal() {
 		setTitle("Ventana principal");
@@ -38,19 +38,23 @@ public class VentanaPrincipal extends JFrame {
 		menu1opcion3 = new JMenuItem("Menu 1 Opcion 3");
 		menu2opcion1 = new JMenuItem("Menu 2 Opcion 1");
 		menu2opcion2 = new JMenuItem("Menu 2 Opcion 2");
-
+		instructorAltaAsistencia = new JMenuItem("Tomar asistencia");
+		
 		// los agrego a su menu correspondiente
 		JMenu menu1 = new JMenu("Menu 1");
 		JMenu menu2 = new JMenu("Menu 2");
+		JMenu menuInstructor = new JMenu("Instructor");
 		
 		menu1.add(menu1opcion1);
 		menu1.add(menu1opcion2);
 		menu1.add(menu1opcion3);
 		menu2.add(menu2opcion1);
 		menu2.add(menu2opcion2);
+		menuInstructor.add(instructorAltaAsistencia);
 
 		barra.add(menu1);
 		barra.add(menu2);
+		barra.add(menuInstructor);
 		
 		return barra;
 	}
@@ -74,5 +78,11 @@ public class VentanaPrincipal extends JFrame {
 	public JMenuItem getMenu2opcion2() {
 		return menu2opcion2;
 	}
+	
+	public JMenuItem menuInstructorAltaAsistencia() {
+		return instructorAltaAsistencia;
+	}
+	
+	
 
 }
