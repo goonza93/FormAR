@@ -255,6 +255,28 @@ CREATE TABLE for_pagos (
     FOREIGN KEY (mes) REFERENCES for_meses(ID)
 );
 
+--ESQUEMA TAREAS
+CREATE TABLE for_tareas (
+	ID INT(4) AUTO_INCREMENT,
+	empleado INT(4) NOT NULL,
+	titulo VARCHAR(20) NOT NULL,
+    contenido VARCHAR(100) NOT NULL,
+	pendiente BOOLEAN NOT NULL,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+);
+
+--ESQUEMA NOTIFICACIONES
+CREATE TABLE for_notificaciones (
+	ID INT(4) AUTO_INCREMENT,
+	empleado INT(4) NOT NULL,
+	contenido VARCHAR(40) NOT NULL,
+	mostrado BOOLEAN NOT NULL,
+	leido BOOLEAN NOT NULL,
+	fecha DATE,
+	PRIMARY KEY (ID),
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+);
 
 
 

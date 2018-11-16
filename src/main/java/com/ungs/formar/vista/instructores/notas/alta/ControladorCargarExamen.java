@@ -82,6 +82,9 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 	}
 
 	private void guardar() {
+		//mini fix por si no pierde focus y estaba a mitad de editado.
+		ventana.getTabla().getCellEditor().stopCellEditing();
+		
 		Date fecha = new Date(ventana.getFecha().getDate().getTime());
 		String descripcion = ventana.getNombre().getText();
 		

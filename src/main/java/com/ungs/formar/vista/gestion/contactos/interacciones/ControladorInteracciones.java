@@ -127,7 +127,7 @@ public class ControladorInteracciones implements ActionListener, AreaSeleccionab
 		new ControladorSeleccionarArea(ventanaSeleccionarArea, this);
 		
 		ventanaSeleccionarArea.setVisible(true);
-		ventanaGestionarInteracciones.getVentana().setEnabled(false);
+		ventanaAM.setEnabled(false);
 	}
 
 	private void abrirVentanaAlta() {
