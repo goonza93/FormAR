@@ -3,6 +3,7 @@ package com.ungs.formar.persistencia.interfaces;
 import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;
 
 public interface PagoOBD {
@@ -15,6 +16,6 @@ public interface PagoOBD {
 
 	public List<Pago> select();
 
-	public List<Pago> selectByAlumno(Alumno alumno);
+	public List<Pago> selectByAlumno(Alumno alumno, Curso curso);
 	
 }

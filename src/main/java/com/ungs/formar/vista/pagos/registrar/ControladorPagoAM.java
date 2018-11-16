@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Tesoreria;
@@ -21,13 +22,13 @@ import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, CursoSeleccionable{
+public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, CursoSeleccionable {
 	private ControladorPagoABM invocador;
 	private VentanaPagoAM ventana;
 	private Curso curso;
 	private Alumno alumno;
 	private Pago pago;
-	
+
 	public ControladorPagoAM(ControladorPagoABM invocador) {
 		this.invocador = invocador;
 		ventana = new VentanaPagoAM();
@@ -53,6 +54,7 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 		ventana.getCancelar().addActionListener(this);
 		ventana.getSelAlumno().addActionListener(this);
 		ventana.getSelCursada().addActionListener(this);
+		ventana.getPagoCompleto().addActionListener(this);
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -60,30 +62,34 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 			}
 		});
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		// BOTON REGISTRAR PAGO DE LA VENTANA PAGO DE INSCRIPCION
 		if (e.getSource() == ventana.getRegistrar())
 			registrar();
-		
+
 		// BOTON VOLVER DE LA VENTANA PAGO DE INSCRIPCION
 		else if (e.getSource() == ventana.getCancelar())
 			cancelar();
-		
-		// BOTON SELECCIONAR ALUMNO DE LA VENTANA PAGO 
+
+		// BOTON SELECCIONAR ALUMNO DE LA VENTANA PAGO
 		else if (e.getSource() == ventana.getSelAlumno())
 			seleccionarAlumno();
-		
-		// BOTON SELECCIONAR CURSO DE LA VENTANA PAGO 
+
+		// BOTON SELECCIONAR CURSO DE LA VENTANA PAGO
 		else if (e.getSource() == ventana.getSelCursada())
 			seleccionarCurso();
+
+		// CHECKBOX PAGO COMPLETO DE LA VENTANA PAGO
+		else if (e.getSource() == ventana.getPagoCompleto())
+			actualizarMontoMes();
 	}
 
 	private void seleccionarAlumno() {
 		ventana.deshabilitar();
 		new ControladorSeleccionarAlumno(this);
 	}
-	
+
 	private void seleccionarCurso() {
 		ventana.deshabilitar();
 		new ControladorSeleccionarCurso(this);
@@ -92,29 +98,26 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 	private void registrar() {
 		Empleado empleado = Sesion.getEmpleado();
 		Integer monto = Integer.decode(ventana.getMonto().getText());
-		Integer mes = Integer.decode(ventana.getMes().getText());
-		boolean pagoEnTermino = ventana.getPagoEnTermino().isSelected();
+		boolean pagoEnTermino = Tesoreria.pagoEnTermino(alumno, curso);
 		boolean pagoCompleto = ventana.getPagoCompleto().isSelected();
-		
-		try {
-			if (pago == null)
-				Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
-			else {
-				pago.setAlumno(alumno.getID());
-				pago.setCursada(curso.getID());
-				pago.setMonto(monto);
-				pago.setMes(mes);
-				pago.setPagoCompleto(pagoCompleto);
-				pago.setPagoEnTermino(pagoEnTermino);
-				Tesoreria.actualizarPago(pago);
+		if (Popup.confirmar("Desea crear un pago por $" + monto + " ?")) {
+			try {
+				if (!pagoCompleto) {
+					Integer mes = Integer.decode(ventana.getMes().getText());
+					Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
+				} else {
+					Tesoreria.registrarPagoCompleto(alumno, curso, empleado, monto, pagoEnTermino, pagoCompleto);
+				}
+
+				ventana.dispose();
+				ventana = null;
+				invocador.recargar();
+				invocador.mostrar();
+			} catch (Exception e) {
+				Popup.mostrar(e.getMessage());
 			}
-			ventana.dispose();
-			ventana = null;
-			invocador.recargar();
-			invocador.mostrar();
-		} catch (Exception e) {
-			Popup.mostrar(e.getMessage());
 		}
+
 	}
 
 	private void cancelar() {
@@ -125,7 +128,7 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 
 	public void setAlumno(Alumno alumno) {
 		this.alumno = alumno;
-		ventana.getAlumno().setText(alumno.getApellido()+", "+alumno.getNombre());
+		ventana.getAlumno().setText(alumno.getApellido() + ", " + alumno.getNombre());
 	}
 
 	public void mostrar() {
@@ -136,5 +139,15 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 		this.curso = curso;
 		ventana.getCursada().setText(Formato.nombre(curso));
 	}
-	
+
+	private void actualizarMontoMes() {
+		if (ventana.getPagoCompleto().isSelected()) {
+			ventana.getMonto().setText(Tesoreria.costoRestante(alumno, curso).toString());
+			ventana.getMes().setText("COMPLETO");
+		} else {
+			ventana.getMonto().setText(Tesoreria.costoMensual(curso).toString());
+			ventana.getMes().setText(Almanaque.mesActual().toString());
+		}
+	}
+
 }
