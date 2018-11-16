@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Notificacion;
 import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 
@@ -54,6 +55,28 @@ public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 
 	public List<Notificacion> select() {
 		String condicion = "true";
+		List<Notificacion> notificaciones = selectByCondicion(condicion);
+		return notificaciones;
+	}
+	
+	public List<Notificacion> selectByEmpleado(Empleado empleado){
+		String condicion = "empleado = "+empleado.getID();
+		List<Notificacion> notificaciones = selectByCondicion(condicion);
+		return notificaciones;
+	}
+	
+	public List<Notificacion> selectByEmpleadoSinMostrar(Empleado empleado){
+		boolean mostrado = false;
+		String condicion = "empleado = "+empleado.getID()
+				+" and mostrado = "+ mostrado ;
+		List<Notificacion> notificaciones = selectByCondicion(condicion);
+		return notificaciones;
+	}
+	
+	public List<Notificacion> selectByEmpleadoSinLeer(Empleado empleado){
+		boolean leido = false;
+		String condicion = "empleado = "+empleado.getID()
+				+" and mostrado = "+ leido ;
 		List<Notificacion> notificaciones = selectByCondicion(condicion);
 		return notificaciones;
 	}

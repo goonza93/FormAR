@@ -16,6 +16,7 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.util.Notifier;
 
 public class Main {
 
@@ -24,13 +25,6 @@ public class Main {
 		//ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(8));
 		//controlador.inicializar();
 		
-		/* CODIGO PARA NOTIFICACIONES
-		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-		Runnable task = new Notifier();
-		int initialDelay = 5;
-		int periodicDelay = 5;
-		scheduler.scheduleAtFixedRate(task, initialDelay, periodicDelay, TimeUnit.SECONDS);
-		*/
 		if(SystemTray.isSupported()){
 			SystemTray tray = SystemTray.getSystemTray();
 			ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
@@ -44,6 +38,11 @@ public class Main {
 				e.printStackTrace();
 			}
 			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
+			ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+			Runnable task = new Notifier(trayIcon);
+			int initialDelay = 3;
+			int periodicDelay = 1;
+			scheduler.scheduleAtFixedRate(task, initialDelay, periodicDelay, TimeUnit.SECONDS);
 		}
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();

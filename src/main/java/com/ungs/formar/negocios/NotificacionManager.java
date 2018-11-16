@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Notificacion;
 import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 
@@ -28,6 +29,21 @@ public class NotificacionManager {
 	public static List<Notificacion> traerNotificaciones() {
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
 		return odb.select();
+	}
+	
+	public static List<Notificacion> traerNotificaciones(Empleado empleado) {
+		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
+		return odb.selectByEmpleado(empleado);
+	}
+	
+	public static List<Notificacion> traerNotificacionesSinMostrar(Empleado empleado) {
+		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
+		return odb.selectByEmpleadoSinMostrar(empleado);
+	}
+	
+	public static List<Notificacion> traerNotificacionesSinLeer(Empleado empleado) {
+		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
+		return odb.selectByEmpleadoSinLeer(empleado);
 	}
 	
 }
