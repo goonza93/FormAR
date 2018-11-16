@@ -12,11 +12,13 @@ import com.ungs.formar.persistencia.interfaces.HorarioOBD;
 import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 import com.ungs.formar.persistencia.interfaces.InteraccionOBD;
 import com.ungs.formar.persistencia.interfaces.InteresadoOBD;
+import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 import com.ungs.formar.persistencia.interfaces.PagoOBD;
 import com.ungs.formar.persistencia.interfaces.PdfOBD;
 import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 import com.ungs.formar.persistencia.interfaces.RecadoOBD;
 import com.ungs.formar.persistencia.interfaces.SalaODB;
+import com.ungs.formar.persistencia.interfaces.TareaOBD;
 import com.ungs.formar.persistencia.mysql.AlumnoODBMySQL;
 import com.ungs.formar.persistencia.mysql.AreaOBDMySQL;
 import com.ungs.formar.persistencia.mysql.AsistenciaOBDMySQL;
@@ -29,11 +31,13 @@ import com.ungs.formar.persistencia.mysql.HorarioOBDMySQL;
 import com.ungs.formar.persistencia.mysql.InscripcionOBDMySQL;
 import com.ungs.formar.persistencia.mysql.InteraccionOBDMySQL;
 import com.ungs.formar.persistencia.mysql.InteresadoOBDMySQL;
+import com.ungs.formar.persistencia.mysql.NotificacionOBDMySQL;
 import com.ungs.formar.persistencia.mysql.PagoOBDMySQL;
 import com.ungs.formar.persistencia.mysql.PdfODBMySQL;
 import com.ungs.formar.persistencia.mysql.ProgramaODBMySQL;
 import com.ungs.formar.persistencia.mysql.RecadoOBDMySQL;
 import com.ungs.formar.persistencia.mysql.SalaODBMySQL;
+import com.ungs.formar.persistencia.mysql.TareaOBDMySQL;
 
 public class FactoryODB {
 	
@@ -77,7 +81,7 @@ public class FactoryODB {
 		return new InscripcionOBDMySQL();
 	}
 	
-	public static PdfOBD crearPdfOBD(){
+	public static PdfOBD crearPdfOBD() {
 		return new PdfODBMySQL();
 	}
 	
@@ -89,11 +93,11 @@ public class FactoryODB {
 		return new PagoOBDMySQL();
 	}
 	
-	public static InteresadoOBD crearInteresadoOBD(){
+	public static InteresadoOBD crearInteresadoOBD() {
 		return new InteresadoOBDMySQL();
 	}
 	
-	public static InteraccionOBD crearInteraccionOBD(){
+	public static InteraccionOBD crearInteraccionOBD() {
 		return new InteraccionOBDMySQL();
 	}
 	
@@ -103,6 +107,14 @@ public class FactoryODB {
 
 	public static ExamenOBD crearExamenOBD() {
 		return new ExamenOBDMySQL();
+	}
+	
+	public static TareaOBD crearTareaOBD() {
+		return new TareaOBDMySQL();
+	}
+	
+	public static NotificacionOBD crearNotificacionOBD() {
+		return new NotificacionOBDMySQL();
 	}
 	
 }
