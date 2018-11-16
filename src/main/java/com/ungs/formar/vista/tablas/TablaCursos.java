@@ -18,7 +18,7 @@ public class TablaCursos extends JTable{
 
 	public TablaCursos(List<Curso> cursos) {
 		modelo = new DefaultTableModel(null, columnas);
-		HighlightTableCellRenderer render = new HighlightTableCellRenderer();
+		RenderRecados render = new RenderRecados();
 		setModel(modelo);
 		setDefaultRenderer(Object.class, render);
 		recargar(cursos);

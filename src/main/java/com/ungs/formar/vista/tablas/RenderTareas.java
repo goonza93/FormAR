@@ -1,15 +1,12 @@
 package com.ungs.formar.vista.tablas;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import com.ungs.formar.vista.util.Sesion;
-
-public class HighlightTableCellRenderer extends DefaultTableCellRenderer
+public class RenderTareas extends DefaultTableCellRenderer
 {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +20,7 @@ public class HighlightTableCellRenderer extends DefaultTableCellRenderer
         else
         {
         	int row2 = table.convertRowIndexToModel(row);
-        	if (table.getModel().getValueAt(row2, 4).equals(false))
+        	if (table.getModel().getValueAt(row2, 1).equals(true))
             {
             	//c.setBackground(Color.ORANGE);
             	c.setFont(this.getFont().deriveFont(Font.BOLD + Font.ITALIC));

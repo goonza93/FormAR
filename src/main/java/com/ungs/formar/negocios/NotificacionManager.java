@@ -9,7 +9,7 @@ import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 
 public class NotificacionManager {
 
-	public static void crearNotificacion(Integer empleadoID, String contenido, boolean mostrado, boolean leido, Date fechaANotificar){
+	public static void crearNotificacion(Integer empleadoID, String contenido, Date fechaANotificar){
 		Notificacion notificacion = new Notificacion(-1, empleadoID, contenido, false, false, fechaANotificar);
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
 		odb.insert(notificacion);

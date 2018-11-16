@@ -25,7 +25,7 @@ public class TablaRecados extends JTable{
 	
 	public TablaRecados(List<Recado> recados, String tipo, boolean coloreable) {
 		modelo = new DefaultTableModel(null, columnas);
-		HighlightTableCellRenderer render = new HighlightTableCellRenderer();
+		RenderRecados render = new RenderRecados();
 		setModel(modelo);
 		setDefaultRenderer(Object.class, render);
 		recargar(recados, tipo);
