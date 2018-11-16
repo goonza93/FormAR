@@ -91,8 +91,8 @@ public class PagoOBDMySQL extends ODB implements PagoOBD{
 		return pagos;
 	}
 
-	public List<Pago> selectByAlumno(Alumno alumno) {
-		String condicion = "alumno = "+alumno.getID();
+	public List<Pago> selectByAlumno(Alumno alumno, Curso curso) {
+		String condicion = "alumno = "+alumno.getID()+" and cursada = "+curso.getID();
 		List<Pago> pagos = selectByCondicion(condicion);
 		
 		return pagos;

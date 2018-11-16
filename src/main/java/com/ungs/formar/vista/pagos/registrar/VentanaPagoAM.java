@@ -51,6 +51,7 @@ public class VentanaPagoAM extends Ventana{
 		JLabel lblMonto = new JLabel("Monto");
 		lblMonto.setPreferredSize(largoLabel);
 		inMonto = new JTextField();
+		inMonto.setEnabled(false);
 		inMonto.setMaximumSize(largoEntrada);
 		PanelHorizontal panelMonto = new PanelHorizontal();
 		panelMonto.add(lblMonto);
@@ -60,6 +61,7 @@ public class VentanaPagoAM extends Ventana{
 		lblMes.setPreferredSize(largoLabel);
 		inMes = new JTextField();
 		inMes.setMaximumSize(largoEntrada);
+		inMes.setEnabled(false);
 		PanelHorizontal panelMes = new PanelHorizontal();
 		panelMes.add(lblMes);
 		panelMes.add(inMes);
