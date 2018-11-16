@@ -8,12 +8,12 @@ public class Notificacion {
 	private boolean mostrado, leido;
 	private Date fechaAMostrar;
 	
-	public Notificacion(Integer ID, Integer empleadoID, String contenido, Date fechaANotificar){
+	public Notificacion(Integer ID, Integer empleadoID, String contenido, boolean mostrado, boolean leido, Date fechaANotificar){
 		this.ID = ID;
 		this.empleado = empleadoID;
 		this.contenido = contenido;
-		this.mostrado = false;
-		this.leido = false;
+		this.mostrado = mostrado;
+		this.leido = leido;
 		this.fechaAMostrar = fechaANotificar;
 	}
 
