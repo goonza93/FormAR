@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.ODB;
+import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.persistencia.interfaces.PagoOBD;
 
@@ -88,5 +90,11 @@ public class PagoOBDMySQL extends ODB implements PagoOBD{
 			
 		return pagos;
 	}
-	
+
+	public List<Pago> selectByAlumno(Alumno alumno) {
+		String condicion = "alumno = "+alumno.getID();
+		List<Pago> pagos = selectByCondicion(condicion);
+		
+		return pagos;
+	}
 }

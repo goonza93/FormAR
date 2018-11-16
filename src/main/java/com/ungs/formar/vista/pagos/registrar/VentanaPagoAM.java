@@ -15,7 +15,7 @@ public class VentanaPagoAM extends Ventana{
 	private static final long serialVersionUID = 1L;
 	private JButton btnRegistrar, btnCancelar, btnAlumno, btnCursada;
 	private JTextField inAlumno, inCursada, inMonto, inMes;
-	private JCheckBox inPagoEnTermino, inPagoCompleto;
+	private JCheckBox inPagoCompleto;
 	
 	public VentanaPagoAM() {
 		super("Registrar pago");
@@ -63,11 +63,8 @@ public class VentanaPagoAM extends Ventana{
 		PanelHorizontal panelMes = new PanelHorizontal();
 		panelMes.add(lblMes);
 		panelMes.add(inMes);
-		
-		inPagoEnTermino = new JCheckBox("Pago en termino");
 		inPagoCompleto = new JCheckBox("Pago completo");
 		PanelHorizontal panelCheck = new PanelHorizontal();
-		panelCheck.add(inPagoEnTermino);
 		panelCheck.add(inPagoCompleto);
 		
 		// BOTONES
@@ -118,10 +115,6 @@ public class VentanaPagoAM extends Ventana{
 
 	public JButton getSelCursada() {
 		return btnCursada;
-	}
-
-	public JCheckBox getPagoEnTermino() {
-		return inPagoEnTermino;
 	}
 
 	public JCheckBox getPagoCompleto() {

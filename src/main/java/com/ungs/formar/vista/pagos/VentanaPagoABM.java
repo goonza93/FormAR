@@ -11,7 +11,7 @@ import javax.swing.JButton;
 public class VentanaPagoABM extends Ventana{
 	private static final long serialVersionUID = 1L;
 	private TablaPagos tabla;
-	private JButton btnRegistrar, btnModificar, btnEliminar, btnFactura, btnVolver;
+	private JButton btnRegistrar, btnFactura, btnVolver;
 	
 	public VentanaPagoABM() {
 		super("Administracion de pagos");
@@ -25,15 +25,11 @@ public class VentanaPagoABM extends Ventana{
 		
 		// BOTONES
 		btnRegistrar = new JButton("Registrar pago");
-		btnModificar = new JButton("Modificar pago");
-		btnEliminar = new JButton("Eliminar pago");
 		btnFactura = new JButton("Imprimir factura");
 		btnVolver = new JButton("Volver");
 
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnRegistrar);
-		panelBotones.add(btnModificar);
-		panelBotones.add(btnEliminar);
 		panelBotones.add(btnFactura);
 		panelBotones.add(btnVolver);
 		
@@ -50,14 +46,6 @@ public class VentanaPagoABM extends Ventana{
 	
 	public JButton getRegistrar() {
 		return btnRegistrar;
-	}
-
-	public JButton getModificar() {
-		return btnModificar;
-	}
-	
-	public JButton getEliminar() {
-		return btnEliminar;
 	}
 
 	public JButton getFactura() {
