@@ -45,4 +45,9 @@ public class Tesoreria {
 		obd.update(pago);
 	}
 
+	public static List<Pago> traerPagosAlumno(Alumno alumno){
+		PagoOBD obd = FactoryODB.crearPagoOBD();
+		return obd.selectByAlumno(alumno);
+		
+	}
 }
