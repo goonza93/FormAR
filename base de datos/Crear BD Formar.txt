@@ -255,7 +255,7 @@ CREATE TABLE for_pagos (
     FOREIGN KEY (mes) REFERENCES for_meses(ID)
 );
 
---ESQUEMA TAREAS
+-- ESQUEMA TAREAS
 CREATE TABLE for_tareas (
 	ID INT(4) AUTO_INCREMENT,
 	empleado INT(4) NOT NULL,
@@ -265,7 +265,7 @@ CREATE TABLE for_tareas (
 	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
 );
 
---ESQUEMA NOTIFICACIONES
+-- ESQUEMA NOTIFICACIONES
 CREATE TABLE for_notificaciones (
 	ID INT(4) AUTO_INCREMENT,
 	empleado INT(4) NOT NULL,
