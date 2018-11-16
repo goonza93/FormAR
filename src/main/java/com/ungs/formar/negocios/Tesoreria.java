@@ -50,4 +50,13 @@ public class Tesoreria {
 		return obd.selectByAlumno(alumno);
 		
 	}
+
+	public static boolean pagoEnTermino(Alumno alumno){
+		List<Pago> pagos = traerPagosAlumno(alumno);
+		/*
+		for(Pago pago : pagos){
+			if(pago.)
+		}*/
+		return true;
+	}
 }
