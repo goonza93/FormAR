@@ -16,7 +16,9 @@ import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
+import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorLogin implements ActionListener {
 	private VentanaIniciarSesion ventanaIniciarSesion;
@@ -83,9 +85,13 @@ public class ControladorLogin implements ActionListener {
 
 	private void iniciarSesion() {
 		if (validarLogin()) {
-
-			new ControladorPantallaPrincipal(
-					EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText())).inicializar();
+			if(Popup.confirmar("Abrir Vista vieja?")){
+				new ControladorPantallaPrincipal(
+						EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText())).inicializar();
+			} else {
+				Sesion.setEmpleado(EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()));
+				new ControladorPrincipal();
+			}
 			this.ventanaIniciarSesion.getVentana().dispose();
 		}
 

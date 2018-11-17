@@ -26,36 +26,32 @@ public class Main {
 		
 		//ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(8));
 		//controlador.inicializar();
-		
-		if(Popup.confirmar("Abrir Vista vieja?")){
-			if(SystemTray.isSupported()){
-				SystemTray tray = SystemTray.getSystemTray();
-				ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
-				Image image = image2.getImage();
-				TrayIcon trayIcon = new TrayIcon(image);
-				trayIcon.setImageAutoSize(true);
-
-				try {
-					tray.add(trayIcon);
-				} catch (AWTException e) {
-					e.printStackTrace();
-				}
-				trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
-				ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-				Runnable task = new Notifier(trayIcon);
-				int initialDelay = 3;
-				int periodicDelay = 1;
-				scheduler.scheduleAtFixedRate(task, initialDelay, periodicDelay, TimeUnit.SECONDS);
+	
+	
+		if(SystemTray.isSupported()){
+			SystemTray tray = SystemTray.getSystemTray();
+			ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
+			Image image = image2.getImage();
+			TrayIcon trayIcon = new TrayIcon(image);
+			trayIcon.setImageAutoSize(true);
+			try {
+				tray.add(trayIcon);
+			} catch (AWTException e) {
+				e.printStackTrace();
 			}
-			
-			VentanaIniciarSesion v = new VentanaIniciarSesion();
-			v.getUsuario().setText("user8"); // sacar antes de entregar
-			v.getPassword().setText("123"); // sacar antes de entregar
-			ControladorLogin c = new ControladorLogin(v);
-			c.inicializar();
-		} else {
-			new ControladorPrincipal();
+			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
+			ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+			Runnable task = new Notifier(trayIcon);
+			int initialDelay = 3;
+			int periodicDelay = 1;
+			scheduler.scheduleAtFixedRate(task, initialDelay, periodicDelay, TimeUnit.SECONDS);
 		}
+		
+		VentanaIniciarSesion v = new VentanaIniciarSesion();
+		v.getUsuario().setText("user8"); // sacar antes de entregar
+		v.getPassword().setText("123"); // sacar antes de entregar
+		ControladorLogin c = new ControladorLogin(v);
+		c.inicializar();
 	}
 	
 }
