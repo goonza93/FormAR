@@ -31,27 +31,12 @@ public class PantallaPrincipal extends JFrame {
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios;
 	private JMenuBar notifBar, barraPrincipal;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PantallaPrincipal frame = new PantallaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPanel panelPrincipal;
 
 	public PantallaPrincipal() {
-		// temporal sesion supervisor
-		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(8));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventana principal");
 		setVisible(true);
-		JFrame asd = new JFrame();
 		
 		Font f = new Font("sans-serif", Font.PLAIN, 25);
 		UIManager.put("Menu.font", f);
@@ -66,8 +51,12 @@ public class PantallaPrincipal extends JFrame {
 		JPanel menuPanel = new JPanel( new BorderLayout() );
         menuPanel.add(barraPrincipal, BorderLayout.CENTER);
         menuPanel.add(notifBar, BorderLayout.EAST);
+        //setJMenuBar(menuPanel);
         add(menuPanel, BorderLayout.NORTH);
-
+        /* intento de no perder el menu ;(
+        panelPrincipal = new JPanel();
+		add(panelPrincipal);
+		*/
 		repaint();
 		pack();
 		setLocationRelativeTo(null);
@@ -394,6 +383,14 @@ public class PantallaPrincipal extends JFrame {
 
 	public void setBarraPrincipal(JMenuBar barraPrincipal) {
 		this.barraPrincipal = barraPrincipal;
+	}
+
+	public JPanel getPanelPrincipal() {
+		return panelPrincipal;
+	}
+
+	public void setPanelPrincipal(JPanel panelPrincipal) {
+		this.panelPrincipal = panelPrincipal;
 	}
 	
 }

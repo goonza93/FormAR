@@ -159,10 +159,11 @@ public class ControladorPantallaPrincipal implements ActionListener {
 
 		// BOTON ABM ALUMNOS
 		if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarAlumnos()) {
+			/*
 			this.ventanaGestionarAlumnos = new VentanaAlumnoABM();
 			this.ventanaGestionarAlumnos.getVentana().setVisible(true);
 			this.pantallaAdministrativo.ocultar();
-			new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);
+			new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);*/
 		}
 
 		// BOTON ABM CURSOS

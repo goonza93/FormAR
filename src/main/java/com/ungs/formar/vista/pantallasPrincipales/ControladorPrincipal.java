@@ -10,6 +10,7 @@ import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
+import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
@@ -23,6 +24,7 @@ public class ControladorPrincipal implements ActionListener {
 		ventana = new PantallaPrincipal();
 		ventana.getMenuArchivoCambiarContrasena().addActionListener(s -> mostrarCambiarPass());
 		ventana.getMenuAlumnoCrearAlumno().addActionListener(s -> new ControladorAlumnoABM(this));
+		ventana.getMenuAlumnoConsultarAlumnos().addActionListener(s -> mostrarConsultarAlumnos());
 		
 	}
 
@@ -171,6 +173,10 @@ public class ControladorPrincipal implements ActionListener {
 		mostrarVentana(new ControladorGestionAsistencias2(this));
 	}
 */
+	private void mostrarConsultarAlumnos(){
+		VentanaAlumnoABM asd = new VentanaAlumnoABM();
+		mostrarVentana(new ControladorAlumnoABM(asd,this));
+	}
 	
 	
 	
