@@ -5,8 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.Hash;
+import com.ungs.formar.negocios.Validador;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.Popup;
+import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.ventanas.CambiarPass;
 
 public class ControladorPrincipal implements ActionListener {
@@ -15,17 +21,13 @@ public class ControladorPrincipal implements ActionListener {
 	
 	public ControladorPrincipal() {
 		ventana = new PantallaPrincipal();
-		ventana.getMenuArchivoCambiarContrasena().addActionListener(this);
-		ventana.getMenuArchivoCambiarEmailSistema().addActionListener(s -> mostrarCambiarPass());
-		ventana.getMenuAlumnoCrearAlumno().addActionListener(this);
+		ventana.getMenuArchivoCambiarContrasena().addActionListener(s -> mostrarCambiarPass());
+		ventana.getMenuAlumnoCrearAlumno().addActionListener(s -> new ControladorAlumnoABM(this));
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
-		if (e.getSource() == ventana.getMenuArchivoCambiarContrasena()){
-			mostrarCambiarPass();
-		}
-		else if (e.getSource() == ventana.getMenuArchivoCerrarSesion()){
+		if (e.getSource() == ventana.getMenuArchivoCerrarSesion()){
 			System.out.println("Presionando menu 1 opcion 2");
 		}
 		else if (e.getSource() == ventana.getMenuArchivoCambiarEmailSistema()){
@@ -39,10 +41,6 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		else if (e.getSource() == ventana.getMenuArchivoSalir()){
 			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuAlumnoCrearAlumno()){
-			System.out.println("entro");
-			new ControladorAlumnoABM(this);
 		}
 		else if (e.getSource() == ventana.getMenuAlumnoConsultarAlumnos()){
 			//INTERNALFRAME
@@ -116,10 +114,46 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.setEnabled(false);
 		CambiarPass ventanaCambiarPass = new CambiarPass();
 		ventanaCambiarPass.setVisible(true);
-		ventanaCambiarPass.getBtnAceptar().addActionListener(this);
-		ventanaCambiarPass.getBtnCancelar().addActionListener(this);
-		ventanaCambiarPass.getBtnReglaContraseña().addActionListener(this);
+		ventanaCambiarPass.getBtnAceptar().addActionListener(s -> validarCambioPass(ventanaCambiarPass));
+		ventanaCambiarPass.getBtnCancelar().addActionListener(s -> cerrarCambioPass(ventanaCambiarPass));
+		ventanaCambiarPass.getBtnReglaContraseña().addActionListener(
+				s -> Popup.mostrar("La contraseña debe consistir de 6 a 8 caracteres alfanumericos."));
 	}
+	private void cerrarCambioPass(CambiarPass ventanaCambiarPass){
+		ventana.setEnabled(true);
+		ventanaCambiarPass.dispose();
+	}
+	private void validarCambioPass(CambiarPass ventanaCambiarPass){
+		String pass1 = new String(ventanaCambiarPass.getTxtContraseña().getPassword());
+		String pass2 = new String(ventanaCambiarPass.getTxtRepetirContraseña().getPassword());
+		if (pass1.isEmpty() || pass2.isEmpty())
+			Popup.mostrar("Por favor ingrese la contraseña nueva y repitala.");
+		else if (!Validador.validarUsuario(pass1) || pass1.length() > 8 || pass1.length() < 6)
+			Popup.mostrar("La contraseña debe consistir de 6 a 8 caracteres alfanumericos.");
+		else if (!pass1.equals(pass2))
+			Popup.mostrar("Las contraseñas nuevas ingresadas no coinciden.");
+		else if(!validarPasswordActual(ventanaCambiarPass)){
+			Popup.mostrar("La contraseña actual es incorrecta.");
+		}
+		else {
+			Empleado usuario = Sesion.getEmpleado();
+			String nuevaPassCifrada = Hash.md5(pass1);
+			usuario.setPassword(nuevaPassCifrada);
+			EmpleadoManager.modificarEmpleado(usuario);
+			Popup.mostrar("La contraseña fue cambiada con exito");
+			ventana.setEnabled(true);
+			ventanaCambiarPass.dispose();
+		}
+	}
+	private boolean validarPasswordActual(CambiarPass ventanaCambiarPass){
+		String passCifrado = Sesion.getEmpleado().getPassword();
+		String passIngresado = Hash.md5(new String(ventanaCambiarPass.getPassword().getPassword()));
+		if (!passCifrado.equals(passIngresado)) {
+			return false;
+		}
+		return true;
+	}
+	
 
 	private void mostrarVentana(ControladorInterno nuevo) {
 		if (controlador == null || controlador.finalizar()) {
