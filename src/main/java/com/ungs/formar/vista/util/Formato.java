@@ -140,4 +140,9 @@ public class Formato {
 		return ret;
 	}
 
+	public static String booleanSiNo(boolean atr){
+		if(atr)
+			return "SI";
+		return "NO";
+	}
 }

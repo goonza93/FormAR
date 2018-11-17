@@ -1,6 +1,7 @@
 package com.ungs.formar.persistencia.mysql;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -97,4 +98,12 @@ public class PagoOBDMySQL extends ODB implements PagoOBD{
 		
 		return pagos;
 	}
+
+	public List<Pago> selectBusqueda(Alumno alumno) {
+		String condicion = "alumno = "+alumno.getID();
+		List<Pago> pagos = selectByCondicion(condicion);
+		
+		return pagos;
+	}
+
 }

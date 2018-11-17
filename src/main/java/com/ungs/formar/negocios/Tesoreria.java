@@ -1,6 +1,7 @@
 package com.ungs.formar.negocios;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
@@ -113,5 +114,39 @@ public class Tesoreria {
 			pago.setPagoCompleto(true);
 			actualizarPago(pago);
 		}
+	}
+
+
+	
+	public static List<Pago> traerPagosBusqueda(String dni, java.util.Date fechaDesde, java.util.Date fechaHasta){
+		PagoOBD obd = FactoryODB.crearPagoOBD();
+		Alumno alumno = AlumnoManager.traerAlumnoSegunDNI(dni);
+		Date desde = (fechaDesde == null) ? null : new Date(fechaDesde.getTime());
+		Date hasta = (fechaHasta == null) ? null : new Date(fechaHasta.getTime());
+		List<Pago> pagosAlumno = obd.selectBusqueda(alumno);
+		List<Pago> retorno = new ArrayList<Pago>();
+		if(!pagosAlumno.isEmpty()){
+			for(Pago pago : pagosAlumno){
+				if(validarDesde(pago, desde) && validarHasta(pago, hasta))
+					retorno.add(pago);
+			}
+		}
+		return retorno;
+	}
+	
+	private static boolean validarDesde(Pago pago, Date desde){
+		if(desde==null)
+			return true;
+		else if(desde.before(pago.getFecha()))
+			return true;
+		return false;
+	}
+	
+	private static boolean validarHasta(Pago pago, Date hasta){
+		if(hasta==null)
+			return true;
+		else if(hasta.after(pago.getFecha()))
+			return true;
+		return false;
 	}
 }

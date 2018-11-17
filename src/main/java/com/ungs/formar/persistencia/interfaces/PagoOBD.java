@@ -1,5 +1,6 @@
 package com.ungs.formar.persistencia.interfaces;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.ungs.formar.persistencia.entidades.Alumno;
@@ -17,5 +18,7 @@ public interface PagoOBD {
 	public List<Pago> select();
 
 	public List<Pago> selectByAlumno(Alumno alumno, Curso curso);
+
+	public List<Pago> selectBusqueda(Alumno alumno);
 	
 }
