@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import com.ungs.formar.negocios.EmpleadoManager;
+import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.vista.util.Sesion;
 
@@ -58,18 +59,18 @@ public class PantallaPrincipal extends JFrame {
 
 		//repaint();
 		//pack();
-		barraPrincipal = crearBarra();
+		//barraPrincipal = crearBarra();
 		
-		notifBar = new JMenuBar();
-		menuItemNotificacion = new JMenuItem("Notificaciones");
-		menuItemNotificacion.setFont(new Font("sans-serif", Font.PLAIN, 25));
-		notifBar.add(menuItemNotificacion);
+		//notifBar = new JMenuBar();
+		//menuItemNotificacion = new JMenuItem("Notificaciones");
+		//menuItemNotificacion.setFont(new Font("sans-serif", Font.PLAIN, 25));
+		//notifBar.add(menuItemNotificacion);
 		
-		JPanel menuPanel = new JPanel( new BorderLayout() );
-        menuPanel.add(barraPrincipal, BorderLayout.CENTER);
-        menuPanel.add(notifBar, BorderLayout.EAST);
+		//JPanel menuPanel = new JPanel( new BorderLayout() );
+        //menuPanel.add(barraPrincipal, BorderLayout.CENTER);
+        //menuPanel.add(notifBar, BorderLayout.EAST);
         //setJMenuBar(menuPanel);
-        add(menuPanel, BorderLayout.NORTH);
+        //add(menuPanel, BorderLayout.NORTH);
         /* intento de no perder el menu ;(
         panelPrincipal = new JPanel();
 		add(panelPrincipal);
@@ -136,6 +137,10 @@ public class PantallaPrincipal extends JFrame {
 		JMenu menuRecados = new JMenu("  Recados");
 		JMenu menuUsuarios = new JMenu("  Usuarios");
 		
+		
+		
+		JMenu menuPrueba = new JMenu("Noticaciones(" + NotificacionManager.traerNotificaciones().size()+")");
+		
 		menuArchivo.add(menuArchivoCambiarContrasena);
 		menuArchivo.add(menuArchivoCerrarSesion);
 		
@@ -180,6 +185,7 @@ public class PantallaPrincipal extends JFrame {
 		barra.add(menuTareas);
 		barra.add(menuRecados);
 		barra.add(menuUsuarios);
+		barra.add(menuPrueba);
 		
 		return barra;
 	}
