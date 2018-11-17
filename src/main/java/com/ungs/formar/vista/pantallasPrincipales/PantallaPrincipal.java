@@ -30,19 +30,18 @@ public class PantallaPrincipal extends JFrame {
 	, menuCursosConsultarSalas , menuContactosCrearContacto, menuContactosConsultarContactos
 	, menuTareasCrearTarea, menuTareasConsultarTareas, menuRecadosCrearRecado
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
-	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios;
+	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios, menuInscripcionesConsultarInscripciones
+	, menuNotificacionesVerNotificaciones;
 	private JMenuBar notifBar, barraPrincipal;
 	private JMenuBar barrarNuevo;
 	private JPanel panelPrincipal;
 
 	public PantallaPrincipal() {
-
-		Sesion.setEmpleado(EmpleadoManager.traerEmpleado(8));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ventana principal");
 		setVisible(true);
-		//Font f = new Font("sans-serif", Font.PLAIN, 25);
-		//UIManager.put("Menu.font", f);
+		Font f = new Font("sans-serif", Font.PLAIN, 22);
+		UIManager.put("Menu.font", f);
 		
 		//barraPrincipal = crearBarra();
 		barrarNuevo = crearBarra();
@@ -109,6 +108,9 @@ public class PantallaPrincipal extends JFrame {
 		menuCursosConsultarCursadas = new JMenuItem("Consultar cursadas");
 		menuCursosConsultarSalas = new JMenuItem("Consultar salas");
 		
+		// MENU INSCRIPCIONES
+		menuInscripcionesConsultarInscripciones = new JMenuItem("Consultar inscripciones");
+		
 		// MENU CONTACTOS
 		menuContactosCrearContacto = new JMenuItem("Crear contacto");
 		menuContactosConsultarContactos = new JMenuItem("Consultar contactos");
@@ -127,21 +129,21 @@ public class PantallaPrincipal extends JFrame {
 		menuUsuariosCrearUsuario = new JMenuItem("Crear usuario");
 		menuUsuariosConsultarUsuarios = new JMenuItem("Consultar usuarios");
 		
+		// MENU NOTIFICACIONES
+		menuNotificacionesVerNotificaciones = new JMenuItem("Ver notificaciones");
+		
 		// los agrego a su menu correspondiente
 		JMenu menuArchivo = new JMenu("Archivo");
 		//menuArchivo.setPreferredSize(new Dimension(100,50));
 		JMenu menuAlumnos = new JMenu("  Alumnos");
 		JMenu menuCursos = new JMenu("  Cursos");
+		JMenu menuInscripciones = new JMenu("  Inscripciones");
 		JMenu menuContactos = new JMenu("  Contactos");
 		JMenu menuTareas = new JMenu("  Tareas");
 		JMenu menuRecados = new JMenu("  Recados");
 		JMenu menuUsuarios = new JMenu("  Usuarios");
-		
-		
-		
-		JMenu menuPrueba = new JMenu("Noticaciones(" + NotificacionManager.traerNotificaciones().size()+")");
-		JMenuItem menuPrueba1 = new JMenuItem("Ver notificaciones");
-		menuPrueba.add(menuPrueba1);
+		JMenu menuNotificaciones = new JMenu("  Noticaciones");
+
 		
 		
 		
@@ -168,6 +170,8 @@ public class PantallaPrincipal extends JFrame {
 			menuCursos.add(menuCursosConsultarSalas);
 		}
 		
+		menuInscripciones.add(menuInscripcionesConsultarInscripciones);
+		
 		menuContactos.add(menuContactosCrearContacto);
 		menuContactos.add(menuContactosConsultarContactos);
 		
@@ -182,14 +186,17 @@ public class PantallaPrincipal extends JFrame {
 		menuUsuarios.add(menuUsuariosCrearUsuario);
 		menuUsuarios.add(menuUsuariosConsultarUsuarios);
 		
+		menuNotificaciones.add(menuNotificacionesVerNotificaciones);
+		
 		barra.add(menuArchivo);
 		barra.add(menuAlumnos);
 		barra.add(menuCursos);
 		barra.add(menuContactos);
+		barra.add(menuInscripciones);
 		barra.add(menuTareas);
 		barra.add(menuRecados);
 		barra.add(menuUsuarios);
-		barra.add(menuPrueba);
+		barra.add(menuNotificaciones);
 		
 		return barra;
 	}

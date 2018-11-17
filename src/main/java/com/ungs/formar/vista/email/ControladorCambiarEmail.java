@@ -8,14 +8,16 @@ import java.awt.event.WindowEvent;
 import com.ungs.formar.negocios.Configuracion;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorCambiarEmail implements ActionListener{
 	VentanaCambiarEmail ventana;
-	ControladorPantallaPrincipal controlador;
+	ControladorPrincipal controlador;
 	
-	public ControladorCambiarEmail(ControladorPantallaPrincipal controlador) {
+	public ControladorCambiarEmail(ControladorPrincipal controlador) {
 		this.controlador = controlador;
+		this.controlador.getVentana().setEnabled(false);
 		ventana = new VentanaCambiarEmail();
 		ventana.botonAceptar().addActionListener(this);
 		ventana.botonCancelar().addActionListener(this);
@@ -58,7 +60,8 @@ public class ControladorCambiarEmail implements ActionListener{
 	private void volver() {
 		ventana.dispose();
 		ventana = null;
-		controlador.inicializar();
+		controlador.getVentana().setEnabled(true);
+		//controlador.inicializar();
 	}
 	
 }

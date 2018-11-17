@@ -9,8 +9,11 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.email.ControladorCambiarEmail;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
+import com.ungs.formar.vista.login.ControladorLogin;
+import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
@@ -25,14 +28,12 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuArchivoCambiarContrasena().addActionListener(s -> mostrarCambiarPass());
 		ventana.getMenuAlumnoCrearAlumno().addActionListener(s -> new ControladorAlumnoABM(this));
 		ventana.getMenuAlumnoConsultarAlumnos().addActionListener(s -> mostrarConsultarAlumnos());
-		
+		ventana.getMenuArchivoCerrarSesion().addActionListener(s -> cerrarSesion());
+		ventana.getMenuArchivoCambiarEmailSistema().addActionListener(s -> new ControladorCambiarEmail(this));
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ventana.getMenuArchivoCerrarSesion()){
-			System.out.println("Presionando menu 1 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuArchivoCambiarEmailSistema()){
+		if (e.getSource() == ventana.getMenuArchivoCambiarEmailSistema()){
 			System.out.println("Presionando menu 1 opcion 3");
 		}
 		else if (e.getSource() == ventana.getMenuArchivoImportarBD()){
@@ -42,10 +43,6 @@ public class ControladorPrincipal implements ActionListener {
 			System.out.println("Presionando menu 2 opcion 2");
 		}
 		else if (e.getSource() == ventana.getMenuArchivoSalir()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuAlumnoConsultarAlumnos()){
-			//INTERNALFRAME
 			System.out.println("Presionando menu 2 opcion 2");
 		}
 		else if (e.getSource() == ventana.getMenuAlumnoConsultarPagos()){
@@ -111,6 +108,17 @@ public class ControladorPrincipal implements ActionListener {
 			System.out.println("Presionando menu 2 opcion 2");
 		}
 	}
+	
+	private void cerrarSesion(){
+		if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
+			ventana.dispose();
+			ventana = null;
+			Sesion.setEmpleado(null);
+			VentanaIniciarSesion v = new VentanaIniciarSesion();
+			ControladorLogin c = new ControladorLogin(v);
+			c.inicializar();
+		}
+	}
 
 	private void mostrarCambiarPass() {
 		ventana.setEnabled(false);
@@ -155,7 +163,6 @@ public class ControladorPrincipal implements ActionListener {
 		}
 		return true;
 	}
-	
 
 	private void mostrarVentana(ControladorInterno nuevo) {
 		if (controlador == null || controlador.finalizar()) {
