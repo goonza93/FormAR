@@ -23,6 +23,8 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.email.ControladorCambiarEmail;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
+import com.ungs.formar.vista.gestion.empleados.ControladorEmpleadoABM;
+import com.ungs.formar.vista.gestion.empleados.VentanaEmpleadoABM;
 import com.ungs.formar.vista.gestion.tareas.ControladorTareaABM;
 import com.ungs.formar.vista.gestion.tareas.VentanaTareaABM;
 import com.ungs.formar.vista.login.ControladorLogin;
@@ -261,11 +263,12 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarConsultarUsuarios() {
-		// TODO Auto-generated method stub
+		VentanaEmpleadoABM asd = new VentanaEmpleadoABM();
+		mostrarVentana(new ControladorEmpleadoABM(asd,this));
 	}
 
 	private void mostrarCrearUsuario() {
-		// TODO Auto-generated method stub
+		new ControladorEmpleadoABM(this);
 	}
 
 	private void mostrarConsultarArchivados() {

@@ -175,12 +175,13 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		}
 
 		// BOTON ABM INSTRUCTORES
+		/*
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarInstructores()) {
 			this.ventanaGestionarInstructores = new VentanaEmpleadoABM();
 			this.ventanaGestionarInstructores.mostrar();
 			this.pantallaAdministrativo.ocultar();
 			new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.INSTRUCTOR);
-		}
+		}*/
 
 		// BOTON ABM PROGRAMAS
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarProgramas()) {
@@ -256,17 +257,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	}
 
 	private void clickBtnPantallaSupervisor(ActionEvent e) {
-
+/*
 		// BOTON ABM ADMINISTRATIVOS
 		if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAdministrativos()) {
 			this.ventanaGestionarInstructores = new VentanaEmpleadoABM();
 			this.ventanaGestionarInstructores.mostrar();
 			this.pantallaSupervisor.ocultar();
 			new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.ADMINISTRATIVO);
-		}
+		}*/
 
 		// BOTON ABM AREAS
-		else if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAreas()) {
+		if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAreas()) {
 			this.ventanaGestionarAreas = new GestionarAreas();
 			this.ventanaGestionarAreas.setVisible(true);
 			this.pantallaSupervisor.ocultar();

@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
@@ -16,29 +17,47 @@ import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
+import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorEmpleadoABM implements ActionListener {
+public class ControladorEmpleadoABM implements ActionListener, ControladorInterno {
 	private VentanaEmpleadoABM ventanaABM;
 	private VentanaEmpleadoAM ventanaAM;
-	private ControladorPantallaPrincipal controlador;
+	private ControladorPrincipal controlador;
 	private List<Empleado> empleados;
 	private Rol rol;
 
-	public ControladorEmpleadoABM(VentanaEmpleadoABM ventanaABM, ControladorPantallaPrincipal controlador, Rol rol) {
+	public ControladorEmpleadoABM(VentanaEmpleadoABM ventanaABM, ControladorPrincipal controlador) {
 		this.ventanaABM = ventanaABM;
 		this.controlador = controlador;
-		this.rol = rol;
-		this.ventanaABM.getAgregar().addActionListener(this);
-		this.ventanaABM.getBorrar().addActionListener(this);
-		this.ventanaABM.getEditar().addActionListener(this);
-		this.ventanaABM.getCancelar().addActionListener(this);
-		this.ventanaABM.getDarDeAlta().addActionListener(this);
-		this.ventanaABM.getVentana().setTitle("GESTION DE "+rol);
-		this.ventanaABM.getLblRol().setText(rol+":");
+		this.rol = Sesion.getEmpleado().getRol();
+		this.ventanaABM.getAgregar().addActionListener(s -> abrirVentanaAlta());
+		this.ventanaABM.getBorrar().addActionListener(s -> baja());
+		this.ventanaABM.getEditar().addActionListener(s -> abrirVentanaModificacion());
+		this.ventanaABM.getDarDeAlta().addActionListener(s -> alta());
 		this.inicializar();
 	}
+	
+	public ControladorEmpleadoABM(ControladorPrincipal controlador) {
+		this.controlador = controlador;
+		this.rol = Sesion.getEmpleado().getRol();
+		ventanaAM = new VentanaEmpleadoAM(Sesion.getEmpleado().getRol());
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAMP());
+		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaAM();
+			}
+		});
+		ventanaAM.getFechaIngreso().setDate(Almanaque.hoy());
+		ventanaAM.setVisible(true);
+		this.controlador.getVentana().setEnabled(false);
+	}
+	
 
 	public void inicializar() {
 		llenarTabla();
@@ -50,59 +69,27 @@ public class ControladorEmpleadoABM implements ActionListener {
 		ventanaABM.getModeloEmpleados().setColumnCount(0);
 		ventanaABM.getModeloEmpleados().setColumnIdentifiers(ventanaABM.getNombreColumnas());
 
-		if (rol == Rol.INSTRUCTOR)
-			empleados = EmpleadoManager.traerInstructores();
-		else if (rol == Rol.ADMINISTRATIVO)
-			empleados = EmpleadoManager.traerAdministrativos();
-		else if (rol == Rol.COMPLETO)
-			empleados = EmpleadoManager.traerEmpleados();
-
-		for (Empleado empleado : empleados) {
-			Object[] fila = { empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
-					empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
-			ventanaABM.getModeloEmpleados().addRow(fila);
-		}
-	}
-
-	public void actionPerformed(ActionEvent e) {
-
-		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaABM.getAgregar()) {
-			abrirVentanaAlta();
-		}
-		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaABM.getCancelar()) {
-			cerrarVentanaABM();
-		}
-		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaABM.getEditar()) {
-			abrirVentanaModificacion();
-		}
-		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaABM.getBorrar()) {
-			baja();
-		}
-		//BOTON DAR DE ALTA DEL ABM
-		else if (e.getSource() == ventanaABM.getDarDeAlta()) {
-			alta();
-		}
+		empleados = EmpleadoManager.traerEmpleados();
 		
-		// BOTON ACEPTAR DEL AM
-		else if (ventanaAM != null) {
-			if (e.getSource() == ventanaAM.getAceptar()) {
-				aceptarAM();
-			}
-			// BOTON CANCELAR DEL AM
-			else if (e.getSource() == ventanaAM.getCancelar()) {
-				cerrarVentanaAM();
+		for (Empleado empleado : empleados) {
+			if(rol==Rol.ADMINISTRATIVO){
+				if(empleado.getRol()==Rol.INSTRUCTOR){
+					Object[] fila = { empleado.getRol(), empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
+							empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
+					ventanaABM.getModeloEmpleados().addRow(fila);
+				}
+			} else {
+				Object[] fila = { empleado.getRol(), empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
+						empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
+				ventanaABM.getModeloEmpleados().addRow(fila);
 			}
 		}
 	}
 
 	private void abrirVentanaAlta() {
 		ventanaAM = new VentanaEmpleadoAM(rol);
-		ventanaAM.getAceptar().addActionListener(this);
-		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -111,7 +98,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 		});
 		ventanaAM.getFechaIngreso().setDate(Almanaque.hoy());
 		ventanaAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private void abrirVentanaModificacion() {
@@ -127,9 +114,9 @@ public class ControladorEmpleadoABM implements ActionListener {
 			return;
 		}
 
-		ventanaAM = new VentanaEmpleadoAM(seleccionados.get(0), Rol.INSTRUCTOR);
-		ventanaAM.getAceptar().addActionListener(this);
-		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM = new VentanaEmpleadoAM(seleccionados.get(0), Sesion.getEmpleado().getRol());
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -137,7 +124,7 @@ public class ControladorEmpleadoABM implements ActionListener {
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private void baja() {
@@ -213,15 +200,16 @@ public class ControladorEmpleadoABM implements ActionListener {
 		if (confirm == 0) {
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
 	private void aceptarAM() {
 		if (validarCampos()) {
 			Empleado empleado = ventanaAM.getEmpleado();
-			Rol rol = ventanaAM.getRol();
+			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem(); // aca iria el seleccionado, no el de sesion.
 			String apellido = ventanaAM.getApellido().getText();
 			String nombre = ventanaAM.getNombre().getText();
 			String dni = ventanaAM.getDNI().getText();
@@ -238,22 +226,56 @@ public class ControladorEmpleadoABM implements ActionListener {
 				empleado.setTelefono(telefono);
 				empleado.setEmail(email);
 				empleado.setFechaIngreso(fechaIngreso);
+				empleado.setRol(rol);
 				EmpleadoManager.modificarEmpleado(empleado);
 			}
 
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
 			inicializar();
 		}
 	}
+	
+	private void aceptarAMP() {
+		if (validarCampos()) {
+			Empleado empleado = ventanaAM.getEmpleado();
+			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem(); // aca iria el seleccionado, no el de sesion.
+			String apellido = ventanaAM.getApellido().getText();
+			String nombre = ventanaAM.getNombre().getText();
+			String dni = ventanaAM.getDNI().getText();
+			String telefono = ventanaAM.getTelefono().getText();
+			String email = ventanaAM.getEmail().getText();
+			Date fechaIngreso = new Date(ventanaAM.getFechaIngreso().getDate().getTime());
 
+			if (empleado == null)
+				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
+			else {
+				empleado.setApellido(apellido);
+				empleado.setNombre(nombre);
+				empleado.setDNI(dni);
+				empleado.setTelefono(telefono);
+				empleado.setEmail(email);
+				empleado.setFechaIngreso(fechaIngreso);
+				empleado.setRol(rol);
+				EmpleadoManager.modificarEmpleado(empleado);
+			}
+
+			ventanaAM.dispose();
+			ventanaAM = null;
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
+		}
+	}
+/*
 	private void cerrarVentanaABM() {
 		ventanaABM.getVentana().dispose();
 		ventanaABM = null;
 		controlador.inicializar();
-	}
+	}*/
 
 	private boolean validarCampos() {
 		String apellido = ventanaAM.getApellido().getText();
@@ -363,4 +385,16 @@ public class ControladorEmpleadoABM implements ActionListener {
 		return registros;
 	}
 
+	public void actionPerformed(ActionEvent e){}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaABM;
+	}
+	
 }
