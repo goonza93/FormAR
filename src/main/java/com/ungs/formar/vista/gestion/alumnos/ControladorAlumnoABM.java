@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
@@ -26,6 +27,7 @@ import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccionesAM;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
@@ -37,20 +39,20 @@ import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
 
-public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSeleccionable {
+public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSeleccionable, ControladorInterno{
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
 	private VentanaInteraccionesAM ventanaInteraccionesAM;
 	private VentanaSeleccionarArea ventanaSeleccionarArea;
 	private SeleccionarPrograma ventanaSeleccionarPrograma;
-	private ControladorPantallaPrincipal controlador;
+	private ControladorPrincipal controlador;
 	private ControladorPrincipal controladorPrincipal;
 	private List<Alumno> alumnos;
 	private Interesado contactoTemp;
 	private Area areaSeleccionada;
 	private Programa cursoSeleccionado;
 
-	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPantallaPrincipal controlador) {
+	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPrincipal controlador) {
 		this.ventanaABM = ventanaABM;
 		this.controlador = controlador;
 		this.controladorPrincipal = null;
@@ -63,13 +65,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		this.ventanaABM.getOcultar().addActionListener(this);
 		this.ventanaABM.getInscripciones().addActionListener(this);
 		this.ventanaABM.getCrearInteraccion().addActionListener(this);
-
+/*
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				cerrarVentanaABM();
 			}
-		});
+		});*/
 		this.inicializar();
 	}
 	
@@ -103,8 +105,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaABM.getVentana().setVisible(true);
-		ventanaABM.getVentana().setEnabled(true);
+		ventanaABM.setVisible(true);
+		ventanaABM.setEnabled(true);
 	}
 
 	private void llenarTabla() {
@@ -250,8 +252,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		
 		ventanaInteraccionesAM.dispose();
 		ventanaInteraccionesAM = null;
-		ventanaABM.getVentana().setEnabled(true);
-		ventanaABM.getVentana().setVisible(true);
+		ventanaABM.setEnabled(true);
+		ventanaABM.setVisible(true);
 		
 	}
 
@@ -286,7 +288,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		}
 		Alumno alumno = seleccion.get(0);
 		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
-		ventanaABM.getVentana().setEnabled(false);
+		ventanaABM.setEnabled(false);
 	}
 	
 	private void crearInteraccion() {
@@ -320,7 +322,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaInteraccionesAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		ventanaABM.setEnabled(false);
 	}
 	
 	
@@ -331,8 +333,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		if (confirm == 0) {
 			ventanaInteraccionesAM.dispose();
 			ventanaInteraccionesAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			ventanaABM.setEnabled(true);
+			ventanaABM.setVisible(true);
 		}
 	}
 
@@ -391,7 +393,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		ventanaABM.setEnabled(false);
 	}
 
 	private void abrirVentanaAlta() {
@@ -406,13 +408,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		ventanaABM.setEnabled(false);
 	}
 
 	public void cerrarVentanaABM() {
-		ventanaABM.getVentana().dispose();
+		ventanaABM.dispose();
 		ventanaABM = null;
-		controlador.inicializar();
+		//controlador.inicializar();
 	}
 
 	private void aceptarAM() {
@@ -442,8 +444,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			llenarTabla();
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			ventanaABM.setEnabled(true);
+			ventanaABM.setVisible(true);
 		}
 	}
 
@@ -454,8 +456,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			//Concurrencia.desbloquear(ventanaAM.getAlumno());
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			ventanaABM.setEnabled(true);
+			ventanaABM.setVisible(true);
 		}
 	}
 
@@ -592,9 +594,19 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 	public void enableAM() {
 		this.ventanaInteraccionesAM.setEnabled(true);
-		this.ventanaABM.getVentana().toFront();
+		this.ventanaABM.toFront();
 		this.ventanaInteraccionesAM.toFront();
 		
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return this.ventanaABM;
 	}
 
 }

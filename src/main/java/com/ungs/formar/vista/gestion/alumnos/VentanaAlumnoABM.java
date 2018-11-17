@@ -1,26 +1,31 @@
 package com.ungs.formar.vista.gestion.alumnos;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.VentanaInterna;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaAlumnoABM {
-	private JFrame ventana;
+public class VentanaAlumnoABM extends VentanaInterna {
 	private JTable tablaAlumnos;
 	private DefaultTableModel modeloAlumnos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono" };
@@ -30,14 +35,14 @@ public class VentanaAlumnoABM {
 	private final TableRowSorter<TableModel> filtro;
 	
 	public VentanaAlumnoABM() {
-		
+		super("Gestion de alumnos",750,600);
 		// PROPIEDADES DE LA VENTANA
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 750, 600);
-		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		ventana.setTitle("Gestion de alumnos");
-		ventana.setLocationRelativeTo(null); // Centrar ventana
-		ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//ventana = (VentanaInterna) new JInternalFrame();
+		//ventana.setBounds(100, 100, 750, 600);
+		//ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		//ventana.setTitle("Gestion de alumnos");
+		//ventana.setLocationRelativeTo(null); // Centrar ventana
+		//ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		
 		// CREO LA TABLA DE ALUMNOS
@@ -127,7 +132,7 @@ public class VentanaAlumnoABM {
 		
 		// ACOMODO LOS PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
-		ventana.setContentPane(panelPrincipal);
+		setContentPane(panelPrincipal);
 		panelPrincipal.setBorder(bordeSimple);
 		
 		panelPrincipal.add(panelFiltrar);
@@ -204,10 +209,10 @@ public class VentanaAlumnoABM {
 	public JTable getTablaAlumnos() {
 		return tablaAlumnos;
 	}
-	
-	public JFrame getVentana() {
-		return this.ventana;
-	}
+	/*
+	public VentanaInterna getVentana() {
+		return this;
+	}*/
 
 	public PanelHorizontal getPanelConFiltros() {
 		return panelConFiltros;

@@ -32,6 +32,7 @@ public class PantallaPrincipal extends JFrame {
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios;
 	private JMenuBar notifBar, barraPrincipal;
 	private JMenuBar barrarNuevo;
+	private JPanel panelPrincipal;
 
 	public PantallaPrincipal() {
 
@@ -57,6 +58,24 @@ public class PantallaPrincipal extends JFrame {
 
 		//repaint();
 		//pack();
+		barraPrincipal = crearBarra();
+		
+		notifBar = new JMenuBar();
+		menuItemNotificacion = new JMenuItem("Notificaciones");
+		menuItemNotificacion.setFont(new Font("sans-serif", Font.PLAIN, 25));
+		notifBar.add(menuItemNotificacion);
+		
+		JPanel menuPanel = new JPanel( new BorderLayout() );
+        menuPanel.add(barraPrincipal, BorderLayout.CENTER);
+        menuPanel.add(notifBar, BorderLayout.EAST);
+        //setJMenuBar(menuPanel);
+        add(menuPanel, BorderLayout.NORTH);
+        /* intento de no perder el menu ;(
+        panelPrincipal = new JPanel();
+		add(panelPrincipal);
+		*/
+		repaint();
+		pack();
 		setLocationRelativeTo(null);
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setResizable(false);
@@ -272,5 +291,10 @@ public class PantallaPrincipal extends JFrame {
 	public JMenuBar getBarraPrincipal() {
 		return barraPrincipal;
 	}
+
+	public JPanel getPanelPrincipal() {
+		return panelPrincipal;
+	}
+
 	
 }
