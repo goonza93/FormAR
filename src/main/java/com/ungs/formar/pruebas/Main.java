@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Empleado empleado = EmpleadoManager.traerEmpleado(1);
-		new ControladorCambiarEmail(new ControladorPantallaPrincipal(empleado));
+		//new ControladorCambiarEmail(new ControladorPantallaPrincipal(empleado));
 	}
 	
 }

@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
@@ -26,7 +27,9 @@ import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccionesAM;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
@@ -36,21 +39,23 @@ import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarPrograma;
 
-public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSeleccionable {
+public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSeleccionable, ControladorInterno{
 	private VentanaAlumnoABM ventanaABM;
 	private VentanaAlumnoAM ventanaAM;
 	private VentanaInteraccionesAM ventanaInteraccionesAM;
 	private VentanaSeleccionarArea ventanaSeleccionarArea;
 	private SeleccionarPrograma ventanaSeleccionarPrograma;
-	private ControladorPantallaPrincipal controlador;
+	private ControladorPrincipal controlador;
+	private ControladorPrincipal controladorPrincipal;
 	private List<Alumno> alumnos;
 	private Interesado contactoTemp;
 	private Area areaSeleccionada;
 	private Programa cursoSeleccionado;
 
-	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPantallaPrincipal controlador) {
+	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPrincipal controlador) {
 		this.ventanaABM = ventanaABM;
 		this.controlador = controlador;
+		this.controladorPrincipal = null;
 		this.contactoTemp = null;
 		this.ventanaABM.getCancelar().addActionListener(this);
 		this.ventanaABM.getAgregar().addActionListener(this);
@@ -60,20 +65,48 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		this.ventanaABM.getOcultar().addActionListener(this);
 		this.ventanaABM.getInscripciones().addActionListener(this);
 		this.ventanaABM.getCrearInteraccion().addActionListener(this);
-
+/*
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				cerrarVentanaABM();
 			}
-		});
+		});*/
 		this.inicializar();
+	}
+	
+	public ControladorAlumnoABM(ControladorPrincipal principal) {
+		this.ventanaAM = new VentanaAlumnoAM();
+		this.controladorPrincipal = principal;
+		this.controlador = null;
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAMP());
+		ventanaAM.getCancelar().addActionListener(s -> cancelarAMP());
+
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cancelarAMP();
+			}
+		});
+		ventanaAM.setVisible(true);
+	}
+	
+	public void cancelarAMP(){
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			//Concurrencia.desbloquear(ventanaAM.getAlumno());
+			ventanaAM.dispose();
+			ventanaAM = null;
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().setVisible(true);
+		}
 	}
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaABM.getVentana().setVisible(true);
-		ventanaABM.getVentana().setEnabled(true);
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
 
 	private void llenarTabla() {
@@ -95,46 +128,58 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaABM.getAgregar())
-			abrirVentanaAlta();
-
-		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaABM.getCancelar())
-			cerrarVentanaABM();
-
-		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaABM.getEditar())
-			abrirVentanaModificacion();
-
-		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaABM.getBorrar())
-			eliminarSeleccion();
-
-		// BOTON VER INSCRIPCIONES DEL ABM
-		else if (e.getSource() == ventanaABM.getInscripciones())
-			mostrarInscripciones();
-
-		// BOTON CREAR INTERACCION
-		else if (e.getSource() == ventanaABM.getCrearInteraccion())
-			crearInteraccion();
-			
-		// BOTON MOSTRAR FILTROS
-		else if (e.getSource() == ventanaABM.getMostrar())
-			mostrarFiltros();
-
-		// BOTON OCULTAR FILTROS
-		else if (e.getSource() == ventanaABM.getOcultar())
-			ocultarFiltros();
-
+		
+		if(ventanaABM != null){
+			// BOTON AGREGAR DEL ABM
+			if (e.getSource() == ventanaABM.getAgregar())
+				abrirVentanaAlta();
+	
+			// BOTON CANCELAR DEL ABM
+			else if (e.getSource() == ventanaABM.getCancelar())
+				cerrarVentanaABM();
+	
+			// BOTON EDITAR DEL ABM
+			else if (e.getSource() == ventanaABM.getEditar())
+				abrirVentanaModificacion();
+	
+			// BOTON BORRAR DEL ABM
+			else if (e.getSource() == ventanaABM.getBorrar())
+				eliminarSeleccion();
+	
+			// BOTON VER INSCRIPCIONES DEL ABM
+			else if (e.getSource() == ventanaABM.getInscripciones())
+				mostrarInscripciones();
+	
+			// BOTON CREAR INTERACCION
+			else if (e.getSource() == ventanaABM.getCrearInteraccion())
+				crearInteraccion();
+				
+			// BOTON MOSTRAR FILTROS
+			else if (e.getSource() == ventanaABM.getMostrar())
+				mostrarFiltros();
+	
+			// BOTON OCULTAR FILTROS
+			else if (e.getSource() == ventanaABM.getOcultar())
+				ocultarFiltros();
+		}
 		else if (ventanaAM != null) {
 			// BOTON ACEPTAR DEL AM
-			if (e.getSource() == ventanaAM.getAceptar())
-				aceptarAM();
-
+			if (e.getSource() == ventanaAM.getAceptar()){
+				if(controlador!=null){
+					aceptarAM();
+				}
+				else if(controladorPrincipal != null){
+					aceptarAMP();
+				}
+			}
 			// BOTON CANCELAR DEL AM
 			else if (e.getSource() == ventanaAM.getCancelar()) {
-				cancelarAM();
+				if(controlador!=null){
+					cancelarAM();
+				}
+				else if(controladorPrincipal != null){
+					cancelarAMP();
+				}
 			}
 		}
 		
@@ -147,9 +192,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 				mostrarSeleccionarArea();
 			}
 			else if (e.getSource() == ventanaInteraccionesAM.getBtnSeleccionarCurso()){
-				this.ventanaSeleccionarPrograma = new SeleccionarPrograma();
-				this.ventanaInteraccionesAM.setEnabled(false);
-				new ControladorSeleccionarPrograma(this.ventanaSeleccionarPrograma, this);
+				mostrarSeleccionarCurso();
 			}
 			// BOTON CANCELAR DEL AM interaccion
 			else if (e.getSource() == ventanaInteraccionesAM.getCancelar()) {
@@ -157,7 +200,43 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		}
 	}
+
+	private void mostrarSeleccionarCurso() {
+		this.ventanaSeleccionarPrograma = new SeleccionarPrograma();
+		this.ventanaInteraccionesAM.setEnabled(false);
+		new ControladorSeleccionarPrograma(this.ventanaSeleccionarPrograma, this);
+	}
 	
+	private void aceptarAMP() {
+		if (validarCampos()) {
+			Alumno alumno = ventanaAM.getAlumno();
+			String apellido = ventanaAM.getApellido().getText();
+			String nombre = ventanaAM.getNombre().getText();
+			String dni = ventanaAM.getDNI().getText();
+			String telefono = ventanaAM.getTelefono().getText();
+			String email = ventanaAM.getEmail().getText();
+
+			// Crear un nuevo alumno
+			if (alumno == null)
+				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
+
+			// Editar un alumno existente
+			else {
+				alumno.setApellido(apellido);
+				alumno.setNombre(nombre);
+				alumno.setDNI(dni);
+				alumno.setTelefono(telefono);
+				alumno.setEmail(email);
+				AlumnoManager.editarAlumno(alumno);
+				//Concurrencia.desbloquear(alumno);
+			}
+			ventanaAM.dispose();
+			ventanaAM = null;
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().setVisible(true);
+		}
+	}
+
 	private void aceptarInteraccionAM(){
 		Interesado contacto = ventanaInteraccionesAM.getContacto();
 		if(contactoTemp!=null){
@@ -177,9 +256,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		
 		ventanaInteraccionesAM.dispose();
 		ventanaInteraccionesAM = null;
-		ventanaABM.getVentana().setEnabled(true);
-		ventanaABM.getVentana().setVisible(true);
-		
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
 
 	private void mostrarSeleccionarArea() {
@@ -212,8 +290,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			return;
 		}
 		Alumno alumno = seleccion.get(0);
+		controlador.getVentana().setEnabled(false);
 		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
-		ventanaABM.getVentana().setEnabled(false);
 	}
 	
 	private void crearInteraccion() {
@@ -236,10 +314,10 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 	private void abrirVentanaInteraccionesABM(Interesado contacto) {
 		ventanaInteraccionesAM = new VentanaInteraccionesAM(contacto);
-		ventanaInteraccionesAM.getBtnSeleccionarArea().addActionListener(this);
-		ventanaInteraccionesAM.getBtnSeleccionarCurso().addActionListener(this);
-		ventanaInteraccionesAM.getAceptar().addActionListener(this);
-		ventanaInteraccionesAM.getCancelar().addActionListener(this);
+		ventanaInteraccionesAM.getBtnSeleccionarArea().addActionListener(s -> mostrarSeleccionarArea());
+		ventanaInteraccionesAM.getBtnSeleccionarCurso().addActionListener(s -> mostrarSeleccionarCurso());
+		ventanaInteraccionesAM.getAceptar().addActionListener(s -> aceptarInteraccionAM());
+		ventanaInteraccionesAM.getCancelar().addActionListener(s -> cerrarVentanaInteraccionesAM());
 		ventanaInteraccionesAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -247,7 +325,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaInteraccionesAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 	
 	
@@ -258,8 +336,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		if (confirm == 0) {
 			ventanaInteraccionesAM.dispose();
 			ventanaInteraccionesAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -308,8 +386,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		
 		//Concurrencia.bloquear(alumno);
 		ventanaAM = new VentanaAlumnoAM(alumno);
-		ventanaAM.getAceptar().addActionListener(this);
-		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.getCancelar().addActionListener(s -> cancelarAM());
 
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
@@ -318,13 +396,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private void abrirVentanaAlta() {
 		ventanaAM = new VentanaAlumnoAM();
-		ventanaAM.getAceptar().addActionListener(this);
-		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.getCancelar().addActionListener(s -> cancelarAM());
 
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
@@ -333,13 +411,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	public void cerrarVentanaABM() {
-		ventanaABM.getVentana().dispose();
+		ventanaABM.dispose();
 		ventanaABM = null;
-		controlador.inicializar();
+		//controlador.inicializar();
 	}
 
 	private void aceptarAM() {
@@ -369,8 +447,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			llenarTabla();
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -381,8 +459,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			//Concurrencia.desbloquear(ventanaAM.getAlumno());
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getVentana().setEnabled(true);
-			ventanaABM.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -519,9 +597,19 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 	public void enableAM() {
 		this.ventanaInteraccionesAM.setEnabled(true);
-		this.ventanaABM.getVentana().toFront();
+		this.ventanaABM.toFront();
 		this.ventanaInteraccionesAM.toFront();
 		
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return this.ventanaABM;
 	}
 
 }

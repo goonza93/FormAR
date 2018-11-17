@@ -6,34 +6,47 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.negocios.TareaManager;
 import com.ungs.formar.persistencia.entidades.Tarea;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorTareaABM implements ActionListener {
+public class ControladorTareaABM implements ActionListener, ControladorInterno {
 	private VentanaTareaABM ventanaABM;
 	private VentanaTareaAM ventanaAM;
-	private ControladorPantallaPrincipal controlador;
+	private ControladorPrincipal controlador;
 	private List<Tarea> tareas;
 
-	public ControladorTareaABM(VentanaTareaABM ventanaSalaABM, ControladorPantallaPrincipal controlador) {
+	public ControladorTareaABM(VentanaTareaABM ventanaSalaABM, ControladorPrincipal controlador) {
 		this.ventanaABM = ventanaSalaABM;
 		this.controlador = controlador;
-		this.ventanaABM.getCancelar().addActionListener(this);
-		this.ventanaABM.getAgregar().addActionListener(this);
-		this.ventanaABM.getBorrar().addActionListener(this);
-		this.ventanaABM.getEditar().addActionListener(this);
+		//this.ventanaABM.getCancelar().addActionListener(s -> cerrarVentanaABM());
+		this.ventanaABM.getAgregar().addActionListener(s -> abrirAlta());
+		this.ventanaABM.getBorrar().addActionListener(s -> borrar());
+		this.ventanaABM.getEditar().addActionListener(s -> marcarRealizada());
 		this.inicializar();
+	}
+	
+	public ControladorTareaABM(ControladorPrincipal controlador) {
+		this.controlador = controlador;
+		ventanaAM = new VentanaTareaAM();
+		ventanaAM.getAceptar().addActionListener(s -> crearTareaP());
+		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.setVisible(true);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaABM.mostrar();
+		controlador.getVentana().setVisible(true);
 	}
 
 	private void llenarTabla() {
@@ -43,40 +56,10 @@ public class ControladorTareaABM implements ActionListener {
 
 		tareas = TareaManager.traerTareas();
 		for (Tarea tarea : tareas) {
-			Object[] fila = { tarea.getContenido() , tarea.isPendiente() };
+			Object[] fila = { Formato.empleado(Sesion.getEmpleado().getID()), tarea.getContenido() , tarea.isPendiente() };
 			ventanaABM.getModelo().addRow(fila);
 		}
-		ventanaABM.getTabla().removeColumn(ventanaABM.getTabla().getColumnModel().getColumn(1));
-	}
-
-	public void actionPerformed(ActionEvent e) {
-
-		// BOTON AGREGAR DEL ABM
-		if (e.getSource() == ventanaABM.getAgregar()){
-			abrirAlta();
-		}
-		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaABM.getCancelar()){
-			cerrarVentanaABM();
-		}
-		// BOTON EDITAR DEL ABM
-		else if (e.getSource() == ventanaABM.getEditar()){
-			marcarRealizada();
-		}
-		// BOTON BORRAR DEL ABM
-		else if (e.getSource() == ventanaABM.getBorrar()){
-			borrar();
-		}
-		else if (ventanaAM != null) {
-			// BOTON ACEPTAR DEL AM
-			if (e.getSource() == ventanaAM.getAceptar()){
-				crearTarea();
-			}
-			// BOTON CANCELAR DEL AM
-			else if (e.getSource() == ventanaAM.getCancelar()){
-				cerrarVentanaAM();
-			}
-		}
+		ventanaABM.getTabla().removeColumn(ventanaABM.getTabla().getColumnModel().getColumn(2));
 	}
 
 	private void marcarRealizada() {
@@ -114,8 +97,8 @@ public class ControladorTareaABM implements ActionListener {
 		if (confirm == 0) {
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.getFrame().setEnabled(true);
-			ventanaABM.getFrame().toFront();
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -134,20 +117,40 @@ public class ControladorTareaABM implements ActionListener {
 		ventanaAM.dispose();
 		ventanaAM = null;
 		inicializar();
-		ventanaABM.getFrame().setEnabled(true);
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
-
+	
+	private void crearTareaP() {
+		// creo la tarea
+		String contenido = ventanaAM.getContenido().getText();
+		TareaManager.crearTarea(Sesion.getEmpleado().getID(), contenido);
+		
+		// crea la notificacion solo si puso fecha
+		Date fecha = ventanaAM.getDateChooser().getDate() == null ? null : new Date(ventanaAM.getDateChooser().getDate().getTime());
+		if(fecha != null) {
+			String contenidoNotificacion = "Tenes una tarea pendiente para hoy";
+			NotificacionManager.crearNotificacion(Sesion.getEmpleado().getID(), contenidoNotificacion, fecha);
+		}
+		
+		ventanaAM.dispose();
+		ventanaAM = null;
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
+	}
+	
+/*
 	private void cerrarVentanaABM() {
 		ventanaABM.ocultar();
 		controlador.inicializar();
 	}
-
+*/
 	private void abrirAlta() {
 		ventanaAM = new VentanaTareaAM();
-		ventanaAM.getAceptar().addActionListener(this);
-		ventanaAM.getCancelar().addActionListener(this);
+		ventanaAM.getAceptar().addActionListener(s -> crearTarea());
+		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.setVisible(true);
-		ventanaABM.getFrame().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private List<Tarea> obtenerSeleccionados() {
@@ -159,5 +162,19 @@ public class ControladorTareaABM implements ActionListener {
 			ret.add(tareas.get(registro));
 		}
 		return ret;
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaABM;
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
 	}
 }

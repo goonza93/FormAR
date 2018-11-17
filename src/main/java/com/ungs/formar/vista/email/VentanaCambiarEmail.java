@@ -43,6 +43,7 @@ public class VentanaCambiarEmail extends Ventana {
 		panelPrincipal.add(panelBotones);
 		
 		pack();
+		setLocationRelativeTo(null);
 	}
 
 	

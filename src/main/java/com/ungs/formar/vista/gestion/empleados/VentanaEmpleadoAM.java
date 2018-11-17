@@ -3,14 +3,19 @@ package com.ungs.formar.vista.gestion.empleados;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Dimension;
+
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
@@ -18,21 +23,20 @@ public class VentanaEmpleadoAM extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField inApellido, inNombre, inDNI, inEmail, inTelefono;
 	private JDateChooser inIngreso;
+	private JComboBox<Rol> inRol;
 	private JButton btnAceptar, btnCancelar;
 	private Empleado empleado;
 	private Rol rol;
 	
 	// CONSTRUCTOR NUEVO EMPLEADO
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public VentanaEmpleadoAM(Rol rol) {
 		this.rol = rol;
 		cargarComponentes();
-		
-		if (rol == Rol.INSTRUCTOR)
-			setTitle("Ingreso de instructores");
-		else if (rol == Rol.ADMINISTRATIVO)
-			setTitle("Ingreso de administrativos");
-		else 
-			setTitle("Ingreso de empleados");
+		setTitle("Crear usuario");
+		inRol.setSelectedItem(rol);
 	}
 	
 	// CONSTRUCTOR MODIFICAR EMPLEADO
@@ -40,13 +44,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		this.empleado = empleado;
 		this.rol = rol;
 		cargarComponentes();
-		
-		if (rol == Rol.INSTRUCTOR)
-			setTitle("Modificar instructores");
-		else if (rol == Rol.ADMINISTRATIVO)
-			setTitle("Modificar administrativos");
-		else 
-			setTitle("Modificar empleados");
+		setTitle("Modificar usuario: " + Formato.empleado(empleado.getID()));
 		
 		inApellido.setText(empleado.getApellido());
 		inNombre.setText(empleado.getNombre());
@@ -54,6 +52,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		inTelefono.setText(empleado.getTelefono());
 		inEmail.setText(empleado.getEmail());
 		inIngreso.setDate(empleado.getFechaIngreso());
+		inRol.setSelectedItem(empleado.getRol());
 	}
 	
 	public void cargarComponentes() {
@@ -71,6 +70,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		JLabel lblEmail = new JLabel("E-Mail:");
 		JLabel lblTelefono = new JLabel("Teléfono:");
 		JLabel lblFechaIngreso = new JLabel("Fecha de ingreso:");
+		JLabel lblRolIngresado = new JLabel("Rol:");
 
 		EmptyBorder bordeEtiqueta = new EmptyBorder(5, 50, 5, 50);
 		lblNombre.setBorder(bordeEtiqueta);
@@ -79,6 +79,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		lblTelefono.setBorder(bordeEtiqueta);
 		lblEmail.setBorder(bordeEtiqueta);
 		lblFechaIngreso.setBorder(bordeEtiqueta);
+		lblRolIngresado.setBorder(bordeEtiqueta);
 		
 		PanelVertical panelEtiquetas = new PanelVertical();
 		panelEtiquetas.add(lblApellido);
@@ -87,6 +88,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		panelEtiquetas.add(lblEmail);
 		panelEtiquetas.add(lblTelefono);
 		panelEtiquetas.add(lblFechaIngreso);
+		panelEtiquetas.add(lblRolIngresado);
 		
 		// AGREGO LAS ENTRADAS
 		inApellido = new JTextField();
@@ -95,6 +97,13 @@ public class VentanaEmpleadoAM extends JFrame {
 		inTelefono = new JTextField();
 		inEmail = new JTextField();
 		inIngreso = new JDateChooser();
+		inRol = new JComboBox<Rol>();
+		if(rol==Rol.SUPERVISOR){
+			inRol.addItem(Rol.SUPERVISOR);
+			inRol.addItem(Rol.ADMINISTRATIVO);
+		}
+		inRol.addItem(Rol.INSTRUCTOR);
+		
 		
 		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
 		inNombre.setMaximumSize(largoEntrada);
@@ -103,6 +112,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		inEmail.setMaximumSize(largoEntrada);
 		inTelefono.setMaximumSize(largoEntrada);
 		inIngreso.setMaximumSize(largoEntrada);
+		inRol.setMaximumSize(largoEntrada);
 		
 		PanelVertical panelEntradas = new PanelVertical();
 		panelEntradas.add(inApellido);
@@ -111,6 +121,7 @@ public class VentanaEmpleadoAM extends JFrame {
 		panelEntradas.add(inEmail);
 		panelEntradas.add(inTelefono);
 		panelEntradas.add(inIngreso);
+		panelEntradas.add(inRol);
 		
 		// AGREGO LOS BOTONES
 		btnAceptar = new JButton("ACEPTAR");
@@ -163,8 +174,12 @@ public class VentanaEmpleadoAM extends JFrame {
 		return empleado;
 	}
 
+	public JComboBox<Rol> getRol(){
+		return inRol;
+	}
+	/*
 	public Rol getRol() {
 		return rol;
-	}
+	}*/
 	
 }

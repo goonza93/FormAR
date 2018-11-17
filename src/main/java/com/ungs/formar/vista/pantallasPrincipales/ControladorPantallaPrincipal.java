@@ -159,10 +159,11 @@ public class ControladorPantallaPrincipal implements ActionListener {
 
 		// BOTON ABM ALUMNOS
 		if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarAlumnos()) {
+			/*
 			this.ventanaGestionarAlumnos = new VentanaAlumnoABM();
 			this.ventanaGestionarAlumnos.getVentana().setVisible(true);
 			this.pantallaAdministrativo.ocultar();
-			new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);
+			new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);*/
 		}
 
 		// BOTON ABM CURSOS
@@ -174,12 +175,13 @@ public class ControladorPantallaPrincipal implements ActionListener {
 		}
 
 		// BOTON ABM INSTRUCTORES
+		/*
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarInstructores()) {
 			this.ventanaGestionarInstructores = new VentanaEmpleadoABM();
 			this.ventanaGestionarInstructores.mostrar();
 			this.pantallaAdministrativo.ocultar();
 			new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.INSTRUCTOR);
-		}
+		}*/
 
 		// BOTON ABM PROGRAMAS
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarProgramas()) {
@@ -204,13 +206,13 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			pantallaAdministrativo.ocultar();
 			new ControladorInscripcionABM(this, ventanaInscripcionABM);
 		}
-
+/*
 		// BOTON GESTIONAR RECADOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnRecados()) {
 			pantallaAdministrativo.ocultar();
 			VentanaRecados recados = new VentanaRecados();
 			new ControladorRecados(recados, this);
-		}
+		}*/
 
 		// BOTON ABM PAGOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarPagos()) {
@@ -255,17 +257,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 	}
 
 	private void clickBtnPantallaSupervisor(ActionEvent e) {
-
+/*
 		// BOTON ABM ADMINISTRATIVOS
 		if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAdministrativos()) {
 			this.ventanaGestionarInstructores = new VentanaEmpleadoABM();
 			this.ventanaGestionarInstructores.mostrar();
 			this.pantallaSupervisor.ocultar();
 			new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.ADMINISTRATIVO);
-		}
+		}*/
 
 		// BOTON ABM AREAS
-		else if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAreas()) {
+		if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAreas()) {
 			this.ventanaGestionarAreas = new GestionarAreas();
 			this.ventanaGestionarAreas.setVisible(true);
 			this.pantallaSupervisor.ocultar();
@@ -281,14 +283,14 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaSupervisor.ocultar();
 			this.inicializar();
 		}
-
+/*
 		// BOTON GESTIONAR RECADOS
 		else if (e.getSource() == pantallaSupervisor.getBtnRecados()) {
 			pantallaSupervisor.ocultar();
 			VentanaRecados recados = new VentanaRecados();
 			new ControladorRecados(recados, this);
 		}
-
+*/
 		// BOTON CAMBIAR PASS
 		else if (e.getSource() == pantallaSupervisor.getBtnCambiarPass()) {
 			pantallaSupervisor.getVentana().setEnabled(false);
@@ -331,13 +333,13 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			pantallaInstructor.ocultar();
 			new ControladorGestionNotas(this);
 		}
-
+/*
 		// BOTON GESTIONAR RECADOS
 		else if (e.getSource() == pantallaInstructor.getBtnRecados()) {
 			pantallaInstructor.ocultar();
 			VentanaRecados recados = new VentanaRecados();
 			new ControladorRecados(recados, this);
-		}
+		}*/
 
 		// BOTON CAMBIAR PASS
 		else if (e.getSource() == pantallaInstructor.getBtnCambiarPass()) {

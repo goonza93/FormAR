@@ -20,7 +20,7 @@ public class RenderTareas extends DefaultTableCellRenderer
         else
         {
         	int row2 = table.convertRowIndexToModel(row);
-        	if (table.getModel().getValueAt(row2, 1).equals(true))
+        	if (table.getModel().getValueAt(row2, 2).equals(true))
             {
             	//c.setBackground(Color.ORANGE);
             	c.setFont(this.getFont().deriveFont(Font.BOLD + Font.ITALIC));

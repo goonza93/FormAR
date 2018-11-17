@@ -16,7 +16,9 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Notifier;
+import com.ungs.formar.vista.util.Popup;
 
 public class Main {
 
@@ -24,14 +26,14 @@ public class Main {
 		
 		//ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(8));
 		//controlador.inicializar();
-		
+	
+	
 		if(SystemTray.isSupported()){
 			SystemTray tray = SystemTray.getSystemTray();
 			ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
 			Image image = image2.getImage();
 			TrayIcon trayIcon = new TrayIcon(image);
 			trayIcon.setImageAutoSize(true);
-
 			try {
 				tray.add(trayIcon);
 			} catch (AWTException e) {
@@ -50,7 +52,6 @@ public class Main {
 		v.getPassword().setText("123"); // sacar antes de entregar
 		ControladorLogin c = new ControladorLogin(v);
 		c.inicializar();
-		
 	}
 	
 }

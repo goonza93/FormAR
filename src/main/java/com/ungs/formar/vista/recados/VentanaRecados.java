@@ -17,19 +17,21 @@ import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.util.Ventana;
+import com.ungs.formar.vista.util.VentanaInterna;
 
-public class VentanaRecados extends Ventana {
+public class VentanaRecados extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
-	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar, btnVolver;
+	private JButton btnNuevo, btnLeer, btnArchivar, btnBorrar;
 	private TablaRecados tabla;
 	private JCheckBox chckbxNoLeidos;
 	private final TableRowSorter<TableModel> filtro;
 
 	public VentanaRecados() {
-		super("Recados");
+		super("Recados recibidos", 633, 300);
+		/*
 		setBounds(100, 100, 633, 300);
 		setLocationRelativeTo(null);
-		
+		*/
 		// TABLA DE MENSAJES
 		Empleado empleado = Sesion.getEmpleado();
 		tabla = new TablaRecados(Mensajero.traerMensajesRecibidos(empleado), "recibidos", true);
@@ -46,7 +48,6 @@ public class VentanaRecados extends Ventana {
 		btnLeer = new JButton("Leer");
 		btnArchivar = new JButton("Archivar");
 		btnBorrar = new JButton("Borrar");
-		btnVolver = new JButton("Volver");
 		
 		chckbxNoLeidos = new JCheckBox("No leidos");
 		chckbxNoLeidos.addItemListener(checkListener());
@@ -56,7 +57,6 @@ public class VentanaRecados extends Ventana {
 		panelBotones.add(btnLeer);
 		panelBotones.add(btnArchivar);
 		panelBotones.add(btnBorrar);
-		panelBotones.add(btnVolver);
 		
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
@@ -108,10 +108,10 @@ public class VentanaRecados extends Ventana {
 	public JButton getEnviados() {
 		return btnEnviados;
 	}
-*/
+
 	public JButton getVolver() {
 		return btnVolver;
-	}
+	}*/
 
 	public TablaRecados getTabla() {
 		return tabla;

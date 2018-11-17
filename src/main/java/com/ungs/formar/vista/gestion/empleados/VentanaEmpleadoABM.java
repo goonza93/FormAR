@@ -1,10 +1,8 @@
 package com.ungs.formar.vista.gestion.empleados;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +10,9 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -22,21 +22,28 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class VentanaEmpleadoABM {
-	private JFrame ventana;
+import com.ungs.formar.vista.util.VentanaInterna;
+
+public class VentanaEmpleadoABM extends VentanaInterna {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelo;
-	private String[] columnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
+	private String[] columnas = { "Rol", "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
 	private JTable tabla;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnDarDeAlta, btnVerCursos;
+	private JButton btnAgregar, btnEditar, btnBorrar, btnDarDeAlta, btnVerCursos;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI, inFiltroFechaIngreso;
 	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso, lblInstructores ;
 	private final TableRowSorter<TableModel> filtro;
 
 	public VentanaEmpleadoABM() {
+		super("Gestion de usuarios", 740, 452);
+		/*
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);*/
 		
 		modelo = new DefaultTableModel(null, columnas);
 		filtro = new TableRowSorter<TableModel>(modelo);
@@ -88,7 +95,7 @@ public class VentanaEmpleadoABM {
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		btnAgregar = new JButton("Ver cursos");
+		btnVerCursos = new JButton("Ver cursos");
 
 		btnEditar = new JButton("EDITAR");
 		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -96,115 +103,105 @@ public class VentanaEmpleadoABM {
 		btnBorrar = new JButton("DAR DE BAJA");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 		
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		
-		lblInstructores = new JLabel("INSTRUCTORES:");
+		lblInstructores = new JLabel("USUARIOS:");
 		lblInstructores.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInstructores.setFont(new Font("Arial", Font.BOLD, 12));
 		
 		btnDarDeAlta = new JButton("DAR DE ALTA");
 		btnDarDeAlta.setFont(new Font("Arial", Font.PLAIN, 12));
-		GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-					groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroFechaIngreso, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addGap(38))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblFechaIngreso, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-									.addGap(38))
-								.addComponent(lblInstructores, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE))
-							.addContainerGap())
-				);
-				groupLayout.setVerticalGroup(
-					groupLayout.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblFiltros)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNombre)
-								.addComponent(lblDni)
-								.addComponent(lblFechaIngreso))
+							.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(inFiltroApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inFiltroNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inFiltroDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inFiltroFechaIngreso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblInstructores, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-							.addGap(14)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnAgregar)
-								.addComponent(btnEditar)
-								.addComponent(btnBorrar)
-								.addComponent(btnCancelar)
-								.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap())
-				);
-				ventana.getContentPane().setLayout(groupLayout);
+							.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(inFiltroFechaIngreso, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+							.addGap(38))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblFechaIngreso, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+							.addGap(38))
+						.addComponent(lblInstructores, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblFiltros)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNombre)
+						.addComponent(lblDni)
+						.addComponent(lblFechaIngreso))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(inFiltroApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+						.addComponent(inFiltroNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(inFiltroDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(inFiltroFechaIngreso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblInstructores, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+					.addGap(14)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAgregar)
+						.addComponent(btnEditar)
+						.addComponent(btnBorrar)
+						.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+				getContentPane().setLayout(groupLayout);
 		
 				DocumentListener listener = crearFiltroListener();
 				inFiltroApellido.getDocument().addDocumentListener(listener);
 				inFiltroNombre.getDocument().addDocumentListener(listener);
 				inFiltroDNI.getDocument().addDocumentListener(listener);
 				inFiltroFechaIngreso.getDocument().addDocumentListener(listener);
-		
+		/*
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				btnCancelar.doClick();
 			}
 		});
-		
+		*/
 	}
-	
+	/*
 	public void mostrar(){
 		ventana.setVisible(true);
 	}
 	
 	public void ocultar(){
 		ventana.setVisible(false);
-	}
+	}*/
 
 	public JButton getAgregar() {
 		return btnAgregar;
-	}
-	
-	public JButton getCancelar() {
-		return btnCancelar;
 	}
 
 	public JButton getEditar() {
@@ -255,12 +252,9 @@ public class VentanaEmpleadoABM {
 		
 		return ret;
 	}
-	
+	/*
 	public JFrame getVentana(){
 		return ventana;
-	}
+	}*/
 	
-	public JLabel getLblRol(){
-		return lblInstructores;
-	}
 }

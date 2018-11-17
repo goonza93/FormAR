@@ -2,6 +2,8 @@ package com.ungs.formar.vista.gestion.tareas;
 
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,22 +28,29 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import com.ungs.formar.vista.tablas.RenderRecados;
+import com.ungs.formar.vista.tablas.RenderTareas;
+import com.ungs.formar.vista.util.VentanaInterna;
+import javax.swing.JCheckBox;
 
-public class VentanaTareaABM {
-	private JFrame ventana;
+public class VentanaTareaABM extends VentanaInterna{
+	
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelo;
-	private String[] nombreColumnas = { "Contenido", "Pendiente" };
+	private String[] nombreColumnas = { "Empleado", "Contenido", "Pendiente" };
 	private JTable tabla;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
-	//private final TableRowSorter<TableModel> filtro;
+	private JButton btnAgregar, btnEditar, btnBorrar;
+	private JCheckBox chckbxPendientes;
+	private final TableRowSorter<TableModel> filtro;
 
 	public VentanaTareaABM() {
+		super("Gestion de tareas",740,452);
+		/*
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 740, 452);
 		ventana.setTitle("Gestion de tareas");
 		ventana.setLocationRelativeTo(null);
 		ventana.setExtendedState(Frame.MAXIMIZED_BOTH);
-		
+		*/
 		modelo = new DefaultTableModel(null, nombreColumnas);
 
 		JScrollPane spSalas = new JScrollPane();
@@ -49,14 +59,12 @@ public class VentanaTareaABM {
 		spSalas.setViewportView(tabla);
 		tabla.setDefaultEditor(Object.class, null);
 		tabla.getTableHeader().setReorderingAllowed(false);
-		RenderRecados render = new RenderRecados();
-		tabla.setDefaultRenderer(Object.class, render);
-		/*
-		filtro = new TableRowSorter<TableModel>(modelo);
-		tabla.setRowSorter(filtro);*/
 		
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
+		RenderTareas render = new RenderTareas();
+		tabla.setDefaultRenderer(Object.class, render);
+		
+		filtro = new TableRowSorter<TableModel>(modelo);
+		tabla.setRowSorter(filtro);
 
 		JLabel lblTareas = new JLabel("TAREAS:");
 		lblTareas.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,79 +73,83 @@ public class VentanaTareaABM {
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		btnEditar = new JButton("EDITAR");
+		btnEditar = new JButton("MARCAR HECHA");
 		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		btnBorrar = new JButton("BORRAR");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-		GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
+		
+		chckbxPendientes = new JCheckBox("Pendientes");
+		chckbxPendientes.addItemListener(checkListener());
+		
+		
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(10, Short.MAX_VALUE)
+					.addContainerGap()
+					.addComponent(chckbxPendientes)
+					.addGap(2)
 					.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addGap(212)
-					.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addGap(10))
+					.addGap(342))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblTareas, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+					.addGap(8)
+					.addComponent(lblTareas, GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(spSalas, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(spSalas, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+					.addGap(110))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(87)
+					.addContainerGap()
 					.addComponent(lblTareas, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spSalas, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-					.addGap(16)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnAgregar)
-							.addComponent(btnEditar)
-							.addComponent(btnBorrar))
-						.addComponent(btnCancelar))
+					.addGap(11)
+					.addComponent(spSalas, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxPendientes)
+						.addComponent(btnAgregar)
+						.addComponent(btnEditar)
+						.addComponent(btnBorrar))
 					.addGap(11))
 		);
-		ventana.getContentPane().setLayout(groupLayout);
-
+		getContentPane().setLayout(groupLayout);
+/*
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				btnCancelar.doClick();
 			}
-		});
+		});*/
 /*
 		DocumentListener listener = crearFiltroListener();
 		txtNumeroFiltro.getDocument().addDocumentListener(listener);
 		txtNombreFiltro.getDocument().addDocumentListener(listener);
 		txtCapacidadFiltro.getDocument().addDocumentListener(listener);*/
 	}
-
+/*
 	public void mostrar() {
 		ventana.setVisible(true);
 	}
 
 	public void ocultar() {
 		ventana.setVisible(false);
-	}
+	}*/
 
 	public JButton getAgregar() {
 		return btnAgregar;
 	}
-
+/*
 	public JButton getCancelar() {
 		return btnCancelar;
-	}
+	}*/
 
 	public JButton getEditar() {
 		return btnEditar;
@@ -158,32 +170,20 @@ public class VentanaTareaABM {
 	public JTable getTabla() {
 		return tabla;
 	}
-/*
-	public List<RowFilter<Object, Object>> crearFiltros() {
-		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
-		filtros.add(RowFilter.regexFilter("(?i)" + txtNumeroFiltro.getText(), 0));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtNombreFiltro.getText(), 1));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtCapacidadFiltro.getText(), 2));
-		return filtros;
-	}
 	
-	public DocumentListener crearFiltroListener() {
-		DocumentListener ret = new DocumentListener() {
-			public void insertUpdate(DocumentEvent e) {
-				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
-			}
+	public ItemListener checkListener(){
+		ItemListener nuevo = new ItemListener(){
 
-			public void removeUpdate(DocumentEvent e) {
-				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			public void itemStateChanged(ItemEvent e) {
+				if(chckbxPendientes.isSelected()){
+					filtro.setRowFilter(RowFilter.regexFilter("true", 2));
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)", 2));
+				}
+				
 			}
-
-			public void changedUpdate(DocumentEvent e) {}
+			
 		};
-		
-		return ret;
-	}
-*/
-	public JFrame getFrame(){
-		return ventana;
+		return nuevo;
 	}
 }
