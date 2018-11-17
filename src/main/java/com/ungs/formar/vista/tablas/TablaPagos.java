@@ -26,8 +26,7 @@ public class TablaPagos extends JTable{
 		this.pagos = pagos;
 		modelo.setRowCount(0);
 		modelo.setColumnCount(0);
-		modelo.setColumnIdentifiers(columnas); 
-		
+		modelo.setColumnIdentifiers(columnas);
 		for (Pago pago : pagos) {
 			//boolean pagado = Tesoreria.estaPagado(pago.getAlumno(), pago.getCursada(), pago.getMes());
 			Object[] fila = {

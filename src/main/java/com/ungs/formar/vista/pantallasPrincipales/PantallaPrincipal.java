@@ -142,7 +142,7 @@ public class PantallaPrincipal extends JFrame {
 		JMenu menuTareas = new JMenu("  Tareas");
 		JMenu menuRecados = new JMenu("  Recados");
 		JMenu menuUsuarios = new JMenu("  Usuarios");
-		JMenu menuNotificaciones = new JMenu("  Noticaciones");
+		JMenu menuNotificaciones = new JMenu("  Notificaciones");
 
 		
 		

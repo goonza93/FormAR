@@ -213,13 +213,13 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			VentanaRecados recados = new VentanaRecados();
 			new ControladorRecados(recados, this);
 		}*/
-
+/*
 		// BOTON ABM PAGOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarPagos()) {
 			// VENTANA ABM PAGOS
 			pantallaAdministrativo.ocultar();
 			new ControladorPagoABM(this);
-		}
+		}*/
 
 		// BOTON GESTIONAR CONTACTOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarContacto()) {

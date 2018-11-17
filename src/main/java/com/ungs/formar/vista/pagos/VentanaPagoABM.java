@@ -6,12 +6,11 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
-import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.tablas.TablaPagos;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
-import com.ungs.formar.vista.util.Ventana;
+import com.ungs.formar.vista.util.VentanaInterna;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -19,18 +18,19 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class VentanaPagoABM extends Ventana {
+public class VentanaPagoABM extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private TablaPagos tabla;
-	private JButton btnRegistrar, btnFactura, btnVolver, btnBuscar;
+	private JButton btnRegistrar, btnFactura, btnBuscar;
 	private JTextField inAlumno;
 	private JDateChooser inFechaDesde, inFechaHasta;
 
 	public VentanaPagoABM() {
-		super("Administracion de pagos");
+		super("Administracion de pagos", 713,405);
+		/*
 		setBounds(100, 100, 713, 405);
 		setLocationRelativeTo(null);
-
+		 */
 		// CREO LOS FILTROS PARA LA TABLA
 		inAlumno = new JTextField();
 		inFechaDesde = new JDateChooser();
@@ -73,12 +73,10 @@ public class VentanaPagoABM extends Ventana {
 		// BOTONES
 		btnRegistrar = new JButton("Registrar pago");
 		btnFactura = new JButton("Imprimir factura");
-		btnVolver = new JButton("Volver");
 
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnRegistrar);
 		panelBotones.add(btnFactura);
-		panelBotones.add(btnVolver);
 
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
@@ -99,21 +97,14 @@ public class VentanaPagoABM extends Ventana {
 	public JButton getFactura() {
 		return btnFactura;
 	}
-
-	public JButton getVolver() {
-		return btnVolver;
-	}
-
 	
 	public JButton getBtnBuscar() {
 		return btnBuscar;
 	}
-	
 
 	public JTextField getInAlumno() {
 		return inAlumno;
 	}
-	
 
 	public JDateChooser getInFechaDesde() {
 		return inFechaDesde;
@@ -123,6 +114,5 @@ public class VentanaPagoABM extends Ventana {
 	public JDateChooser getInFechaHasta() {
 		return inFechaHasta;
 	}
-
 	
 }

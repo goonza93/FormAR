@@ -57,7 +57,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		this.controlador = controlador;
 		this.controladorPrincipal = null;
 		this.contactoTemp = null;
-		this.ventanaABM.getCancelar().addActionListener(this);
 		this.ventanaABM.getAgregar().addActionListener(this);
 		this.ventanaABM.getEditar().addActionListener(this);
 		this.ventanaABM.getBorrar().addActionListener(this);
@@ -133,11 +132,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			// BOTON AGREGAR DEL ABM
 			if (e.getSource() == ventanaABM.getAgregar())
 				abrirVentanaAlta();
-	
-			// BOTON CANCELAR DEL ABM
-			else if (e.getSource() == ventanaABM.getCancelar())
-				cerrarVentanaABM();
-	
+			
 			// BOTON EDITAR DEL ABM
 			else if (e.getSource() == ventanaABM.getEditar())
 				abrirVentanaModificacion();

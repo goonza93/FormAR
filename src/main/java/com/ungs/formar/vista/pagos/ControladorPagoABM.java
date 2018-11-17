@@ -7,55 +7,36 @@ import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
+
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.pagos.registrar.ControladorPagoAM;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.reportes.FacturaPago;
 import com.ungs.formar.vista.util.Popup;
 
-public class ControladorPagoABM implements ActionListener {
-	private ControladorPantallaPrincipal invocador;
+public class ControladorPagoABM implements ActionListener, ControladorInterno {
+	private ControladorPrincipal invocador;
 	private VentanaPagoABM ventana;
 
-	public ControladorPagoABM(ControladorPantallaPrincipal invocador) {
+	public ControladorPagoABM(ControladorPrincipal invocador) {
 		this.invocador = invocador;
 		ventana = new VentanaPagoABM();
-		ventana.getRegistrar().addActionListener(this);
-		ventana.getFactura().addActionListener(this);
-		ventana.getVolver().addActionListener(this);
-		ventana.getBtnBuscar().addActionListener(this);
-		ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				volver();
-			}
-		});
+		ventana.getRegistrar().addActionListener(s -> registrar());
+		ventana.getFactura().addActionListener(s -> verFactura());
+		ventana.getBtnBuscar().addActionListener(s -> buscar());
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		// BOTON REGISTRAR PAGO DE LA VENTANA PAGOS
-		if (e.getSource() == ventana.getRegistrar())
-			registrar();
-
-		// BOTON VER FACTURA DE LA VENTANA PAGOS
-		else if (e.getSource() == ventana.getFactura())
-			verFactura();
-
-		// BOTON VOLVER DE LA VENTANA PAGOS
-		else if (e.getSource() == ventana.getVolver())
-			volver();
-
-		// BOTON BUSCAR DE LA VENTANA PAGOS
-		else if (e.getSource() == ventana.getBtnBuscar())
-			buscar();
-	}
+	public void actionPerformed(ActionEvent e) {}
 
 	private void registrar() {
-		ventana.deshabilitar();
+		invocador.getVentana().setEnabled(false);
 		new ControladorPagoAM(this);
 	}
 
@@ -68,12 +49,6 @@ public class ControladorPagoABM implements ActionListener {
 		// ventana.deshabilitar();
 		FacturaPago reporte = new FacturaPago(pagos);
 		reporte.mostrar();
-	}
-
-	private void volver() {
-		ventana.dispose();
-		ventana = null;
-		invocador.inicializar();
 	}
 
 	public void mostrar() {
@@ -112,6 +87,21 @@ public class ControladorPagoABM implements ActionListener {
 		
 		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, fechaDesde, fechaHasta);
 		ventana.getTabla().recargar(pagos);
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventana;
+	}
+	
+	public void habilitarPrincipal(){
+		invocador.getVentana().setEnabled(true);
+		invocador.getVentana().toFront();
 	}
 
 }

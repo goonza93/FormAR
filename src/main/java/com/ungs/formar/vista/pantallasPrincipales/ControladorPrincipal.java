@@ -29,6 +29,7 @@ import com.ungs.formar.vista.gestion.tareas.ControladorTareaABM;
 import com.ungs.formar.vista.gestion.tareas.VentanaTareaABM;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
+import com.ungs.formar.vista.pagos.ControladorPagoABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
 import com.ungs.formar.vista.recados.nuevo.ControladorNuevo;
@@ -329,7 +330,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarConsultarPagos() {
-		// TODO Auto-generated method stub
+		mostrarVentana(new ControladorPagoABM(this));
 	}
 	
 	public JFrame getVentana(){

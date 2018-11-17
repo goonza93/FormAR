@@ -112,7 +112,7 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 				ventana.dispose();
 				ventana = null;
 				invocador.recargar();
-				invocador.mostrar();
+				invocador.habilitarPrincipal();
 			} catch (Exception e) {
 				Popup.mostrar(e.getMessage());
 			}
@@ -123,7 +123,7 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 	private void cancelar() {
 		ventana.dispose();
 		ventana = null;
-		invocador.mostrar();
+		invocador.habilitarPrincipal();
 	}
 
 	public void setAlumno(Alumno alumno) {
