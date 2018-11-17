@@ -105,8 +105,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 	public void inicializar() {
 		llenarTabla();
-		ventanaABM.setVisible(true);
-		ventanaABM.setEnabled(true);
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
 
 	private void llenarTabla() {
@@ -256,9 +256,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		
 		ventanaInteraccionesAM.dispose();
 		ventanaInteraccionesAM = null;
-		ventanaABM.setEnabled(true);
-		ventanaABM.setVisible(true);
-		
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
 
 	private void mostrarSeleccionarArea() {
@@ -291,8 +290,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			return;
 		}
 		Alumno alumno = seleccion.get(0);
+		controlador.getVentana().setEnabled(false);
 		new ControladorCursosInscriptos(new VentanaCursosInscriptos(), this, alumno);
-		ventanaABM.setEnabled(false);
 	}
 	
 	private void crearInteraccion() {
@@ -326,7 +325,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaInteraccionesAM.setVisible(true);
-		ventanaABM.setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 	
 	
@@ -337,8 +336,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		if (confirm == 0) {
 			ventanaInteraccionesAM.dispose();
 			ventanaInteraccionesAM = null;
-			ventanaABM.setEnabled(true);
-			ventanaABM.setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -397,7 +396,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.deshabilitar();;
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private void abrirVentanaAlta() {
@@ -412,7 +411,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaABM.setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	public void cerrarVentanaABM() {
@@ -448,7 +447,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			llenarTabla();
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.mostrar();;
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -459,7 +459,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			//Concurrencia.desbloquear(ventanaAM.getAlumno());
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaABM.mostrar();
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 

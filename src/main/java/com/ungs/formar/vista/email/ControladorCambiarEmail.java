@@ -61,6 +61,7 @@ public class ControladorCambiarEmail implements ActionListener{
 		ventana.dispose();
 		ventana = null;
 		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 		//controlador.inicializar();
 	}
 	
