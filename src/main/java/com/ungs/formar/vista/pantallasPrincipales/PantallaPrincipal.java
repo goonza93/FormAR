@@ -313,5 +313,13 @@ public class PantallaPrincipal extends JFrame {
 		return panelPrincipal;
 	}
 
+	public JMenuItem getMenuInscripcionesConsultarInscripciones() {
+		return menuInscripcionesConsultarInscripciones;
+	}
+
+	public JMenuItem getMenuNotificacionesVerNotificaciones() {
+		return menuNotificacionesVerNotificaciones;
+	}
+
 	
 }

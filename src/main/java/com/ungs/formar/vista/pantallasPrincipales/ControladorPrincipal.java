@@ -2,9 +2,20 @@ package com.ungs.formar.vista.pantallasPrincipales;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
@@ -25,90 +36,57 @@ public class ControladorPrincipal implements ActionListener {
 	
 	public ControladorPrincipal() {
 		ventana = new PantallaPrincipal();
+		ventana.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentana();
+			}
+		});
+		// Listeners MENU ARCHIVO
 		ventana.getMenuArchivoCambiarContrasena().addActionListener(s -> mostrarCambiarPass());
-		ventana.getMenuAlumnoCrearAlumno().addActionListener(s -> new ControladorAlumnoABM(this));
-		ventana.getMenuAlumnoConsultarAlumnos().addActionListener(s -> mostrarConsultarAlumnos());
 		ventana.getMenuArchivoCerrarSesion().addActionListener(s -> cerrarSesion());
 		ventana.getMenuArchivoCambiarEmailSistema().addActionListener(s -> new ControladorCambiarEmail(this));
+		ventana.getMenuArchivoExportarBD().addActionListener(s -> exportarBD());
+		ventana.getMenuArchivoImportarBD().addActionListener(s -> importarBD());
+		ventana.getMenuArchivoSalir().addActionListener(s -> cerrarVentana());
+		// Listeners MENU ALUMNOS
+		ventana.getMenuAlumnoCrearAlumno().addActionListener(s -> new ControladorAlumnoABM(this));
+		ventana.getMenuAlumnoConsultarAlumnos().addActionListener(s -> mostrarConsultarAlumnos());
+		ventana.getMenuAlumnoConsultarPagos().addActionListener(s -> mostrarConsultarPagos());
+		// Listeners MENU CURSOS
+		ventana.getMenuCursosCrearCurso().addActionListener(s -> mostrarCrearCurso());
+		ventana.getMenuCursosCrearCursada().addActionListener(s -> mostrarCrearCursada());
+		ventana.getMenuCursosConsultarCursos().addActionListener(s -> mostrarConsultarCursos());
+		ventana.getMenuCursosConsultarCursadas().addActionListener(s -> mostrarConsultarCursadas());
+		ventana.getMenuCursosConsultarSalas().addActionListener(s -> mostrarConsultarSalas());
+		// Listeners MENU CONTACTOS
+		ventana.getMenuContactosCrearContacto().addActionListener(s -> mostrarCrearContacto());
+		ventana.getMenuContactosConsultarContactos().addActionListener(s -> mostrarConsultarContactos());
+		// Listeners MENU TAREAS
+		ventana.getMenuTareasCrearTarea().addActionListener(s -> mostrarCrearTarea());
+		ventana.getMenuTareasConsultarTareas().addActionListener(s -> mostrarConsultarTareas());
+		// Listeners MENU RECADOS
+		ventana.getMenuRecadosCrearRecado().addActionListener(s -> mostrarCrearRecado());
+		ventana.getMenuRecadosConsultarRecibidos().addActionListener(s -> mostrarConsultarRecibidos());
+		ventana.getMenuRecadosConsultarEnviados().addActionListener(s -> mostrarConsultarEnviados());
+		ventana.getMenuRecadosConsultarArchivados().addActionListener(s -> mostrarConsultarArchivados());
+		// Listeners MENU USUARIOS
+		ventana.getMenuUsuariosCrearUsuario().addActionListener(s -> mostrarCrearUsuario());
+		ventana.getMenuUsuariosConsultarUsuarios().addActionListener(s -> mostrarConsultarUsuarios());
+		// Listeners MENU INSCRIPCIONES
+		ventana.getMenuInscripcionesConsultarInscripciones().addActionListener(s -> mostrarConsultarInscripciones());
+		// Listeners MENU NOTIFICACIONES
+		ventana.getMenuNotificacionesVerNotificaciones().addActionListener(s -> mostrarNotificaciones());
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ventana.getMenuArchivoCambiarEmailSistema()){
-			System.out.println("Presionando menu 1 opcion 3");
-		}
-		else if (e.getSource() == ventana.getMenuArchivoImportarBD()){
-			System.out.println("Presionando menu 2 opcion 1");
-		}
-		else if (e.getSource() == ventana.getMenuArchivoExportarBD()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuArchivoSalir()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuAlumnoConsultarPagos()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuCursosCrearCurso()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuCursosCrearCursada()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuCursosConsultarCursos()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuCursosConsultarCursadas()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuCursosConsultarSalas()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuContactosCrearContacto()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuContactosConsultarContactos()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuTareasCrearTarea()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuTareasConsultarTareas()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuRecadosCrearRecado()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuRecadosConsultarRecibidos()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuRecadosConsultarEnviados()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuRecadosConsultarArchivados()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuUsuariosCrearUsuario()){
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuUsuariosConsultarUsuarios()){
-			//INTERNALFRAME
-			System.out.println("Presionando menu 2 opcion 2");
-		}
-		else if (e.getSource() == ventana.getMenuItemNotificacion()){
-			//POSIBLE PANEL LATERAL
-			System.out.println("Presionando menu 2 opcion 2");
-		}
+		
 	}
 	
+	private void cerrarVentana() {
+		if(Popup.confirmar("¿Esta seguro que desea salir?"))
+			System.exit(0);
+	}
 	private void cerrarSesion(){
 		if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
 			ventana.dispose();
@@ -164,6 +142,93 @@ public class ControladorPrincipal implements ActionListener {
 		return true;
 	}
 
+	private void exportarBD() {
+		JFileChooser RealizarBackupMySQL = new JFileChooser();
+		int resp;
+		resp = RealizarBackupMySQL.showSaveDialog(ventana);
+		
+		if (resp == JFileChooser.APPROVE_OPTION) {
+			try {
+				Runtime runtime = Runtime.getRuntime();
+				File backupFile = new File(String.valueOf(RealizarBackupMySQL.getSelectedFile().toString()) + "_"
+						+ Almanaque.hoy().toString() + ".sql");
+				FileWriter fw = new FileWriter(backupFile);
+				Process child = runtime.exec(
+						"C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --opt --password=root --user=root --databases formar");
+				
+				InputStreamReader irs = new InputStreamReader(child.getInputStream());
+				BufferedReader br = new BufferedReader(irs);
+				String line;
+				while ((line = br.readLine()) != null) {
+					fw.write(line + "\n");
+				}
+				fw.close();
+				irs.close();
+				br.close();
+
+				JOptionPane.showMessageDialog(null, "Archivo generado", "Verificar", JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,
+						"Error no se genero el archivo por el siguiente motivo:" + e.getMessage(), "Verificar",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		} else if (resp == JFileChooser.CANCEL_OPTION) {
+			JOptionPane.showMessageDialog(null, "Ha sido cancelada la generacion del Backup");
+		}
+	}
+	private void importarBD() {
+		int selecRestauraBack = 1;
+		File nombrebackup;
+
+		JFileChooser RealizarBackupMySQL = new JFileChooser();
+		int resp;
+		// MOSTRAR EL CUADRO CON OPCION GUARDAR
+		resp = RealizarBackupMySQL.showOpenDialog(ventana);
+		// SI USUARIO PRESIONA ACEPTAR, BACKUP
+		if (resp == JFileChooser.APPROVE_OPTION) {
+			try {
+				if (selecRestauraBack == 1) {
+
+					try {
+						nombrebackup = new File(RealizarBackupMySQL.getSelectedFile().toString().trim());
+
+						Process p = Runtime.getRuntime().exec(
+								"C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysql -uroot -proot formar");
+
+						OutputStream os = p.getOutputStream();
+						FileInputStream fis = new FileInputStream(nombrebackup);
+						byte[] buffer = new byte[1000];
+
+						int leido = fis.read(buffer);
+						while (leido > 0) {
+							os.write(buffer, 0, leido);
+							leido = fis.read(buffer);
+						}
+
+						os.flush();
+						os.close();
+						fis.close();
+
+						JOptionPane.showMessageDialog(null, "BaseActualizada", "Verificar",
+								JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null,
+								"Error no se actualizo la DB por el siguiente motivo: " + e.getMessage(), "Verificar",
+								JOptionPane.ERROR_MESSAGE);
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Ha sido cancelada la actualizacion del Backup");
+				}
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null,
+						"Error no se genero el archivo por el siguiente motivo:" + e.getMessage(), "Verificar",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+		
 	private void mostrarVentana(ControladorInterno nuevo) {
 		if (controlador == null || controlador.finalizar()) {
 			ventana.getContentPane().removeAll();
@@ -185,7 +250,77 @@ public class ControladorPrincipal implements ActionListener {
 		mostrarVentana(new ControladorAlumnoABM(asd,this));
 	}
 	
-	
+	private void mostrarNotificaciones() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarInscripciones() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarUsuarios() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarCrearUsuario() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarArchivados() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarEnviados() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarRecibidos() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarCrearRecado() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarTareas() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarCrearTarea() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarContactos() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarCrearContacto() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarSalas() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarCursadas() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarCursos() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarCrearCursada() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarCrearCurso() {
+		// TODO Auto-generated method stub
+	}
+
+	private void mostrarConsultarPagos() {
+		// TODO Auto-generated method stub
+	}
 	
 	public JFrame getVentana(){
 		return ventana;
