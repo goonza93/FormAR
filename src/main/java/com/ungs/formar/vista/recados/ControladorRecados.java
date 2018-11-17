@@ -8,10 +8,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
+
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.recados.archivo.ControladorArchivo;
 import com.ungs.formar.vista.recados.enviados.ControladorEnviados;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;
@@ -20,11 +24,11 @@ import com.ungs.formar.vista.recados.nuevo.ControladorNuevo;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorRecados implements ActionListener, RecadoLegible {
-	private ControladorPantallaPrincipal invocador;
+public class ControladorRecados implements ActionListener, RecadoLegible, ControladorInterno {
+	private ControladorPrincipal invocador;
 	private VentanaRecados ventana;
 	
-	public ControladorRecados(VentanaRecados v, ControladorPantallaPrincipal c) {
+	public ControladorRecados(VentanaRecados v, ControladorPrincipal c) {
 		this.ventana = v;
 		this.invocador = c;
 		this.ventana.getArchivar().addActionListener(this);
@@ -33,13 +37,13 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 		//this.ventana.getEnviados().addActionListener(this);
 		this.ventana.getLeer().addActionListener(this);
 		this.ventana.getNuevo().addActionListener(this);
-		this.ventana.getVolver().addActionListener(this);
+	/*	this.ventana.getVolver().addActionListener(this);
 		this.ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				volver();
 			}
-		});
+		});*/
 		this.inicializar();
 	}
 	
@@ -79,23 +83,23 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 		// BOTON VER ENVIADOS DE LA VENTANA RECADOS
 		else if (e.getSource() == ventana.getEnviados()){
 			verEnviados();
-		}*/
+		}
 		// BOTON VOLVER DE LA VENTANA RECADOS
 		else if (e.getSource() == ventana.getVolver()){
 			volver();
-		}
+		}*/
 	}
 
 	private void verEnviados() {
 		ventana.ocultar();
 		new ControladorEnviados(this);		
 	}
-
+/*
 	private void volver() {
 		ventana.dispose();
 		ventana = null;
-		invocador.inicializar();
-	}
+		invocador.getVentana().setEnabled(true);;
+	}*/
 
 	private void verArchivos() {
 		ventana.ocultar();
@@ -139,8 +143,13 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 	}
 
 	private void nuevoMensaje() {
-		ventana.ocultar();
+		invocador.getVentana().setEnabled(false);
 		new ControladorNuevo(this);
+	}
+	
+	public void habilitarPrincipal(){
+		invocador.getVentana().setEnabled(true);
+		invocador.getVentana().toFront();
 	}
 
 	public void mostrar() {
@@ -149,6 +158,16 @@ public class ControladorRecados implements ActionListener, RecadoLegible {
 
 	public void recargar() {
 		llenarTabla();
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventana;
 	}
 
 }

@@ -29,6 +29,9 @@ import com.ungs.formar.vista.gestion.tareas.ControladorTareaABM;
 import com.ungs.formar.vista.gestion.tareas.VentanaTareaABM;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
+import com.ungs.formar.vista.recados.ControladorRecados;
+import com.ungs.formar.vista.recados.VentanaRecados;
+import com.ungs.formar.vista.recados.nuevo.ControladorNuevo;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
@@ -280,11 +283,12 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarConsultarRecibidos() {
-		// TODO Auto-generated method stub
+		VentanaRecados asd = new VentanaRecados();
+		mostrarVentana(new ControladorRecados(asd,this));
 	}
 
 	private void mostrarCrearRecado() {
-		// TODO Auto-generated method stub
+		new ControladorNuevo(this);
 	}
 
 	private void mostrarConsultarTareas() {
