@@ -140,6 +140,10 @@ public class PantallaPrincipal extends JFrame {
 		
 		
 		JMenu menuPrueba = new JMenu("Noticaciones(" + NotificacionManager.traerNotificaciones().size()+")");
+		JMenuItem menuPrueba1 = new JMenuItem("Ver notificaciones");
+		menuPrueba.add(menuPrueba1);
+		
+		
 		
 		menuArchivo.add(menuArchivoCambiarContrasena);
 		menuArchivo.add(menuArchivoCerrarSesion);
