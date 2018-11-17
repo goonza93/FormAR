@@ -35,7 +35,7 @@ public class TareaOBDMySQL extends ODB implements TareaOBD {
 		String consulta = "update " + tabla
 				+" set empleado = "+ empleado
 				+", contenido = "+ contenido
-				+", mostrado = "+ tarea.isPendiente()
+				+", pendiente = "+ tarea.isPendiente()
 				+"  where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
