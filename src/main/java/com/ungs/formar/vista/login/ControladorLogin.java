@@ -104,7 +104,12 @@ public class ControladorLogin implements ActionListener {
 			String passCifrado = usuario.getPassword();
 			String passIngresado = Hash.md5(new String(ventanaIniciarSesion.getPassword().getPassword()));
 			if (!passCifrado.equals(passIngresado)) {
-				Popup.mostrar("- Contraseña incorrecta");
+				if(EmpleadoManager.traerSegunUsuarios(ventanaIniciarSesion.getUsuario().getText()).size() >1){
+					Popup.mostrar("- Contraseña incorrecta\n- Multiples usuarios, utilice su email para ingresar.");
+					ventanaIniciarSesion.getUsuario().setText("");
+				} else {
+					Popup.mostrar("- Contraseña incorrecta");
+				}
 				ventanaIniciarSesion.getPassword().setText("");
 				return false;
 			}
