@@ -37,9 +37,10 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		this.ventanaABM.getBorrar().addActionListener(s -> baja());
 		this.ventanaABM.getEditar().addActionListener(s -> abrirVentanaModificacion());
 		this.ventanaABM.getDarDeAlta().addActionListener(s -> alta());
+		this.ventanaABM.getVerCursadas().addActionListener(s -> mostrarCursadasInstructor());
 		this.inicializar();
 	}
-	
+
 	public ControladorEmpleadoABM(ControladorPrincipal controlador) {
 		this.controlador = controlador;
 		rol = Sesion.getEmpleado().getRol();
@@ -98,6 +99,10 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 				ventanaABM.getModeloEmpleados().addRow(fila);
 			}
 		}
+	}
+	
+	private void mostrarCursadasInstructor() {
+		// TODO Auto-generated method stub
 	}
 
 	private void abrirVentanaAlta() {
@@ -294,12 +299,6 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 			controlador.getVentana().toFront();
 		}
 	}
-/*
-	private void cerrarVentanaABM() {
-		ventanaABM.getVentana().dispose();
-		ventanaABM = null;
-		controlador.inicializar();
-	}*/
 
 	private boolean validarCampos() {
 		String apellido = ventanaAM.getApellido().getText();
