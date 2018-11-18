@@ -1,21 +1,19 @@
 package com.ungs.formar.vista.gestion.empleados;
 
-import javax.swing.JFrame;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.util.Formato;
+import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 
@@ -29,9 +27,6 @@ public class VentanaEmpleadoAM extends JFrame {
 	private Rol rol;
 	
 	// CONSTRUCTOR NUEVO EMPLEADO
-	/**
-	 * @wbp.parser.constructor
-	 */
 	public VentanaEmpleadoAM(Rol rol) {
 		this.rol = rol;
 		cargarComponentes();
@@ -104,7 +99,6 @@ public class VentanaEmpleadoAM extends JFrame {
 		}
 		inRol.addItem(Rol.INSTRUCTOR);
 		
-		
 		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
 		inNombre.setMaximumSize(largoEntrada);
 		inApellido.setMaximumSize(largoEntrada);
@@ -124,8 +118,10 @@ public class VentanaEmpleadoAM extends JFrame {
 		panelEntradas.add(inRol);
 		
 		// AGREGO LOS BOTONES
-		btnAceptar = new JButton("ACEPTAR");
-		btnCancelar = new JButton("CANCELAR");
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setIcon(Imagen.traerIconoGuardar());
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(Imagen.traerIconoCancelar());
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnAceptar);
 		panelBotones.add(btnCancelar);
@@ -142,11 +138,11 @@ public class VentanaEmpleadoAM extends JFrame {
 		return inNombre;
 	}
 
-	public JButton getAceptar() {
+	public JButton botonAceptar() {
 		return btnAceptar;
 	}
 
-	public JButton getCancelar() {
+	public JButton botonCancelar() {
 		return btnCancelar;
 	}
 
@@ -177,9 +173,5 @@ public class VentanaEmpleadoAM extends JFrame {
 	public JComboBox<Rol> getRol(){
 		return inRol;
 	}
-	/*
-	public Rol getRol() {
-		return rol;
-	}*/
 	
 }
