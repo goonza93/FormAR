@@ -16,6 +16,8 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.util.Formato;
+import com.ungs.formar.vista.util.Popup;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -55,10 +57,15 @@ public class Analitico {
 		totalCursos.put("nota", notas);
 
 		try {
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\FacturaPago.jasper");
-			this.reporteLleno = JasperFillManager.fillReport(this.reporte, totalCursos,
-					new JRBeanCollectionDataSource(cursos));
-			System.out.println("Se cargo correctamente el analitico.");
+			if (curso.size() == 0)
+				Popup.mostrar("El alumno " + alumno.getApellido() + ", " + alumno.getNombre()
+						+ " no tiene cursadas finalizadas para generar el analitico.");
+			else {
+				this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\FacturaPago.jasper");
+				this.reporteLleno = JasperFillManager.fillReport(this.reporte, totalCursos,
+						new JRBeanCollectionDataSource(cursos));
+				System.out.println("Se cargo correctamente el analitico.");
+			}
 		} catch (JRException ex) {
 			System.out.println("Ocurrio un error mientras se cargaba el archivo analitico.Jasper \n " + ex);
 		}
