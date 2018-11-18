@@ -3,24 +3,24 @@ package com.ungs.formar.vista.gestion.salas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Sala;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 
-public class ControladorSalaABM implements ActionListener {
+public class ControladorSalaABM implements ActionListener, ControladorInterno {
 	private VentanaSalaABM ventanaSalaABM;
 	private VentanaSalaAM ventanaSalaAM;
-	private ControladorPantallaPrincipal controlador;
+	private ControladorPrincipal controlador;
 	private List<Sala> salas;
 
-	public ControladorSalaABM(VentanaSalaABM ventanaSalaABM, ControladorPantallaPrincipal controlador) {
+	public ControladorSalaABM(VentanaSalaABM ventanaSalaABM, ControladorPrincipal controlador) {
 		this.ventanaSalaABM = ventanaSalaABM;
 		this.controlador = controlador;
-		this.ventanaSalaABM.getCancelar().addActionListener(this);
 		this.ventanaSalaABM.getAgregar().addActionListener(this);
 		this.ventanaSalaABM.getBorrar().addActionListener(this);
 		this.ventanaSalaABM.getEditar().addActionListener(this);
@@ -50,10 +50,6 @@ public class ControladorSalaABM implements ActionListener {
 		if (e.getSource() == ventanaSalaABM.getAgregar())
 			mostrarSalaAlta();
 
-		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaSalaABM.getCancelar())
-			cerrarVentanaABM();
-
 		// BOTON EDITAR DEL ABM
 		else if (e.getSource() == ventanaSalaABM.getEditar())
 			mostrarSalaModificacion();
@@ -82,7 +78,7 @@ public class ControladorSalaABM implements ActionListener {
 				ventanaSalaAM.getAceptar().addActionListener(this);
 				ventanaSalaAM.getCancelar().addActionListener(this);
 				ventanaSalaAM.setVisible(true);
-				ventanaSalaABM.getFrame().setEnabled(false);
+				controlador.getVentana().setEnabled(false);
 			} else {
 				JOptionPane.showMessageDialog(null, "La sala no se puede editar porque esta asignada a una cursada");
 			}
@@ -118,8 +114,8 @@ public class ControladorSalaABM implements ActionListener {
 		if (confirm == 0) {
 			ventanaSalaAM.dispose();
 			ventanaSalaAM = null;
-			ventanaSalaABM.getFrame().setEnabled(true);
-			ventanaSalaABM.getFrame().toFront();
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
 	}
 
@@ -142,13 +138,9 @@ public class ControladorSalaABM implements ActionListener {
 			ventanaSalaAM.dispose();
 			ventanaSalaAM = null;
 			inicializar();
-			ventanaSalaABM.getFrame().setEnabled(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().toFront();
 		}
-	}
-
-	private void cerrarVentanaABM() {
-		ventanaSalaABM.ocultar();
-		controlador.inicializar();
 	}
 
 	private void mostrarSalaAlta() {
@@ -156,7 +148,7 @@ public class ControladorSalaABM implements ActionListener {
 		ventanaSalaAM.getAceptar().addActionListener(this);
 		ventanaSalaAM.getCancelar().addActionListener(this);
 		ventanaSalaAM.setVisible(true);
-		ventanaSalaABM.getFrame().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private boolean validarCampos() {
@@ -227,6 +219,16 @@ public class ControladorSalaABM implements ActionListener {
 
 		int registro = ventanaSalaABM.getTablaSalas().convertRowIndexToModel(registroTabla);
 		return salas.get(registro);
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaSalaABM;
 	}
 
 }

@@ -190,7 +190,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaAdministrativo.ocultar();
 			new ControladorProgramaABM(this.ventanaGestionarProgramas, this);
 		}*/
-
+/*
 		// BOTON ABM SALAS
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarSalas()) {
 			this.ventanaGestionarSalas = new VentanaSalaABM();
@@ -198,7 +198,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaAdministrativo.ocultar();
 			new ControladorSalaABM(this.ventanaGestionarSalas, this);
 		}
-
+*/
 		// BOTON GESTIONAR INSCRIPCIONES
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarInscripciones()) {
 			ventanaInscripcionABM = new VentanaInscripcionABM();
