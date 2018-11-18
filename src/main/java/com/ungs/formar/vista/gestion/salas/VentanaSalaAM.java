@@ -36,7 +36,7 @@ public class VentanaSalaAM extends JFrame {
 	}
 	
 	public void cargarComponentes() {
-		setBounds(100, 100, 390, 160);
+		setBounds(100, 100, 390, 200);
 		PanelVertical panelPrincipal = new PanelVertical();
 		setContentPane(panelPrincipal);
 		setLocationRelativeTo(null);
