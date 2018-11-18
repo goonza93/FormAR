@@ -11,24 +11,20 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
-import com.ungs.formar.negocios.Concurrencia;
 import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.cursos.ControladorCursosInscriptos;
 import com.ungs.formar.vista.consulta.cursos.VentanaCursosInscriptos;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
-import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccionesAM;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
@@ -78,8 +74,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		this.ventanaAM = new VentanaAlumnoAM();
 		this.controladorPrincipal = principal;
 		this.controlador = null;
-		ventanaAM.getAceptar().addActionListener(s -> aceptarAMP());
-		ventanaAM.getCancelar().addActionListener(s -> cancelarAMP());
+		ventanaAM.botonAceptar().addActionListener(s -> aceptarAMP());
+		ventanaAM.botonCancelar().addActionListener(s -> cancelarAMP());
 
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
@@ -115,8 +111,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 		alumnos = AlumnoManager.traerAlumnos();
 		for (Alumno alumno : alumnos) {
-			Object[] fila = { alumno.getApellido(), alumno.getNombre(), alumno.getDNI(), alumno.getEmail(),
-					alumno.getTelefono() };
+			Object[] fila = {
+					alumno.getApellido(),
+					alumno.getNombre(),
+					alumno.getDNI(),
+					alumno.getEmail(),
+					alumno.getTelefono()
+					};
 			ventanaABM.getModeloAlumnos().addRow(fila);
 
 			// seteo la altura de la celda
@@ -159,7 +160,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		}
 		else if (ventanaAM != null) {
 			// BOTON ACEPTAR DEL AM
-			if (e.getSource() == ventanaAM.getAceptar()){
+			if (e.getSource() == ventanaAM.botonAceptar()){
 				if(controlador!=null){
 					aceptarAM();
 				}
@@ -168,7 +169,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 				}
 			}
 			// BOTON CANCELAR DEL AM
-			else if (e.getSource() == ventanaAM.getCancelar()) {
+			else if (e.getSource() == ventanaAM.botonCancelar()) {
 				if(controlador!=null){
 					cancelarAM();
 				}
@@ -212,19 +213,21 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			String email = ventanaAM.getEmail().getText();
 
 			// Crear un nuevo alumno
-			if (alumno == null)
+			if (alumno == null) {
 				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
-
+				Popup.mostrar("El alumno se creado correctamente");
+				
 			// Editar un alumno existente
-			else {
+			} else {
 				alumno.setApellido(apellido);
 				alumno.setNombre(nombre);
 				alumno.setDNI(dni);
 				alumno.setTelefono(telefono);
 				alumno.setEmail(email);
 				AlumnoManager.editarAlumno(alumno);
-				//Concurrencia.desbloquear(alumno);
+				Popup.mostrar("El alumno se editado correctamente");
 			}
+			
 			ventanaAM.dispose();
 			ventanaAM = null;
 			controladorPrincipal.getVentana().setEnabled(true);
@@ -323,8 +326,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		controlador.getVentana().setEnabled(false);
 	}
 	
-	
-	
 	private void cerrarVentanaInteraccionesAM() {
 		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -381,8 +382,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		
 		//Concurrencia.bloquear(alumno);
 		ventanaAM = new VentanaAlumnoAM(alumno);
-		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
-		ventanaAM.getCancelar().addActionListener(s -> cancelarAM());
+		ventanaAM.botonAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.botonCancelar().addActionListener(s -> cancelarAM());
 
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
@@ -396,8 +397,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 
 	private void abrirVentanaAlta() {
 		ventanaAM = new VentanaAlumnoAM();
-		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
-		ventanaAM.getCancelar().addActionListener(s -> cancelarAM());
+		ventanaAM.botonAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.botonCancelar().addActionListener(s -> cancelarAM());
 
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
@@ -425,18 +426,19 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			String email = ventanaAM.getEmail().getText();
 
 			// Crear un nuevo alumno
-			if (alumno == null)
+			if (alumno == null) {
 				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
+				Popup.mostrar("El alumno se creado correctamente");
 
 			// Editar un alumno existente
-			else {
+			} else {
 				alumno.setApellido(apellido);
 				alumno.setNombre(nombre);
 				alumno.setDNI(dni);
 				alumno.setTelefono(telefono);
 				alumno.setEmail(email);
 				AlumnoManager.editarAlumno(alumno);
-				//Concurrencia.desbloquear(alumno);
+				Popup.mostrar("El alumno se editado correctamente");
 			}
 
 			llenarTabla();

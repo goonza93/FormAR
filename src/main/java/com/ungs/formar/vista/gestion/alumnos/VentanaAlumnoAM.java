@@ -1,21 +1,18 @@
 package com.ungs.formar.vista.gestion.alumnos;
 
-import javax.swing.JFrame;
-
-import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.vista.util.PanelHorizontal;
-import com.ungs.formar.vista.util.PanelVertical;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
-
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.vista.util.Imagen;
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
 
 public class VentanaAlumnoAM extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -46,7 +43,6 @@ public class VentanaAlumnoAM extends JFrame {
 		setLocationRelativeTo(null); // Centrar pantalla
 		setResizable(false);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
 
 		// AGREGO LAS ETIQUETAS
 		JLabel lblNombre = new JLabel("Nombre: ");
@@ -92,7 +88,9 @@ public class VentanaAlumnoAM extends JFrame {
 		
 		// AGREGO LOS BOTONES
 		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setIcon(Imagen.traerIconoGuardar());
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(Imagen.traerIconoCancelar());
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnAceptar);
 		panelBotones.add(btnCancelar);
@@ -114,11 +112,11 @@ public class VentanaAlumnoAM extends JFrame {
 		panelPrincipal.add(panelBotones);
 	}
 
-	public JButton getAceptar() {
+	public JButton botonAceptar() {
 		return btnAceptar;
 	}
 
-	public JButton getCancelar() {
+	public JButton botonCancelar() {
 		return btnCancelar;
 	}
 	
