@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.ReportesManager;
@@ -30,6 +31,7 @@ public class Analitico {
 	private JasperReport reporte;
 	private JasperViewer reporteViewer;
 	private JasperPrint reporteLleno;
+	private boolean tieneCursadas = false;
 
 	public Analitico(Alumno alumno) {
 		Map<String, Object> totalCursos = new HashMap<String, Object>();
@@ -42,6 +44,7 @@ public class Analitico {
 
 		for (Curso cursada : cursos) {
 			if (cursada.getEstado() == EstadoCurso.FINALIZADO) {
+				System.out.println("CURSADA FINALIZADA: "+Formato.nombre(cursada));
 				codigoCurso.add(cursada.getID().toString());
 				curso.add(ProgramaManager.traerProgramaSegunID(cursada.getPrograma()).getNombre());
 				fechaInicio.add(cursada.getFechaInicio());
@@ -49,29 +52,32 @@ public class Analitico {
 				notas.add(ReportesManager.notaFinal(cursada, alumno));
 			}
 		}
+		if (curso.size() != 0)
+			this.tieneCursadas = true;
 		totalCursos.put("cantCursos", cursos.size());
 		totalCursos.put("codigoCurso", codigoCurso);
 		totalCursos.put("curso", curso);
 		totalCursos.put("fechaInicio", fechaInicio);
 		totalCursos.put("fechaFin", fechaFin);
 		totalCursos.put("nota", notas);
+		totalCursos.put("fechaHoy", Almanaque.hoy());
+		totalCursos.put("persona", alumno.getApellido() + ", "+alumno.getNombre()+".");
 
 		try {
-			if (curso.size() == 0)
-				Popup.mostrar("El alumno " + alumno.getApellido() + ", " + alumno.getNombre()
-						+ " no tiene cursadas finalizadas para generar el analitico.");
-			else {
-				this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\FacturaPago.jasper");
+				this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\Analitico.jasper");
 				this.reporteLleno = JasperFillManager.fillReport(this.reporte, totalCursos,
 						new JRBeanCollectionDataSource(cursos));
 				System.out.println("Se cargo correctamente el analitico.");
-			}
 		} catch (JRException ex) {
 			System.out.println("Ocurrio un error mientras se cargaba el archivo analitico.Jasper \n " + ex);
 		}
 	}
 
 	public void mostrar() {
+		if(!this.tieneCursadas){
+			Popup.mostrar("El alumno no tiene cursadas finalizadas para generar el analitico.");
+			return;
+		}
 		this.reporteViewer = new JasperViewer(this.reporteLleno, false);
 		this.reporteViewer.setVisible(true);
 	}
