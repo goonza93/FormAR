@@ -22,7 +22,7 @@ public class VentanaPagoABM extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private TablaPagos tabla;
 	private JButton btnRegistrar, btnFactura, btnBuscar;
-	private JTextField inAlumno;
+	private JTextField inAlumno, inCursada;
 	private JDateChooser inFechaDesde, inFechaHasta;
 
 	public VentanaPagoABM() {
@@ -33,12 +33,14 @@ public class VentanaPagoABM extends VentanaInterna {
 		 */
 		// CREO LOS FILTROS PARA LA TABLA
 		inAlumno = new JTextField();
+		inCursada = new JTextField();
 		inFechaDesde = new JDateChooser();
 		inFechaHasta = new JDateChooser();
 
 		// ALTURA MAXIMA DE 25 PARA LAS ENTRADAS
 		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
 		inAlumno.setMaximumSize(largoEntrada);
+		inCursada.setMaximumSize(largoEntrada);
 		inFechaDesde.setMaximumSize(largoEntrada);
 		inFechaHasta.setMaximumSize(largoEntrada);
 
@@ -54,11 +56,16 @@ public class VentanaPagoABM extends VentanaInterna {
 		PanelVertical filtroFechaHasta = new PanelVertical();
 		filtroFechaHasta.add(new JLabel("Hasta"));
 		filtroFechaHasta.add(inFechaHasta);
+		
+		PanelVertical filtroCursada = new PanelVertical();
+		filtroCursada.add(new JLabel("Cursada"));
+		filtroCursada.add(inCursada);
 
 		// PANEL BUSQUEDA
 		btnBuscar = new JButton("Buscar");
 		PanelHorizontal panelBusqueda = new PanelHorizontal();
 		panelBusqueda.add(filtroAlumno);
+		panelBusqueda.add(filtroCursada);
 		panelBusqueda.add(filtroFechaDesde);
 		panelBusqueda.add(filtroFechaHasta);
 		panelBusqueda.add(btnBuscar);
@@ -105,11 +112,14 @@ public class VentanaPagoABM extends VentanaInterna {
 	public JTextField getInAlumno() {
 		return inAlumno;
 	}
+	
+	public JTextField getInCursada() {
+		return inCursada;
+	}
 
 	public JDateChooser getInFechaDesde() {
 		return inFechaDesde;
 	}
-
 	
 	public JDateChooser getInFechaHasta() {
 		return inFechaHasta;

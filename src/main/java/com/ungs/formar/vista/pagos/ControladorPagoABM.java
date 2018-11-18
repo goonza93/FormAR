@@ -82,10 +82,11 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 
 	public void recargar() {
 		String dniAlumno = ventana.getInAlumno().getText();
+		String cursada = ventana.getInCursada().getText();
 		Date fechaDesde = ventana.getInFechaDesde().getDate();
 		Date fechaHasta = ventana.getInFechaHasta().getDate();
 		
-		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, fechaDesde, fechaHasta);
+		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, cursada, fechaDesde, fechaHasta);
 		ventana.getTabla().recargar(pagos);
 	}
 

@@ -8,6 +8,7 @@ import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Pago;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfaces.PagoOBD;
 import com.ungs.formar.vista.util.Formato;
 
@@ -115,20 +116,27 @@ public class Tesoreria {
 			actualizarPago(pago);
 		}
 	}
-
-
 	
-	public static List<Pago> traerPagosBusqueda(String dni, java.util.Date fechaDesde, java.util.Date fechaHasta){
+	public static List<Pago> traerPagosBusqueda(String dni, String curso, java.util.Date fechaDesde,
+			java.util.Date fechaHasta){
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		Alumno alumno = AlumnoManager.traerAlumnoSegunDNI(dni);
 		Date desde = (fechaDesde == null) ? null : new Date(fechaDesde.getTime());
 		Date hasta = (fechaHasta == null) ? null : new Date(fechaHasta.getTime());
 		List<Pago> pagosAlumno = obd.selectBusqueda(alumno);
 		List<Pago> retorno = new ArrayList<Pago>();
-		if(!pagosAlumno.isEmpty()){
-			for(Pago pago : pagosAlumno){
-				if(validarDesde(pago, desde) && validarHasta(pago, hasta))
-					retorno.add(pago);
+
+		if (!pagosAlumno.isEmpty()) {
+			for (Pago pago : pagosAlumno) {
+				if (validarDesde(pago, desde) && validarHasta(pago, hasta)) {
+					if (!curso.isEmpty()) {
+						Curso cursoPago = CursoManager.traerCursoPorId(pago.getCursada());
+						Programa programaPago = ProgramaManager.traerProgramaSegunID(cursoPago.getPrograma());
+						if (programaPago.getNombre().equals(curso))
+							retorno.add(pago);
+					} else
+						retorno.add(pago);
+				}
 			}
 		}
 		return retorno;
