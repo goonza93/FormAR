@@ -25,9 +25,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import com.ungs.formar.vista.util.VentanaInterna;
 
 public class VentanaEmpleadoABM extends VentanaInterna {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelo;
 	private String[] columnas = { "Rol", "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
@@ -39,11 +36,6 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 
 	public VentanaEmpleadoABM() {
 		super("Gestion de usuarios", 740, 452);
-		/*
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 740, 452);
-		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(JFrame.MAXIMIZED_BOTH);*/
 		
 		modelo = new DefaultTableModel(null, columnas);
 		filtro = new TableRowSorter<TableModel>(modelo);

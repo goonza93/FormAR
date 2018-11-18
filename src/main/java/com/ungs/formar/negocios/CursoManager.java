@@ -192,4 +192,10 @@ public class CursoManager {
 				instructor, programa, curso.getContenido(), hc, curso.getFechaInicio(), curso.getFechaFin(),
 				curso.getFechaCierre(), curso.getEstado(), curso.getPrecio(), curso.getComision());
 	}
+
+	public static boolean comisionEnUso(String comision, Programa programa) {
+		CursoODB odb = FactoryODB.crearCursoODB();
+		return odb.selectByProgramaComision(programa, comision) != null;
+	}
+
 }

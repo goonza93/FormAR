@@ -11,6 +11,7 @@ import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
@@ -91,6 +92,14 @@ public class CursoODBMySQL extends ODB implements CursoODB{
 		List<Curso> cursos = selectByCondicion(condicion);
 		
 		return cursos;
+	}
+	
+	public Curso selectByProgramaComision(Programa programa, String comision){
+		String condicion = "programa = "+programa.getProgramaID()+" and comision = '"+comision+"'";
+		List<Curso> lista = selectByCondicion(condicion);
+		if (lista.size()>0)
+			return lista.get(0);
+		return null;
 	}
 	
 	public List<Curso> selectByInstructor(Empleado empleado){

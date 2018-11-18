@@ -35,7 +35,6 @@ import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarInstructor;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarResponsable;
-import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.ventanas.ABMHorario;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarInstructor;
@@ -53,9 +52,8 @@ public class ControladorCrearCurso implements ActionListener {
 	private Programa programa;
 	private Pdf contenido;
 	private List<HorarioCursada> horariosCursada;
-	private List<Horario> horarios;// Estas dos lineas es para implementar lo de
-									// que
-	private List<Sala> salas;// Se persista cuando pongo agregar, y no siempre.
+	private List<Horario> horarios;   // Estas dos lineas es para implementar lo de que
+	private List<Sala> salas;         // Se persista cuando pongo agregar, y no siempre.
 	private Integer idEdicion = -1;
 
 	public ControladorCrearCurso(CrearCurso ventanaCrearCurso, ControladorGestionarCurso controladorGestionarCurso) {
@@ -91,10 +89,12 @@ public class ControladorCrearCurso implements ActionListener {
 		modelo.setColumnIdentifiers(ventanaCrearCurso.getColumnasHorarios());
 
 		for (int i = 0; i < horariosCursada.size(); i++) {
-			Object[] fila = { HorarioCursadaManager.obtenerDia(horariosCursada.get(i)),
+			Object[] fila = {
+					HorarioCursadaManager.obtenerDia(horariosCursada.get(i)),
 					HorarioCursadaManager.obtenerHoraInicio(horariosCursada.get(i)),
 					HorarioCursadaManager.obtenerHoraFin(horariosCursada.get(i)),
-					HorarioCursadaManager.obtenerSala(horariosCursada.get(i)) };
+					HorarioCursadaManager.obtenerSala(horariosCursada.get(i))
+					};
 			modelo.addRow(fila);
 		}
 	}
@@ -103,7 +103,6 @@ public class ControladorCrearCurso implements ActionListener {
 
 		// BOTON AGREGAR
 		if (e.getSource() == ventanaCrearCurso.getBtnAgregar()) {
-
 			seApretoAgregarCurso();
 
 			// BOTON CANCELAR
@@ -350,14 +349,20 @@ public class ControladorCrearCurso implements ActionListener {
 			JOptionPane.showMessageDialog(null, msjError);
 		
 		} else if(validarHorariosCursada()){
+			
+			// No sabia en que otro lugar validarlo: Dos cursos con el mismo nombre no pueden tener la misma comision
+			String comision = ventanaCrearCurso.getTxtComision().getText();
+			if (CursoManager.comisionEnUso(comision, programa)) {
+				Popup.mostrar("Ya existe un curso "+programa.getNombre()+" con la comision "+comision);
+				return;
+			}
+			
 			// El agregar paso todas las validadciones
 			if (this.idEdicion == -1) {
 				crearCurso();
 			} else {
-				System.out.println("Entrada 1");
 				actualizarCurso();
 			}
-			System.out.println("Entrada 2");
 			this.ventanaCrearCurso.dispose();
 			this.controladorGestionarCurso.inicializar();
 		}

@@ -3,6 +3,7 @@ package com.ungs.formar.persistencia.interfaces;
 import java.util.List;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Programa;
 
 public interface CursoODB {
 
@@ -19,6 +20,8 @@ public interface CursoODB {
 	public Integer selectIDMasReciente();
 	
 	public List<Curso> selectByPrograma(Integer IDPrograma);
+	
+	public Curso selectByProgramaComision(Programa programa, String comision);
 	
 	public List<Curso> selectByInstructor(Empleado empleado);
 	
