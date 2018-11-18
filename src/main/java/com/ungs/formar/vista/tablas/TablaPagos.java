@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.tablas;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import com.ungs.formar.vista.util.Formato;
 
 public class TablaPagos extends JTable{
 	private static final long serialVersionUID = 1L;
-	private String[] columnas = { "Alumno", "Cursada", "Empleado", "Monto", "Mes","Pagado", "En termino", "Completo", "Fecha"};
+	private String[] columnas = { "Alumno", "Cursada", "Empleado", "Monto", "Cuota","En termino", "Pagado", "Fecha"};
 	private DefaultTableModel modelo;
 	private List<Pago> pagos;
 
@@ -28,16 +29,15 @@ public class TablaPagos extends JTable{
 		modelo.setColumnCount(0);
 		modelo.setColumnIdentifiers(columnas);
 		for (Pago pago : pagos) {
-			//boolean pagado = Tesoreria.estaPagado(pago.getAlumno(), pago.getCursada(), pago.getMes());
 			Object[] fila = {
 					Formato.alumno(pago),
 					Formato.curso(pago),
-					Formato.empleado(pago.getEmpleado()),
+					(pago.getEmpleado() == 0) ? " - " : Formato.empleado(pago.getEmpleado()),
 					Formato.precio(pago.getMonto()),
-					pago.getMes(),
-					pago.isPagoEnTermino(),
-					pago.isPagoCompleto(),
-					pago.getFecha()
+					pago.getMes() + " de " + Tesoreria.cantCuotas(pago.getCursada()),
+					(pago.isPagoCompleto() == false ? " - " : (pago.isPagoEnTermino() == false ? " NO " : "SI")),
+					(pago.isPagoCompleto() == false ? " NO " : " SI "),
+					(pago.getFecha() == null ? " - " : pago.getFecha())
 			};
 			modelo.addRow(fila);
 		}

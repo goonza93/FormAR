@@ -28,13 +28,14 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 	private Curso curso;
 	private Alumno alumno;
 	private Pago pago;
-
-	public ControladorPagoAM(ControladorPagoABM invocador) {
+	
+	
+	/*public ControladorPagoAM(ControladorPagoABM invocador) {
 		this.invocador = invocador;
 		ventana = new VentanaPagoAM();
 		inicializar();
 	}
-
+*/
 	public ControladorPagoAM(ControladorPagoABM invocador, Pago pago) {
 		this.invocador = invocador;
 		this.pago = pago;
@@ -46,14 +47,11 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 		ventana.getCursada().setText(Formato.nombre(curso));
 		ventana.getMonto().setText(pago.getMonto().toString());
 		ventana.getMes().setText(pago.getMes().toString());
-		ventana.getRegistrar().setText("Modificar");
 	}
 
 	public void inicializar() {
 		ventana.getRegistrar().addActionListener(this);
 		ventana.getCancelar().addActionListener(this);
-		ventana.getSelAlumno().addActionListener(this);
-		ventana.getSelCursada().addActionListener(this);
 		ventana.getPagoCompleto().addActionListener(this);
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
@@ -72,41 +70,22 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 		else if (e.getSource() == ventana.getCancelar())
 			cancelar();
 
-		// BOTON SELECCIONAR ALUMNO DE LA VENTANA PAGO
-		else if (e.getSource() == ventana.getSelAlumno())
-			seleccionarAlumno();
-
-		// BOTON SELECCIONAR CURSO DE LA VENTANA PAGO
-		else if (e.getSource() == ventana.getSelCursada())
-			seleccionarCurso();
-
 		// CHECKBOX PAGO COMPLETO DE LA VENTANA PAGO
 		else if (e.getSource() == ventana.getPagoCompleto())
 			actualizarMontoMes();
 	}
 
-	private void seleccionarAlumno() {
-		ventana.deshabilitar();
-		new ControladorSeleccionarAlumno(this);
-	}
-
-	private void seleccionarCurso() {
-		ventana.deshabilitar();
-		new ControladorSeleccionarCurso(this);
-	}
-
 	private void registrar() {
 		Empleado empleado = Sesion.getEmpleado();
-		Integer monto = Integer.decode(ventana.getMonto().getText());
 		boolean pagoEnTermino = Tesoreria.pagoEnTermino(alumno, curso);
 		boolean pagoCompleto = ventana.getPagoCompleto().isSelected();
-		if (Popup.confirmar("Desea crear un pago por $" + monto + " ?")) {
+		if (Popup.confirmar("Desea crear un pago por $" + pago.getMonto() + " ?")) {
 			try {
 				if (!pagoCompleto) {
 					Integer mes = Integer.decode(ventana.getMes().getText());
-					Tesoreria.registrarPago(alumno, curso, empleado, monto, mes, pagoEnTermino, pagoCompleto);
+					Tesoreria.registrarPago(alumno, curso, empleado, pago.getMonto(), mes, pagoEnTermino, pagoCompleto, this.pago.getID());
 				} else {
-					Tesoreria.registrarPagoCompleto(alumno, curso, empleado, monto, pagoEnTermino, pagoCompleto);
+					Tesoreria.registrarPagoCompleto(alumno, curso, empleado, pago.getMonto(), pagoEnTermino, pagoCompleto);
 				}
 
 				ventana.dispose();
@@ -146,7 +125,7 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 			ventana.getMes().setText("COMPLETO");
 		} else {
 			ventana.getMonto().setText(Tesoreria.costoMensual(curso).toString());
-			ventana.getMes().setText(Almanaque.mesActual().toString());
+			ventana.getMes().setText(pago.getMes().toString());
 		}
 	}
 

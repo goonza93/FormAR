@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.InscripcionManager;
+import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -207,6 +208,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable, C
 			for (Alumno alumno : alumnos) {
 				try {
 					InscripcionManager.inscribir(cursoSeleccionado, alumno, Sesion.getEmpleado());
+					Tesoreria.crearPagos(cursoSeleccionado, alumno);
 				} catch (Exception e) {
 					Popup.mostrar(e.getMessage());
 				}

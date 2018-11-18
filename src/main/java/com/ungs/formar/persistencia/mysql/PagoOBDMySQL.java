@@ -25,8 +25,11 @@ public class PagoOBDMySQL extends ODB implements PagoOBD{
 				+", "+pago.getMonto()
 				+", "+pago.getMes()
 				+", "+pago.isPagoEnTermino()
-				+", "+pago.isPagoCompleto()
-				+", '"+pago.getFecha()+"'";
+				+", "+pago.isPagoCompleto();
+				if(pago.getFecha() != null)
+					valores+=", '"+pago.getFecha()+"'";
+				else
+					valores+=", null";
 		String sql = "insert into "+tabla+"("+campos+") values("+valores+");";
 		ejecutarSQL(sql);		
 	}
