@@ -242,17 +242,16 @@ CREATE TABLE for_pagos (
 	ID INT(4) AUTO_INCREMENT,
 	alumno INT(4) NOT NULL,
 	cursada INT(4) NOT NULL,
-    empleado INT(4) NOT NULL,
+    empleado INT(4) ,
     monto INT(10) NOT NULL,
 	mes INT(2) NOT NULL,
-	pago_en_termino BOOLEAN NOT NULL,
+	pago_en_termino BOOLEAN ,
 	pago_completo BOOLEAN NOT NULL,
-	fecha DATE NOT NULL,
+	fecha DATE,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID),
 	FOREIGN KEY (cursada) REFERENCES for_cursos(ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
-    FOREIGN KEY (mes) REFERENCES for_meses(ID)
+	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
 );
 
 -- ESQUEMA TAREAS
