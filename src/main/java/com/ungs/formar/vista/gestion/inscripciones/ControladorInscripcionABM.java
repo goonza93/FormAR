@@ -6,28 +6,24 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.InscripcionManager;
-import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
-import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
-import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorInscripcionABM implements ActionListener, Consultable {
-	private ControladorPantallaPrincipal controlador;
+public class ControladorInscripcionABM implements ActionListener, Consultable, ControladorInterno {
+	private ControladorPrincipal controlador;
 	private VentanaInscripcionABM ventanaABM;
 	private VentanaInscripcionAlta ventanaAlta;
 	private VentanaInscripcionBaja ventanaBaja;
@@ -35,27 +31,19 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 	private List<Alumno> alumnos;
 	private Curso cursoSeleccionado;
 
-	public ControladorInscripcionABM(ControladorPantallaPrincipal controlador, VentanaInscripcionABM ventanaABM) {
+	public ControladorInscripcionABM(ControladorPrincipal controlador, VentanaInscripcionABM ventanaABM) {
 		this.controlador = controlador;
 		this.ventanaABM = ventanaABM;
 		this.ventanaABM.getInscribir().addActionListener(this);
 		this.ventanaABM.getPagar().addActionListener(this);
-		this.ventanaABM.getVolver().addActionListener(this);
 		this.ventanaABM.getBorrar().addActionListener(this);
-
-		this.ventanaABM.getVentana().setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				volver();
-			}
-		});
 		inicializar();
 	}
 
 	public void inicializar() {
-		ventanaABM.getVentana().setEnabled(true);
-		ventanaABM.getVentana().setVisible(true);
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().setVisible(true);
+		controlador.getVentana().toFront();
 		llenarTabla();
 	}
 
@@ -112,11 +100,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		// BOTON CANCELAR INSCRIPCION DEL ABM
 		else if (e.getSource() == ventanaABM.getBorrar())
 			abrirVentanaBaja();
-
-		// BOTON VOLVER DEL ABM
-		else if (e.getSource() == ventanaABM.getVolver())
-			volver();
-
+		
 		else if (ventanaAlta != null) {
 
 			// BOTON INSCRIBIR DEL ALTA
@@ -182,7 +166,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 					}
 				});
 
-				ventanaABM.getVentana().setEnabled(false);
+				controlador.getVentana().setEnabled(false);
 				llenarTablaBaja();
 			}
 		} else
@@ -232,14 +216,6 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 	}
 
-	private void volver() {
-		if (ventanaABM != null) {
-			ventanaABM.getVentana().dispose();
-			ventanaABM = null;
-		}
-		controlador.inicializar();
-	}
-
 	private void abrirVentanaAlta() {
 		boolean mostrar = true;
 		cursoSeleccionado = obtenerCursoSeleccionado();
@@ -279,7 +255,7 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 				}
 			});
 			ventanaAlta.getVentana().setVisible(true);
-			ventanaABM.getVentana().setEnabled(false);
+			controlador.getVentana().setEnabled(false);
 			llenarTablaAlta();
 		}
 	}
@@ -317,8 +293,18 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 
 	@Override
 	public void habilitarPrincipal() {
-		// TODO Auto-generated method stub
-		
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaABM;
 	}
 
 }

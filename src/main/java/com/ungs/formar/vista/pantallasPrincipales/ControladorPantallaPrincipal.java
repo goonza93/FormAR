@@ -199,13 +199,14 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			new ControladorSalaABM(this.ventanaGestionarSalas, this);
 		}
 */
+		/*
 		// BOTON GESTIONAR INSCRIPCIONES
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarInscripciones()) {
 			ventanaInscripcionABM = new VentanaInscripcionABM();
 			ventanaInscripcionABM.getVentana().setVisible(true);
 			pantallaAdministrativo.ocultar();
 			new ControladorInscripcionABM(this, ventanaInscripcionABM);
-		}
+		}*/
 /*
 		// BOTON GESTIONAR RECADOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnRecados()) {
