@@ -6,40 +6,33 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
+
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Recado;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.leer.ControladorLeerRecado;
 import com.ungs.formar.vista.recados.leer.RecadoLegible;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorEnviados implements ActionListener, RecadoLegible{
-	private ControladorRecados invocador;
+public class ControladorEnviados implements ActionListener, RecadoLegible, ControladorInterno{
+	private ControladorPrincipal invocador;
 	private VentanaEnviados ventana;
 
-	public ControladorEnviados(ControladorRecados invocador) {
+	public ControladorEnviados(ControladorPrincipal invocador) {
 		this.invocador = invocador;
 		ventana = new VentanaEnviados();
 		ventana.getBorrar().addActionListener(this);
 		ventana.getLeer().addActionListener(this);
-		ventana.getVolver().addActionListener(this);
-		ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				volver();
-			}
-		});
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// BOTON VOLVER DE VENTANA ENVIADOS
-		if (e.getSource() == ventana.getVolver())
-			volver();
-
-		// BOTON BORRAR DE VENTANA ENVIADOS
-		else if (e.getSource() == ventana.getBorrar())
+		if (e.getSource() == ventana.getBorrar())
 			borrar();
 
 		// BOTON LEER DE VENTANA ENVIADOS
@@ -54,7 +47,7 @@ public class ControladorEnviados implements ActionListener, RecadoLegible{
 			return;
 		}
 		
-		ventana.deshabilitar();
+		invocador.getVentana().setEnabled(false);
 		new ControladorLeerRecado(this, recados.get(0), true);
 	}
 
@@ -71,12 +64,6 @@ public class ControladorEnviados implements ActionListener, RecadoLegible{
 			}
 		}
 	}
-
-	private void volver() {
-		ventana.dispose();
-		ventana = null;
-		invocador.mostrar();
-	}
 	
 	public void recargar() {
 		Empleado empleado = Sesion.getEmpleado();
@@ -86,6 +73,22 @@ public class ControladorEnviados implements ActionListener, RecadoLegible{
 
 	public void mostrar() {
 		ventana.mostrar();
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventana;
+	}
+
+	@Override
+	public void habilitarPrincipal() {
+		invocador.getVentana().setEnabled(true);
+		invocador.getVentana().toFront();
 	}
 
 }

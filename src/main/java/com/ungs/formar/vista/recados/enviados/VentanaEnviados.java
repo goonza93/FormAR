@@ -10,17 +10,19 @@ import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.util.Ventana;
+import com.ungs.formar.vista.util.VentanaInterna;
 
-public class VentanaEnviados extends Ventana {
+public class VentanaEnviados extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private TablaRecados tabla;
-	private JButton btnLeer, btnBorrar, btnVolver;
+	private JButton btnLeer, btnBorrar;
 
 	public VentanaEnviados() {
-		super("Archivos enviados");
+		super("Recados enviados", 450, 300);
+		/*
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
-
+		 */
 		// MENSAJES
 		Empleado empleado = Sesion.getEmpleado();
 		tabla = new TablaRecados(Mensajero.traerMensajesEnviados(empleado),"enviados");
@@ -30,11 +32,9 @@ public class VentanaEnviados extends Ventana {
 		// BOTONES
 		btnLeer = new JButton("Leer");
 		btnBorrar = new JButton("Borrar");
-		btnVolver = new JButton("Volver");
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnLeer);	
 		panelBotones.add(btnBorrar);
-		panelBotones.add(btnVolver);
 		
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
@@ -53,10 +53,6 @@ public class VentanaEnviados extends Ventana {
 
 	public JButton getBorrar() {
 		return btnBorrar;
-	}
-
-	public JButton getVolver() {
-		return btnVolver;
 	}
 
 }

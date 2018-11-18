@@ -51,7 +51,7 @@ public class ControladorLeerRecado implements ActionListener{
 		ventana.dispose();
 		ventana = null;
 		invocador.recargar();
-		invocador.mostrar();
+		invocador.habilitarPrincipal();
 	}
 
 	private void archivar() {

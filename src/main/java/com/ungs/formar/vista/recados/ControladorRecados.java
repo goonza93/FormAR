@@ -32,18 +32,9 @@ public class ControladorRecados implements ActionListener, RecadoLegible, Contro
 		this.ventana = v;
 		this.invocador = c;
 		this.ventana.getArchivar().addActionListener(this);
-		//this.ventana.getArchivo().addActionListener(this);
 		this.ventana.getBorrar().addActionListener(this);
-		//this.ventana.getEnviados().addActionListener(this);
 		this.ventana.getLeer().addActionListener(this);
 		this.ventana.getNuevo().addActionListener(this);
-	/*	this.ventana.getVolver().addActionListener(this);
-		this.ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				volver();
-			}
-		});*/
 		this.inicializar();
 	}
 	
@@ -75,37 +66,8 @@ public class ControladorRecados implements ActionListener, RecadoLegible, Contro
 		else if (e.getSource() == ventana.getArchivar()){
 			archivar();
 		}
-		// BOTON VER ARCHIVO DE LA VENTANA RECADOS
-		/*
-		else if (e.getSource() == ventana.getArchivo()){
-			verArchivos();
-		}
-		// BOTON VER ENVIADOS DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getEnviados()){
-			verEnviados();
-		}
-		// BOTON VOLVER DE LA VENTANA RECADOS
-		else if (e.getSource() == ventana.getVolver()){
-			volver();
-		}*/
 	}
-
-	private void verEnviados() {
-		ventana.ocultar();
-		new ControladorEnviados(this);		
-	}
-/*
-	private void volver() {
-		ventana.dispose();
-		ventana = null;
-		invocador.getVentana().setEnabled(true);;
-	}*/
-
-	private void verArchivos() {
-		ventana.ocultar();
-		new ControladorArchivo(this);
-	}
-
+	
 	private void archivar() {
 		List<Recado> recados = ventana.getTabla().obtenerSeleccion();
 		if (recados.size() == 0)
@@ -124,7 +86,7 @@ public class ControladorRecados implements ActionListener, RecadoLegible, Contro
 			return;
 		}
 		
-		ventana.deshabilitar();
+		invocador.getVentana().setEnabled(false);
 		new ControladorLeerRecado(this, recados.get(0), false);
 	}
 
