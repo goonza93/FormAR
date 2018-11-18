@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.login;
 
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -24,9 +25,11 @@ public class ControladorLogin implements ActionListener {
 	private VentanaIniciarSesion ventanaIniciarSesion;
 	//private PantallaPrincipalAdministrativo pantallaPrincipal;
 	private VentanaRecuperarPassword ventanaRecuperarPass;
+	private TrayIcon trayIcon;
 
-	public ControladorLogin(VentanaIniciarSesion ventanaIniciarSesion) {
+	public ControladorLogin(VentanaIniciarSesion ventanaIniciarSesion, TrayIcon trayicon) {
 		this.ventanaIniciarSesion = ventanaIniciarSesion;
+		this.trayIcon = trayicon;
 		this.ventanaIniciarSesion.botonIniciar().addActionListener(this);
 		this.ventanaIniciarSesion.botonRecuperar().addActionListener(this);
 		this.ventanaIniciarSesion.botonSalir().addActionListener(this);
@@ -85,16 +88,10 @@ public class ControladorLogin implements ActionListener {
 
 	private void iniciarSesion() {
 		if (validarLogin()) {
-			if(Popup.confirmar("Abrir Vista vieja?")){
-				new ControladorPantallaPrincipal(
-						EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText())).inicializar();
-			} else {
-				Sesion.setEmpleado(EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()));
-				new ControladorPrincipal();
-			}
+			Sesion.setEmpleado(EmpleadoManager.traerSegunUsuario(ventanaIniciarSesion.getUsuario().getText()));
+			new ControladorPrincipal(trayIcon);
 			this.ventanaIniciarSesion.getVentana().dispose();
 		}
-
 	}
 
 	private boolean validarLogin() {

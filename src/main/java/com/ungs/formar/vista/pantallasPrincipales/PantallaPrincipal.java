@@ -32,6 +32,8 @@ public class PantallaPrincipal extends JFrame {
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios, menuInscripcionesConsultarInscripciones
 	, menuNotificacionesVerNotificaciones, menuCursosConsultarAreas, menuCursadasConsultarCursadas;
+	private JMenu menuArchivo, menuAlumnos, menuInscripciones, menuContactos, menuTareas, menuRecados
+	, menuUsuarios, menuNotificaciones, menuCursadas, menuCursos;
 	private JMenuBar notifBar, barraPrincipal;
 	private JMenuBar barrarNuevo;
 	private JPanel panelPrincipal;
@@ -137,17 +139,17 @@ public class PantallaPrincipal extends JFrame {
 		menuCursadasConsultarCursadas = new JMenuItem("Consultar cursadas");
 		
 		// los agrego a su menu correspondiente
-		JMenu menuArchivo = new JMenu("Archivo");
+		menuArchivo = new JMenu("Archivo");
 		//menuArchivo.setPreferredSize(new Dimension(100,50));
-		JMenu menuAlumnos = new JMenu("  Alumnos");
-		JMenu menuCursos = new JMenu("  Cursos");
-		JMenu menuInscripciones = new JMenu("  Inscripciones");
-		JMenu menuContactos = new JMenu("  Contactos");
-		JMenu menuTareas = new JMenu("  Tareas");
-		JMenu menuRecados = new JMenu("  Recados");
-		JMenu menuUsuarios = new JMenu("  Usuarios");
-		JMenu menuNotificaciones = new JMenu("  Notificaciones");
-		JMenu menuCursadas = new JMenu("  Cursadas");
+		menuAlumnos = new JMenu("  Alumnos");
+		menuCursos = new JMenu("  Cursos");
+		menuInscripciones = new JMenu("  Inscripciones");
+		menuContactos = new JMenu("  Contactos");
+		menuTareas = new JMenu("  Tareas");
+		menuRecados = new JMenu("  Recados");
+		menuUsuarios = new JMenu("  Usuarios");
+		menuNotificaciones = new JMenu("  Notificaciones");
+		menuCursadas = new JMenu("  Cursadas");
 
 		if(Sesion.getEmpleado().getRol()==Rol.SUPERVISOR){
 			menuArchivo.add(menuArchivoCambiarContrasena);
@@ -396,6 +398,14 @@ public class PantallaPrincipal extends JFrame {
 
 	public JMenuItem getMenuNotificacionesVerNotificaciones() {
 		return menuNotificacionesVerNotificaciones;
+	}
+	
+	public JMenu getMenuRecados(){
+		return menuRecados;
+	}
+	
+	public JMenu getMenuNotificaciones(){
+		return menuNotificaciones;
 	}
 
 	

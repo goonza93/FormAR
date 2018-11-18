@@ -250,8 +250,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 				pantallaAdministrativo = null;
 				Sesion.setEmpleado(null);
 				VentanaIniciarSesion v = new VentanaIniciarSesion();
-				ControladorLogin c = new ControladorLogin(v);
-				c.inicializar();
+				//ControladorLogin c = new ControladorLogin(v);
+				//c.inicializar();
 			}
 		}
 		
@@ -314,8 +314,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 				pantallaSupervisor = null;
 				Sesion.setEmpleado(null);
 				VentanaIniciarSesion v = new VentanaIniciarSesion();
-				ControladorLogin c = new ControladorLogin(v);
-				c.inicializar();
+				//ControladorLogin c = new ControladorLogin(v);
+				//c.inicializar();
 			}
 		}
 
@@ -361,8 +361,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 				pantallaInstructor = null;
 				Sesion.setEmpleado(null);
 				VentanaIniciarSesion v = new VentanaIniciarSesion();
-				ControladorLogin c = new ControladorLogin(v);
-				c.inicializar();
+				//ControladorLogin c = new ControladorLogin(v);
+				//c.inicializar();
 			}
 		}
 	}

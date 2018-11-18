@@ -4,14 +4,15 @@ import java.sql.Date;
 import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
+import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Notificacion;
 import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 
 public class NotificacionManager {
 
-	public static void crearNotificacion(Integer empleadoID, String contenido, Date fechaANotificar){
-		Notificacion notificacion = new Notificacion(-1, empleadoID, contenido, false, false, fechaANotificar);
+	public static void crearNotificacion(TipoNotificacion tipo, Integer empleadoID, String contenido, Date fechaANotificar){
+		Notificacion notificacion = new Notificacion(-1,tipo, empleadoID, contenido, false, false, fechaANotificar);
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
 		odb.insert(notificacion);
 	}

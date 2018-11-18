@@ -4,16 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Date;
 import java.util.List;
 
 import com.ungs.formar.negocios.Mensajero;
+import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.persistencia.definidos.Rol;
+import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.seleccion.empleado.ControladorSeleccionarEmpleado;
 import com.ungs.formar.vista.seleccion.empleado.EmpleadoSeleccionable;
 import com.ungs.formar.vista.seleccion.empleado.VentanaSeleccionarEmpleado;
+import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
@@ -74,6 +78,9 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		
 		for(Empleado receptor: receptores){
 			Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
+			String contenido = "El usuario "+ Formato.empleado(emisor.getID())+ " te ha enviado un recado.";
+			Date asd = null;
+			NotificacionManager.crearNotificacion(TipoNotificacion.RECADO, receptor.getID(), contenido, asd);
 		}
 		ventana.dispose();
 		ventana = null;
@@ -114,6 +121,9 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		
 		for(Empleado receptor: receptores){
 			Mensajero.enviarMensaje(emisor, receptor, titulo, mensaje);
+			String contenido = "El usuario "+ Formato.empleado(emisor.getID())+ " te ha enviado un recado.";
+			Date asd = null;
+			NotificacionManager.crearNotificacion(TipoNotificacion.RECADO, receptor.getID(), contenido, asd);
 		}
 		ventana.dispose();
 		ventana = null;

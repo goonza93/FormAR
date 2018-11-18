@@ -21,6 +21,8 @@ import com.ungs.formar.vista.util.Notifier;
 import com.ungs.formar.vista.util.Popup;
 
 public class Main {
+	
+	static TrayIcon trayIcon;
 
 	public static void main(String[] args) {
 		
@@ -32,7 +34,7 @@ public class Main {
 			SystemTray tray = SystemTray.getSystemTray();
 			ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
 			Image image = image2.getImage();
-			TrayIcon trayIcon = new TrayIcon(image);
+			trayIcon = new TrayIcon(image);
 			trayIcon.setImageAutoSize(true);
 			try {
 				tray.add(trayIcon);
@@ -40,17 +42,12 @@ public class Main {
 				e.printStackTrace();
 			}
 			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
-			ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-			Runnable task = new Notifier(trayIcon);
-			int initialDelay = 3;
-			int periodicDelay = 1;
-			scheduler.scheduleAtFixedRate(task, initialDelay, periodicDelay, TimeUnit.SECONDS);
 		}
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();
 		v.getUsuario().setText("user8"); // sacar antes de entregar
 		v.getPassword().setText("123"); // sacar antes de entregar
-		ControladorLogin c = new ControladorLogin(v);
+		ControladorLogin c = new ControladorLogin(v,trayIcon);
 		c.inicializar();
 	}
 	

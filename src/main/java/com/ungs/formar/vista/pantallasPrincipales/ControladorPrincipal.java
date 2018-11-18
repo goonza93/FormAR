@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.pantallasPrincipales;
 
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -10,9 +11,13 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
@@ -48,6 +53,7 @@ import com.ungs.formar.vista.recados.VentanaRecados;
 import com.ungs.formar.vista.recados.archivo.ControladorArchivo;
 import com.ungs.formar.vista.recados.enviados.ControladorEnviados;
 import com.ungs.formar.vista.recados.nuevo.ControladorNuevo;
+import com.ungs.formar.vista.util.Notifier;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
@@ -57,9 +63,14 @@ import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 public class ControladorPrincipal implements ActionListener {
 	PantallaPrincipal ventana;
 	ControladorInterno controlador;
+	TrayIcon trayIcon;
 	
-	public ControladorPrincipal() {
+	public ControladorPrincipal(TrayIcon trayIcon) {
 		ventana = new PantallaPrincipal();
+		this.trayIcon = trayIcon;
+		// Inicio scheduler
+		iniciarScheduler();
+		
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -106,6 +117,14 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuCursadasConsultarCursadas().addActionListener(s -> mostrarCursadasParaInstructor());
 	}
 
+	private void iniciarScheduler() {
+		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+		Runnable task = new Notifier(trayIcon, this);
+		int initialDelay = 0;
+		int periodicDelay = 1;
+		scheduler.scheduleAtFixedRate(task, initialDelay, periodicDelay, TimeUnit.SECONDS);
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		
 	}
@@ -120,7 +139,7 @@ public class ControladorPrincipal implements ActionListener {
 			ventana = null;
 			Sesion.setEmpleado(null);
 			VentanaIniciarSesion v = new VentanaIniciarSesion();
-			ControladorLogin c = new ControladorLogin(v);
+			ControladorLogin c = new ControladorLogin(v,trayIcon);
 			c.inicializar();
 		}
 	}
@@ -364,6 +383,14 @@ public class ControladorPrincipal implements ActionListener {
 	
 	public JFrame getVentana(){
 		return ventana;
+	}
+	
+	public JMenu getMenuRecados(){
+		return ventana.getMenuRecados();
+	}
+	
+	public JMenu getMenuNotificaciones(){
+		return ventana.getMenuNotificaciones();
 	}
 	
 }
