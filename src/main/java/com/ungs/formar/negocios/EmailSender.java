@@ -45,8 +45,12 @@ public class EmailSender {
 			message.setText(msjEmail);
 			// Envia el mensaje
 			Transport t = session.getTransport("smtp");
+			
 			//Email de formar, Contrasena de formar
-			t.connect("formarungs@gmail.com","formar123");
+			String emailFormar = Configuracion.leerDireccionEmail();
+			String passwordFormar = Configuracion.leerPasswordEmail();
+			t.connect(emailFormar, passwordFormar);
+			
 			t.sendMessage(message,message.getAllRecipients());
 			t.close();
 		} catch (Throwable e) {
