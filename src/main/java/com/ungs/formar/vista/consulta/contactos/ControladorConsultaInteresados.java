@@ -72,6 +72,6 @@ public class ControladorConsultaInteresados implements ActionListener{
 	private void cerrarVentana() {
 		ventana.getVentana().dispose();
 		ventana = null;
-		invocador.inicializar();
+		invocador.habilitarPrincipal();
 	}
 }

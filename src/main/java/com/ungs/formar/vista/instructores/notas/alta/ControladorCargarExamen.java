@@ -110,5 +110,11 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 		ventana = null;
 		controlador.mostrar();
 	}
+
+	@Override
+	public void habilitarPrincipal() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

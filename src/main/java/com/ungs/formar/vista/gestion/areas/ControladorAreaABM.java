@@ -268,4 +268,10 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 		ventanaAreaAM.toFront();
 	}
 
+	@Override
+	public void habilitarPrincipal() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

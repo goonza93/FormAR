@@ -81,5 +81,11 @@ public class ControladorConsultarAsistencia implements ActionListener, Consultab
 		ventana = null;
 		controlador.mostrar();
 	}
+
+	@Override
+	public void habilitarPrincipal() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

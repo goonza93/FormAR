@@ -607,4 +607,10 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		return this.ventanaABM;
 	}
 
+	@Override
+	public void habilitarPrincipal() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

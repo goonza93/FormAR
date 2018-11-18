@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
@@ -19,7 +20,9 @@ import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.contactos.ControladorConsultaInteresados;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
@@ -27,35 +30,45 @@ import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.ventanas.VentanaProgramaAM;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
-public class ControladorProgramaABM implements ActionListener, AreaSeleccionable , Consultable {
+public class ControladorProgramaABM implements ActionListener, AreaSeleccionable , Consultable, ControladorInterno {
 	private VentanaProgramaGestion ventanaProgramaGestion;
 	private VentanaProgramaAM ventanaProgramaAM;
 	private VentanaSeleccionarArea ventanaSeleccionarArea;
-	private ControladorPantallaPrincipal controladorPrincipal;
+	private ControladorPrincipal controladorPrincipal;
 	private List<Programa> programas;
 	private Area area;
 	
-	public ControladorProgramaABM(VentanaProgramaGestion ventanaProgramaABM, ControladorPantallaPrincipal controladorPrincipal){
+	public ControladorProgramaABM(VentanaProgramaGestion ventanaProgramaABM, ControladorPrincipal controladorPrincipal){
 		this.ventanaProgramaGestion = ventanaProgramaABM;
 		this.controladorPrincipal = controladorPrincipal;
-		this.ventanaProgramaGestion.getBtnCancelar().addActionListener(this);
-		this.ventanaProgramaGestion.getBtnAgregar().addActionListener(this);
-		this.ventanaProgramaGestion.getBtnEditar().addActionListener(this);
-		this.ventanaProgramaGestion.getBtnBorrar().addActionListener(this);
-		this.ventanaProgramaGestion.getBtnVerInteresados().addActionListener(this);
+		this.ventanaProgramaGestion.getBtnAgregar().addActionListener(s -> iniciarAlta());
+		this.ventanaProgramaGestion.getBtnEditar().addActionListener(s -> iniciarModificacion());
+		this.ventanaProgramaGestion.getBtnBorrar().addActionListener(s -> iniciarBaja());
+		this.ventanaProgramaGestion.getBtnVerInteresados().addActionListener(s -> mostrarInteresados());
 		this.inicializar();
+	}
+	
+	public ControladorProgramaABM(ControladorPrincipal invocador){
+		this.controladorPrincipal = invocador;
+		ventanaProgramaAM = new VentanaProgramaAM();
+		this.ventanaProgramaAM.getBtnCancelar().addActionListener(s -> cancelarAM());
+		this.ventanaProgramaAM.getBtnAceptar().addActionListener(s -> aceptarAMP());
+		ventanaProgramaAM.getBtnSeleccionArea().addActionListener(s -> mostrarSeleccionarArea());
+		this.ventanaProgramaAM.addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ventanaProgramaAM.getBtnCancelar().doClick();
+			}
+		});
+		this.ventanaProgramaAM.setVisible(true);
+		controladorPrincipal.getVentana().setEnabled(false);
+		this.ventanaProgramaAM.getDateChooserAprobacion().setDate(Almanaque.hoy());
 	}
 
 	public void inicializar() {
-		this.ventanaProgramaGestion.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				ventanaProgramaGestion.getBtnCancelar().doClick();
-			}
-		});
 		llenarTabla();
-		ventanaProgramaGestion.mostrar();
-		ventanaProgramaGestion.setEnabled(true);
+		controladorPrincipal.getVentana().setVisible(true);
+		controladorPrincipal.getVentana().setEnabled(true);
 	}
 
 	private void llenarTabla() {
@@ -77,41 +90,20 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		}
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ventanaProgramaGestion.getBtnAgregar()){
-			iniciarAlta();
-		}
-		else if (e.getSource() == ventanaProgramaGestion.getBtnBorrar()){
-			iniciarBaja();
-		}
-		else if (e.getSource() == ventanaProgramaGestion.getBtnEditar()){
-			iniciarModificacion();
-		}
-		else if (e.getSource() == ventanaProgramaGestion.getBtnCancelar()){
-			retroceder();
-		}
-		else if(e.getSource() == ventanaProgramaGestion.getBtnVerInteresados()){
-			List<Programa> programas = obtenerProgramasSeleccionados();
-			if (programas.size() != 1) {
-				Popup.mostrar("Seleccione exactamente un curso para ver sus interesados.");
-			} else {
-				if (ContactoManager.traerInteresadosPrograma(programas.get(0).getProgramaID()).isEmpty()){
-					Popup.mostrar("El curso seleccionada no tiene interesados.");
-					return;
-				}
-				new ControladorConsultaInteresados(this, programas.get(0));
-				ventanaProgramaGestion.setEnabled(false);
+	public void actionPerformed(ActionEvent e) {}
+
+	private void mostrarInteresados() {
+		List<Programa> programas = obtenerProgramasSeleccionados();
+		if (programas.size() != 1) {
+			Popup.mostrar("Seleccione exactamente un curso para ver sus interesados.");
+		} else {
+			if (ContactoManager.traerInteresadosPrograma(programas.get(0).getProgramaID()).isEmpty()){
+				Popup.mostrar("El curso seleccionada no tiene interesados.");
+				return;
 			}
+			new ControladorConsultaInteresados(this, programas.get(0));
+			controladorPrincipal.getVentana().setEnabled(false);
 		}
-		else if (e.getActionCommand() == "aceptar") {
-			aceptarAM();
-		}
-		else if (e.getActionCommand() == "cancelar"){
-			cancelarAM();
-		}
-		else if (e.getActionCommand().equals("seleccionarArea")){
-			mostrarSeleccionarArea();
-		}		
 	}
 
 	private void mostrarSeleccionarArea() {
@@ -133,9 +125,9 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	
 	private void iniciarAlta() {
 		ventanaProgramaAM = new VentanaProgramaAM();
-		this.ventanaProgramaAM.getBtnCancelar().addActionListener(this);
-		this.ventanaProgramaAM.getBtnAceptar().addActionListener(this);
-		ventanaProgramaAM.getBtnSeleccionArea().addActionListener(this);
+		this.ventanaProgramaAM.getBtnCancelar().addActionListener(s -> cancelarAM());
+		this.ventanaProgramaAM.getBtnAceptar().addActionListener(s -> aceptarAM());
+		ventanaProgramaAM.getBtnSeleccionArea().addActionListener(s -> mostrarSeleccionarArea());
 		this.ventanaProgramaAM.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -143,7 +135,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			}
 		});
 		this.ventanaProgramaAM.setVisible(true);
-		this.ventanaProgramaGestion.setEnabled(false);
+		controladorPrincipal.getVentana().setEnabled(false);
 		this.ventanaProgramaAM.getDateChooserAprobacion().setDate(Almanaque.hoy());
 	}
 
@@ -184,9 +176,9 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			this.ventanaProgramaAM.getTxtDescripcion().setText(aEditar.getDescripcion());
 			this.ventanaProgramaAM.getDateChooserAprobacion().setDate(aEditar.getFechaAprobacion());
 			
-			this.ventanaProgramaAM.getBtnCancelar().addActionListener(this);
-			this.ventanaProgramaAM.getBtnAceptar().addActionListener(this);
-			this.ventanaProgramaAM.getBtnSeleccionArea().addActionListener(this);
+			this.ventanaProgramaAM.getBtnCancelar().addActionListener(s -> cancelarAM());
+			this.ventanaProgramaAM.getBtnAceptar().addActionListener(s -> aceptarAM());
+			this.ventanaProgramaAM.getBtnSeleccionArea().addActionListener(s -> mostrarSeleccionarArea());
 			this.ventanaProgramaAM.addWindowListener(new WindowAdapter(){
 				@Override
 				public void windowClosing(WindowEvent e) {
@@ -194,7 +186,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 				}
 			});
 			this.ventanaProgramaAM.setVisible(true);
-			this.ventanaProgramaGestion.setEnabled(false);
+			controladorPrincipal.getVentana().setEnabled(false);
 			
 			if(ProgramaManager.estaAsignado(lista.get(0))){
 				this.ventanaProgramaAM.getTxtNombre().setEnabled(false);
@@ -202,11 +194,6 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 				this.ventanaProgramaAM.getTxtCargaHoraria().setEnabled(false);
 			}
 		}
-	}
-
-	private void retroceder() {
-		this.ventanaProgramaGestion.dispose();
-		this.controladorPrincipal.inicializar();
 	}
 
 	private void aceptarAM() {
@@ -231,8 +218,34 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			
 			llenarTabla();
 			ventanaProgramaAM.dispose();
-			ventanaProgramaGestion.setEnabled(true);
-			ventanaProgramaGestion.setVisible(true);
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().setVisible(true);
+		}
+		
+	}
+	
+	private void aceptarAMP() {
+		if(validarCampos()){
+			Programa programa = ventanaProgramaAM.getPrograma();
+			//String area = aca iria el ID no el nombre...
+			Integer area = this.area.getID(); // esta como default el 1.
+			String nombre = ventanaProgramaAM.getTxtNombre().getText();
+			Date fechaAprobacion = ventanaProgramaAM.getDateChooserAprobacion().getDate();
+			String descripcion = ventanaProgramaAM.getTxtDescripcion().getText();
+			Integer cargaHoraria = Integer.valueOf(ventanaProgramaAM.getTxtCargaHoraria().getText());
+			if(programa == null){
+				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion);
+			} else {
+				programa.setAreaID(this.area.getID()); // otro defaulteo a 1...
+				programa.setNombre(nombre);
+				programa.setDescripcion(descripcion);
+				programa.setHoras(cargaHoraria);
+				programa.setFechaAprobacion(new java.sql.Date(fechaAprobacion.getTime()));
+				ProgramaManager.editarPrograma(programa);
+			}
+			ventanaProgramaAM.dispose();
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().setVisible(true);
 		}
 		
 	}
@@ -242,8 +255,8 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaProgramaAM.dispose();
-			ventanaProgramaGestion.setEnabled(true);
-			ventanaProgramaGestion.toFront();
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().toFront();
 		}
 	}
 	
@@ -323,8 +336,23 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	
 	public void enableAM(){
 		ventanaProgramaAM.setEnabled(true);
-		ventanaProgramaGestion.toFront();
+		controladorPrincipal.getVentana().toFront();
 		ventanaProgramaAM.toFront();
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaProgramaGestion;
+	}
+	
+	public void habilitarPrincipal(){
+		controladorPrincipal.getVentana().setEnabled(true);
+		controladorPrincipal.getVentana().toFront();
 	}
 
 }

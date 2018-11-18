@@ -20,6 +20,7 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.email.ControladorCambiarEmail;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
 import com.ungs.formar.vista.gestion.alumnos.VentanaAlumnoABM;
@@ -39,6 +40,7 @@ import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.ventanas.CambiarPass;
+import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
 public class ControladorPrincipal implements ActionListener {
 	PantallaPrincipal ventana;
@@ -250,11 +252,7 @@ public class ControladorPrincipal implements ActionListener {
 			ventana.setContentPane(panel);
 		}
 	}
-/*
-	private void mostrarAltaAsistencia() {
-		mostrarVentana(new ControladorGestionAsistencias2(this));
-	}
-*/
+
 	private void mostrarConsultarAlumnos(){
 		VentanaAlumnoABM asd = new VentanaAlumnoABM();
 		mostrarVentana(new ControladorAlumnoABM(asd,this));
@@ -320,7 +318,8 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarConsultarCursos() {
-		// TODO Auto-generated method stub
+		VentanaProgramaGestion asd = new VentanaProgramaGestion();
+		mostrarVentana(new ControladorProgramaABM(asd,this));
 	}
 
 	private void mostrarCrearCursada() {
@@ -328,7 +327,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarCrearCurso() {
-		// TODO Auto-generated method stub
+		new ControladorProgramaABM(this);
 	}
 
 	private void mostrarConsultarPagos() {

@@ -1,13 +1,8 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -23,13 +18,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import com.ungs.formar.vista.util.VentanaInterna;
 
-public class VentanaProgramaGestion extends JFrame {
+public class VentanaProgramaGestion extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modeloProgramas;
 	private String[] nombreColumnas = { "Area", "Nombre", "Fecha aprobacion", "Carga horaria" };
 	private JTable tablaProgramas;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar;
+	private JButton btnAgregar, btnEditar, btnBorrar;
 	private JLabel lblFiltros;
 	private final TableRowSorter<TableModel> filtro;
 	private JLabel lblArea;
@@ -43,11 +39,7 @@ public class VentanaProgramaGestion extends JFrame {
 	private JButton btnConsultarInteresados;
 
 	public VentanaProgramaGestion() {
-		setBounds(100, 100, 669, 393);
-		setTitle("Gestion de cursos");
-		setLocationRelativeTo(null);
-		setExtendedState(MAXIMIZED_BOTH);
-
+		super("Gestion de cursos", 669, 393);
 
 		modeloProgramas = new DefaultTableModel(null, nombreColumnas);
 
@@ -72,9 +64,6 @@ public class VentanaProgramaGestion extends JFrame {
 		JLabel lblProgramas = new JLabel("PROGRAMAS:");
 		lblProgramas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramas.setFont(new Font("Arial", Font.BOLD, 12));
-
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		lblFiltros = new JLabel("FILTROS:");
 		lblFiltros.setHorizontalAlignment(SwingConstants.CENTER);
@@ -128,12 +117,10 @@ public class VentanaProgramaGestion extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnConsultarInteresados, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblProgramas, GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-						.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
-						.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+							.addComponent(btnConsultarInteresados, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblProgramas, GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
+						.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
+						.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(txtAreaFiltro, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
@@ -148,8 +135,8 @@ public class VentanaProgramaGestion extends JFrame {
 								.addComponent(txtFechaAprobacionFiltro, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-								.addComponent(txtCargaHorariaFiltro, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+								.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+								.addComponent(txtCargaHorariaFiltro, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
 							.addGap(19)))
 					.addContainerGap())
 		);
@@ -179,24 +166,16 @@ public class VentanaProgramaGestion extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblProgramas, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+					.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnEditar)
 						.addComponent(btnBorrar)
-						.addComponent(btnCancelar)
 						.addComponent(btnConsultarInteresados, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
 
 		DocumentListener listener = crearFiltroListener();
 		txtAreaFiltro.getDocument().addDocumentListener(listener);
@@ -216,10 +195,6 @@ public class VentanaProgramaGestion extends JFrame {
 
 	public JButton getBtnAgregar() {
 		return btnAgregar;
-	}
-
-	public JButton getBtnCancelar() {
-		return btnCancelar;
 	}
 
 	public JButton getBtnEditar() {

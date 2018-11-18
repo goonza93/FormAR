@@ -181,7 +181,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.ventanaGestionarInstructores.mostrar();
 			this.pantallaAdministrativo.ocultar();
 			new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.INSTRUCTOR);
-		}*/
+		}
 
 		// BOTON ABM PROGRAMAS
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarProgramas()) {
@@ -189,7 +189,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.ventanaGestionarProgramas.mostrar();
 			this.pantallaAdministrativo.ocultar();
 			new ControladorProgramaABM(this.ventanaGestionarProgramas, this);
-		}
+		}*/
 
 		// BOTON ABM SALAS
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarSalas()) {

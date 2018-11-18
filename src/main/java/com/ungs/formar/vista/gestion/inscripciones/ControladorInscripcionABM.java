@@ -315,4 +315,10 @@ public class ControladorInscripcionABM implements ActionListener, Consultable {
 		return ret;
 	}
 
+	@Override
+	public void habilitarPrincipal() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -482,4 +482,10 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		}
 		return true;
 	}
+
+	@Override
+	public void habilitarPrincipal() {
+		// TODO Auto-generated method stub
+		
+	}
 }
