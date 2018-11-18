@@ -31,7 +31,7 @@ public class PantallaPrincipal extends JFrame {
 	, menuTareasCrearTarea, menuTareasConsultarTareas, menuRecadosCrearRecado
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios, menuInscripcionesConsultarInscripciones
-	, menuNotificacionesVerNotificaciones;
+	, menuNotificacionesVerNotificaciones, menuCursosConsultarAreas, menuCursadasConsultarCursadas;
 	private JMenuBar notifBar, barraPrincipal;
 	private JMenuBar barrarNuevo;
 	private JPanel panelPrincipal;
@@ -106,6 +106,7 @@ public class PantallaPrincipal extends JFrame {
 		menuCursosCrearCursada = new JMenuItem("Crear cursada");
 		menuCursosConsultarCursos = new JMenuItem("Consultar cursos");
 		menuCursosConsultarCursadas = new JMenuItem("Consultar cursadas");
+		menuCursosConsultarAreas = new JMenuItem("Consultar areas");
 		menuCursosConsultarSalas = new JMenuItem("Consultar salas");
 		
 		// MENU INSCRIPCIONES
@@ -132,6 +133,9 @@ public class PantallaPrincipal extends JFrame {
 		// MENU NOTIFICACIONES
 		menuNotificacionesVerNotificaciones = new JMenuItem("Ver notificaciones");
 		
+		// MENU CURSADAS (INSTRUCTOR)
+		menuCursadasConsultarCursadas = new JMenuItem("Consultar cursadas");
+		
 		// los agrego a su menu correspondiente
 		JMenu menuArchivo = new JMenu("Archivo");
 		//menuArchivo.setPreferredSize(new Dimension(100,50));
@@ -143,62 +147,127 @@ public class PantallaPrincipal extends JFrame {
 		JMenu menuRecados = new JMenu("  Recados");
 		JMenu menuUsuarios = new JMenu("  Usuarios");
 		JMenu menuNotificaciones = new JMenu("  Notificaciones");
+		JMenu menuCursadas = new JMenu("  Cursadas");
 
-		
-		
-		
-		menuArchivo.add(menuArchivoCambiarContrasena);
-		menuArchivo.add(menuArchivoCerrarSesion);
-		
-		// Solo si es supervisor se le agrega el rol este.
 		if(Sesion.getEmpleado().getRol()==Rol.SUPERVISOR){
+			menuArchivo.add(menuArchivoCambiarContrasena);
+			menuArchivo.add(menuArchivoCerrarSesion);
 			menuArchivo.add(menuArchivoCambiarEmailSistema);
 			menuArchivo.add(menuArchivoImportarBD);
 			menuArchivo.add(menuArchivoExportarBD);
-		}
-		menuArchivo.add(menuArchivoSalir);
-		
-		menuAlumnos.add(menuAlumnoCrearAlumno);
-		menuAlumnos.add(menuAlumnoConsultarAlumnos);
-		menuAlumnos.add(menuAlumnoConsultarPagos);
-		
-		menuCursos.add(menuCursosCrearCurso);
-		menuCursos.add(menuCursosCrearCursada);
-		menuCursos.add(menuCursosConsultarCursos);
-		menuCursos.add(menuCursosConsultarCursadas);
-		if(Sesion.getEmpleado().getRol()==Rol.SUPERVISOR){
+			menuArchivo.add(menuArchivoSalir);
+			
+			menuAlumnos.add(menuAlumnoCrearAlumno);
+			menuAlumnos.add(menuAlumnoConsultarAlumnos);
+			menuAlumnos.add(menuAlumnoConsultarPagos);
+			
+			menuCursos.add(menuCursosCrearCurso);
+			menuCursos.add(menuCursosCrearCursada);
+			menuCursos.add(menuCursosConsultarCursos);
+			menuCursos.add(menuCursosConsultarCursadas);
 			menuCursos.add(menuCursosConsultarSalas);
+			menuCursos.add(menuCursosConsultarAreas);
+			
+			menuInscripciones.add(menuInscripcionesConsultarInscripciones);
+			
+			menuContactos.add(menuContactosCrearContacto);
+			menuContactos.add(menuContactosConsultarContactos);
+			
+			menuTareas.add(menuTareasCrearTarea);
+			menuTareas.add(menuTareasConsultarTareas);
+			
+			menuRecados.add(menuRecadosCrearRecado);
+			menuRecados.add(menuRecadosConsultarRecibidos);
+			menuRecados.add(menuRecadosConsultarEnviados);
+			menuRecados.add(menuRecadosConsultarArchivados);
+			
+			menuUsuarios.add(menuUsuariosCrearUsuario);
+			menuUsuarios.add(menuUsuariosConsultarUsuarios);
+			
+			menuNotificaciones.add(menuNotificacionesVerNotificaciones);
+			
+			barra.add(menuArchivo);
+			barra.add(menuAlumnos);
+			barra.add(menuCursos);
+			barra.add(menuContactos);
+			barra.add(menuInscripciones);
+			barra.add(menuTareas);
+			barra.add(menuRecados);
+			barra.add(menuUsuarios);
+			barra.add(menuNotificaciones);
+		} else if(Sesion.getEmpleado().getRol()==Rol.ADMINISTRATIVO){
+			menuArchivo.add(menuArchivoCambiarContrasena);
+			menuArchivo.add(menuArchivoCerrarSesion);
+			//menuArchivo.add(menuArchivoCambiarEmailSistema);
+			//menuArchivo.add(menuArchivoImportarBD);
+			//menuArchivo.add(menuArchivoExportarBD);
+			menuArchivo.add(menuArchivoSalir);
+			
+			menuAlumnos.add(menuAlumnoCrearAlumno);
+			menuAlumnos.add(menuAlumnoConsultarAlumnos);
+			menuAlumnos.add(menuAlumnoConsultarPagos);
+			
+			menuCursos.add(menuCursosCrearCurso);
+			menuCursos.add(menuCursosCrearCursada);
+			menuCursos.add(menuCursosConsultarCursos);
+			menuCursos.add(menuCursosConsultarCursadas);
+			
+			//menuCursos.add(menuCursosConsultarSalas);
+			//menuCursos.add(menuCursosConsultarAreas);
+
+			
+			menuInscripciones.add(menuInscripcionesConsultarInscripciones);
+			
+			menuContactos.add(menuContactosCrearContacto);
+			menuContactos.add(menuContactosConsultarContactos);
+			
+			menuTareas.add(menuTareasCrearTarea);
+			menuTareas.add(menuTareasConsultarTareas);
+			
+			menuRecados.add(menuRecadosCrearRecado);
+			menuRecados.add(menuRecadosConsultarRecibidos);
+			menuRecados.add(menuRecadosConsultarEnviados);
+			menuRecados.add(menuRecadosConsultarArchivados);
+			
+			menuUsuarios.add(menuUsuariosCrearUsuario);
+			menuUsuarios.add(menuUsuariosConsultarUsuarios);
+			
+			menuNotificaciones.add(menuNotificacionesVerNotificaciones);
+			
+			barra.add(menuArchivo);
+			barra.add(menuAlumnos);
+			barra.add(menuCursos);
+			barra.add(menuContactos);
+			barra.add(menuInscripciones);
+			barra.add(menuTareas);
+			barra.add(menuRecados);
+			barra.add(menuUsuarios);
+			barra.add(menuNotificaciones);
+		} else { // Si entro aca es INSTRUCTOR
+			menuArchivo.add(menuArchivoCambiarContrasena);
+			menuArchivo.add(menuArchivoCerrarSesion);
+			//menuArchivo.add(menuArchivoCambiarEmailSistema);
+			//menuArchivo.add(menuArchivoImportarBD);
+			//menuArchivo.add(menuArchivoExportarBD);
+			menuArchivo.add(menuArchivoSalir);
+			
+			menuCursadas.add(menuCursadasConsultarCursadas);
+			
+			menuRecados.add(menuRecadosCrearRecado);
+			menuRecados.add(menuRecadosConsultarRecibidos);
+			menuRecados.add(menuRecadosConsultarEnviados);
+			menuRecados.add(menuRecadosConsultarArchivados);
+			
+			menuNotificaciones.add(menuNotificacionesVerNotificaciones);
+			
+			barra.add(menuArchivo);
+			barra.add(menuCursadas);
+			barra.add(menuRecados);
+			barra.add(menuNotificaciones);
 		}
-		
-		menuInscripciones.add(menuInscripcionesConsultarInscripciones);
-		
-		menuContactos.add(menuContactosCrearContacto);
-		menuContactos.add(menuContactosConsultarContactos);
-		
-		menuTareas.add(menuTareasCrearTarea);
-		menuTareas.add(menuTareasConsultarTareas);
-		
-		menuRecados.add(menuRecadosCrearRecado);
-		menuRecados.add(menuRecadosConsultarRecibidos);
-		menuRecados.add(menuRecadosConsultarEnviados);
-		menuRecados.add(menuRecadosConsultarArchivados);
-		
-		menuUsuarios.add(menuUsuariosCrearUsuario);
-		menuUsuarios.add(menuUsuariosConsultarUsuarios);
-		
-		menuNotificaciones.add(menuNotificacionesVerNotificaciones);
-		
-		barra.add(menuArchivo);
-		barra.add(menuAlumnos);
-		barra.add(menuCursos);
-		barra.add(menuContactos);
-		barra.add(menuInscripciones);
-		barra.add(menuTareas);
-		barra.add(menuRecados);
-		barra.add(menuUsuarios);
-		barra.add(menuNotificaciones);
 		
 		return barra;
+		
 	}
 
 	public JMenuItem getMenuArchivoCambiarContrasena() {
@@ -311,6 +380,14 @@ public class PantallaPrincipal extends JFrame {
 
 	public JPanel getPanelPrincipal() {
 		return panelPrincipal;
+	}
+
+	public JMenuItem getMenuCursosConsultarAreas() {
+		return menuCursosConsultarAreas;
+	}
+
+	public JMenuItem getMenuCursadasConsultarCursadas() {
+		return menuCursadasConsultarCursadas;
 	}
 
 	public JMenuItem getMenuInscripcionesConsultarInscripciones() {

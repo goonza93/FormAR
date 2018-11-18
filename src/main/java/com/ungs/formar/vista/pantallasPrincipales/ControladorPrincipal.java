@@ -70,6 +70,7 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuCursosCrearCursada().addActionListener(s -> mostrarCrearCursada());
 		ventana.getMenuCursosConsultarCursos().addActionListener(s -> mostrarConsultarCursos());
 		ventana.getMenuCursosConsultarCursadas().addActionListener(s -> mostrarConsultarCursadas());
+		ventana.getMenuCursosConsultarAreas().addActionListener(s -> mostrarConsultarAreas());
 		ventana.getMenuCursosConsultarSalas().addActionListener(s -> mostrarConsultarSalas());
 		// Listeners MENU CONTACTOS
 		ventana.getMenuContactosCrearContacto().addActionListener(s -> mostrarCrearContacto());
@@ -89,6 +90,8 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuInscripcionesConsultarInscripciones().addActionListener(s -> mostrarConsultarInscripciones());
 		// Listeners MENU NOTIFICACIONES
 		ventana.getMenuNotificacionesVerNotificaciones().addActionListener(s -> mostrarNotificaciones());
+		// Listeners MENU CURSADAS -- SOLO INSTRUCTORES
+		ventana.getMenuCursadasConsultarCursadas().addActionListener(s -> mostrarCursadasParaInstructor());
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -313,6 +316,10 @@ public class ControladorPrincipal implements ActionListener {
 		// TODO Auto-generated method stub
 	}
 
+	private void mostrarConsultarAreas() {
+		// TODO Auto-generated method stub
+	}
+	
 	private void mostrarConsultarCursadas() {
 		// TODO Auto-generated method stub
 	}
@@ -332,6 +339,10 @@ public class ControladorPrincipal implements ActionListener {
 
 	private void mostrarConsultarPagos() {
 		mostrarVentana(new ControladorPagoABM(this));
+	}
+	
+	private void mostrarCursadasParaInstructor() {
+		// TODO Auto-generated method stub
 	}
 	
 	public JFrame getVentana(){
