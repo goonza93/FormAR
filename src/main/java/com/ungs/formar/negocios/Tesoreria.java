@@ -15,35 +15,29 @@ import com.ungs.formar.vista.util.Formato;
 public class Tesoreria {
 
 	public static void registrarPago(Alumno alumno, Curso curso, Empleado empleado, Integer monto, Integer mes,
-			boolean pagoEnTermino, boolean pagoCompleto) throws Exception {
+			boolean pagoEnTermino, boolean pagoCompleto, Integer idPago) throws Exception {
 
 		// Si no esta inscripto no puede pagar
 		if (!InscripcionManager.estaInscripto(curso, alumno))
 			throw new Exception(
 					"El alumno " + alumno.getApellido() + " no esta inscripto a " + Formato.nombre(curso) + ".");
 
-		Pago pago = new Pago(-1, alumno.getID(), curso.getID(), empleado.getID(), monto, mes, pagoEnTermino,
-				pagoCompleto, Almanaque.hoy());
+		Pago pago = new Pago(idPago, alumno.getID(), curso.getID(), empleado.getID(), monto, mes, pagoEnTermino,
+				true, Almanaque.hoy());
 		PagoOBD obd = FactoryODB.crearPagoOBD();
-		obd.insert(pago);
-		verificarPagoCompleto(alumno, curso);
+		obd.update(pago);
 	}
 
 	public static void registrarPagoCompleto(Alumno alumno, Curso curso, Empleado empleado, Integer monto,
 			boolean pagoEnTermino, boolean pagoCompleto) throws Exception {
 
 		List<Pago> pagos = traerPagosAlumno(alumno, curso);
-		Integer cantCuotas = Almanaque.diferenciaEnMeses(curso.getFechaInicio(), curso.getFechaFin());
-		Integer cantCuotasRestantes = cantCuotas - pagos.size();
-
-		for (int i = 0; i < cantCuotasRestantes; i++) {
-			pagoEnTermino = pagoEnTermino(alumno, curso);
-			Pago pago = new Pago(-1, alumno.getID(), curso.getID(), empleado.getID(), costoMensual(curso),
-					Almanaque.mesActual(), pagoEnTermino, pagoCompleto, Almanaque.hoy());
-			PagoOBD obd = FactoryODB.crearPagoOBD();
-			obd.insert(pago);
+		for(Pago pago : pagos){
+			if(!pago.isPagoCompleto()){
+				pagoEnTermino = pagoEnTermino(alumno, curso);
+				registrarPago(alumno, curso, empleado, monto, pago.getMes(), pagoEnTermino, true, pago.getID());
+			}
 		}
-		verificarPagoCompleto(alumno, curso);
 	}
 
 	public static List<Pago> traerPagos() {
@@ -64,7 +58,16 @@ public class Tesoreria {
 	public static List<Pago> traerPagosAlumno(Alumno alumno, Curso curso) {
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		return obd.selectByAlumno(alumno, curso);
-
+	}
+	
+	public static List<Pago> traerPagosAlumnoPendientes(Alumno alumno, Curso curso) {
+		List<Pago> todosPagos = traerPagosAlumno(alumno, curso);
+		List<Pago> pagosPendientes = new ArrayList<Pago>();
+		for(Pago pago: todosPagos){
+			if(!pago.isPagoCompleto())
+				pagosPendientes.add(pago);
+		}
+		return pagosPendientes;
 	}
 
 	public static boolean pagoEnTermino(Alumno alumno, Curso curso) {
@@ -77,8 +80,9 @@ public class Tesoreria {
 			// Si la fecha del proximo pago, esta en el mismo mes o despues que
 			// el mes actual
 			// Es decir, la dif de meses es >=0, esta en termino
-
-			java.sql.Date proximoPago = new java.sql.Date(Almanaque.aumentarUnMes(ultimoPago.getFecha()).getTime());
+			java.sql.Date proximoPago = Almanaque.hoy();
+			if(ultimoPago.getFecha() != null)
+				proximoPago = new java.sql.Date(Almanaque.aumentarUnMes(ultimoPago.getFecha()).getTime());
 			if (Almanaque.diferenciaEnMeses(Almanaque.hoy(), proximoPago) < 0)
 				return false;
 		} else if (Almanaque.diferenciaEnMeses(Almanaque.hoy(), curso.getFechaInicio()) < 0)
@@ -96,29 +100,16 @@ public class Tesoreria {
 
 	public static Integer costoRestante(Alumno alumno, Curso curso) {
 		List<Pago> pagos = traerPagosAlumno(alumno, curso);
-		Integer cantCuotas = Almanaque.diferenciaEnMeses(curso.getFechaInicio(), curso.getFechaFin());
-		Integer cantCuotasImpagas = cantCuotas - pagos.size();
+		Integer cantCuotasImpagas = 0;
+		for(Pago pago : pagos){
+			if(!pago.isPagoCompleto())
+				cantCuotasImpagas++;
+		}
 		return cantCuotasImpagas * costoMensual(curso);
 	}
 
-	public static void verificarPagoCompleto(Alumno alumno, Curso curso) {
-		List<Pago> pagos = traerPagosAlumno(alumno, curso);
-		Integer cantCuotasPagas = Almanaque.diferenciaEnMeses(curso.getFechaInicio(), curso.getFechaFin());
-
-		if (pagos.size() == cantCuotasPagas)
-			marcarPagosComoCompleto(alumno, curso);
-	}
-
-	public static void marcarPagosComoCompleto(Alumno alumno, Curso curso) {
-		List<Pago> pagos = traerPagosAlumno(alumno, curso);
-		for (Pago pago : pagos) {
-			pago.setPagoCompleto(true);
-			actualizarPago(pago);
-		}
-	}
-	
 	public static List<Pago> traerPagosBusqueda(String dni, String curso, java.util.Date fechaDesde,
-			java.util.Date fechaHasta){
+			java.util.Date fechaHasta) {
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		Alumno alumno = AlumnoManager.traerAlumnoSegunDNI(dni);
 		Date desde = (fechaDesde == null) ? null : new Date(fechaDesde.getTime());
@@ -141,20 +132,37 @@ public class Tesoreria {
 		}
 		return retorno;
 	}
-	
-	private static boolean validarDesde(Pago pago, Date desde){
-		if(desde==null)
+
+	private static boolean validarDesde(Pago pago, Date desde) {
+		if (desde == null)
 			return true;
-		else if(desde.before(pago.getFecha()))
+		else if (desde.before(pago.getFecha()))
 			return true;
 		return false;
 	}
-	
-	private static boolean validarHasta(Pago pago, Date hasta){
-		if(hasta==null)
+
+	private static boolean validarHasta(Pago pago, Date hasta) {
+		if (hasta == null)
 			return true;
-		else if(hasta.after(pago.getFecha()))
+		else if (hasta.after(pago.getFecha()))
 			return true;
 		return false;
+	}
+
+	public static void crearPagos(Curso cursoSeleccionado, Alumno alumno) {
+		Integer cantCuotas = Almanaque.diferenciaEnMeses(cursoSeleccionado.getFechaInicio(),
+				cursoSeleccionado.getFechaFin());
+		Integer monto = cursoSeleccionado.getPrecio()/cantCuotas;
+		for (int i = 0; i < cantCuotas; i++) {
+			Pago pago = new Pago(-1, alumno.getID(), cursoSeleccionado.getID(), null, monto, i+1, null, false, null);
+			PagoOBD obd = FactoryODB.crearPagoOBD();
+			obd.insert(pago);
+		}
+	}
+
+	public static Integer cantCuotas(Integer idCurso){
+		Curso curso = CursoManager.traerCursoPorId(idCurso);
+		return Almanaque.diferenciaEnMeses(curso.getFechaInicio(),
+				curso.getFechaFin());
 	}
 }

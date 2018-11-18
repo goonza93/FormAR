@@ -24,22 +24,20 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class VentanaContactos {
-	private JFrame ventana;
+import com.ungs.formar.vista.util.VentanaInterna;
+
+public class VentanaContactos extends VentanaInterna {
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modeloContactos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono"};
 	private JTable tablaContactos;
-	private JButton btnAgregar, btnCancelar, btnEditar, btnBorrar, btnVerInteracciones, btnConvertirEnAlumno;
+	private JButton btnAgregar, btnEditar, btnBorrar, btnVerInteracciones, btnConvertirEnAlumno;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI;
 	private JLabel lblFiltros, lblNombre, lblDni, lblContactos;
 	private final TableRowSorter<TableModel> filtro;
 	
 	public VentanaContactos(){
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 740, 452);
-		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(Frame.MAXIMIZED_BOTH);
-
+		super("Gestion de contactos",740,452);
 		
 		modeloContactos = new DefaultTableModel(null, nombreColumnas);
 		filtro = new TableRowSorter<TableModel>(modeloContactos);
@@ -89,9 +87,6 @@ public class VentanaContactos {
 				btnBorrar = new JButton("BORRAR");
 				btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 				
-				btnCancelar = new JButton("CANCELAR");
-				btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-				
 				lblContactos = new JLabel("CONTACTOS:");
 				lblContactos.setHorizontalAlignment(SwingConstants.CENTER);
 				lblContactos.setFont(new Font("Arial", Font.BOLD, 12));
@@ -102,13 +97,13 @@ public class VentanaContactos {
 				btnConvertirEnAlumno = new JButton("CONVERTIR EN ALUMNO");
 				btnConvertirEnAlumno.setFont(new Font("Arial", Font.PLAIN, 12));
 				
-				GroupLayout groupLayout = new GroupLayout(ventana.getContentPane());
+				GroupLayout groupLayout = new GroupLayout(getContentPane());
 				groupLayout.setHorizontalGroup(
 					groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+								.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
@@ -118,25 +113,23 @@ public class VentanaContactos {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+									.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
 									.addGap(208))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+									.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
 									.addGap(208))
-								.addComponent(lblContactos, GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+								.addComponent(lblContactos, GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE))
 							.addContainerGap())
 				);
 				groupLayout.setVerticalGroup(
@@ -163,41 +156,29 @@ public class VentanaContactos {
 								.addComponent(btnAgregar)
 								.addComponent(btnEditar)
 								.addComponent(btnBorrar)
-								.addComponent(btnCancelar)
 								.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 							.addContainerGap())
 				);
-				ventana.getContentPane().setLayout(groupLayout);
+				getContentPane().setLayout(groupLayout);
 		
 				DocumentListener listener = crearFiltroListener();
 				inFiltroApellido.getDocument().addDocumentListener(listener);
 				inFiltroNombre.getDocument().addDocumentListener(listener);
 				inFiltroDNI.getDocument().addDocumentListener(listener);
 		
-		ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
-		
 	}
 	
 	public void mostrar(){
-		ventana.setVisible(true);
+		setVisible(true);
 	}
 	
 	public void ocultar(){
-		ventana.setVisible(false);
+		setVisible(false);
 	}
 
 	public JButton getAgregar() {
 		return btnAgregar;
-	}
-	
-	public JButton getCancelar() {
-		return btnCancelar;
 	}
 
 	public JButton getEditar() {
@@ -250,10 +231,6 @@ public class VentanaContactos {
 		};
 		
 		return ret;
-	}
-	
-	public JFrame getVentana(){
-		return ventana;
 	}
 	
 	public JLabel getLblContactos(){

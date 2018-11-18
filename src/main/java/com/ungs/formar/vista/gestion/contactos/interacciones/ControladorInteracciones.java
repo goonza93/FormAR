@@ -20,7 +20,6 @@ import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarPrograma;
 import com.ungs.formar.vista.gestion.contactos.ControladorContactos;
-import com.ungs.formar.vista.gestion.contactos.VentanaContactosAM;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
@@ -47,7 +46,7 @@ public class ControladorInteracciones implements ActionListener, AreaSeleccionab
 		this.ventanaGestionarInteracciones.getBorrar().addActionListener(this);
 		this.ventanaGestionarInteracciones.getEditar().addActionListener(this);
 		this.ventanaGestionarInteracciones.getCancelar().addActionListener(this);
-		this.ventanaGestionarInteracciones.getVentana().setTitle("GESTION DE INTERACCIONES");
+		this.ventanaGestionarInteracciones.getVentana().setTitle("Gestion de interacciones");
 		this.inicializar();
 	}
 	
@@ -149,7 +148,7 @@ public class ControladorInteracciones implements ActionListener, AreaSeleccionab
 	private void cerrarVentanaInteracciones() {
 		ventanaGestionarInteracciones.getVentana().dispose();
 		ventanaGestionarInteracciones = null;
-		controlador.inicializar();
+		controlador.habilitarPrincipal();
 	}
 	
 	public void abrirVentanaModificacion(){

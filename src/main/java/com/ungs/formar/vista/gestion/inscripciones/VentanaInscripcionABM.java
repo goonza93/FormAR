@@ -1,13 +1,9 @@
 package com.ungs.formar.vista.gestion.inscripciones;
 
 import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,10 +19,11 @@ import javax.swing.table.TableRowSorter;
 
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
+import com.ungs.formar.vista.util.VentanaInterna;
 
-public class VentanaInscripcionABM {
-	private JFrame ventana;
-	private JButton btnInscribir, btnPagar, btnBorrar, btnVolver;
+public class VentanaInscripcionABM extends VentanaInterna {
+	private static final long serialVersionUID = 1L;
+	private JButton btnInscribir, btnPagar, btnBorrar;
 	private DefaultTableModel modeloCursos;
 	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
 			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
@@ -36,26 +33,15 @@ public class VentanaInscripcionABM {
 	private PanelHorizontal panelConFiltros;
 
 	public VentanaInscripcionABM() {
+		super("Gestionar inscripciones", 1400, 500);
 		initialize();
 	}
 
 	private void initialize() {
-		
 		// PROPIEDADES DE LA VENTANA
-		ventana = new JFrame();
-		ventana.setTitle("Gestionar inscripciones");
-		ventana.setBounds(100, 100, 1400, 500);
-		ventana.setLocationRelativeTo(null);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		PanelVertical panelPrincipal = new PanelVertical();
-		ventana.setContentPane(panelPrincipal);
-		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
-		ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnVolver.doClick();
-			}
-		});
+		setContentPane(panelPrincipal);
+		
 
 		
 		// CREO LA TABLA DE CURSOS
@@ -125,20 +111,18 @@ public class VentanaInscripcionABM {
 		// CREO LOS BOTONES
 		btnInscribir = new JButton("Inscribir");
 		btnPagar = new JButton("Pagar inscripcion");
-		btnVolver = new JButton("Volver");
 		btnBorrar = new JButton("Consultar inscripciones");
 		PanelHorizontal panelBotones = new PanelHorizontal();		
 		panelBotones.add(btnInscribir);
 		panelBotones.add(btnBorrar);
-		panelBotones.add(btnVolver);
 		
 		// CONFIGURO LOS PANALES
 		Border borde = new EmptyBorder(10, 10, 10, 10);
 		panelPrincipal.setBorder(borde);
 		panelBotones.setBorder(borde);
-		ventana.getContentPane().add(panelConFiltros);
-		ventana.getContentPane().add(panelTabla);
-		ventana.getContentPane().add(panelBotones);
+		getContentPane().add(panelConFiltros);
+		getContentPane().add(panelTabla);
+		getContentPane().add(panelBotones);
 	}
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
@@ -167,10 +151,6 @@ public class VentanaInscripcionABM {
 		return ret;
 	}
 	
-	public JFrame getVentana() {
-		return ventana;
-	}
-	
 	public JButton getInscribir() {
 		return btnInscribir;
 	}
@@ -181,10 +161,6 @@ public class VentanaInscripcionABM {
 
 	public JButton getBorrar() {
 		return btnBorrar;
-	}
-
-	public JButton getVolver() {
-		return btnVolver;
 	}
 
 	public DefaultTableModel getModeloCursos() {

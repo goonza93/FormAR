@@ -13,7 +13,7 @@ import com.ungs.formar.vista.util.Ventana;
 
 public class VentanaPagoAM extends Ventana{
 	private static final long serialVersionUID = 1L;
-	private JButton btnRegistrar, btnCancelar, btnAlumno, btnCursada;
+	private JButton btnRegistrar, btnCancelar;
 	private JTextField inAlumno, inCursada, inMonto, inMes;
 	private JCheckBox inPagoCompleto;
 	
@@ -31,22 +31,18 @@ public class VentanaPagoAM extends Ventana{
 		inAlumno = new JTextField();
 		inAlumno.setEnabled(false);
 		inAlumno.setMaximumSize(largoEntrada);
-		btnAlumno = new JButton("Seleccionar");
 		PanelHorizontal panelAlumno = new PanelHorizontal();
 		panelAlumno.add(lblAlumno);
 		panelAlumno.add(inAlumno);
-		panelAlumno.add(btnAlumno);
 
 		JLabel lblCursada = new JLabel("Cursada");
 		lblCursada.setPreferredSize(largoLabel);
 		inCursada = new JTextField();
 		inCursada.setEnabled(false);
 		inCursada.setMaximumSize(largoEntrada);
-		btnCursada = new JButton("Seleccionar");
 		PanelHorizontal panelCursada = new PanelHorizontal();
 		panelCursada.add(lblCursada);
 		panelCursada.add(inCursada);
-		panelCursada.add(btnCursada);
 		
 		JLabel lblMonto = new JLabel("Monto");
 		lblMonto.setPreferredSize(largoLabel);
@@ -57,7 +53,7 @@ public class VentanaPagoAM extends Ventana{
 		panelMonto.add(lblMonto);
 		panelMonto.add(inMonto);
 		
-		JLabel lblMes = new JLabel("Mes");
+		JLabel lblMes = new JLabel("Cuota");
 		lblMes.setPreferredSize(largoLabel);
 		inMes = new JTextField();
 		inMes.setMaximumSize(largoEntrada);
@@ -109,14 +105,6 @@ public class VentanaPagoAM extends Ventana{
 
 	public JTextField getMes() {
 		return inMes;
-	}
-
-	public JButton getSelAlumno() {
-		return btnAlumno;
-	}
-
-	public JButton getSelCursada() {
-		return btnCursada;
 	}
 
 	public JCheckBox getPagoCompleto() {

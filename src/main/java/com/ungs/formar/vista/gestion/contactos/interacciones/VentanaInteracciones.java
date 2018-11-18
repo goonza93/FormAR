@@ -36,9 +36,8 @@ public class VentanaInteracciones {
 	
 	public VentanaInteracciones(){
 		ventana = new JFrame();
-		ventana.setBounds(100, 100, 740, 452);
+		ventana.setBounds(100, 100, 900, 500);
 		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -183,13 +182,6 @@ public class VentanaInteracciones {
 				inFiltroFecha.getDocument().addDocumentListener(listener);
 				inFiltroArea.getDocument().addDocumentListener(listener);
 				inFiltroCurso.getDocument().addDocumentListener(listener);
-		
-		ventana.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
 		
 	}
 	

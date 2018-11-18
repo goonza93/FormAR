@@ -13,6 +13,7 @@ import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.pagos.registrar.ControladorPagoAM;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
@@ -24,6 +25,7 @@ import com.ungs.formar.vista.util.Popup;
 public class ControladorPagoABM implements ActionListener, ControladorInterno {
 	private ControladorPrincipal invocador;
 	private VentanaPagoABM ventana;
+	private List<Pago> pagos_en_tabla;
 
 	public ControladorPagoABM(ControladorPrincipal invocador) {
 		this.invocador = invocador;
@@ -36,10 +38,25 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 	public void actionPerformed(ActionEvent e) {}
 
 	private void registrar() {
-		invocador.getVentana().setEnabled(false);
-		new ControladorPagoAM(this);
+		Pago pago = obtenerCursoSeleccionado();	
+		if(!pago.isPagoCompleto()){
+			invocador.getVentana().setEnabled(false);
+			new ControladorPagoAM(this, pago);
+		}else
+			Popup.mostrar("La cuota seleccionada ya fue pagada.");
 	}
+	
+	private Pago obtenerCursoSeleccionado() {
+		int registroTabla = ventana.getTabla().getSelectedRow(); 
 
+		// No habia ningun registro seleccionado
+		if (registroTabla == -1)
+			return null;
+
+		int registro = ventana.getTabla().convertRowIndexToModel(registroTabla);
+		return pagos_en_tabla.get(registro);
+	}
+	
 	private void verFactura() {
 		List<Pago> pagos = ventana.getTabla().obtenerSeleccion();
 		if (pagos.size() != 1) {
@@ -87,6 +104,7 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		Date fechaHasta = ventana.getInFechaHasta().getDate();
 		
 		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, cursada, fechaDesde, fechaHasta);
+		this.pagos_en_tabla = pagos;
 		ventana.getTabla().recargar(pagos);
 	}
 
