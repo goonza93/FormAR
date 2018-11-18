@@ -1,28 +1,15 @@
 package com.ungs.formar.vista.gestion.cursos;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
-import java.awt.Component;
 import java.awt.Font;
-
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -31,9 +18,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import com.ungs.formar.vista.util.VentanaInterna;
 
-public class GestionarCursos {
-	public JFrame frame;
+public class GestionarCursos extends VentanaInterna {
+	private static final long serialVersionUID = 1L;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
 	private JButton btnEditar;
@@ -44,7 +32,6 @@ public class GestionarCursos {
 	private JTable tablaCursos;
 	private JLabel lblFiltrar;
 	private JLabel lblCursos;
-	private JButton btnCancelar;
 	private JButton btnConsultarInscripciones;
 	private JButton btnCambiarEstado;
 	private JTextField txtCursoFiltro;
@@ -60,13 +47,7 @@ public class GestionarCursos {
 	private final TableRowSorter<TableModel> filtro;
 
 	public GestionarCursos() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1375, 629);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.setTitle("Gestion de cursadas");
-		frame.setLocationRelativeTo(null);
-		frame.setExtendedState(frame.MAXIMIZED_BOTH);
-
+		super("Gestion de cursadas", 1375, 629);
 
 		modelCursos = new DefaultTableModel(null, nombreColumnas);
 
@@ -84,9 +65,6 @@ public class GestionarCursos {
 
 		btnBorrar = new JButton("CANCELAR");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
-
-		btnCancelar = new JButton("VOLVER");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 
 		lblCursos = new JLabel("CURSADAS:");
 		lblCursos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -164,16 +142,16 @@ public class GestionarCursos {
 		txtResponsableFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtResponsableFiltro.setColumns(10);
 		
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE)
+							.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1344, Short.MAX_VALUE)
 							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
@@ -182,35 +160,32 @@ public class GestionarCursos {
 							.addGap(125)
 							.addComponent(btnConsultarInscripciones, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCambiarEstado, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
+							.addComponent(btnCambiarEstado, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtCursoFiltro, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-								.addComponent(lblCurso, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+								.addComponent(txtCursoFiltro, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+								.addComponent(lblCurso, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtAreaFiltro, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-								.addComponent(lblArea, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+								.addComponent(txtAreaFiltro, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+								.addComponent(lblArea, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtEstadoFiltro, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-								.addComponent(lblEstado, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+								.addComponent(txtEstadoFiltro, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+								.addComponent(lblEstado, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtInstructorFiltro, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-								.addComponent(lblInstructor, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+								.addComponent(txtInstructorFiltro, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+								.addComponent(lblInstructor, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblResponsable, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-								.addComponent(txtResponsableFiltro, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+								.addComponent(lblResponsable, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+								.addComponent(txtResponsableFiltro, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
 							.addGap(359))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE)
-								.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1339, Short.MAX_VALUE))
+								.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 1344, Short.MAX_VALUE)
+								.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 1344, Short.MAX_VALUE))
 							.addContainerGap())))
 		);
 		groupLayout.setVerticalGroup(
@@ -244,25 +219,17 @@ public class GestionarCursos {
 					.addGap(35)
 					.addComponent(lblCursos)
 					.addGap(9)
-					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnEditar)
 						.addComponent(btnBorrar)
-						.addComponent(btnCancelar)
 						.addComponent(btnConsultarInscripciones)
 						.addComponent(btnCambiarEstado))
 					.addGap(7))
 		);
-		frame.getContentPane().setLayout(groupLayout);
-
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
+		getContentPane().setLayout(groupLayout);
 		
 		DocumentListener listener = crearFiltroListener();
 		txtCursoFiltro.getDocument().addDocumentListener(listener);
@@ -316,10 +283,6 @@ public class GestionarCursos {
 
 	public JButton getBtnEditar() {
 		return btnEditar;
-	}
-
-	public JButton getBtnCancelar() {
-		return btnCancelar;
 	}
 
 	public DefaultTableModel getModelCursos() {
