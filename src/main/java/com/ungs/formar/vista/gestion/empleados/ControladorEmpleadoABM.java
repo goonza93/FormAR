@@ -18,7 +18,6 @@ import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
@@ -43,10 +42,10 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 	
 	public ControladorEmpleadoABM(ControladorPrincipal controlador) {
 		this.controlador = controlador;
-		this.rol = Sesion.getEmpleado().getRol();
+		rol = Sesion.getEmpleado().getRol();
 		ventanaAM = new VentanaEmpleadoAM(Sesion.getEmpleado().getRol());
-		ventanaAM.getAceptar().addActionListener(s -> aceptarAMP());
-		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.botonAceptar().addActionListener(s -> aceptarAMP());
+		ventanaAM.botonCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -70,17 +69,32 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		ventanaABM.getModeloEmpleados().setColumnIdentifiers(ventanaABM.getNombreColumnas());
 
 		empleados = EmpleadoManager.traerEmpleados();
-		
 		for (Empleado empleado : empleados) {
-			if(rol==Rol.ADMINISTRATIVO){
-				if(empleado.getRol()==Rol.INSTRUCTOR){
-					Object[] fila = { empleado.getRol(), empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
-							empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
+			if (rol == Rol.ADMINISTRATIVO) {
+				if (empleado.getRol() == Rol.INSTRUCTOR) {
+					Object[] fila = {
+							empleado.getRol(),
+							empleado.getApellido(),
+							empleado.getNombre(),
+							empleado.getDNI(),
+							empleado.getEmail(),
+							empleado.getTelefono(),
+							empleado.getFechaIngreso(),
+							empleado.getFechaEgreso()
+							};
 					ventanaABM.getModeloEmpleados().addRow(fila);
 				}
 			} else {
-				Object[] fila = { empleado.getRol(), empleado.getApellido(), empleado.getNombre(), empleado.getDNI(), empleado.getEmail(),
-						empleado.getTelefono(), empleado.getFechaIngreso(), empleado.getFechaEgreso() };
+				Object[] fila = {
+						empleado.getRol(),
+						empleado.getApellido(),
+						empleado.getNombre(),
+						empleado.getDNI(),
+						empleado.getEmail(),
+						empleado.getTelefono(),
+						empleado.getFechaIngreso(),
+						empleado.getFechaEgreso()
+						};
 				ventanaABM.getModeloEmpleados().addRow(fila);
 			}
 		}
@@ -88,8 +102,8 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 
 	private void abrirVentanaAlta() {
 		ventanaAM = new VentanaEmpleadoAM(rol);
-		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
-		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.botonAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.botonCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -115,8 +129,8 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		}
 
 		ventanaAM = new VentanaEmpleadoAM(seleccionados.get(0), Sesion.getEmpleado().getRol());
-		ventanaAM.getAceptar().addActionListener(s -> aceptarAM());
-		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.botonAceptar().addActionListener(s -> aceptarAM());
+		ventanaAM.botonCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -207,9 +221,10 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 	}
 
 	private void aceptarAM() {
+		
 		if (validarCampos()) {
 			Empleado empleado = ventanaAM.getEmpleado();
-			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem(); // aca iria el seleccionado, no el de sesion.
+			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem();
 			String apellido = ventanaAM.getApellido().getText();
 			String nombre = ventanaAM.getNombre().getText();
 			String dni = ventanaAM.getDNI().getText();
@@ -217,9 +232,13 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 			String email = ventanaAM.getEmail().getText();
 			Date fechaIngreso = new Date(ventanaAM.getFechaIngreso().getDate().getTime());
 
-			if (empleado == null)
+			// Creo un nuevo empleado
+			if (empleado == null) {
 				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
-			else {
+				Popup.mostrar("El empleado se creado exitosamente");
+			
+			// Edito un empleado existente
+			} else {
 				empleado.setApellido(apellido);
 				empleado.setNombre(nombre);
 				empleado.setDNI(dni);
@@ -228,6 +247,7 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 				empleado.setFechaIngreso(fechaIngreso);
 				empleado.setRol(rol);
 				EmpleadoManager.modificarEmpleado(empleado);
+				Popup.mostrar("El empleado se editado exitosamente");
 			}
 
 			ventanaAM.dispose();
@@ -242,7 +262,7 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 	private void aceptarAMP() {
 		if (validarCampos()) {
 			Empleado empleado = ventanaAM.getEmpleado();
-			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem(); // aca iria el seleccionado, no el de sesion.
+			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem();
 			String apellido = ventanaAM.getApellido().getText();
 			String nombre = ventanaAM.getNombre().getText();
 			String dni = ventanaAM.getDNI().getText();
@@ -250,9 +270,13 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 			String email = ventanaAM.getEmail().getText();
 			Date fechaIngreso = new Date(ventanaAM.getFechaIngreso().getDate().getTime());
 
-			if (empleado == null)
+			// Creo uno nuevo
+			if (empleado == null) {
 				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
-			else {
+				Popup.mostrar("El empleado se creado exitosamente");
+				
+			// Edito uno existente
+			} else {
 				empleado.setApellido(apellido);
 				empleado.setNombre(nombre);
 				empleado.setDNI(dni);
