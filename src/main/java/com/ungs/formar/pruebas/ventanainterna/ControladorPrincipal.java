@@ -56,7 +56,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarAltaAsistencia() {
-		mostrarVentana(new ControladorGestionAsistencias2(this));
+		//mostrarVentana(new ControladorGestionAsistencias2(this));
 	}
 
 	

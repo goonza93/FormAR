@@ -39,6 +39,7 @@ import com.ungs.formar.vista.gestion.salas.ControladorSalaABM;
 import com.ungs.formar.vista.gestion.salas.VentanaSalaABM;
 import com.ungs.formar.vista.gestion.tareas.ControladorTareaABM;
 import com.ungs.formar.vista.gestion.tareas.VentanaTareaABM;
+import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
@@ -358,7 +359,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 	
 	private void mostrarCursadasParaInstructor() {
-		// TODO Auto-generated method stub
+		mostrarVentana(new ControladorGestionAsistencias2(this));
 	}
 	
 	public JFrame getVentana(){

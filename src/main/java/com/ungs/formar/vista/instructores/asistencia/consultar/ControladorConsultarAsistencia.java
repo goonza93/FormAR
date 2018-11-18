@@ -6,7 +6,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.util.List;
-
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Instructor;
@@ -15,15 +14,15 @@ import com.ungs.formar.persistencia.entidades.Asistencia;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.vista.consulta.Consultable;
-import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias;
+import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
 import com.ungs.formar.vista.util.Formato;
 
 public class ControladorConsultarAsistencia implements ActionListener, Consultable {
-	private ControladorGestionAsistencias controlador;
+	private ControladorGestionAsistencias2 controlador;
 	private VentanaConsultarAsistencia ventana;
 	private Curso curso;
 
-	public ControladorConsultarAsistencia(ControladorGestionAsistencias controlador, Curso curso) {
+	public ControladorConsultarAsistencia(ControladorGestionAsistencias2 controlador, Curso curso) {
 		this.controlador = controlador;
 		this.curso = curso;
 		ventana = new VentanaConsultarAsistencia();
@@ -79,7 +78,7 @@ public class ControladorConsultarAsistencia implements ActionListener, Consultab
 	public void volver() {
 		ventana.getVentana().dispose();
 		ventana = null;
-		controlador.mostrar();
+		controlador.habilitarPrincipal();
 	}
 
 	@Override

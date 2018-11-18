@@ -64,7 +64,7 @@ public class ControladorGestionAsistencias implements ActionListener {
 		}
 		
 		ventana.deshabilitar();
-		new ControladorConsultarAsistencia(this, seleccion.get(0));
+		//new ControladorConsultarAsistencia(this, seleccion.get(0));
 	}
 
 	private void tomar() {
@@ -87,7 +87,7 @@ public class ControladorGestionAsistencias implements ActionListener {
 		}
 		
 		ventana.deshabilitar();
-		new ControladorTomarAsistencia(this, seleccion.get(0));
+		//new ControladorTomarAsistencia(this, seleccion.get(0));
 	}
 	
 	private void volver() {
