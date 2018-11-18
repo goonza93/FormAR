@@ -2,8 +2,8 @@ package com.ungs.formar.vista.gestion.tareas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JInternalFrame;
@@ -13,7 +13,6 @@ import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.negocios.TareaManager;
 import com.ungs.formar.persistencia.entidades.Tarea;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
@@ -28,7 +27,6 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 	public ControladorTareaABM(VentanaTareaABM ventanaSalaABM, ControladorPrincipal controlador) {
 		this.ventanaABM = ventanaSalaABM;
 		this.controlador = controlador;
-		//this.ventanaABM.getCancelar().addActionListener(s -> cerrarVentanaABM());
 		this.ventanaABM.getAgregar().addActionListener(s -> abrirAlta());
 		this.ventanaABM.getBorrar().addActionListener(s -> borrar());
 		this.ventanaABM.getEditar().addActionListener(s -> marcarRealizada());
@@ -38,8 +36,8 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 	public ControladorTareaABM(ControladorPrincipal controlador) {
 		this.controlador = controlador;
 		ventanaAM = new VentanaTareaAM();
-		ventanaAM.getAceptar().addActionListener(s -> crearTareaP());
-		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.botonAceptar().addActionListener(s -> crearTareaP());
+		ventanaAM.botonCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.setVisible(true);
 		controlador.getVentana().setEnabled(false);
 	}
@@ -56,7 +54,11 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 
 		tareas = TareaManager.traerTareas();
 		for (Tarea tarea : tareas) {
-			Object[] fila = { Formato.empleado(Sesion.getEmpleado().getID()), tarea.getContenido() , tarea.isPendiente() };
+			Object[] fila = {
+					Formato.empleado(Sesion.getEmpleado().getID()),
+					tarea.getContenido(),
+					tarea.isPendiente()
+					};
 			ventanaABM.getModelo().addRow(fila);
 		}
 		ventanaABM.getTabla().removeColumn(ventanaABM.getTabla().getColumnModel().getColumn(2));
@@ -119,8 +121,13 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		inicializar();
 		controlador.getVentana().setEnabled(true);
 		controlador.getVentana().toFront();
+		
+		// Si se esta visualizando la tabla de tareas le digo que se actualice
+		if (ventanaABM != null)
+			llenarTabla();
 	}
 	
+	// Carlos: ¿Cual es la diferencia con el de arriba?
 	private void crearTareaP() {
 		// creo la tarea
 		String contenido = ventanaAM.getContenido().getText();
@@ -137,18 +144,16 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		ventanaAM = null;
 		controlador.getVentana().setEnabled(true);
 		controlador.getVentana().toFront();
+
+		// Si se esta visualizando la tabla de tareas le digo que se actualice
+		if (ventanaABM != null)
+			llenarTabla();
 	}
 	
-/*
-	private void cerrarVentanaABM() {
-		ventanaABM.ocultar();
-		controlador.inicializar();
-	}
-*/
 	private void abrirAlta() {
 		ventanaAM = new VentanaTareaAM();
-		ventanaAM.getAceptar().addActionListener(s -> crearTarea());
-		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.botonAceptar().addActionListener(s -> crearTarea());
+		ventanaAM.botonCancelar().addActionListener(s -> cerrarVentanaAM());
 		ventanaAM.setVisible(true);
 		controlador.getVentana().setEnabled(false);
 	}
@@ -177,4 +182,5 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 	public void actionPerformed(ActionEvent e) {
 		
 	}
+
 }

@@ -1,42 +1,31 @@
 package com.ungs.formar.vista.gestion.tareas;
 
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.ungs.formar.vista.tablas.RenderRecados;
 import com.ungs.formar.vista.tablas.RenderTareas;
 import com.ungs.formar.vista.util.VentanaInterna;
-import javax.swing.JCheckBox;
 
 public class VentanaTareaABM extends VentanaInterna{
 	
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelo;
-	private String[] nombreColumnas = { "Empleado", "Contenido", "Pendiente" };
+	private String[] columnas = { "Empleado", "Contenido", "Pendiente" };
 	private JTable tabla;
 	private JButton btnAgregar, btnEditar, btnBorrar;
 	private JCheckBox chckbxPendientes;
@@ -44,14 +33,7 @@ public class VentanaTareaABM extends VentanaInterna{
 
 	public VentanaTareaABM() {
 		super("Gestion de tareas",740,452);
-		/*
-		ventana = new JFrame();
-		ventana.setBounds(100, 100, 740, 452);
-		ventana.setTitle("Gestion de tareas");
-		ventana.setLocationRelativeTo(null);
-		ventana.setExtendedState(Frame.MAXIMIZED_BOTH);
-		*/
-		modelo = new DefaultTableModel(null, nombreColumnas);
+		modelo = new DefaultTableModel(null, columnas);
 
 		JScrollPane spSalas = new JScrollPane();
 		tabla = new JTable(modelo);
@@ -160,7 +142,7 @@ public class VentanaTareaABM extends VentanaInterna{
 	}
 
 	public String[] getNombreColumnas() {
-		return nombreColumnas;
+		return columnas;
 	}
 
 	public DefaultTableModel getModelo() {
@@ -186,4 +168,5 @@ public class VentanaTareaABM extends VentanaInterna{
 		};
 		return nuevo;
 	}
+
 }

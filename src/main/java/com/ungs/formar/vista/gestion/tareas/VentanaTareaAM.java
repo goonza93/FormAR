@@ -9,12 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
+import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.Sesion;
-import javax.swing.SwingConstants;
 
 public class VentanaTareaAM extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -23,15 +24,15 @@ public class VentanaTareaAM extends JFrame {
 	private JButton btnCancelar, btnGuardar;
 	private JTextArea txtDescripcion;
 	
-	// CONSTRUCTOR NUEVA SALA
 	public VentanaTareaAM() {
 		cargarComponentes();
-		setTitle("Nueva tarea para:" + Sesion.getEmpleado().getApellido()+", "+Sesion.getEmpleado().getNombre());
+		Empleado empleado = Sesion.getEmpleado();
+		setTitle("Nueva tarea para: " + empleado.getApellido()+", "+empleado.getNombre());
 	}
 	
 	public void cargarComponentes() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 423, 232);
+		setBounds(100, 100, 434, 249);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,15 +57,17 @@ public class VentanaTareaAM extends JFrame {
 		dateChooser.getCalendarButton().setEnabled(true);
 		contentPane.add(dateChooser);
 		
-		btnGuardar = new JButton("GUARDAR");
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setIcon(Imagen.traerIconoGuardar());
 		btnGuardar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnGuardar.setBounds(10, 173, 102, 23);
+		btnGuardar.setBounds(10, 170, 150, 30);
 		btnGuardar.setActionCommand("guardar");
 		contentPane.add(btnGuardar);
 		
-		btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setIcon(Imagen.traerIconoCancelar());
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-		btnCancelar.setBounds(290, 173, 109, 23);
+		btnCancelar.setBounds(250, 170, 150, 30);
 		btnCancelar.setActionCommand("cancelar");
 		contentPane.add(btnCancelar);
 		
@@ -85,18 +88,16 @@ public class VentanaTareaAM extends JFrame {
 		return dateChooser;
 	}
 
-	public JButton getCancelar() {
+	public JButton botonCancelar() {
 		return btnCancelar;
 	}
 
-	public JButton getAceptar() {
+	public JButton botonAceptar() {
 		return btnGuardar;
 	}
 
 	public JTextArea getContenido() {
 		return txtDescripcion;
 	}
-	
-	
 	
 }
