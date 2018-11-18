@@ -47,6 +47,7 @@ import com.ungs.formar.vista.gestion.tareas.VentanaTareaABM;
 import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
+import com.ungs.formar.vista.notificaciones.ControladorNotificaciones;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
 import com.ungs.formar.vista.recados.ControladorRecados;
 import com.ungs.formar.vista.recados.VentanaRecados;
@@ -293,7 +294,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 	
 	private void mostrarNotificaciones() {
-		// TODO Auto-generated method stub
+		mostrarVentana(new ControladorNotificaciones(this));
 	}
 
 	private void mostrarConsultarInscripciones() {

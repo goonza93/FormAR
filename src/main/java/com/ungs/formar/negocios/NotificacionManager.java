@@ -1,6 +1,7 @@
 package com.ungs.formar.negocios;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
@@ -34,7 +35,16 @@ public class NotificacionManager {
 	
 	public static List<Notificacion> traerNotificaciones(Empleado empleado) {
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
-		return odb.selectByEmpleado(empleado);
+		List<Notificacion> aux = odb.selectByEmpleado(empleado);
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for(Notificacion act:aux){
+			if(act.getFechaAMostrar()!=null && act.getFechaAMostrar().after(Almanaque.hoy())){
+				
+			} else {
+				ret.add(act);
+			}
+		}
+		return ret;
 	}
 	
 	public static List<Notificacion> traerNotificacionesSinMostrar(Empleado empleado) {
@@ -44,7 +54,16 @@ public class NotificacionManager {
 	
 	public static List<Notificacion> traerNotificacionesSinLeer(Empleado empleado) {
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
-		return odb.selectByEmpleadoSinLeer(empleado);
+		List<Notificacion> aux = odb.selectByEmpleadoSinLeer(empleado);
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for(Notificacion act:aux){
+			if(act.getFechaAMostrar()!=null && act.getFechaAMostrar().after(Almanaque.hoy())){
+				
+			} else {
+				ret.add(act);
+			}
+		}
+		return ret;
 	}
 	
 }

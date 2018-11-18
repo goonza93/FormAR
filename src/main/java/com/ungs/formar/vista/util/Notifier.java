@@ -2,13 +2,10 @@ package com.ungs.formar.vista.util;
 
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
-import java.sql.Date;
 import java.util.List;
-
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.negocios.NotificacionManager;
-import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 import com.ungs.formar.persistencia.entidades.Notificacion;
 import com.ungs.formar.persistencia.entidades.Recado;
@@ -17,17 +14,11 @@ import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 public class Notifier implements Runnable {
 	ControladorPrincipal principal;
 	Integer lastCant;
-	Integer lastNotif;
 	TrayIcon trayIcon;
-	boolean firstCant;
-	boolean firstNotif;
 	
 	public Notifier(TrayIcon icon,ControladorPrincipal prin){
 		this.principal = prin;
-		firstCant = true;
-		firstNotif = true;
 		lastCant=0;
-		lastNotif=0;
 		trayIcon = icon;
 	}
 
