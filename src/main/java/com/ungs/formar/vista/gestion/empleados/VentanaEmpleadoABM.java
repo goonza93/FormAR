@@ -230,10 +230,10 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 
 	public List<RowFilter<Object, Object>> crearFiltros() {
 		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroApellido.getText(), 0));
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroNombre.getText(), 1));
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroDNI.getText(), 2));
-		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroFechaIngreso.getText(), 5));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroApellido.getText(), 1));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroNombre.getText(), 2));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroDNI.getText(), 3));
+		filtros.add(RowFilter.regexFilter("(?i)" + inFiltroFechaIngreso.getText(), 6));
 		return filtros;
 	}
 	
