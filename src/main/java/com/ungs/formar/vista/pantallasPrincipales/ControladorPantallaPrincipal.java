@@ -265,17 +265,17 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaSupervisor.ocultar();
 			new ControladorEmpleadoABM(this.ventanaGestionarInstructores, this, Rol.ADMINISTRATIVO);
 		}*/
-
+/*
 		// BOTON ABM AREAS
 		if (e.getSource() == this.pantallaSupervisor.getBtnGestionarAreas()) {
 			this.ventanaGestionarAreas = new GestionarAreas();
 			this.ventanaGestionarAreas.setVisible(true);
 			this.pantallaSupervisor.ocultar();
 			new ControladorAreaABM(this.ventanaGestionarAreas, this);
-		}
+		}*/
 
 		// BOTON MENU ADMINISTRATIVO
-		else if (e.getSource() == this.pantallaSupervisor.getBtnMenuAdministrativos()) {
+		if (e.getSource() == this.pantallaSupervisor.getBtnMenuAdministrativos()) {
 			mostrarPantallaAdministrativo();
 			this.pantallaAdministrativo.getBtnMenuSupervisor().setVisible(true);
 			this.pantallaAdministrativo.getBtnMenuSupervisor().addActionListener(this);

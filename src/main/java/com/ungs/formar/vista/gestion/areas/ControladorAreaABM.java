@@ -5,60 +5,38 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
-import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AreaManager;
 import com.ungs.formar.negocios.ContactoManager;
-import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
-import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
-import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
-import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
-import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.contactos.ControladorConsultaInteresados;
-import com.ungs.formar.vista.consulta.contactos.VentanaConsultaInteresados;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
-import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
-import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
-import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
-import com.ungs.formar.vista.ventanas.VentanaProgramaAM;
-import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
-public class ControladorAreaABM implements ActionListener, Consultable {
+public class ControladorAreaABM implements ActionListener, Consultable, ControladorInterno {
 	private GestionarAreas ventanaAreaGestion;
 	private AltaModifArea ventanaAreaAM;
-	private VentanaSeleccionarArea ventanaSeleccionarArea;
-	private ControladorPantallaPrincipal controladorPrincipal;
+	private ControladorPrincipal controladorPrincipal;
 	private List<Area> areas;
 	private Area area;
 	
-	public ControladorAreaABM(GestionarAreas ventanaAreaGestion, ControladorPantallaPrincipal controladorPrincipal){
+	public ControladorAreaABM(GestionarAreas ventanaAreaGestion, ControladorPrincipal controladorPrincipal){
 		this.ventanaAreaGestion = ventanaAreaGestion;
 		this.controladorPrincipal = controladorPrincipal;
-		this.ventanaAreaGestion.getBtnCancelar().addActionListener(this);
-		this.ventanaAreaGestion.getBtnAgregar().addActionListener(this);
-		this.ventanaAreaGestion.getBtnEditar().addActionListener(this);
-		this.ventanaAreaGestion.getBtnBorrar().addActionListener(this);
-		this.ventanaAreaGestion.getBtnVerInteresados().addActionListener(this);
+		this.ventanaAreaGestion.getBtnAgregar().addActionListener(s -> iniciarAlta());
+		this.ventanaAreaGestion.getBtnEditar().addActionListener(s -> iniciarModificacion());
+		this.ventanaAreaGestion.getBtnBorrar().addActionListener(s -> iniciarBaja());
+		this.ventanaAreaGestion.getBtnVerInteresados().addActionListener(s -> mostrarInteresados());
 		this.inicializar();
 	}
 
 	public void inicializar() {
-		this.ventanaAreaGestion.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				ventanaAreaGestion.getBtnCancelar().doClick();
-			}
-		});
 		llenarTabla();
 		ventanaAreaGestion.setVisible(true);
 		ventanaAreaGestion.setEnabled(true);
@@ -84,44 +62,26 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 		ventanaAreaGestion.getTablaAreas().getColumnModel().getColumn(1).setPreferredWidth(400);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == ventanaAreaGestion.getBtnAgregar()){
-			iniciarAlta();
-		}
-		else if (e.getSource() == ventanaAreaGestion.getBtnBorrar()){
-			iniciarBaja();
-		}
-		else if (e.getSource() == ventanaAreaGestion.getBtnEditar()){
-			iniciarModificacion();
-		}
-		else if (e.getSource() == ventanaAreaGestion.getBtnCancelar()){
-			retroceder();
-		}
-		else if(e.getSource() == ventanaAreaGestion.getBtnVerInteresados()){
-			List<Area> areas = obtenerAreasSeleccionados();
-			if (areas.size() != 1) {
-				Popup.mostrar("Seleccione exactamente un area para ver sus interesados.");
-			} else {
-				if (ContactoManager.traerInteresadosArea(areas.get(0).getID()).isEmpty()){
-					Popup.mostrar("El area seleccionada no tiene interesados.");
-					return;
-				}
-				new ControladorConsultaInteresados(this, areas.get(0));
-				ventanaAreaGestion.setEnabled(false);
+	public void actionPerformed(ActionEvent e) {}
+
+	private void mostrarInteresados() {
+		List<Area> areas = obtenerAreasSeleccionados();
+		if (areas.size() != 1) {
+			Popup.mostrar("Seleccione exactamente un area para ver sus interesados.");
+		} else {
+			if (ContactoManager.traerInteresadosArea(areas.get(0).getID()).isEmpty()){
+				Popup.mostrar("El area seleccionada no tiene interesados.");
+				return;
 			}
+			new ControladorConsultaInteresados(this, areas.get(0));
+			controladorPrincipal.getVentana().setEnabled(false);
 		}
-		else if (e.getActionCommand() == "guardar") {
-			aceptarAM();
-		}
-		else if (e.getActionCommand() == "cancelar"){
-			cancelarAM();
-		}	
 	}
 	
 	private void iniciarAlta() {
 		ventanaAreaAM = new AltaModifArea();
-		this.ventanaAreaAM.getBtnCancelar().addActionListener(this);
-		this.ventanaAreaAM.getBtnGuardar().addActionListener(this);
+		this.ventanaAreaAM.getBtnCancelar().addActionListener(s -> cancelarAM());
+		this.ventanaAreaAM.getBtnGuardar().addActionListener(s -> aceptarAM());
 		this.ventanaAreaAM.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -129,7 +89,7 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 			}
 		});
 		this.ventanaAreaAM.setVisible(true);
-		this.ventanaAreaGestion.setEnabled(false);
+		controladorPrincipal.getVentana().setEnabled(false);
 	}
 
 	private void iniciarBaja() {
@@ -169,8 +129,8 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 			this.ventanaAreaAM.getTxtNombre().setText(aEditar.getNombre());
 			this.ventanaAreaAM.getTxtDescripcion().setText(aEditar.getDescripcion());
 			
-			this.ventanaAreaAM.getBtnCancelar().addActionListener(this);
-			this.ventanaAreaAM.getBtnGuardar().addActionListener(this);
+			this.ventanaAreaAM.getBtnCancelar().addActionListener(s -> cancelarAM());
+			this.ventanaAreaAM.getBtnGuardar().addActionListener(s -> aceptarAM());
 			this.ventanaAreaAM.addWindowListener(new WindowAdapter(){
 				@Override
 				public void windowClosing(WindowEvent e) {
@@ -178,13 +138,8 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 				}
 			});
 			this.ventanaAreaAM.setVisible(true);
-			this.ventanaAreaGestion.setEnabled(false);
+			controladorPrincipal.getVentana().setEnabled(false);
 		}
-	}
-
-	private void retroceder() {
-		this.ventanaAreaGestion.dispose();
-		this.controladorPrincipal.inicializar();
 	}
 
 	private void aceptarAM() {
@@ -202,8 +157,8 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 			
 			llenarTabla();
 			ventanaAreaAM.dispose();
-			ventanaAreaGestion.setEnabled(true);
-			ventanaAreaGestion.setVisible(true);
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().setVisible(true);
 		}
 		
 	}
@@ -213,8 +168,8 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			ventanaAreaAM.dispose();
-			ventanaAreaGestion.setEnabled(true);
-			ventanaAreaGestion.toFront();
+			controladorPrincipal.getVentana().setEnabled(true);
+			controladorPrincipal.getVentana().toFront();
 		}
 	}
 	
@@ -270,8 +225,18 @@ public class ControladorAreaABM implements ActionListener, Consultable {
 
 	@Override
 	public void habilitarPrincipal() {
-		// TODO Auto-generated method stub
-		
+		controladorPrincipal.getVentana().setEnabled(true);
+		controladorPrincipal.getVentana().toFront();
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaAreaGestion;
 	}
 
 }

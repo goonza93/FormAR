@@ -1,46 +1,22 @@
 package com.ungs.formar.vista.gestion.areas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 
 public class AltaModifArea extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JButton btnCancelar, btnGuardar;
 	private JTextField txtDescripcion;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AltaModifArea frame = new AltaModifArea();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Comentario de prueba
-	 * segundo coemntario de prueba
-	 */
 	public AltaModifArea() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 423, 139);
@@ -51,12 +27,6 @@ public class AltaModifArea extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
 		
 		JLabel lblNombre = new JLabel("NOMBRE:");
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 12));

@@ -1,7 +1,5 @@
 package com.ungs.formar.vista.gestion.areas;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,8 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Font;
@@ -25,25 +21,29 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class GestionarAreas extends JFrame {
+import com.ungs.formar.vista.util.VentanaInterna;
+
+public class GestionarAreas extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel modelTemas;
 	private String[] nombreColumnas = { "Nombre", "Descripcion" };
 	private JTable tablaAreas;
 	private JTextField txtFiltroDescripcion;
-	private JButton btnCancelar, btnAgregar, btnEditar, btnBorrar, btnConsultarInteresados;
+	private JButton btnAgregar, btnEditar, btnBorrar, btnConsultarInteresados;
 	private JTextField txtFiltroNombre;
 	private final TableRowSorter<TableModel> filtro;
 
 	public GestionarAreas() {
+		super("Consultar areas", 650, 400);
+		/*
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
-		setTitle("GESTIONAR AREAS");
+		setTitle("GESTIONAR AREAS");*/
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
 
 		JScrollPane spAreas = new JScrollPane();
 
@@ -69,9 +69,6 @@ public class GestionarAreas extends JFrame {
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
-
 		JLabel lblFiltro = new JLabel("FILTRAR POR DESCRIPCION: ");
 		lblFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 
@@ -96,7 +93,7 @@ public class GestionarAreas extends JFrame {
 			}
 
 			public void changedUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
+				
 			}
 		});
 
@@ -128,8 +125,8 @@ public class GestionarAreas extends JFrame {
 							.addComponent(lblFiltro, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
 							.addGap(22)
 							.addComponent(txtFiltroDescripcion, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblAreas, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
-						.addComponent(spAreas, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+						.addComponent(lblAreas, GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+						.addComponent(spAreas, GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -137,9 +134,7 @@ public class GestionarAreas extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnConsultarInteresados, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnConsultarInteresados, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)))
 					.addGap(7))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -160,25 +155,16 @@ public class GestionarAreas extends JFrame {
 					.addGap(14)
 					.addComponent(lblAreas, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 					.addGap(11)
-					.addComponent(spAreas, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+					.addComponent(spAreas, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
 					.addGap(11)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnConsultarInteresados)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnConsultarInteresados))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				btnCancelar.doClick();
-			}
-		});
 	
 		DocumentListener listener = crearFiltroListener();
 		txtFiltroDescripcion.getDocument().addDocumentListener(listener);
@@ -211,10 +197,6 @@ public class GestionarAreas extends JFrame {
 
 	public JTextField getTxtFiltroDescripcion() {
 		return txtFiltroDescripcion;
-	}
-
-	public JButton getBtnCancelar() {
-		return btnCancelar;
 	}
 
 	public JButton getBtnAgregar() {
