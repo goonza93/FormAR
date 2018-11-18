@@ -221,7 +221,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			pantallaAdministrativo.ocultar();
 			new ControladorPagoABM(this);
 		}*/
-
+/*
 		// BOTON GESTIONAR CONTACTOS
 		else if (e.getSource() == pantallaAdministrativo.getBtnGestionarContacto()) {
 			// VENTANA GESTIONAR CONTACTO
@@ -229,7 +229,7 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.ventanaGestionarContactos.mostrar();
 			this.pantallaAdministrativo.ocultar();
 			new ControladorContactos(this.ventanaGestionarContactos, this);
-		}
+		}*/
 
 		// BOTON CAMBIAR PASS
 		else if (e.getSource() == pantallaAdministrativo.getBtnCambiarPass()) {

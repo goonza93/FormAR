@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
@@ -16,19 +17,19 @@ import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteracciones;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
-public class ControladorContactos implements ActionListener {
+public class ControladorContactos implements ActionListener, ControladorInterno {
 	private VentanaContactos ventanaGestionarContactos;
 	private VentanaContactosAM ventanaAM;
 	private VentanaInteracciones ventanaGestionarInteracciones;
-	private ControladorPantallaPrincipal controlador;
+	private ControladorPrincipal controlador;
 	private List<Interesado> contactos;
 	
-	
-	
-	public ControladorContactos(VentanaContactos ventana, ControladorPantallaPrincipal controlador) {
+	public ControladorContactos(VentanaContactos ventana, ControladorPrincipal controlador) {
 		this.ventanaGestionarContactos = ventana;
 		this.controlador = controlador;
 		this.ventanaGestionarContactos.getAgregar().addActionListener(this);
@@ -36,9 +37,22 @@ public class ControladorContactos implements ActionListener {
 		this.ventanaGestionarContactos.getEditar().addActionListener(this);
 		this.ventanaGestionarContactos.getVerInteracciones().addActionListener(this);
 		this.ventanaGestionarContactos.getConvertirEnAlumno().addActionListener(this);
-		this.ventanaGestionarContactos.getCancelar().addActionListener(this);
-		this.ventanaGestionarContactos.getVentana().setTitle("GESTION DE CONTACTOS");
 		this.inicializar();
+	}
+	
+	public ControladorContactos(ControladorPrincipal controlador) {
+		this.ventanaAM = new VentanaContactosAM();
+		this.controlador = controlador;
+		ventanaAM.getAceptar().addActionListener(s -> aceptarAMP());
+		ventanaAM.getCancelar().addActionListener(s -> cerrarVentanaAM());
+		ventanaAM.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cerrarVentanaAM();
+			}
+		});
+		ventanaAM.setVisible(true);
+		this.controlador.getVentana().setEnabled(false);
 	}
 
 	public void inicializar() {
@@ -65,10 +79,6 @@ public class ControladorContactos implements ActionListener {
 		// BOTON AGREGAR DEL ABM
 		if (e.getSource() == ventanaGestionarContactos.getAgregar()) {
 			abrirVentanaAlta();
-		}
-		// BOTON CANCELAR DEL ABM
-		else if (e.getSource() == ventanaGestionarContactos.getCancelar()) {
-			cerrarVentanaContactos();
 		}
 		// BOTON EDITAR DEL ABM
 		else if (e.getSource() == ventanaGestionarContactos.getEditar()) {
@@ -111,7 +121,7 @@ public class ControladorContactos implements ActionListener {
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaGestionarContactos.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 	
 	private void abrirVentanaModificacion() {
@@ -132,7 +142,7 @@ public class ControladorContactos implements ActionListener {
 			}
 		});
 		ventanaAM.setVisible(true);
-		ventanaGestionarContactos.getVentana().setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 	
 	private void borrar() {
@@ -172,14 +182,8 @@ public class ControladorContactos implements ActionListener {
 		}
 		this.ventanaGestionarInteracciones = new VentanaInteracciones();
 		this.ventanaGestionarInteracciones.mostrar();
-		this.ventanaGestionarContactos.ocultar();
+		controlador.getVentana().setEnabled(false);
 		new ControladorInteracciones(this.ventanaGestionarInteracciones, this, seleccionados.get(0));
-	}
-
-	private void cerrarVentanaContactos() {
-		ventanaGestionarContactos.getVentana().dispose();
-		ventanaGestionarContactos = null;
-		controlador.inicializar();
 	}
 	
 	private void aceptarAM() {
@@ -204,9 +208,38 @@ public class ControladorContactos implements ActionListener {
 
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaGestionarContactos.getVentana().setEnabled(true);
-			ventanaGestionarContactos.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
 			inicializar();
+		}
+	}
+	
+	private void aceptarAMP() {
+		if (validarCampos()) {
+			Interesado contacto = ventanaAM.getContacto();
+			String apellido = ventanaAM.getApellido().getText();
+			String nombre = ventanaAM.getNombre().getText();
+			String dni = ventanaAM.getDNI().getText();
+			String telefono = ventanaAM.getTelefono().getText();
+			String email = ventanaAM.getEmail().getText();
+
+			if (contacto == null)
+				ContactoManager.crearContacto(dni, nombre, apellido, telefono, email);
+			else {
+				contacto.setApellido(apellido);
+				contacto.setNombre(nombre);
+				contacto.setDNI(dni);
+				contacto.setTelefono(telefono);
+				contacto.setEmail(email);
+				ContactoManager.editarContacto(contacto);
+			}
+
+			ventanaAM.dispose();
+			ventanaAM = null;
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
 		}
 	}
 	
@@ -216,8 +249,9 @@ public class ControladorContactos implements ActionListener {
 		if (confirm == 0) {
 			ventanaAM.dispose();
 			ventanaAM = null;
-			ventanaGestionarContactos.getVentana().setEnabled(true);
-			ventanaGestionarContactos.getVentana().setVisible(true);
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
 		}
 	}
 	
@@ -345,6 +379,21 @@ public class ControladorContactos implements ActionListener {
 			JOptionPane.showMessageDialog(null, mensaje);
 
 		return isOk;
+	}
+
+	public void habilitarPrincipal(){
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
+	}
+	
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaGestionarContactos;
 	}
 	
 }
