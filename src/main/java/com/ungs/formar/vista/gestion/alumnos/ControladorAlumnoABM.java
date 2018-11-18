@@ -26,6 +26,8 @@ import com.ungs.formar.vista.controladores.seleccion.ControladorSeleccionarProgr
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccionesAM;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
+import com.ungs.formar.vista.reportes.Analitico;
+import com.ungs.formar.vista.reportes.FacturaPago;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
@@ -60,6 +62,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		this.ventanaABM.getOcultar().addActionListener(this);
 		this.ventanaABM.getInscripciones().addActionListener(this);
 		this.ventanaABM.getCrearInteraccion().addActionListener(this);
+		this.ventanaABM.getBtnAnalitico().addActionListener(this);
 /*
 		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
 			@Override
@@ -157,6 +160,10 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			// BOTON OCULTAR FILTROS
 			else if (e.getSource() == ventanaABM.getOcultar())
 				ocultarFiltros();
+			
+			//BOTON GENERAR ANALITICO
+			else if (e.getSource() == ventanaABM.getBtnAnalitico())
+				generarAnalitico();
 		}
 		else if (ventanaAM != null) {
 			// BOTON ACEPTAR DEL AM
@@ -615,4 +622,13 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		
 	}
 
+	private void generarAnalitico(){
+		List<Alumno> alumnos = obtenerAlumnosSeleccionados();
+		if(alumnos.size()!=1)
+			Popup.mostrar("Por favor, seleccione exactamente un alumno");
+		else{
+			Analitico reporte = new Analitico(alumnos.get(0));
+			reporte.mostrar();
+		}
+	}
 }
