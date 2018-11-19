@@ -1,8 +1,5 @@
 package com.ungs.formar.vista.ventanas.seleccion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,10 +20,10 @@ import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class SeleccionarPrograma extends JFrame {
 
 	private JPanel contentPane;

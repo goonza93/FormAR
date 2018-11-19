@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,25 +13,20 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.border.MatteBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import java.awt.Color;
-
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+@SuppressWarnings("serial")
 public class InteresesTema extends JFrame {
 
 	private JPanel contentPane;
@@ -62,6 +56,7 @@ public class InteresesTema extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	public InteresesTema() {
 		setBounds(100, 100, 581, 493);
 		contentPane = new JPanel();

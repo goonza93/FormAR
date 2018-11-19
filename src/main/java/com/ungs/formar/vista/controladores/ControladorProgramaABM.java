@@ -7,21 +7,17 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Validador;
-import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.contactos.ControladorConsultaInteresados;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;

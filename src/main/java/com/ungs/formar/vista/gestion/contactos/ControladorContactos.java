@@ -7,10 +7,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.ContactoManager;
 import com.ungs.formar.negocios.ReportesManager;
@@ -20,7 +18,6 @@ import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.vista.gestion.contactos.interacciones.ControladorInteracciones;
 import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteracciones;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.reportes.GestionHistorialDeContacto;
 import com.ungs.formar.vista.util.Popup;

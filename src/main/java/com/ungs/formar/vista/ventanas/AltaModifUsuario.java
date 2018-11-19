@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,6 +16,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class AltaModifUsuario extends JFrame {
 
 	private JPanel contentPane;
@@ -63,6 +63,7 @@ public class AltaModifUsuario extends JFrame {
 		lblTipoDeUsuario.setBounds(10, 11, 146, 14);
 		contentPane.add(lblTipoDeUsuario);
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboTipoUsuario = new JComboBox();
 		comboTipoUsuario.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboTipoUsuario.setBounds(166, 8, 224, 20);

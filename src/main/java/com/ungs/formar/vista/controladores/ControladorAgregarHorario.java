@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import com.ungs.formar.negocios.DiaManager;
 import com.ungs.formar.negocios.HorarioCursadaManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Dia;

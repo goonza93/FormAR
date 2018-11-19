@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,8 +15,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Font;
@@ -27,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class GestionarUsuarios extends JFrame {
 
 	private JPanel contentPane;
@@ -110,6 +108,7 @@ public class GestionarUsuarios extends JFrame {
 		lblFiltrarPor.setBounds(10, 17, 131, 14);
 		contentPane.add(lblFiltrarPor);
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboFiltrarPor = new JComboBox();
 		comboFiltrarPor.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboFiltrarPor.setBounds(151, 11, 178, 20);
@@ -140,6 +139,7 @@ public class GestionarUsuarios extends JFrame {
 			}
         });
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboOrdenarPor = new JComboBox();
 		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboOrdenarPor.setBounds(151, 67, 178, 20);

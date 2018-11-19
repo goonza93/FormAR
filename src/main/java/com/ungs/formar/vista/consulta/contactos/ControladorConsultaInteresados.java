@@ -3,9 +3,7 @@ package com.ungs.formar.vista.consulta.contactos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import com.ungs.formar.negocios.ContactoManager;
-import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Interesado;
 import com.ungs.formar.persistencia.entidades.Programa;

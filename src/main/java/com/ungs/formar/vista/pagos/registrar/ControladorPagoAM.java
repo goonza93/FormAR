@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Tesoreria;
@@ -15,8 +13,6 @@ import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.pagos.ControladorPagoABM;
 import com.ungs.formar.vista.seleccion.alumnos.AlumnoSeleccionable;
-import com.ungs.formar.vista.seleccion.alumnos.ControladorSeleccionarAlumno;
-import com.ungs.formar.vista.seleccion.cursos.ControladorSeleccionarCurso;
 import com.ungs.formar.vista.seleccion.cursos.CursoSeleccionable;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;

@@ -1,15 +1,10 @@
 package com.ungs.formar.vista.gestion.contactos;
 
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,7 +18,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import com.ungs.formar.vista.util.VentanaInterna;
 
 public class VentanaContactos extends VentanaInterna {

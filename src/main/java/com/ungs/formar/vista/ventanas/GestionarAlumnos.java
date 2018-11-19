@@ -1,12 +1,7 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -16,7 +11,6 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -27,8 +21,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class GestionarAlumnos {
 	private JFrame frame;
@@ -218,6 +210,7 @@ public class GestionarAlumnos {
 		frame.getContentPane().setLayout(groupLayout);
 
 		DocumentListener dl = new DocumentListener() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void insertUpdate(DocumentEvent e) {
 				List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
 				RowFilter nombre = RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1);
@@ -252,6 +245,7 @@ public class GestionarAlumnos {
 				// }
 			}
 
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void removeUpdate(DocumentEvent e) {
 				List<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>(2);
 				RowFilter nombre = RowFilter.regexFilter("(?i)" + txtNombre.getText(), 1);

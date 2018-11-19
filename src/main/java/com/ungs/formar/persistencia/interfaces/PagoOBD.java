@@ -1,8 +1,6 @@
 package com.ungs.formar.persistencia.interfaces;
 
-import java.sql.Date;
 import java.util.List;
-
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;

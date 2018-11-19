@@ -2,18 +2,11 @@ package com.ungs.formar.vista.notificaciones;
 
 import java.util.List;
 import java.util.ListIterator;
-
 import javax.swing.JInternalFrame;
-
-import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.NotificacionManager;
-import com.ungs.formar.negocios.TareaManager;
-import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.entidades.Notificacion;
-import com.ungs.formar.persistencia.entidades.Tarea;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
-import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Sesion;
 
 public class ControladorNotificaciones implements ControladorInterno {

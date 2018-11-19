@@ -1,7 +1,5 @@
 package com.ungs.formar.vista.gestion.alumnos;
 
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +23,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class VentanaAlumnoABM extends VentanaInterna {
 	private JTable tablaAlumnos;
 	private DefaultTableModel modeloAlumnos;

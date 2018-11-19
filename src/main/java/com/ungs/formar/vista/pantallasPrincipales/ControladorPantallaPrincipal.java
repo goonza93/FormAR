@@ -51,6 +51,7 @@ import com.ungs.formar.vista.util.Sesion;
 import com.ungs.formar.vista.ventanas.CambiarPass;
 import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 
+@SuppressWarnings("unused")
 public class ControladorPantallaPrincipal implements ActionListener {
 	private PantallaPrincipalAdministrativo pantallaAdministrativo;
 	private PantallaPrincipalSupervisor pantallaSupervisor;

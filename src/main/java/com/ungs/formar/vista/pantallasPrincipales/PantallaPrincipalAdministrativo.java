@@ -21,9 +21,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class PantallaPrincipalAdministrativo {
 	private JFrame frame;
 	private JButton btnGestionarInstructores;

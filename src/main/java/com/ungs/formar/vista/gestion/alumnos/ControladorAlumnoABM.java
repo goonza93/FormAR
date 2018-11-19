@@ -46,7 +46,9 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 	private ControladorPrincipal controladorPrincipal;
 	private List<Alumno> alumnos;
 	private Interesado contactoTemp;
+	@SuppressWarnings("unused")
 	private Area areaSeleccionada;
+	@SuppressWarnings("unused")
 	private Programa cursoSeleccionado;
 
 	public ControladorAlumnoABM(VentanaAlumnoABM ventanaABM, ControladorPrincipal controlador) {
@@ -610,9 +612,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 	}
 
 	@Override
-	public void habilitarPrincipal() {
-		// TODO Auto-generated method stub
-		
+	public void habilitarPrincipal() {		
 	}
 
 	private void generarAnalitico(){

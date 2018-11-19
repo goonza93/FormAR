@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,8 +15,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Font;
@@ -27,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class ConsultarInteresTema extends JFrame {
 
 	private JPanel contentPane;
@@ -90,6 +88,7 @@ public class ConsultarInteresTema extends JFrame {
 		btnCancelar.setBounds(181, 312, 161, 23);
 		contentPane.add(btnCancelar);
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboBox.setBounds(151, 11, 178, 20);

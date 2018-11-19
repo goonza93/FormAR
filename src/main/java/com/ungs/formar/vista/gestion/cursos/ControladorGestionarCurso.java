@@ -4,10 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;
@@ -28,7 +26,6 @@ import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;

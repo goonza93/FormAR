@@ -8,15 +8,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.UUID;
-
 import javax.swing.JFrame;
-
 import com.ungs.formar.negocios.EmailSender;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;

@@ -1,16 +1,20 @@
 package com.ungs.formar.vista.ventanas;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class CambiarPass extends JFrame {
 
 	private JPanel contentPane;

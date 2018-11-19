@@ -4,16 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import com.ungs.formar.negocios.CursoManager;
-import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.controladores.ControladorAgregarHorario;
-import com.ungs.formar.vista.gestion.cursos.ControladorCrearCurso;
 import com.ungs.formar.vista.ventanas.seleccion.SeleccionarSala;
 
 public class ControladorSeleccionarSala implements ActionListener {

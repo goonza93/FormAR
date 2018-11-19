@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
-
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Instructor;
@@ -15,7 +14,6 @@ import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
-import com.ungs.formar.vista.instructores.notas.ControladorGestionNotas;
 import com.ungs.formar.vista.util.Formato;
 
 public class ControladorConsultarNotas implements ActionListener, Consultable {

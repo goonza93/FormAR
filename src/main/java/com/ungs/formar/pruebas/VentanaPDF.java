@@ -13,23 +13,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.ungs.formar.persistencia.ODB;
-import com.ungs.formar.persistencia.entidades.Curso;
 
 public class VentanaPDF extends ODB implements ActionListener{
 	private JFrame ventana;

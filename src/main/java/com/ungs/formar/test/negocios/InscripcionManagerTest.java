@@ -1,8 +1,6 @@
 package com.ungs.formar.test.negocios;
 
 import java.util.List;
-
-import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Programa;
 

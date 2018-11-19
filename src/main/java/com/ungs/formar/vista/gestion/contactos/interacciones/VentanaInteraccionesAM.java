@@ -108,7 +108,7 @@ public class VentanaInteraccionesAM extends JFrame {
 		panelBotones.add(btnCancelar);
 		
 		// ACOMODO LOS PANELES EN LA VENTANA
-		PanelHorizontal panelH = new PanelHorizontal();
+		//PanelHorizontal panelH = new PanelHorizontal();
 		panelPrincipal.add(panelArea);
 		panelPrincipal.add(panelCurso);
 		panelPrincipal.add(panelDescripcion);

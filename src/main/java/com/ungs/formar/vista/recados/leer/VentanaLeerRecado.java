@@ -3,10 +3,8 @@ package com.ungs.formar.vista.recados.leer;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTMLEditorKit;
-
 import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;

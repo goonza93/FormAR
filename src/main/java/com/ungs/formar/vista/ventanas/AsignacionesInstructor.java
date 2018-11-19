@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.ventanas;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,23 +13,18 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Font;
 
 import javax.swing.JLabel;
-import javax.swing.border.MatteBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import java.awt.Color;
-
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class AsignacionesInstructor extends JFrame {
 
 	private JPanel contentPane;
@@ -114,6 +108,7 @@ public class AsignacionesInstructor extends JFrame {
 		lblFiltrarPor.setBounds(10, 92, 131, 14);
 		contentPane.add(lblFiltrarPor);
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboFiltrarPor = new JComboBox();
 		comboFiltrarPor.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboFiltrarPor.setBounds(151, 86, 178, 20);
@@ -144,6 +139,7 @@ public class AsignacionesInstructor extends JFrame {
 			}
         });
 		
+		@SuppressWarnings("rawtypes")
 		JComboBox comboOrdenarPor = new JComboBox();
 		comboOrdenarPor.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboOrdenarPor.setBounds(151, 142, 178, 20);

@@ -1,16 +1,10 @@
 package com.ungs.formar.negocios;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.ungs.formar.persistencia.FactoryODB;
-import com.ungs.formar.persistencia.entidades.Area;
-import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
-import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 import com.ungs.formar.persistencia.interfaces.InteraccionOBD;
 import com.ungs.formar.persistencia.interfaces.InteresadoOBD;
 

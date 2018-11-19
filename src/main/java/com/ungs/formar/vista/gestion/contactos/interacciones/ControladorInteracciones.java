@@ -35,7 +35,9 @@ public class ControladorInteracciones implements ActionListener, AreaSeleccionab
 	private Interesado contactoSeleccionado;
 	private ControladorContactos controlador;
 	private List<Interaccion> interacciones;
+	@SuppressWarnings("unused")
 	private Area areaSeleccionada;
+	@SuppressWarnings("unused")
 	private Programa cursoSeleccionado;
 	
 	public ControladorInteracciones(VentanaInteracciones ventana, ControladorContactos invocador, Interesado seleccionado){

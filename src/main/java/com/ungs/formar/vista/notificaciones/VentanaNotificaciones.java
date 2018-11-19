@@ -1,25 +1,16 @@
 package com.ungs.formar.vista.notificaciones;
 
 import java.awt.Font;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
 import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import com.ungs.formar.vista.tablas.RenderNotificaciones;
-import com.ungs.formar.vista.tablas.RenderTareas;
 import com.ungs.formar.vista.util.VentanaInterna;
 
 public class VentanaNotificaciones extends VentanaInterna{

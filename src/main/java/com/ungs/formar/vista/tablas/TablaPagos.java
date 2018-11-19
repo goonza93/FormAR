@@ -1,6 +1,5 @@
 package com.ungs.formar.vista.tablas;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 

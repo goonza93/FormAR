@@ -3,10 +3,6 @@ package com.ungs.formar.pruebas.ventanainterna;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias;
-import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
-import com.ungs.formar.vista.util.PanelVertical;
-
 public class ControladorPrincipal implements ActionListener {
 	VentanaPrincipal ventana;
 	ControladorInterno controlador;
@@ -42,7 +38,7 @@ public class ControladorPrincipal implements ActionListener {
 		else if (e.getSource() == ventana.menuInstructorAltaAsistencia())
 			mostrarAltaAsistencia();
 	}
-
+/*
 	private void mostrarVentana(ControladorInterno nuevo) {
 		if (controlador == null || controlador.finalizar()) {
 			ventana.getContentPane().removeAll();
@@ -53,7 +49,7 @@ public class ControladorPrincipal implements ActionListener {
 			panel.add(controlador.getVentana());
 			ventana.setContentPane(panel);
 		}
-	}
+	}*/
 
 	private void mostrarAltaAsistencia() {
 		//mostrarVentana(new ControladorGestionAsistencias2(this));

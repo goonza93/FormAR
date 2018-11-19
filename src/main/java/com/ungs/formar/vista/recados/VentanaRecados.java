@@ -2,21 +2,18 @@ package com.ungs.formar.vista.recados;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.tablas.TablaRecados;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Sesion;
-import com.ungs.formar.vista.util.Ventana;
 import com.ungs.formar.vista.util.VentanaInterna;
 
 public class VentanaRecados extends VentanaInterna {

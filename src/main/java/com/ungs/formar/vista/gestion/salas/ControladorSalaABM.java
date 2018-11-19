@@ -9,7 +9,6 @@ import com.ungs.formar.negocios.SalaManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 
 public class ControladorSalaABM implements ActionListener, ControladorInterno {

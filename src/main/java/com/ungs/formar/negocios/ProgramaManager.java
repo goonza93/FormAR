@@ -7,12 +7,9 @@ import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfaces.AreaOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
-import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
 import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.entidades.HorarioCursada;
-import com.ungs.formar.persistencia.entidades.Programa;
 
 public class ProgramaManager {
 	

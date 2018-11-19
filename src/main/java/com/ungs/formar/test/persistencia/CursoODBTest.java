@@ -35,6 +35,7 @@ public class CursoODBTest {
 	
 	public static void main(String[] args) throws ParseException {
 		DateFormat formato = new SimpleDateFormat("MM-dd-yyyy");
+		@SuppressWarnings("unused")
 		Date sqlDate = new Date(formato.parse("02-04-2015").getTime());
 		selectTest();
 		selectIDMasRecienteTest();

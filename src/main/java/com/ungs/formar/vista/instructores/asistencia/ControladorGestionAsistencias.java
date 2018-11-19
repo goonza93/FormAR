@@ -10,8 +10,6 @@ import java.util.List;
 import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.vista.instructores.asistencia.alta.ControladorTomarAsistencia;
-import com.ungs.formar.vista.instructores.asistencia.consultar.ControladorConsultarAsistencia;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.util.Popup;
 

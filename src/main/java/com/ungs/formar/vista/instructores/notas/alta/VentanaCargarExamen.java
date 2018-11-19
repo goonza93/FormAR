@@ -1,8 +1,6 @@
 package com.ungs.formar.vista.instructores.notas.alta;
 
 import java.awt.Dimension;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +9,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.vista.util.Imagen;

@@ -1,22 +1,15 @@
 package com.ungs.formar.vista.gestion.salas;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import java.awt.Font;
-
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -25,7 +18,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
 import com.ungs.formar.vista.util.VentanaInterna;
 
 public class VentanaSalaABM extends VentanaInterna {

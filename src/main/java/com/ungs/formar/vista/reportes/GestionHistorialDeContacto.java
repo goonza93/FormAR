@@ -1,29 +1,26 @@
 package com.ungs.formar.vista.reportes;
 
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
-import com.ungs.formar.persistencia.entidades.Pago;
-import com.ungs.formar.vista.tablas.TablaPagos;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
-import com.ungs.formar.vista.util.VentanaInterna;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class GestionHistorialDeContacto{
 
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	private JButton btnBuscar, btnCancelar;
 	public JFrame ventana;

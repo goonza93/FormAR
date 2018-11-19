@@ -1,10 +1,8 @@
 package com.ungs.formar.vista.reportes;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.util.Formato;

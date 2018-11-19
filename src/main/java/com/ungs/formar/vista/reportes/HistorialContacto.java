@@ -2,7 +2,6 @@ package com.ungs.formar.vista.reportes;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,20 +9,10 @@ import java.util.Map;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AreaManager;
 import com.ungs.formar.negocios.ContactoManager;
-import com.ungs.formar.negocios.CursoManager;
-import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.ProgramaManager;
-import com.ungs.formar.negocios.ReportesManager;
-import com.ungs.formar.negocios.Tesoreria;
-import com.ungs.formar.persistencia.definidos.EstadoCurso;
-import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
-import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.persistencia.entidades.Programa;
-import com.ungs.formar.vista.util.Formato;
-import com.ungs.formar.vista.util.Popup;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;

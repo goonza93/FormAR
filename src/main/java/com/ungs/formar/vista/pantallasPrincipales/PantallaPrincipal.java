@@ -1,9 +1,5 @@
 package com.ungs.formar.vista.pantallasPrincipales;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
@@ -18,9 +14,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-
-import com.ungs.formar.negocios.EmpleadoManager;
-import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.vista.util.Sesion;
 

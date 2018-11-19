@@ -2,22 +2,16 @@ package com.ungs.formar.vista.pagos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JInternalFrame;
-
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Alumno;
-import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.pagos.registrar.ControladorPagoAM;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.reportes.FacturaPago;
 import com.ungs.formar.vista.util.Popup;

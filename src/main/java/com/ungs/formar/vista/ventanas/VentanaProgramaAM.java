@@ -1,10 +1,8 @@
 package com.ungs.formar.vista.ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -18,9 +16,6 @@ import com.ungs.formar.persistencia.entidades.Programa;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 import javax.swing.JScrollPane;

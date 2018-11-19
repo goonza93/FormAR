@@ -14,6 +14,7 @@ public class ControladorLeerRecado implements ActionListener{
 	private VentanaLeerRecado ventana;
 	private Recado recado;
 
+	@SuppressWarnings("deprecation")
 	public ControladorLeerRecado(RecadoLegible invocador, Recado recado, boolean enviados) {
 		this.invocador = invocador;
 		this.recado = recado;

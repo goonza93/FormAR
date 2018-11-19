@@ -8,7 +8,6 @@ import java.util.List;
 import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
-import com.ungs.formar.persistencia.entidades.Interaccion;
 
 public class ControladorSeleccionarEmpleado implements ActionListener {
 	private VentanaSeleccionarEmpleado ventana;
