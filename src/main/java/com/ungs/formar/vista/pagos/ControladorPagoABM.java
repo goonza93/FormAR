@@ -58,7 +58,11 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 	private void verFactura() {
 		List<Pago> pagos = ventana.getTabla().obtenerSeleccion();
 		if (pagos.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 pago para obtener el comprobante.");
+			Popup.mostrar("Debe seleccionar exactamente 1 pago para obtener el comprobante.");
+			return;
+		}
+		if (!pagos.get(0).isPagoCompleto()) {
+			Popup.mostrar("La cuota aun no ha sido pagada.");
 			return;
 		}
 		// ventana.deshabilitar();
