@@ -25,7 +25,7 @@ public class VentanaInscripcionABM extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private JButton btnInscribir, btnPagar, btnBorrar;
 	private DefaultTableModel modeloCursos;
-	private String[] nombreColumnas = { "Curso", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
+	private String[] nombreColumnas = { "Curso", "Codigo", "Area", "Estado", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
 			"Fecha fin", "Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JTable tablaCursos;
 	private JTextField inCurso, inArea, inInstructor, inEstado, inResponsable;

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.InscripcionManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
@@ -55,7 +56,9 @@ public class ControladorInscripcionABM implements ActionListener, Consultable, C
 
 		cursos = CursoManager.traerCursos();
 		for (Curso curso : cursos) {
-			Object[] fila = { Formato.nombre(curso), Formato.area(curso), Formato.estado(curso), curso.getCupoMinimo(),
+			String nombreCursada = ProgramaManager.traerProgramaSegunID(curso.getPrograma()).getNombre();
+			String codCurso = nombreCursada.subSequence(0, 4)+"-"+curso.getID().toString();
+			Object[] fila = { Formato.nombre(curso), codCurso, Formato.area(curso), Formato.estado(curso), curso.getCupoMinimo(),
 					curso.getCupoMaximo(), curso.getFechaInicio(), curso.getFechaFin(), Formato.instructor(curso),
 					Formato.responsable(curso), Formato.horarios(curso), };
 			ventanaABM.getModeloCursos().addRow(fila);
