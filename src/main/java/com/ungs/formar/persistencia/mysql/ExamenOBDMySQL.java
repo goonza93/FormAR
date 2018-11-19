@@ -30,7 +30,12 @@ public class ExamenOBDMySQL extends ODB implements ExamenOBD {
 	public List<Examen> select() {
 		return selectByCondicion("true");
 	}
-
+	
+	public List<Examen> selectByCursoDescripcion(Curso curso, String descripcion) {
+		String condicion = "curso = "+curso.getID()+" and descripcion = '"+descripcion+"'";
+		return selectByCondicion(condicion);
+	}
+	
 	public List<Examen> selectByDescripcion(String descripcion) {
 		return selectByCondicion("descripcion = '"+descripcion+"'");
 	}

@@ -25,6 +25,10 @@ public class Validador {
 	
 	
 	// METODOS QUE USAN LOS DEMAS PARA VALIDAR CAMPOS
+	public static boolean validarExamen(String nombre) {
+		return (formatoNumeroLetraEspacio(nombre));
+	}
+	
 	public static boolean validarEmail(String texto) {
 		return texto.matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@" + "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$");
 	}

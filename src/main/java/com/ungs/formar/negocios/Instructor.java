@@ -103,4 +103,10 @@ public class Instructor {
 		return obd.selectByCursoAlumnoDescripcion(curso, alumno, examen);
 	}
 	
+	public static boolean nombreDeExamenLibre(String nombre, Curso curso) {
+		ExamenOBD obd = FactoryODB.crearExamenOBD();
+		
+		return obd.selectByCursoDescripcion(curso, nombre).isEmpty();
+	}
+	
 }

@@ -8,12 +8,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Instructor;
+import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Examen;
@@ -85,54 +84,74 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 	}
 
 	private void guardar() {
-		//mini fix por si no pierde focus y estaba a mitad de editado.
-		ventana.getTabla().getCellEditor().stopCellEditing(); //empezo a tirar error y no se porque
-		String descripcion = ventana.getNombre().getText();
+		if (validarCampos()) {
+			Date fecha = new Date(ventana.getFecha().getDate().getTime());
+			String nombre = ventana.getNombre().getText();
+	
+			for (int i=0; i < examenes.size(); i++) {
+				Examen examen = examenes.get(i);
+				examen.setFecha(fecha);
+				examen.setDescripcion(nombre);
+				examen.setNota((Integer) ventana.getModelo().getValueAt(i, 2));
+			}
+			
+			Instructor.guardarNotasDeExamen(examenes);
+			Popup.mostrar("Las notas se han guardado correctamente.");
+			volver();
+		}
+	}
+	
+	private boolean validarCampos() {
+		String mensaje = "";
 		
-		// Valido que sea una fecha valida de cursada
+		// Valido las fechas
 		Date fecha = new Date(ventana.getFecha().getDate().getTime());
-		fecha = Almanaque.normalizar(fecha);
-		boolean fechaValida = false;
-		for (Date date : Instructor.traerFechasTomarAsistencia(curso)) {
-			Date diaNormalizado = Almanaque.normalizar(date);
-			if (fecha.getTime() == diaNormalizado.getTime())
-				fechaValida = true;
-		}
+		Date fechaNormalizada = Almanaque.normalizar(fecha);
+		List<Date> lista = Instructor.traerFechasTomarAsistencia(curso);
+		boolean esValida = false;
+		for (Date elemento : lista)
+			if (fechaNormalizada.getTime() == Almanaque.normalizar(elemento).getTime())
+				esValida = true;
 		
-		if (!fechaValida) {
-			Popup.mostrar("La fecha "+fecha+" no es una fecha valida de clases para este curso.");
-			return;
-		}
+		if (!esValida)
+			mensaje += "\n    -La fecha "+fecha+" no es una fecha valida de clases para este curso.";
 		
-		boolean notasValidas = true;
+		// Valido el nombre del examen
+		String nombre = ventana.getNombre().getText();
+		if (nombre == null || nombre.equals(""))
+			mensaje += "\n    -El nombre del examen no puede estar vacio.";
+		else if (!Validador.validarExamen(nombre))
+			mensaje += "\n    -El nombre "+nombre+" no es un nombre valido de examen.";
+		else if (!Instructor.nombreDeExamenLibre(nombre, curso))
+			mensaje += "\n    -Ya esta cargado para este curso un examen con el nombre "+nombre+".";
+		
+		// Validar las notas
+		if (ventana.getTabla().getCellEditor() != null)
+			ventana.getTabla().getCellEditor().stopCellEditing();
+		
 		for (int i=0; i < examenes.size(); i++) {
-			Examen examen = examenes.get(i);
-			examen.setFecha(fecha);
-			examen.setDescripcion(descripcion);
-			DefaultTableModel modelo = ventana.getModelo(); 
-			Object valor = modelo.getValueAt(i, 2);
+			Object valor = ventana.getModelo().getValueAt(i, 2); // 2 es la columna presente, i es la fila
 			if (valor == null) {
-				notasValidas = false;
+				mensaje += "\n    -Todas las notas deben tener algun valor.";
 				break;
 			}
 			
 			int nota = (Integer) valor;
-
-			if (nota >10 || nota <1)
-				notasValidas = false;
-			examen.setNota(nota); // 2 es la columna presente, i es la fila
+			if (nota >10 || nota <1) {
+				mensaje += "\n    -Todas las notas deben tener un valor entre 1 y 10 incluidos.";
+				break;
+			} 
 		}
 		
-		if (!notasValidas) {
-			Popup.mostrar("Las notas deben ser numeros entre 1 y 10");
-			return;
+		// Si hubo erroes muestro el mensaje al usuario
+		if (!mensaje.equals("")) {
+			Popup.mostrar("Se encontraron los siguientes errores:"+mensaje);
+			return false;
 		}
 		
-		Instructor.guardarNotasDeExamen(examenes);
-		Popup.mostrar("Las notas se han guardado correctamente.");
-		volver();
+		return true;
 	}
-
+	
 	public void cancelar() {
 		if (Popup.confirmar("Si vuelve atras se perderan los datos\n¿Seguro que desea salir de esta ventana?"))
 			volver();
