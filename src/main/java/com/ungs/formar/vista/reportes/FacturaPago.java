@@ -3,10 +3,13 @@ package com.ungs.formar.vista.reportes;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.util.Formato;
+
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -31,6 +34,11 @@ public class FacturaPago
     	totalPersonas.put("totalCuotas", pago.getMes()+" de "+ Tesoreria.cantCuotas(pago.getCursada()));
     	
     	try		{
+    		/*
+    		JasperCompileManager.compileReportToFile(
+                    "FacturaPago.jrxml",//the path to the jrxml file to compile
+                    "FacturaPago.jasper");//the path and name we want to save the compiled file to
+                    */
 			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\FacturaPago.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, totalPersonas, 
 					new JRBeanCollectionDataSource(pagos));
