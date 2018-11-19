@@ -8,6 +8,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
+
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.InscripcionManager;
 import com.ungs.formar.negocios.Instructor;
@@ -17,7 +20,6 @@ import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
-import com.ungs.formar.vista.instructores.notas.ControladorGestionNotas;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorCargarExamen implements ActionListener, Consultable {
@@ -84,16 +86,46 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 
 	private void guardar() {
 		//mini fix por si no pierde focus y estaba a mitad de editado.
-		ventana.getTabla().getCellEditor().stopCellEditing();
-		
-		Date fecha = new Date(ventana.getFecha().getDate().getTime());
+		ventana.getTabla().getCellEditor().stopCellEditing(); //empezo a tirar error y no se porque
 		String descripcion = ventana.getNombre().getText();
 		
+		// Valido que sea una fecha valida de cursada
+		Date fecha = new Date(ventana.getFecha().getDate().getTime());
+		fecha = Almanaque.normalizar(fecha);
+		boolean fechaValida = false;
+		for (Date date : Instructor.traerFechasTomarAsistencia(curso)) {
+			Date diaNormalizado = Almanaque.normalizar(date);
+			if (fecha.getTime() == diaNormalizado.getTime())
+				fechaValida = true;
+		}
+		
+		if (!fechaValida) {
+			Popup.mostrar("La fecha "+fecha+" no es una fecha valida de clases para este curso.");
+			return;
+		}
+		
+		boolean notasValidas = true;
 		for (int i=0; i < examenes.size(); i++) {
 			Examen examen = examenes.get(i);
 			examen.setFecha(fecha);
 			examen.setDescripcion(descripcion);
-			examen.setNota((Integer)ventana.getModelo().getValueAt(i, 2)); // 2 es la columna presente, i es la fila
+			DefaultTableModel modelo = ventana.getModelo(); 
+			Object valor = modelo.getValueAt(i, 2);
+			if (valor == null) {
+				notasValidas = false;
+				break;
+			}
+			
+			int nota = (Integer) valor;
+
+			if (nota >10 || nota <1)
+				notasValidas = false;
+			examen.setNota(nota); // 2 es la columna presente, i es la fila
+		}
+		
+		if (!notasValidas) {
+			Popup.mostrar("Las notas deben ser numeros entre 1 y 10");
+			return;
 		}
 		
 		Instructor.guardarNotasDeExamen(examenes);
