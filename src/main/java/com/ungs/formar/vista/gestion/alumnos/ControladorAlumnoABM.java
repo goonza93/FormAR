@@ -301,7 +301,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			return;
 		}
 		else if (!(ContactoManager.estaEnUsoDNI(seleccion.get(0).getDNI()))){
-			Popup.mostrar("No existe el contacto");
 			Alumno sel = seleccion.get(0);
 			contactoTemp = new Interesado(-1, sel.getDNI(), sel.getNombre(), sel.getApellido(), sel.getTelefono(), sel.getEmail());
 			abrirVentanaInteraccionesABM(contactoTemp);
