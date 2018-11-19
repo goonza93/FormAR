@@ -35,16 +35,34 @@ public class TablaCursos extends JTable{
 					Formato.nombre(curso),
 					Formato.area(curso),
 					Formato.estado(curso),
-					curso.getCupoMinimo(),
-					curso.getCupoMaximo(),
-					curso.getFechaInicio(),
-					curso.getFechaFin(),
+					curso.getCupoMinimo().toString(),
+					curso.getCupoMaximo().toString(),
+					curso.getFechaInicio().toString(),
+					curso.getFechaFin().toString(),
 					Formato.instructor(curso),
 					Formato.responsable(curso),
 					Formato.horarios(curso)
 					};
 			modelo.addRow(fila);
+			
+			// seteo la altura de la celda
+			int registro = modelo.getRowCount() - 1;
+			int altura = Formato.calcularAlturaDeCelda(fila);
+			setRowHeight(registro, altura);
 		}
+
+		// seteo la anchura de las columnas
+		getColumn("Curso").setPreferredWidth(10);
+		getColumn("Area").setPreferredWidth(10);
+		getColumn("Estado").setPreferredWidth(10);
+		getColumn("Cupo Minimo").setPreferredWidth(10);
+		getColumn("Cupo Maximo").setPreferredWidth(10);
+		getColumn("Fecha inicio").setPreferredWidth(10);
+		getColumn("Fecha fin").setPreferredWidth(10);
+		getColumn("Instructor").setPreferredWidth(50);
+		getColumn("Responsable").setPreferredWidth(50);
+		getColumn("Salas, Dias y Horarios").setPreferredWidth(100);
+		
 	}
 	
 	public List<Curso> obtenerSeleccion() {
