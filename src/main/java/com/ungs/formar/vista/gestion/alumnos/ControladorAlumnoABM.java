@@ -27,7 +27,6 @@ import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccione
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.reportes.Analitico;
-import com.ungs.formar.vista.reportes.FacturaPago;
 import com.ungs.formar.vista.seleccion.area.AreaSeleccionable;
 import com.ungs.formar.vista.seleccion.area.ControladorSeleccionarArea;
 import com.ungs.formar.vista.seleccion.area.VentanaSeleccionarArea;
@@ -63,13 +62,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 		this.ventanaABM.getInscripciones().addActionListener(this);
 		this.ventanaABM.getCrearInteraccion().addActionListener(this);
 		this.ventanaABM.getBtnAnalitico().addActionListener(this);
-/*
-		this.ventanaABM.getVentana().addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				cerrarVentanaABM();
-			}
-		});*/
 		this.inicializar();
 	}
 	
@@ -90,10 +82,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 	}
 	
 	public void cancelarAMP(){
-		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin guardar!?", "Confirmacion",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-		if (confirm == 0) {
-			//Concurrencia.desbloquear(ventanaAM.getAlumno());
+		if (Popup.confirmar("¿Seguro de que desea salir sin guardar?")) {
 			ventanaAM.dispose();
 			ventanaAM = null;
 			controladorPrincipal.getVentana().setEnabled(true);
@@ -239,6 +228,9 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			ventanaAM = null;
 			controladorPrincipal.getVentana().setEnabled(true);
 			controladorPrincipal.getVentana().setVisible(true);
+			
+			if (ventanaABM != null)
+				llenarTabla();
 		}
 	}
 
@@ -424,6 +416,7 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 	}
 
 	private void aceptarAM() {
+		
 		if (validarCampos()) {
 			Alumno alumno = ventanaAM.getAlumno();
 			String apellido = ventanaAM.getApellido().getText();
