@@ -133,9 +133,10 @@ public class ControladorPrincipal implements ActionListener {
 	}
 	
 	private void cerrarVentana() {
-		if(Popup.confirmar("¿Esta seguro que desea salir?"))
+		if(Popup.confirmar("¿Esta seguro que desea salir?")){
 			scheduler.shutdown();
 			System.exit(0);
+		}
 	}
 	private void cerrarSesion(){
 		if(Popup.confirmar("¿Esta seguro que desea cerrar sesión?")){
