@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.table.TableColumnModel;
 import com.ungs.formar.negocios.InscripcionManager;
+import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.vista.consulta.Consultable;
@@ -36,8 +37,11 @@ public class ControladorCursosInscriptos implements ActionListener{
 
 		cursos = InscripcionManager.traerCursosInscriptos(alumno);
 		for (Curso curso : cursos) {
+			String nombreCursada = ProgramaManager.traerProgramaSegunID(curso.getPrograma()).getNombre();
+			String codCurso = nombreCursada.subSequence(0, 4)+"-"+curso.getID().toString();
 			Object[] fila = {
 					Formato.nombre(curso),
+					codCurso,
 					Formato.area(curso),
 					Formato.estado(curso),
 					curso.getFechaInicio(),
