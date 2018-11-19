@@ -42,6 +42,7 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 		this.ventanaGestionarContactos.getEditar().addActionListener(this);
 		this.ventanaGestionarContactos.getVerInteracciones().addActionListener(this);
 		this.ventanaGestionarContactos.getConvertirEnAlumno().addActionListener(this);
+		this.ventanaGestionarContactos.getBtnHistorialDeContacto().addActionListener(this);
 		this.inicializar();
 	}
 	
@@ -450,7 +451,7 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 	private void reporteHistorialContacto(){
 		String fechaAño = ventanaHistorialContacto.getInFechaAño().getText();
 		Date fechaDesde = ventanaHistorialContacto.getInFechaDesde().getDate();
-		Date fechaHasta = ventanaHistorialContacto.getInFechaDesde().getDate();
+		Date fechaHasta = ventanaHistorialContacto.getInFechaHasta().getDate();
 		Integer anoBuscar = 0;
 		String mensaje = "";
 		
@@ -468,7 +469,11 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 		}
 		
 		if((fechaDesde != null && fechaHasta == null) || (fechaDesde == null && fechaHasta != null))
-			mensaje += "- Por favor, complete ambos rangos de fechas de busqueda.";
+			mensaje += "- Por favor, complete ambos rangos de fechas de busqueda.\n";
+		
+		if((fechaAño == null || fechaAño.isEmpty()) 
+				&& ((fechaDesde == null && fechaHasta == null)))
+			mensaje += "- Por favor, seleccion un año o un rango de fechas.\n";
 		
 		if(!mensaje.isEmpty()){
 			Popup.mostrar(mensaje);

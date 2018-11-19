@@ -32,10 +32,11 @@ public class ReportesManager {
 		List<Interaccion> contactosAño = new ArrayList<Interaccion>();
 		
 		for(Interaccion interaccion : contactos){
-			if(Almanaque.añoFecha(interaccion.getFechaInteraccion())  == anoBuscar)
+			System.out.println("ANO DE INTERACCION "+Almanaque.añoFecha(interaccion.getFechaInteraccion()).toString()+"    ANO BUSCAR "+anoBuscar);
+			if(Almanaque.añoFecha(interaccion.getFechaInteraccion()).equals(anoBuscar))
 				contactosAño.add(interaccion);
 		}
-		
+		System.out.println("TOTAL DE CONTACTOS "+contactosAño.size());
 		if(!contactosAño.isEmpty()){
 			HistorialContacto reporte = new HistorialContacto(contactosAño);
 			reporte.mostrar();
@@ -51,10 +52,12 @@ public class ReportesManager {
 		List<Interaccion> contactosRango = new ArrayList<Interaccion>();
 		
 		for(Interaccion interaccion : contactos){
+			System.out.println("FECHA DE INTERACCION "+interaccion.getFechaInteraccion().toString()+"    DESDE "+fechaDesde.toString()+
+					"          HASTA"+fechaHasta.toString());
 			if(interaccion.getFechaInteraccion().after(fechaDesde) && interaccion.getFechaInteraccion().before(fechaHasta))
 				contactosRango.add(interaccion);
 		}
-		
+		System.out.println("TOTAL DE CONTACTOS "+contactosRango.size());
 		if(!contactosRango.isEmpty()){
 			HistorialContacto reporte = new HistorialContacto(contactosRango);
 			reporte.mostrar();
