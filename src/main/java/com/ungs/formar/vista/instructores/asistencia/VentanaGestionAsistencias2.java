@@ -14,7 +14,7 @@ import com.ungs.formar.vista.util.VentanaInterna;
 public class VentanaGestionAsistencias2 extends VentanaInterna{
 	private static final long serialVersionUID = 1L;
 	private TablaCursos tabla;
-	private JButton btnConsultar, btnTomar, btnConsultarNotas, btnCargar;
+	private JButton btnConsultar, btnTomar, btnConsultarNotas, btnCargar, btnVerArchivo, btnSelArchivo;
 	
 	public VentanaGestionAsistencias2() {
 		super("Gestion de cursadas", 800, 500);
@@ -31,12 +31,16 @@ public class VentanaGestionAsistencias2 extends VentanaInterna{
 		btnTomar = new JButton("Tomar asistencias");
 		btnConsultarNotas = new JButton("Consultar notas");
 		btnCargar = new JButton("Cargar examen");
+		btnVerArchivo = new JButton("Ver programa");
+		btnSelArchivo = new JButton("Seleccionar programa");
 
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnConsultar);
 		panelBotones.add(btnTomar);
 		panelBotones.add(btnConsultarNotas);
 		panelBotones.add(btnCargar);
+		panelBotones.add(btnVerArchivo);
+		panelBotones.add(btnSelArchivo);
 		
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
@@ -63,6 +67,14 @@ public class VentanaGestionAsistencias2 extends VentanaInterna{
 
 	public JButton botonCargar() {
 		return btnCargar;
+	}
+	
+	public JButton botonVerArchivo(){
+		return btnVerArchivo;
+	}
+	
+	public JButton botonSelArchivo(){
+		return btnSelArchivo;
 	}
 	
 }

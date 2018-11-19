@@ -77,6 +77,11 @@ public class CursoManager {
 			}
 		}
 	}
+	
+	public static void actualizarPdfCurso(Curso curso){
+		CursoODB odb = FactoryODB.crearCursoODB();
+		odb.update(curso);
+	}
 
 	public static List<Curso> traerCursos() {
 		CursoODB odb = FactoryODB.crearCursoODB();

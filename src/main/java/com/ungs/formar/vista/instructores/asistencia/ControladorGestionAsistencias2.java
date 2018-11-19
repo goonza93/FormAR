@@ -2,15 +2,22 @@ package com.ungs.formar.vista.instructores.asistencia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.ungs.formar.negocios.Almanaque;
+import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Instructor;
+import com.ungs.formar.negocios.PdfManager;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Pdf;
 import com.ungs.formar.vista.instructores.asistencia.alta.ControladorTomarAsistencia;
 import com.ungs.formar.vista.instructores.asistencia.consultar.ControladorConsultarAsistencia;
 import com.ungs.formar.vista.instructores.notas.alta.ControladorCargarExamen;
@@ -22,6 +29,7 @@ import com.ungs.formar.vista.util.Popup;
 public class ControladorGestionAsistencias2 implements ActionListener, ControladorInterno {
 	private ControladorPrincipal invocador;
 	private VentanaGestionAsistencias2 ventana;
+	private Pdf contenido;
 	
 	public ControladorGestionAsistencias2(ControladorPrincipal invocador) {
 		this.invocador = invocador;
@@ -30,6 +38,8 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		ventana.botonTomar().addActionListener(this);
 		ventana.botonConsultarNotas().addActionListener(this);
 		ventana.botonCargar().addActionListener(this);
+		ventana.botonVerArchivo().addActionListener(this);
+		ventana.botonSelArchivo().addActionListener(this);
 		
 	}
 	
@@ -46,6 +56,56 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		
 		else if (e.getSource() == ventana.botonCargar())
 			cargar();
+		
+		else if (e.getSource() == ventana.botonVerArchivo())
+			abrirArchivo();
+		
+		else if (e.getSource() == ventana.botonSelArchivo())
+			seleccionarArchivo();
+	}
+
+	private void seleccionarArchivo() {
+		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			return;
+		}
+		
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF only", "pdf", "txt");
+		chooser.setFileFilter(filter);
+		int result = chooser.showOpenDialog(null);
+		File archivo = chooser.getSelectedFile();
+		if (result == JFileChooser.APPROVE_OPTION) {
+			if (archivo != null) {
+				if(Popup.confirmar("¿Esta seguro desea asignar "+archivo.getName()+" como programa especifico?")){
+					this.contenido = PdfManager.crearPdf(archivo);
+					PdfManager.guardarPdf(this.contenido);
+					seleccion.get(0).setContenido(contenido.getContenidoID());
+					CursoManager.actualizarPdfCurso(seleccion.get(0));
+				}
+			} else {
+				this.contenido = null;
+			}
+		}
+	}
+
+	private void abrirArchivo() {
+		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			return;
+		}
+		if(seleccion.get(0).getContenido() != null){
+			this.contenido = PdfManager.traerPdfByID(seleccion.get(0).getContenido());
+		}else{
+			this.contenido = null;
+		}
+		if (this.contenido == null || this.contenido.getContenidoID() == null) {
+			JOptionPane.showMessageDialog(null, "No hay ningun programa especifico para mostrar.");
+		} else {
+			PdfManager.abrirPdf(this.contenido.getContenidoID());
+		}
 	}
 
 	private void consultar() {
