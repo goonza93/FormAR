@@ -12,14 +12,9 @@ import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 
 public class Main {
-	
 	static TrayIcon trayIcon;
 
 	public static void main(String[] args) {
-		
-		//ControladorPantallaPrincipal controlador = new ControladorPantallaPrincipal(EmpleadoManager.traerEmpleado(8));
-		//controlador.inicializar();
-	
 	
 		if(SystemTray.isSupported()){
 			SystemTray tray = SystemTray.getSystemTray();
@@ -33,7 +28,8 @@ public class Main {
 				e.printStackTrace();
 			}
 			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
-		}
+		} else
+			System.out.println("El sistema no soporta mensaje por notificacion...");
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();
 		v.getUsuario().setText("user8"); // sacar antes de entregar

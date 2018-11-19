@@ -124,8 +124,8 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		controlador.getVentana().toFront();
 		
 		// Si se esta visualizando la tabla de tareas le digo que se actualice
-		if (ventanaABM != null)
-			llenarTabla();
+		if (controlador != null && controlador.getControladorTareaABM() != null)
+			controlador.getControladorTareaABM().llenarTabla();
 	}
 	
 	// Carlos: ¿Cual es la diferencia con el de arriba?
@@ -147,8 +147,8 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		controlador.getVentana().toFront();
 
 		// Si se esta visualizando la tabla de tareas le digo que se actualice
-		if (ventanaABM != null)
-			llenarTabla();
+		if (controlador != null && controlador.getControladorTareaABM() != null)
+			controlador.getControladorTareaABM().llenarTabla();
 	}
 	
 	private void abrirAlta() {

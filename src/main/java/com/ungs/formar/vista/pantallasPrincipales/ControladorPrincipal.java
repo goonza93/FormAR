@@ -67,6 +67,7 @@ public class ControladorPrincipal implements ActionListener {
 	ScheduledExecutorService scheduler;
 	TrayIcon trayIcon;
 	ControladorGestionarCurso controladorGestionarCurso;
+	ControladorTareaABM controladorTareaABM;
 	
 	public ControladorPrincipal(TrayIcon trayIcon) {
 		ventana = new PantallaPrincipal();
@@ -334,7 +335,8 @@ public class ControladorPrincipal implements ActionListener {
 
 	private void mostrarConsultarTareas() {
 		VentanaTareaABM nueva = new VentanaTareaABM();
-		mostrarVentana(new ControladorTareaABM(nueva,this));
+		controladorTareaABM = new ControladorTareaABM(nueva,this); 
+		mostrarVentana(controladorTareaABM);
 	}
 
 	private void mostrarCrearTarea() {
@@ -402,6 +404,9 @@ public class ControladorPrincipal implements ActionListener {
 	public ControladorGestionarCurso getControladorGestionarCurso() {
 		return controladorGestionarCurso;
 	}
-	
-	
+
+	public ControladorTareaABM getControladorTareaABM() {
+		return controladorTareaABM;
+	}
+		
 }
