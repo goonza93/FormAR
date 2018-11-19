@@ -76,9 +76,11 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		// Por cada programa en mi lista agrego un registro a la tabla
 		programas = ProgramaManager.traerProgramas();
 		for (Programa programa: programas) {
+			String codCurso = programa.getNombre().subSequence(0, 4)+"-"+programa.getProgramaID().toString();
 			Object[] fila = {
 					ProgramaManager.traerAreaSegunID(programa.getAreaID()).getNombre(),
 					programa.getNombre(),
+					codCurso,
 					programa.getFechaAprobacion(),
 					programa.getHoras()
 					};

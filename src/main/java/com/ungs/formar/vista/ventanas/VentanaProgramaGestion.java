@@ -23,7 +23,7 @@ import com.ungs.formar.vista.util.VentanaInterna;
 public class VentanaProgramaGestion extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modeloProgramas;
-	private String[] nombreColumnas = { "Area", "Nombre", "Fecha aprobacion", "Carga horaria" };
+	private String[] nombreColumnas = { "Area", "Nombre", "Codigo","Fecha aprobacion", "Carga horaria" };
 	private JTable tablaProgramas;
 	private JButton btnAgregar, btnEditar, btnBorrar;
 	private JLabel lblFiltros;
