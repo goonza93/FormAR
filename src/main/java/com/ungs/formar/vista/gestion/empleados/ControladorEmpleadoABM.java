@@ -17,6 +17,7 @@ import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.consulta.asignaciones.ControladorAsignaciones;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
@@ -62,6 +63,8 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 	public void inicializar() {
 		llenarTabla();
 		ventanaABM.mostrar();
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
 
 	private void llenarTabla() {
@@ -102,7 +105,21 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 	}
 	
 	private void mostrarCursadasInstructor() {
-		// TODO Auto-generated method stub
+		List<Empleado> seleccionados = obtenerRegistrosSeleccionados();
+
+		if (seleccionados.size() != 1) {
+			Popup.mostrar("Seleccione exactamente un empleado para ver sus cursos");
+			return;
+		}
+
+		Empleado empleado = seleccionados.get(0);
+		if (empleado.getRol() != Rol.INSTRUCTOR) {
+			Popup.mostrar("Solo se pueden ver cursadas de instructores.");
+			return;
+		}
+
+		controlador.getVentana().setEnabled(false);
+		new ControladorAsignaciones(this, empleado);
 	}
 
 	private void abrirVentanaAlta() {
