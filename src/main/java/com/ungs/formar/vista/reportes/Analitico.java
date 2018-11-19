@@ -41,8 +41,9 @@ public class Analitico {
 
 		for (Curso cursada : cursos) {
 			if (cursada.getEstado() == EstadoCurso.FINALIZADO) {
-				System.out.println("CURSADA FINALIZADA: "+Formato.nombre(cursada));
-				codigoCurso.add(cursada.getID().toString());
+				String nombreCursada = ProgramaManager.traerProgramaSegunID(cursada.getPrograma()).getNombre();
+				String codCurso = nombreCursada.subSequence(0, 4)+"-"+cursada.getID().toString();
+				codigoCurso.add(codCurso);
 				curso.add(ProgramaManager.traerProgramaSegunID(cursada.getPrograma()).getNombre());
 				fechaInicio.add(cursada.getFechaInicio());
 				fechaFin.add(cursada.getFechaFin());
