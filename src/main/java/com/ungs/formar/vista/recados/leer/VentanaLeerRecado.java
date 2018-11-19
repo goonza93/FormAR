@@ -1,9 +1,12 @@
 package com.ungs.formar.vista.recados.leer;
 
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.html.HTMLEditorKit;
+
 import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -32,7 +35,10 @@ public class VentanaLeerRecado extends Ventana{
 		panelFicha.add(lblArchivado);
 		
 		// EL MENSAJE
-		JTextArea outMensaje = new JTextArea(recado.getContenido());
+		JEditorPane outMensaje = new JEditorPane();
+		outMensaje.setContentType("text/HTML");
+		outMensaje.setEditorKit(new HTMLEditorKit());
+		outMensaje.setText(recado.getContenido());
 		outMensaje.setEditable(false);
 		PanelHorizontal panelMensaje = new PanelHorizontal();
 		panelMensaje.add(outMensaje);

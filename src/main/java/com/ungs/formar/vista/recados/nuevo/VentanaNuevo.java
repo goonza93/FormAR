@@ -1,11 +1,24 @@
 package com.ungs.formar.vista.recados.nuevo;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
+import javax.swing.text.StyledEditorKit;
+import javax.swing.text.html.HTMLEditorKit;
 
 import com.ungs.formar.vista.util.FormatoLimitado;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -14,13 +27,15 @@ import com.ungs.formar.vista.util.Ventana;
 
 public class VentanaNuevo extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private JButton btnSeleccionar, btnEnviar, btnCancelar;
+	private JButton btnSeleccionar, btnEnviar, btnCancelar, color;
 	private JTextField inDestinatario, inTitulo;
-	private JTextArea inMensaje;
+	private JEditorPane inMensaje;
+	private JColorChooser cChooser;
+	private JDialog cChooserDialog;
 	
 	public VentanaNuevo() {
 		super("Enviar recado");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 400);
 		setLocationRelativeTo(null);
 
 		// DESTINATARIO
@@ -45,9 +60,37 @@ public class VentanaNuevo extends Ventana {
 		panelTitulo.add(lblTitulo);
 		panelTitulo.add(inTitulo);
 		
-		inMensaje = new JTextArea();		
+		inMensaje = new JEditorPane();
+		inMensaje.setContentType("text/HTML");
+		inMensaje.setEditorKit(new HTMLEditorKit());
+		JToolBar bar = new JToolBar();
+		bar.setFloatable(false);
+		bar.add(new StyledEditorKit.BoldAction());
+		bar.add(new StyledEditorKit.ItalicAction());
+		bar.add(new StyledEditorKit.UnderlineAction());
+		bar.add(new StyledEditorKit.FontSizeAction("12", 12));
+		bar.add(new StyledEditorKit.FontSizeAction("14", 14));
+		bar.add(new StyledEditorKit.FontSizeAction("16", 16));
+		//this.pack();
+
+		cChooser = new JColorChooser();
+		cChooser.setVisible(true);
+		cChooser.getColor();
+		
+		color = new JButton("Color");
+		bar.add(color);
+		color.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cChooserDialog = JColorChooser.createDialog(new JFrame(),"Color Chooser",true,cChooser,new StyledEditorKit.ForegroundAction("Color",cChooser.getColor()),null);
+				cChooserDialog.setVisible(true);
+			}
+		});
+		bar.add(color);
+
 		PanelVertical panelMensaje = new PanelVertical();
 		panelMensaje.add(panelTitulo);
+		panelMensaje.add(bar);
 		panelMensaje.add(inMensaje);
 		
 		// BOTONES
@@ -81,7 +124,7 @@ public class VentanaNuevo extends Ventana {
 		return inDestinatario;
 	}
 
-	public JTextArea getMensaje() {
+	public JEditorPane getMensaje() {
 		return inMensaje;
 	}
 	
