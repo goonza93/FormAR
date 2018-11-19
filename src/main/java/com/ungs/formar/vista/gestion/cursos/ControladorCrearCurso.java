@@ -415,7 +415,8 @@ public class ControladorCrearCurso implements ActionListener {
 			
 			// No sabia en que otro lugar validarlo: Dos cursos con el mismo nombre no pueden tener la misma comision
 			String comision = ventanaCrearCurso.getTxtComision().getText();
-			if (CursoManager.comisionEnUso(comision, programa)) {
+			Curso cursoBD = CursoManager.traerPorProgramaComision(programa, comision);
+			if (!(cursoBD == null || cursoBD.getID() == idEdicion)) {
 				Popup.mostrar("Ya existe un curso "+programa.getNombre()+" con la comision "+comision);
 				return;
 			}
@@ -429,7 +430,7 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaCrearCurso.dispose();
 			this.controladorGestionarCurso.inicializar();
 
-			if (principal.getControladorGestionarCurso() != null)
+			if (principal != null && principal.getControladorGestionarCurso() != null)
 				principal.getControladorGestionarCurso().llenarTablaCursos();
 		}
 	}
@@ -514,11 +515,12 @@ public class ControladorCrearCurso implements ActionListener {
 			
 			// No sabia en que otro lugar validarlo: Dos cursos con el mismo nombre no pueden tener la misma comision
 			String comision = ventanaCrearCurso.getTxtComision().getText();
-			if (CursoManager.comisionEnUso(comision, programa)) {
+			Curso cursoBD = CursoManager.traerPorProgramaComision(programa, comision);
+			if (!(cursoBD == null || cursoBD.getID() == idEdicion)) {
 				Popup.mostrar("Ya existe un curso "+programa.getNombre()+" con la comision "+comision);
 				return;
 			}
-			
+
 			// El agregar paso todas las validadciones
 			if (this.idEdicion == -1) {
 				crearCurso();

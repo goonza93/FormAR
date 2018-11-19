@@ -194,8 +194,12 @@ public class CursoManager {
 	}
 
 	public static boolean comisionEnUso(String comision, Programa programa) {
-		CursoODB odb = FactoryODB.crearCursoODB();
-		return odb.selectByProgramaComision(programa, comision) != null;
+		return traerPorProgramaComision(programa, comision) != null;
 	}
 
+	public static Curso traerPorProgramaComision(Programa programa, String comision) {
+		CursoODB odb = FactoryODB.crearCursoODB();
+		return odb.selectByProgramaComision(programa, comision);
+	}
+	
 }
