@@ -48,6 +48,8 @@ public class PantallaPrincipal extends JFrame {
 		setVisible(true);
 		Font f = new Font("sans-serif", Font.PLAIN, 22);
 		UIManager.put("Menu.font", f);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		
 		lblLogo = new JLabel(new ImageIcon("imagenes/logo.png"));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);

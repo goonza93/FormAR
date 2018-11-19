@@ -2,6 +2,7 @@ package com.ungs.formar.vista.login;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
+
 import javax.swing.JSeparator;
 
 public class VentanaIniciarSesion {
@@ -25,6 +27,8 @@ public class VentanaIniciarSesion {
 		ventana.setLocationRelativeTo(null);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setTitle("Inicio de sesión");
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		ventana.setIconImage(img.getImage());
 		
 		// ENTRADAS
 		Dimension largoInput = new Dimension(Short.MAX_VALUE, 25);
