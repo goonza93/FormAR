@@ -65,6 +65,7 @@ public class ControladorPrincipal implements ActionListener {
 	PantallaPrincipal ventana;
 	ControladorInterno controlador;
 	TrayIcon trayIcon;
+	ControladorGestionarCurso controladorGestionarCurso;
 	
 	public ControladorPrincipal(TrayIcon trayIcon) {
 		ventana = new PantallaPrincipal();
@@ -357,8 +358,9 @@ public class ControladorPrincipal implements ActionListener {
 	}
 	
 	private void mostrarConsultarCursadas() {
-		GestionarCursos asd = new GestionarCursos();
-		mostrarVentana(new ControladorGestionarCurso(asd,this));
+		GestionarCursos ventana = new GestionarCursos();
+		controladorGestionarCurso = new ControladorGestionarCurso(ventana,this); 
+		mostrarVentana(controladorGestionarCurso);
 	}
 
 	private void mostrarConsultarCursos() {
@@ -393,5 +395,10 @@ public class ControladorPrincipal implements ActionListener {
 	public JMenu getMenuNotificaciones(){
 		return ventana.getMenuNotificaciones();
 	}
+
+	public ControladorGestionarCurso getControladorGestionarCurso() {
+		return controladorGestionarCurso;
+	}
+	
 	
 }

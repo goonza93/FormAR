@@ -60,7 +60,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 		controlador.getVentana().toFront();
 	}
 
-	private void llenarTablaCursos() {
+	public void llenarTablaCursos() {
 		ventanaGestionarCursos.getModelCursos().setRowCount(0);
 		ventanaGestionarCursos.getModelCursos().setColumnCount(0);
 		ventanaGestionarCursos.getModelCursos().setColumnIdentifiers(ventanaGestionarCursos.getNombreColumnas());

@@ -428,6 +428,9 @@ public class ControladorCrearCurso implements ActionListener {
 			}
 			this.ventanaCrearCurso.dispose();
 			this.controladorGestionarCurso.inicializar();
+
+			if (principal.getControladorGestionarCurso() != null)
+				principal.getControladorGestionarCurso().llenarTablaCursos();
 		}
 	}
 	
@@ -525,11 +528,13 @@ public class ControladorCrearCurso implements ActionListener {
 			this.ventanaCrearCurso.dispose();
 			principal.getVentana().setEnabled(true);
 			principal.getVentana().toFront();
+			
+			if (principal.getControladorGestionarCurso() != null)
+				principal.getControladorGestionarCurso().llenarTablaCursos();
 		}
 	}
 
 	private void actualizarCurso() {
-		System.out.println("Entrada 3");
 		JTextField inCupoMinimo = ventanaCrearCurso.getCupoMinimo();
 		Integer cupoMinimo = Integer.decode(inCupoMinimo.getText());
 
@@ -562,7 +567,7 @@ public class ControladorCrearCurso implements ActionListener {
 		CursoManager.actualizarCurso(idEdicion, cupoMinimo, cupoMaximo, horas, this.responsable, this.instructor,
 				this.programa, this.contenido.getContenidoID(), this.horariosCursada, fechaInicio, fechaFin,
 				fechaCierre, cursoEdicion.getEstado(), precio, comision);
-		System.out.println("Entrada 5");
+		
 
 	}
 	// ESTE METODO SE ENCARGA DEL CORE DE CREAR CURSO
