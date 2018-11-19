@@ -715,14 +715,16 @@ public class ControladorCrearCurso implements ActionListener {
 	private boolean validarHorariosCursada(){
 		String msj = "";
 		if(!this.horariosCursada.isEmpty()){
+			int i=0;
 			for(HorarioCursada hc : horariosCursada){
 				Horario horario = HorarioCursadaManager.traerHorarioSegunID(hc.getHorario());
 				Sala sala = SalaManager.traerSegunID(hc.getSala());
 				java.util.Date fechaInicio = ventanaCrearCurso.getFechaInicio().getDate();
-				if(sala!= null && !SalaManager.validarHorarioDeCursada(horario, sala,fechaInicio)){
+				if(sala!= null && !SalaManager.validarHorarioDeCursada(horario, sala,fechaInicio) && sala.getID()!=this.salas.get(i).getID()){
 					msj += "La sala "+sala.getNumero()+" NO esta disponible en el horario "+
 							HorarioCursadaManager.formatoHorarioCursada(hc);
 				}
+				i++;
 			}
 		}
 		if(!msj.isEmpty()){
