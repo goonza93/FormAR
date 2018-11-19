@@ -32,7 +32,11 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 	public void actionPerformed(ActionEvent e) {}
 
 	private void registrar() {
-		Pago pago = obtenerCursoSeleccionado();	
+		Pago pago = obtenerCursoSeleccionado();
+		if(pago == null){
+			Popup.mostrar("Seleccione exactamente 1 curso para pagar.");
+			return;
+		}
 		if(!pago.isPagoCompleto()){
 			invocador.getVentana().setEnabled(false);
 			new ControladorPagoAM(this, pago);

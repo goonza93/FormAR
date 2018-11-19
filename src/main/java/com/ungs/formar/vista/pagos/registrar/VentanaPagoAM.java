@@ -19,7 +19,7 @@ public class VentanaPagoAM extends Ventana{
 	
 	public VentanaPagoAM() {
 		super("Registrar pago");
-		setBounds(100, 100, 500, 231);
+		setBounds(100, 100, 500, 300);
 		setLocationRelativeTo(null);
 		
 		// TABLA DE ENTRADAS

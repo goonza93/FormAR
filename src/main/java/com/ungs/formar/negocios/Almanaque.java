@@ -102,7 +102,7 @@ public class Almanaque {
 			inicio.setTime(fechaInicio);
 			fin.setTime(fechaFin);
 			Integer difA = fin.get(Calendar.YEAR) - inicio.get(Calendar.YEAR);
-			Integer difM = difA * 12 + fin.get(Calendar.MONTH) - inicio.get(Calendar.MONTH);
+			Integer difM = difA * 12 + fin.get(Calendar.MONTH) - inicio.get(Calendar.MONTH)+1;
 			return difM;
 		} catch (Exception ex) {
 		}
