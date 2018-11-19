@@ -40,7 +40,7 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="32" splitType="Stretch">
+		<band height="39" splitType="Stretch">
 			<frame>
 				<reportElement x="0" y="6" width="543" height="23" backcolor="rgba(0, 255, 242, 0.1764706)" uuid="23209a62-cc9d-4b81-8e93-aa9cc3a92b36">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
@@ -73,32 +73,32 @@
 					</textElement>
 					<text><![CDATA[DESCRIPCION]]></text>
 				</staticText>
-				<rectangle>
-					<reportElement x="2" y="0" width="541" height="24" backcolor="rgba(255, 115, 112, 0.2509804)" uuid="e681ee7a-2974-4f3a-86ea-b4965d56b507"/>
-				</rectangle>
-				<rectangle>
-					<reportElement x="1" y="27" width="542" height="93" backcolor="rgba(109, 242, 209, 0.3019608)" uuid="8de33ddb-12cb-4d49-8338-01dc714dfc10"/>
-				</rectangle>
 			</frame>
+			<rectangle>
+				<reportElement x="2" y="0" width="541" height="24" backcolor="rgba(255, 115, 112, 0.2509804)" uuid="e681ee7a-2974-4f3a-86ea-b4965d56b507"/>
+			</rectangle>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="104" splitType="Stretch">
+		<band height="115" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<rectangle>
+				<reportElement x="2" y="8" width="542" height="93" backcolor="rgba(109, 242, 209, 0.3019608)" uuid="8de33ddb-12cb-4d49-8338-01dc714dfc10"/>
+			</rectangle>
 			<textField>
-				<reportElement x="2" y="0" width="78" height="40" uuid="c731b59a-9b1c-4e52-8a5d-059e0a6f6282"/>
+				<reportElement x="3" y="9" width="68" height="40" uuid="c731b59a-9b1c-4e52-8a5d-059e0a6f6282"/>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{fechas}.get($V{REPORT_COUNT} - 1));]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="82" y="0" width="158" height="40" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
+				<reportElement x="73" y="9" width="158" height="40" uuid="4a345b01-b751-4529-b6d6-2ccf3c13ff66"/>
 				<textFieldExpression><![CDATA[$P{areas}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="0" width="146" height="40" uuid="7b3cb927-55f7-4f20-b1ce-87b63705ae2b"/>
+				<reportElement x="211" y="9" width="146" height="40" uuid="7b3cb927-55f7-4f20-b1ce-87b63705ae2b"/>
 				<textFieldExpression><![CDATA[$P{cursos}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="369" y="1" width="174" height="89" uuid="bf751461-a6c5-45c8-afcb-9509ef29850b"/>
+				<reportElement x="360" y="10" width="174" height="89" uuid="bf751461-a6c5-45c8-afcb-9509ef29850b"/>
 				<textFieldExpression><![CDATA[$P{descripciones}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
 			</textField>
 		</band>
