@@ -9,11 +9,14 @@ import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import com.ungs.formar.negocios.EmpleadoManager;
@@ -37,6 +40,7 @@ public class PantallaPrincipal extends JFrame {
 	private JMenuBar notifBar, barraPrincipal;
 	private JMenuBar barrarNuevo;
 	private JPanel panelPrincipal;
+	private JLabel lblLogo;
 
 	public PantallaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +48,11 @@ public class PantallaPrincipal extends JFrame {
 		setVisible(true);
 		Font f = new Font("sans-serif", Font.PLAIN, 22);
 		UIManager.put("Menu.font", f);
+		
+		lblLogo = new JLabel(new ImageIcon("imagenes/logo.png"));
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		setContentPane(lblLogo);
 		
 		//barraPrincipal = crearBarra();
 		barrarNuevo = crearBarra();
