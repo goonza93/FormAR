@@ -84,7 +84,7 @@ public class PantallaPrincipal extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setResizable(false);
+		setResizable(true);
 	}
 	
 	private JMenuBar crearBarra() {

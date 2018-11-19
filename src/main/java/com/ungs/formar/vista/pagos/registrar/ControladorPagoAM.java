@@ -75,7 +75,11 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 		Empleado empleado = Sesion.getEmpleado();
 		boolean pagoEnTermino = Tesoreria.pagoEnTermino(alumno, curso);
 		boolean pagoCompleto = ventana.getPagoCompleto().isSelected();
-		if (Popup.confirmar("Desea crear un pago por $" + pago.getMonto() + " ?")) {
+		String montoMensaje = pago.getMonto().toString();
+		if(pagoCompleto)
+			montoMensaje = Tesoreria.costoRestante(alumno, curso).toString();
+				
+		if (Popup.confirmar("Desea crear un pago por $" + montoMensaje + " ?")) {
 			try {
 				if (!pagoCompleto) {
 					Integer mes = Integer.decode(ventana.getMes().getText());
