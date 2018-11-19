@@ -29,23 +29,24 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		ventana.getBtnBuscar().addActionListener(s -> buscar());
 	}
 
-	public void actionPerformed(ActionEvent e) {}
+	public void actionPerformed(ActionEvent e) {
+	}
 
 	private void registrar() {
 		Pago pago = obtenerCursoSeleccionado();
-		if(pago == null){
+		if (pago == null) {
 			Popup.mostrar("Seleccione exactamente 1 curso para pagar.");
 			return;
 		}
-		if(!pago.isPagoCompleto()){
+		if (!pago.isPagoCompleto()) {
 			invocador.getVentana().setEnabled(false);
 			new ControladorPagoAM(this, pago);
-		}else
+		} else
 			Popup.mostrar("La cuota seleccionada ya fue pagada.");
 	}
-	
+
 	private Pago obtenerCursoSeleccionado() {
-		int registroTabla = ventana.getTabla().getSelectedRow(); 
+		int registroTabla = ventana.getTabla().getSelectedRow();
 
 		// No habia ningun registro seleccionado
 		if (registroTabla == -1)
@@ -54,7 +55,7 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		int registro = ventana.getTabla().convertRowIndexToModel(registroTabla);
 		return pagos_en_tabla.get(registro);
 	}
-	
+
 	private void verFactura() {
 		List<Pago> pagos = ventana.getTabla().obtenerSeleccion();
 		if (pagos.size() != 1) {
@@ -93,7 +94,7 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 			if (fechaHasta != null && fechaDesde.after(fechaHasta))
 				mensaje += "La fecha de busqueda de inicio no puede ser posterior a la de fin";
 		}
-		if(!mensaje.isEmpty())
+		if (!mensaje.isEmpty())
 			Popup.mostrar(mensaje);
 		else
 			recargar();
@@ -104,8 +105,27 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		String cursada = ventana.getInCursada().getText();
 		Date fechaDesde = ventana.getInFechaDesde().getDate();
 		Date fechaHasta = ventana.getInFechaHasta().getDate();
-		
+		Alumno alumno = AlumnoManager.traerAlumnoSegunDNI(dniAlumno);
+		boolean avisarTodosCompletos = true;
+
 		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, cursada, fechaDesde, fechaHasta);
+		if (pagos.size() == 0) {
+			Popup.mostrar(
+					"El alumno " + alumno.getApellido() + ", " + alumno.getNombre() + " , No tiene inscripciones.");
+			return;
+		}
+		for (Pago pago : pagos) {
+			if (!pago.isPagoCompleto()) {
+				avisarTodosCompletos = false;
+				break;
+			}
+		}
+
+		if (avisarTodosCompletos) {
+			Popup.mostrar(
+					"El alumno " + alumno.getApellido() + ", " + alumno.getNombre() + " , No tiene pagos pendientes.");
+		}
+
 		this.pagos_en_tabla = pagos;
 		ventana.getTabla().recargar(pagos);
 	}
@@ -119,8 +139,8 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 	public JInternalFrame getVentana() {
 		return ventana;
 	}
-	
-	public void habilitarPrincipal(){
+
+	public void habilitarPrincipal() {
 		invocador.getVentana().setEnabled(true);
 		invocador.getVentana().toFront();
 	}
