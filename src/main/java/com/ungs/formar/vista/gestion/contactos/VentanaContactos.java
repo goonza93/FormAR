@@ -31,7 +31,7 @@ public class VentanaContactos extends VentanaInterna {
 	private DefaultTableModel modeloContactos;
 	private String[] nombreColumnas = { "Apellido", "Nombre", "DNI", "E-Mail", "Telefono"};
 	private JTable tablaContactos;
-	private JButton btnAgregar, btnEditar, btnBorrar, btnVerInteracciones, btnConvertirEnAlumno;
+	private JButton btnAgregar, btnEditar, btnBorrar, btnVerInteracciones, btnConvertirEnAlumno, btnHistorialDeContacto;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI;
 	private JLabel lblFiltros, lblNombre, lblDni, lblContactos;
 	private final TableRowSorter<TableModel> filtro;
@@ -97,13 +97,32 @@ public class VentanaContactos extends VentanaInterna {
 				btnConvertirEnAlumno = new JButton("CONVERTIR EN ALUMNO");
 				btnConvertirEnAlumno.setFont(new Font("Arial", Font.PLAIN, 12));
 				
+				btnHistorialDeContacto = new JButton("HISTORIAL DE CONTACTO");
+				btnHistorialDeContacto.setFont(new Font("Arial", Font.PLAIN, 12));
+				
 				GroupLayout groupLayout = new GroupLayout(getContentPane());
 				groupLayout.setHorizontalGroup(
 					groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
+								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+									.addGap(18)
+									.addComponent(btnHistorialDeContacto, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+									.addGap(208))
+								.addComponent(lblContactos, GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
@@ -111,25 +130,10 @@ public class VentanaContactos extends VentanaInterna {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnVerInteracciones, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroNombre, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(inFiltroDNI, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-									.addGap(208))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblDni, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-									.addGap(208))
-								.addComponent(lblContactos, GroupLayout.DEFAULT_SIZE, 1008, Short.MAX_VALUE))
+									.addComponent(btnConvertirEnAlumno, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+								.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE))
 							.addContainerGap())
 				);
 				groupLayout.setVerticalGroup(
@@ -146,11 +150,12 @@ public class VentanaContactos extends VentanaInterna {
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(inFiltroApellido, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(inFiltroNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inFiltroDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(inFiltroDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnHistorialDeContacto, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(lblContactos, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+							.addComponent(spEmpleados, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 							.addGap(14)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnAgregar)
@@ -235,5 +240,9 @@ public class VentanaContactos extends VentanaInterna {
 	
 	public JLabel getLblContactos(){
 		return lblContactos;
+	}
+	
+	public JButton getBtnHistorialDeContacto(){
+		return btnHistorialDeContacto;
 	}
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JInternalFrame;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.AlumnoManager;
 import com.ungs.formar.negocios.ContactoManager;
+import com.ungs.formar.negocios.ReportesManager;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Interaccion;
 import com.ungs.formar.persistencia.entidades.Interesado;
@@ -20,14 +22,17 @@ import com.ungs.formar.vista.gestion.contactos.interacciones.VentanaInteraccione
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
+import com.ungs.formar.vista.reportes.GestionHistorialDeContacto;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorContactos implements ActionListener, ControladorInterno {
 	private VentanaContactos ventanaGestionarContactos;
 	private VentanaContactosAM ventanaAM;
+	private GestionHistorialDeContacto ventanaHistorialContacto;
 	private VentanaInteracciones ventanaGestionarInteracciones;
 	private ControladorPrincipal controlador;
 	private List<Interesado> contactos;
+	private Interesado interesadoHistorial;
 	
 	public ControladorContactos(VentanaContactos ventana, ControladorPrincipal controlador) {
 		this.ventanaGestionarContactos = ventana;
@@ -98,6 +103,10 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 			convertirEnAlumno();
 		}
 		
+		//BOTON GENERAR HISTORIAL CONTACTO
+		else if (e.getSource() == ventanaGestionarContactos.getBtnHistorialDeContacto())
+			abrirHistorialContacto();
+		
 		// BOTON ACEPTAR DEL AM
 		else if (ventanaAM != null) {
 			if (e.getSource() == ventanaAM.getAceptar()) {
@@ -107,6 +116,13 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 			else if (e.getSource() == ventanaAM.getCancelar()) {
 				cerrarVentanaAM();
 			}
+		}
+		
+		else if(ventanaHistorialContacto != null){
+			if(e.getSource() == ventanaHistorialContacto.getBtnBuscar())
+				reporteHistorialContacto();
+			else if (e.getSource() == ventanaHistorialContacto.getBtnCancelar())
+				cerrarHistorialContacto();
 		}
 	}
 
@@ -186,6 +202,29 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 		new ControladorInteracciones(this.ventanaGestionarInteracciones, this, seleccionados.get(0));
 	}
 	
+	private void abrirHistorialContacto(){
+		List<Interesado> seleccionados = obtenerSeleccionados();
+
+		if (seleccionados.size() != 1) {
+			Popup.mostrar("Seleccione exactamente un contacto para poder obtener el historial de contacto.");
+			return;
+		}
+		this.ventanaHistorialContacto = new GestionHistorialDeContacto();
+		this.ventanaHistorialContacto.ventana.setVisible(true);
+		controlador.getVentana().setEnabled(false);
+		ventanaHistorialContacto.getBtnBuscar().addActionListener(this);
+		ventanaHistorialContacto.getBtnCancelar().addActionListener(this);
+		Interesado persona = seleccionados.get(0);
+		this.interesadoHistorial = persona;
+		ventanaHistorialContacto.getLblPersona().setText(persona.getApellido()+", "+persona.getNombre());
+		ventanaHistorialContacto.ventana.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ventanaHistorialContacto.getBtnCancelar().doClick();
+			}
+		});
+	}
+	
 	private void aceptarAM() {
 		if (validarCampos()) {
 			Interesado contacto = ventanaAM.getContacto();
@@ -249,6 +288,18 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 		if (confirm == 0) {
 			ventanaAM.dispose();
 			ventanaAM = null;
+			controlador.getVentana().setEnabled(true);
+			controlador.getVentana().setVisible(true);
+			controlador.getVentana().toFront();
+		}
+	}
+	
+	private void cerrarHistorialContacto() {
+		int confirm = JOptionPane.showOptionDialog(null, "¿¡Esta seguro de salir sin generar un reporte!?", "Confirmacion",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			ventanaHistorialContacto.ventana.dispose();
+			ventanaHistorialContacto = null;
 			controlador.getVentana().setEnabled(true);
 			controlador.getVentana().setVisible(true);
 			controlador.getVentana().toFront();
@@ -396,4 +447,38 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 		return ventanaGestionarContactos;
 	}
 	
+	private void reporteHistorialContacto(){
+		String fechaAño = ventanaHistorialContacto.getInFechaAño().getText();
+		Date fechaDesde = ventanaHistorialContacto.getInFechaDesde().getDate();
+		Date fechaHasta = ventanaHistorialContacto.getInFechaDesde().getDate();
+		Integer anoBuscar = 0;
+		String mensaje = "";
+		
+		if(fechaAño != null && !fechaAño.isEmpty()){
+			try {
+				anoBuscar = Integer.parseInt(fechaAño);
+	        } catch (NumberFormatException excepcion) {
+	        	mensaje += "- El Año ingresado es invalido \n.";
+	        }
+		}
+		
+		if(anoBuscar != 0 && (fechaDesde != null || fechaHasta != null)){
+			mensaje += "- Por favor seleccione un unico criterio de busqueda.\n"+
+					" Ya sea por año, o por un rango de fechas.\n";
+		}
+		
+		if((fechaDesde != null && fechaHasta == null) || (fechaDesde == null && fechaHasta != null))
+			mensaje += "- Por favor, complete ambos rangos de fechas de busqueda.";
+		
+		if(!mensaje.isEmpty()){
+			Popup.mostrar(mensaje);
+		}
+		else{
+			if(anoBuscar != 0)
+				ReportesManager.traerHistorialContactoPorAno(interesadoHistorial, anoBuscar);
+			else
+				ReportesManager.traerHistorialContactoRango(interesadoHistorial, fechaDesde, fechaHasta);
+			
+		}
+	}
 }
