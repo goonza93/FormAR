@@ -26,7 +26,7 @@ public class GestionarCursos extends VentanaInterna {
 	private JButton btnBorrar;
 	private JButton btnEditar;
 	private DefaultTableModel modelCursos;
-	private String[] nombreColumnas = { "Curso", "Comision","Area", "Estado", "Precio", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
+	private String[] nombreColumnas = { "Curso", "Codigo","Comision","Area", "Estado", "Precio", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
 			"Fecha fin", "Cierre de inscripciones", "Instructor", "Responsable", "Salas, Dias y Horarios" };
 	private JScrollPane spCursos;
 	private JTable tablaCursos;

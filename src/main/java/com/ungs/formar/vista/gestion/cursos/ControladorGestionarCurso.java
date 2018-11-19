@@ -78,6 +78,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 					.traerAreaSegunID(
 							ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getAreaID())
 					.getNombre();
+			String codCurso = nombre.subSequence(0, 4)+"-"+this.cursos_en_tabla.get(i).getID().toString();
 			String estado = Formato.estado(this.cursos_en_tabla.get(i));
 			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
 			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
@@ -100,7 +101,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 			if (responsable != null) {
 				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
 			}
-			Object[] fila = { nombre, comision, area, estado, Formato.precio(precio), cupoMinimo.toString(),
+			Object[] fila = { nombre, codCurso ,comision, area, estado, Formato.precio(precio), cupoMinimo.toString(),
 					cupoMaximo.toString(), fechaInicio.toString(), fechaFin == null ? "" : fechaFin.toString(),
 					fechaCierre == null?"":fechaCierre.toString(), nombreApellidoInstructor, nombreApellidoResponsable,
 					horariosString };
