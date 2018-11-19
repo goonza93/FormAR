@@ -2,8 +2,6 @@ package com.ungs.formar.vista.instructores.asistencia;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Date;
 import java.util.List;
 
@@ -12,11 +10,12 @@ import javax.swing.JInternalFrame;
 import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.pruebas.ventanainterna.ControladorInterno;
-import com.ungs.formar.pruebas.ventanainterna.ControladorPrincipal;
 import com.ungs.formar.vista.instructores.asistencia.alta.ControladorTomarAsistencia;
 import com.ungs.formar.vista.instructores.asistencia.consultar.ControladorConsultarAsistencia;
-import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.instructores.notas.alta.ControladorCargarExamen;
+import com.ungs.formar.vista.instructores.notas.consultar.ControladorConsultarNotas;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Popup;
 
 public class ControladorGestionAsistencias2 implements ActionListener, ControladorInterno {
@@ -28,7 +27,8 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		ventana = new VentanaGestionAsistencias2();
 		ventana.botonConsultar().addActionListener(this);
 		ventana.botonTomar().addActionListener(this);
-		ventana.getVolver().addActionListener(this);
+		ventana.botonConsultarNotas().addActionListener(this);
+		ventana.botonCargar().addActionListener(this);
 		
 	}
 	
@@ -40,8 +40,11 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		else if (e.getSource() == ventana.botonTomar())
 			tomar();
 		
-		else if (e.getSource() == ventana.getVolver())
-			volver();
+		else if (e.getSource() == ventana.botonConsultarNotas())
+			consultarNotas();
+		
+		else if (e.getSource() == ventana.botonCargar())
+			cargar();
 	}
 
 	private void consultar() {
@@ -62,8 +65,8 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 			return;
 		}
 		
-		//ventana.deshabilitar();
-		//new ControladorConsultarAsistencia(this, seleccion.get(0));
+		invocador.getVentana().setEnabled(false);
+		new ControladorConsultarAsistencia(this, seleccion.get(0));
 	}
 
 	private void tomar() {
@@ -85,20 +88,40 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 			return;
 		}
 		
-		ventana.deshabilitar();
-		//new ControladorTomarAsistencia(this, seleccion.get(0));
+		invocador.getVentana().setEnabled(false);
+		new ControladorTomarAsistencia(this, seleccion.get(0));
 	}
 	
-	private void volver() {
-		ventana.dispose();
-		ventana = null;
-		//invocador.inicializar();
+	private void consultarNotas() {
+		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			return;
+		}
+		
+		invocador.getVentana().setEnabled(false);
+		new ControladorConsultarNotas(this, seleccion.get(0));
+	}
+	
+	private void cargar() {
+		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
+		if (seleccion.size() != 1) {
+			Popup.mostrar("Debe seleccionar extamente 1 curso para cargar las notas de un examen.");
+			return;
+		}
+		
+		invocador.getVentana().setEnabled(false);
+		new ControladorCargarExamen(this, seleccion.get(0));
 	}
 
 	public void mostrar() {
 		ventana.mostrar();
 	}
 
+	public void habilitarPrincipal(){
+		invocador.getVentana().setEnabled(true);
+		invocador.getVentana().toFront();
+	}
 	public boolean finalizar() {
 		return true;
 	}

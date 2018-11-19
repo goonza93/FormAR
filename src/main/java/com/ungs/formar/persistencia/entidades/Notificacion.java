@@ -2,14 +2,18 @@ package com.ungs.formar.persistencia.entidades;
 
 import java.sql.Date;
 
+import com.ungs.formar.persistencia.definidos.TipoNotificacion;
+
 public class Notificacion {
 	private Integer ID, empleado;
 	private String contenido;
 	private boolean mostrado, leido;
 	private Date fechaAMostrar;
+	private TipoNotificacion tipo;
 	
-	public Notificacion(Integer ID, Integer empleadoID, String contenido, boolean mostrado, boolean leido, Date fechaANotificar){
+	public Notificacion(Integer ID, TipoNotificacion tipo, Integer empleadoID, String contenido, boolean mostrado, boolean leido, Date fechaANotificar){
 		this.ID = ID;
+		this.tipo = tipo;
 		this.empleado = empleadoID;
 		this.contenido = contenido;
 		this.mostrado = mostrado;
@@ -59,6 +63,14 @@ public class Notificacion {
 
 	public Integer getID() {
 		return ID;
+	}
+
+	public TipoNotificacion getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoNotificacion tipo) {
+		this.tipo = tipo;
 	}
 	
 }

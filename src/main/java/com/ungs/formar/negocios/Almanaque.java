@@ -121,4 +121,10 @@ public class Almanaque {
 		Calendar now = Calendar.getInstance();
 		return now.get(Calendar.MONTH) + 1;
 	}
+	
+	public static Integer añoFecha(Date fecha){
+		Calendar now = Calendar.getInstance();
+		now.setTime(fecha);
+		return now.get(Calendar.YEAR);
+	}
 }

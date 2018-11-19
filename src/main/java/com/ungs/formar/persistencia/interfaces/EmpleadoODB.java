@@ -28,4 +28,6 @@ public interface EmpleadoODB {
 	
 	public List<Empleado> selectByActivo(boolean activo);
 	
+	public List<Empleado> selectByUsuarios(String usuario);
+	
 }

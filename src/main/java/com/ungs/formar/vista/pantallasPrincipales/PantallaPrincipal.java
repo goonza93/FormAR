@@ -9,11 +9,14 @@ import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import com.ungs.formar.negocios.EmpleadoManager;
@@ -32,9 +35,12 @@ public class PantallaPrincipal extends JFrame {
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios, menuInscripcionesConsultarInscripciones
 	, menuNotificacionesVerNotificaciones, menuCursosConsultarAreas, menuCursadasConsultarCursadas;
+	private JMenu menuArchivo, menuAlumnos, menuInscripciones, menuContactos, menuTareas, menuRecados
+	, menuUsuarios, menuNotificaciones, menuCursadas, menuCursos;
 	private JMenuBar notifBar, barraPrincipal;
 	private JMenuBar barrarNuevo;
 	private JPanel panelPrincipal;
+	private JLabel lblLogo;
 
 	public PantallaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +48,13 @@ public class PantallaPrincipal extends JFrame {
 		setVisible(true);
 		Font f = new Font("sans-serif", Font.PLAIN, 22);
 		UIManager.put("Menu.font", f);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
+		
+		lblLogo = new JLabel(new ImageIcon("imagenes/logo.png"));
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		setContentPane(lblLogo);
 		
 		//barraPrincipal = crearBarra();
 		barrarNuevo = crearBarra();
@@ -137,17 +150,17 @@ public class PantallaPrincipal extends JFrame {
 		menuCursadasConsultarCursadas = new JMenuItem("Consultar cursadas");
 		
 		// los agrego a su menu correspondiente
-		JMenu menuArchivo = new JMenu("Archivo");
+		menuArchivo = new JMenu("Archivo");
 		//menuArchivo.setPreferredSize(new Dimension(100,50));
-		JMenu menuAlumnos = new JMenu("  Alumnos");
-		JMenu menuCursos = new JMenu("  Cursos");
-		JMenu menuInscripciones = new JMenu("  Inscripciones");
-		JMenu menuContactos = new JMenu("  Contactos");
-		JMenu menuTareas = new JMenu("  Tareas");
-		JMenu menuRecados = new JMenu("  Recados");
-		JMenu menuUsuarios = new JMenu("  Usuarios");
-		JMenu menuNotificaciones = new JMenu("  Notificaciones");
-		JMenu menuCursadas = new JMenu("  Cursadas");
+		menuAlumnos = new JMenu("  Alumnos");
+		menuCursos = new JMenu("  Cursos");
+		menuInscripciones = new JMenu("  Inscripciones");
+		menuContactos = new JMenu("  Contactos");
+		menuTareas = new JMenu("  Tareas");
+		menuRecados = new JMenu("  Recados");
+		menuUsuarios = new JMenu("  Usuarios");
+		menuNotificaciones = new JMenu("  Notificaciones");
+		menuCursadas = new JMenu("  Cursadas");
 
 		if(Sesion.getEmpleado().getRol()==Rol.SUPERVISOR){
 			menuArchivo.add(menuArchivoCambiarContrasena);
@@ -396,6 +409,14 @@ public class PantallaPrincipal extends JFrame {
 
 	public JMenuItem getMenuNotificacionesVerNotificaciones() {
 		return menuNotificacionesVerNotificaciones;
+	}
+	
+	public JMenu getMenuRecados(){
+		return menuRecados;
+	}
+	
+	public JMenu getMenuNotificaciones(){
+		return menuNotificaciones;
 	}
 
 	

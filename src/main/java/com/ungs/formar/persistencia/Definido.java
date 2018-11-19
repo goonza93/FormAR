@@ -2,8 +2,27 @@ package com.ungs.formar.persistencia;
 
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.definidos.Rol;
+import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 
 public class Definido {
+	
+	public static Integer tipoNotificacion(TipoNotificacion tipo){
+		Integer ret = null;
+		if(tipo == TipoNotificacion.RECADO)
+			ret = 1;
+		else if( tipo == TipoNotificacion.TAREA)
+			ret = 2;
+		return ret;
+	}
+	
+	public static TipoNotificacion tipoNotificacion(Integer tipo){
+		TipoNotificacion ret = null;
+		if(tipo == 1)
+			ret = TipoNotificacion.RECADO;
+		else if (tipo == 2)
+			ret = TipoNotificacion.TAREA;
+		return ret;
+	}
 	
 	public static Integer rol(Rol rol) {
 		Integer ret = null;

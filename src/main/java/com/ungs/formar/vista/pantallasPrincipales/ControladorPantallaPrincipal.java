@@ -165,14 +165,14 @@ public class ControladorPantallaPrincipal implements ActionListener {
 			this.pantallaAdministrativo.ocultar();
 			new ControladorAlumnoABM(this.ventanaGestionarAlumnos, this);*/
 		}
-
+/*
 		// BOTON ABM CURSOS
 		else if (e.getSource() == this.pantallaAdministrativo.getBtnGestionarCursos()) {
 			this.ventanaGestionarCursos = new GestionarCursos();
 			// this.ventanaGestionarCursos.f();
 			this.pantallaAdministrativo.ocultar();
 			new ControladorGestionarCurso(this.ventanaGestionarCursos, this);
-		}
+		}*/
 
 		// BOTON ABM INSTRUCTORES
 		/*
@@ -250,8 +250,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 				pantallaAdministrativo = null;
 				Sesion.setEmpleado(null);
 				VentanaIniciarSesion v = new VentanaIniciarSesion();
-				ControladorLogin c = new ControladorLogin(v);
-				c.inicializar();
+				//ControladorLogin c = new ControladorLogin(v);
+				//c.inicializar();
 			}
 		}
 		
@@ -314,8 +314,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 				pantallaSupervisor = null;
 				Sesion.setEmpleado(null);
 				VentanaIniciarSesion v = new VentanaIniciarSesion();
-				ControladorLogin c = new ControladorLogin(v);
-				c.inicializar();
+				//ControladorLogin c = new ControladorLogin(v);
+				//c.inicializar();
 			}
 		}
 
@@ -361,8 +361,8 @@ public class ControladorPantallaPrincipal implements ActionListener {
 				pantallaInstructor = null;
 				Sesion.setEmpleado(null);
 				VentanaIniciarSesion v = new VentanaIniciarSesion();
-				ControladorLogin c = new ControladorLogin(v);
-				c.inicializar();
+				//ControladorLogin c = new ControladorLogin(v);
+				//c.inicializar();
 			}
 		}
 	}

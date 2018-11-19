@@ -220,7 +220,7 @@ CREATE TABLE for_recados (
 	receptor INT(4) NOT NULL,
     empleado INT(4) NOT NULL,
     titulo VARCHAR(20) NOT NULL,
-    contenido VARCHAR(100) NOT NULL,
+    contenido VARCHAR(1000) NOT NULL,
 	leido BOOLEAN NOT NULL,
 	archivado BOOLEAN NOT NULL,
 	fecha DATE NOT NULL,
@@ -267,6 +267,7 @@ CREATE TABLE for_tareas (
 -- ESQUEMA NOTIFICACIONES
 CREATE TABLE for_notificaciones (
 	ID INT(4) AUTO_INCREMENT,
+	tipo INT(1) NOT NULL,
 	empleado INT(4) NOT NULL,
 	contenido VARCHAR(40) NOT NULL,
 	mostrado BOOLEAN NOT NULL,

@@ -7,13 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Notificacion;
 import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 
 public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
-	private final String campos = "empleado, contenido, mostrado, leido, fecha";
+	private final String campos = "tipo, empleado, contenido, mostrado, leido, fecha";
 	private final String tabla = "for_notificaciones";
 
 	public void insert(Notificacion notificacion) {
@@ -21,7 +22,8 @@ public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 		String contenido = "'"+notificacion.getContenido()+"'";
 		String fecha = notificacion.getFechaAMostrar() == null ? null :"'"+notificacion.getFechaAMostrar()+"'";
 		
-		String valores = empleado
+		String valores = Definido.tipoNotificacion(notificacion.getTipo())
+				+", "+ empleado
 				+", "+ contenido
 				+", "+ notificacion.isMostrado()
 				+", "+ notificacion.isLeido()
@@ -38,7 +40,8 @@ public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 		String condicion = "ID ="+notificacion.getID();
 		
 		String consulta = "update " + tabla
-				+" set empleado = "+ empleado
+				+" set tipo = "+ Definido.tipoNotificacion(notificacion.getTipo())
+				+", empleado = "+ empleado
 				+", contenido = "+ contenido
 				+", mostrado = "+ notificacion.isMostrado()
 				+", leido = "+ notificacion.isLeido()
@@ -76,7 +79,7 @@ public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 	public List<Notificacion> selectByEmpleadoSinLeer(Empleado empleado){
 		boolean leido = false;
 		String condicion = "empleado = "+empleado.getID()
-				+" and mostrado = "+ leido ;
+				+" and leido = "+ leido ;
 		List<Notificacion> notificaciones = selectByCondicion(condicion);
 		return notificaciones;
 	}
@@ -94,6 +97,7 @@ public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 			while (resultados.next()) {
 				notificaciones.add(new Notificacion(
 						resultados.getInt("ID"),
+						Definido.tipoNotificacion(resultados.getInt("tipo")),
 						resultados.getInt("empleado"),
 						resultados.getString("contenido"),
 						resultados.getBoolean("mostrado"),

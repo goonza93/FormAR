@@ -29,7 +29,7 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 	private DefaultTableModel modelo;
 	private String[] columnas = { "Rol", "Apellido", "Nombre", "DNI", "E-Mail", "Telefono", "Fecha ingreso", "Fecha egreso"};
 	private JTable tabla;
-	private JButton btnAgregar, btnEditar, btnBorrar, btnDarDeAlta, btnVerCursos;
+	private JButton btnAgregar, btnEditar, btnBorrar, btnDarDeAlta, btnVerCursadas;
 	private JTextField inFiltroNombre, inFiltroApellido, inFiltroDNI, inFiltroFechaIngreso;
 	private JLabel lblFiltros, lblNombre, lblDni, lblFechaIngreso, lblInstructores ;
 	private final TableRowSorter<TableModel> filtro;
@@ -86,8 +86,6 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.setFont(new Font("Arial", Font.PLAIN, 12));
-		
-		btnVerCursos = new JButton("Ver cursos");
 
 		btnEditar = new JButton("EDITAR");
 		btnEditar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -101,6 +99,10 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 		
 		btnDarDeAlta = new JButton("DAR DE ALTA");
 		btnDarDeAlta.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		btnVerCursadas = new JButton("VER CURSADAS");
+		btnVerCursadas.setFont(new Font("Arial", Font.PLAIN, 12));
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -115,7 +117,9 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnBorrar, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnVerCursadas, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblFiltros, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(inFiltroApellido, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
@@ -164,7 +168,8 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 						.addComponent(btnAgregar)
 						.addComponent(btnEditar)
 						.addComponent(btnBorrar)
-						.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnDarDeAlta, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnVerCursadas, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 				getContentPane().setLayout(groupLayout);
@@ -207,6 +212,10 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 	public JButton getDarDeAlta() {
 		return btnDarDeAlta;
 	}
+	
+	public JButton getVerCursadas(){
+		return btnVerCursadas;
+	}
 
 	public String[] getNombreColumnas() {
 		return columnas;
@@ -244,9 +253,4 @@ public class VentanaEmpleadoABM extends VentanaInterna {
 		
 		return ret;
 	}
-	/*
-	public JFrame getVentana(){
-		return ventana;
-	}*/
-	
 }

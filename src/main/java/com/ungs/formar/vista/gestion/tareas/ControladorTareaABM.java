@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.negocios.TareaManager;
+import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 import com.ungs.formar.persistencia.entidades.Tarea;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
@@ -113,7 +114,7 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		Date fecha = ventanaAM.getDateChooser().getDate() == null ? null : new Date(ventanaAM.getDateChooser().getDate().getTime());
 		if(fecha != null) {
 			String contenidoNotificacion = "Tenes una tarea pendiente para hoy";
-			NotificacionManager.crearNotificacion(Sesion.getEmpleado().getID(), contenidoNotificacion, fecha);
+			NotificacionManager.crearNotificacion(TipoNotificacion.TAREA, Sesion.getEmpleado().getID(), contenidoNotificacion, fecha);
 		}
 		
 		ventanaAM.dispose();
@@ -137,7 +138,7 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		Date fecha = ventanaAM.getDateChooser().getDate() == null ? null : new Date(ventanaAM.getDateChooser().getDate().getTime());
 		if(fecha != null) {
 			String contenidoNotificacion = "Tenes una tarea pendiente para hoy";
-			NotificacionManager.crearNotificacion(Sesion.getEmpleado().getID(), contenidoNotificacion, fecha);
+			NotificacionManager.crearNotificacion(TipoNotificacion.TAREA, Sesion.getEmpleado().getID(), contenidoNotificacion, fecha);
 		}
 		
 		ventanaAM.dispose();

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.ungs.formar.negocios.Almanaque;
@@ -26,26 +27,27 @@ import com.ungs.formar.persistencia.entidades.Sala;
 import com.ungs.formar.vista.consulta.Consultable;
 import com.ungs.formar.vista.consulta.alumnos.ControladorAlumnosInscriptos;
 import com.ungs.formar.vista.consulta.alumnos.VentanaAlumnosInscriptos;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPantallaPrincipal;
+import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 
-public class ControladorGestionarCurso implements ActionListener, Consultable {
+public class ControladorGestionarCurso implements ActionListener, Consultable, ControladorInterno {
 	private GestionarCursos ventanaGestionarCursos;
-	private ControladorPantallaPrincipal controladorPantallaPrincipal;
+	private ControladorPrincipal controlador;
 	private CrearCurso ventanaCrearCurso;
 	private List<Curso> cursos_en_tabla;
 	public Curso a_editar;
 
 	public ControladorGestionarCurso(GestionarCursos ventanaGestionarCursos,
-			ControladorPantallaPrincipal controladorPantallaPrincipal) {
+			ControladorPrincipal controladorPantallaPrincipal) {
 		this.ventanaGestionarCursos = ventanaGestionarCursos;
-		this.controladorPantallaPrincipal = controladorPantallaPrincipal;
+		this.controlador = controladorPantallaPrincipal;
 		this.ventanaGestionarCursos.getBtnAgregar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnBorrar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnEditar().addActionListener(this);
-		this.ventanaGestionarCursos.getBtnCancelar().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnConsultarInscripciones().addActionListener(this);
 		this.ventanaGestionarCursos.getBtnCambiarEstado().addActionListener(this);
 		this.inicializar();
@@ -53,8 +55,9 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 	public void inicializar() {
 		llenarTablaCursos();
-		this.ventanaGestionarCursos.frame.setVisible(true);
-		this.ventanaGestionarCursos.frame.setEnabled(true);
+		controlador.getVentana().setVisible(true);
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
 	}
 
 	private void llenarTablaCursos() {
@@ -135,7 +138,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			this.ventanaCrearCurso = new CrearCurso();
 			this.ventanaCrearCurso.setVisible(true);
 			this.ventanaCrearCurso.setTitle("CREAR CURSADA");
-			this.ventanaGestionarCursos.frame.setEnabled(false);
+			controlador.getVentana().setEnabled(false);
 			ControladorCrearCurso c = new ControladorCrearCurso(this.ventanaCrearCurso, this);
 			completarResponsable(c);
 		}
@@ -153,12 +156,6 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 			editarCurso();
 		}
 
-		// BOTON CANCELAR
-		else if (e.getSource() == this.ventanaGestionarCursos.getBtnCancelar()) {
-			controladorPantallaPrincipal.inicializar();
-			ventanaGestionarCursos.frame.dispose();
-		}
-
 		// BOTON CAMBIAR ESTADO
 		else if (e.getSource() == this.ventanaGestionarCursos.getBtnCambiarEstado()) {
 			cambiarEstado();
@@ -174,7 +171,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 				}
 				VentanaAlumnosInscriptos v = new VentanaAlumnosInscriptos(curso);
 				new ControladorAlumnosInscriptos(v, this, curso);
-				ventanaGestionarCursos.frame.setEnabled(false);
+				controlador.getVentana().setEnabled(false);
 			} else
 				JOptionPane.showMessageDialog(null, "Seleccione una cursada para ver sus inscripciones");
 		}
@@ -310,7 +307,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 		controladorCursoEdicion.setHorarios(horariosCursada);
 		controladorCursoEdicion.inicializar();
 		ventanaCrearCurso.getFechaCierreDeInscripcion().setDate(curso.getFechaCierre());
-		this.ventanaGestionarCursos.frame.setEnabled(false);
+		controlador.getVentana().setEnabled(false);
 	}
 
 	private void cambiarEstado() {
@@ -485,7 +482,17 @@ public class ControladorGestionarCurso implements ActionListener, Consultable {
 
 	@Override
 	public void habilitarPrincipal() {
-		// TODO Auto-generated method stub
-		
+		controlador.getVentana().setEnabled(true);
+		controlador.getVentana().toFront();
+	}
+
+	@Override
+	public boolean finalizar() {
+		return true;
+	}
+
+	@Override
+	public JInternalFrame getVentana() {
+		return ventanaGestionarCursos;
 	}
 }

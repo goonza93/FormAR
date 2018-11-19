@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.util.Formato;
 import net.sf.jasperreports.engine.JRException;
@@ -28,7 +30,7 @@ public class FacturaPago
     	totalPersonas.put("alumno", Formato.alumno(pago));
     	totalPersonas.put("curso", Formato.curso(pago));
     	totalPersonas.put("monto", pago.getMonto());
-    	totalPersonas.put("cuota", pago.getMes());
+    	totalPersonas.put("totalCuotas", pago.getMes()+" de "+ Tesoreria.cantCuotas(pago.getCursada()));
     	
     	try		{
 			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\FacturaPago.jasper" );

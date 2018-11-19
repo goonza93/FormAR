@@ -50,7 +50,7 @@ public class ControladorGestionNotas implements ActionListener {
 		}
 		
 		ventana.deshabilitar();
-		new ControladorConsultarNotas(this, seleccion.get(0));
+		//new ControladorConsultarNotas(this, seleccion.get(0));
 	}
 
 	private void cargar() {
@@ -61,7 +61,7 @@ public class ControladorGestionNotas implements ActionListener {
 		}
 		
 		ventana.deshabilitar();
-		new ControladorCargarExamen(this, seleccion.get(0));
+		//new ControladorCargarExamen(this, seleccion.get(0));
 	}
 	
 	private void volver() {

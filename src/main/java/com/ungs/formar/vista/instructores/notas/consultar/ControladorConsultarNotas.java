@@ -14,15 +14,16 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.vista.consulta.Consultable;
+import com.ungs.formar.vista.instructores.asistencia.ControladorGestionAsistencias2;
 import com.ungs.formar.vista.instructores.notas.ControladorGestionNotas;
 import com.ungs.formar.vista.util.Formato;
 
 public class ControladorConsultarNotas implements ActionListener, Consultable {
-	private ControladorGestionNotas controlador;
+	private ControladorGestionAsistencias2 controlador;
 	private VentanaConsultarNotas ventana;
 	private Curso curso;
 
-	public ControladorConsultarNotas(ControladorGestionNotas controlador, Curso curso) {
+	public ControladorConsultarNotas(ControladorGestionAsistencias2 controlador, Curso curso) {
 		this.controlador = controlador;
 		this.curso = curso;
 		ventana = new VentanaConsultarNotas();
@@ -78,7 +79,7 @@ public class ControladorConsultarNotas implements ActionListener, Consultable {
 	public void volver() {
 		ventana.getVentana().dispose();
 		ventana = null;
-		controlador.mostrar();
+		controlador.habilitarPrincipal();
 	}
 
 	@Override
