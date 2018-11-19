@@ -231,8 +231,8 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			controladorPrincipal.getVentana().setEnabled(true);
 			controladorPrincipal.getVentana().setVisible(true);
 			
-			if (ventanaABM != null)
-				llenarTabla();
+			if (controladorPrincipal != null && controladorPrincipal.getControladorAlumnoABM() != null)
+				controladorPrincipal.getControladorAlumnoABM().llenarTabla();
 		}
 	}
 

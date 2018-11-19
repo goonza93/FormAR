@@ -68,6 +68,7 @@ public class ControladorPrincipal implements ActionListener {
 	TrayIcon trayIcon;
 	ControladorGestionarCurso controladorGestionarCurso;
 	ControladorTareaABM controladorTareaABM;
+	ControladorAlumnoABM controladorAlumnoABM;
 	
 	public ControladorPrincipal(TrayIcon trayIcon) {
 		ventana = new PantallaPrincipal();
@@ -295,7 +296,8 @@ public class ControladorPrincipal implements ActionListener {
 
 	private void mostrarConsultarAlumnos(){
 		VentanaAlumnoABM asd = new VentanaAlumnoABM();
-		mostrarVentana(new ControladorAlumnoABM(asd,this));
+		controladorAlumnoABM = new ControladorAlumnoABM(asd,this); 
+		mostrarVentana(controladorAlumnoABM);
 	}
 	
 	private void mostrarNotificaciones() {
@@ -407,6 +409,10 @@ public class ControladorPrincipal implements ActionListener {
 
 	public ControladorTareaABM getControladorTareaABM() {
 		return controladorTareaABM;
+	}
+
+	public ControladorAlumnoABM getControladorAlumnoABM() {
+		return controladorAlumnoABM;
 	}
 		
 }
