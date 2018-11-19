@@ -74,6 +74,7 @@ public class VentanaPagoABM extends VentanaInterna {
 
 		// TABLA DE PAGOS
 		tabla = new TablaPagos(new ArrayList<Pago>());// NO CARGA SOLO
+		tabla.setSelectionMode(0);
 		JScrollPane panelTabla = new JScrollPane();
 		panelTabla.setViewportView(tabla);
 
