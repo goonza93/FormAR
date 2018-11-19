@@ -64,6 +64,7 @@ import com.ungs.formar.vista.ventanas.VentanaProgramaGestion;
 public class ControladorPrincipal implements ActionListener {
 	PantallaPrincipal ventana;
 	ControladorInterno controlador;
+	ScheduledExecutorService scheduler;
 	TrayIcon trayIcon;
 	ControladorGestionarCurso controladorGestionarCurso;
 	
@@ -120,7 +121,7 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void iniciarScheduler() {
-		ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+		scheduler = Executors.newSingleThreadScheduledExecutor();
 		Runnable task = new Notifier(trayIcon, this);
 		int initialDelay = 0;
 		int periodicDelay = 1;
@@ -133,6 +134,7 @@ public class ControladorPrincipal implements ActionListener {
 	
 	private void cerrarVentana() {
 		if(Popup.confirmar("¿Esta seguro que desea salir?"))
+			scheduler.shutdown();
 			System.exit(0);
 	}
 	private void cerrarSesion(){
