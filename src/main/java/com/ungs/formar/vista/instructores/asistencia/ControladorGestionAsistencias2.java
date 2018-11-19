@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 
+import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.Instructor;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Curso;
@@ -84,7 +85,12 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		
 		Date fecha = Instructor.proximaFechaTomarAsistencia(curso);
 		if (fecha == null) {
-			Popup.mostrar("Ya se han tomado tods las asistensias posibles para este curso.");
+			Popup.mostrar("Ya se han tomado todas las asistensias posibles para este curso.");
+			return;
+		}
+		
+		if (fecha.after(Almanaque.hoy())) {
+			Popup.mostrar("Ya se han cargado todas las asistensias posibles hasta el dia de hoy.");
 			return;
 		}
 		
