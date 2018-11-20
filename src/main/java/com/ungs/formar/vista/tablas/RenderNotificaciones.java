@@ -26,6 +26,7 @@ public class RenderNotificaciones extends DefaultTableCellRenderer
             	c.setFont(this.getFont().deriveFont(Font.BOLD + Font.ITALIC));
             }
         	c.setBackground(table.getBackground());
+        	c.setForeground(table.getForeground());
         }
         return c;
     }

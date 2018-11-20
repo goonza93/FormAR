@@ -1,7 +1,9 @@
 package com.ungs.formar.vista.pantallasPrincipales;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.vista.util.Sesion;
 
@@ -83,9 +86,11 @@ public class PantallaPrincipal extends JFrame {
 		*/
 		repaint();
 		pack();
-		setLocationRelativeTo(null);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setResizable(true);
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+	    setSize(d.width, d.height-40);//<---take 30 off the height
+		//setExtendedState(Frame.MAXIMIZED_BOTH);
+	    setLocationRelativeTo(null);
+		setResizable(false);
 	}
 	
 	private JMenuBar crearBarra() {

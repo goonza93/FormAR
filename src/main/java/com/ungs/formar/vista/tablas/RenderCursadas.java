@@ -32,23 +32,30 @@ public class RenderCursadas extends DefaultTableCellRenderer
         	if (inicio && fin){
         		if(estado.equals("FINALIZADO") || estado.equals("CANCELADO")){
         			c.setBackground(table.getBackground());
+        			c.setForeground(table.getForeground());
         		} else {
             		c.setBackground(Color.ORANGE);
+            		c.setForeground(table.getForeground());
         		}
         	} else if (inicio) {
             	if(estado.equals("PUBLICADO") || estado.equals("CREADO")){
             		c.setBackground(Color.CYAN);
+            		c.setForeground(table.getForeground());
             	} else {
             		c.setBackground(table.getBackground());
+            		c.setForeground(table.getForeground());
             	}
             } else if(fin){
             	if(estado.equals("INICIADO")){
             		c.setBackground(Color.ORANGE);
+            		c.setForeground(table.getForeground());
             	} else {
             		c.setBackground(table.getBackground());
+            		c.setForeground(table.getForeground());
             	}
             } else {
             	c.setBackground(table.getBackground());
+            	c.setForeground(table.getForeground());
             }
         }
         return c;

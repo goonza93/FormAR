@@ -87,6 +87,7 @@ public class ControladorPrincipal implements ActionListener {
 				cerrarVentana();
 			}
 		});
+
 		// Listeners MENU ARCHIVO
 		ventana.getMenuArchivoCambiarContrasena().addActionListener(s -> mostrarCambiarPass());
 		ventana.getMenuArchivoVerManual().addActionListener(s -> abrirManual());
