@@ -277,6 +277,10 @@ public class ControladorContactos implements ActionListener, ControladorInterno 
 			controlador.getVentana().setEnabled(true);
 			controlador.getVentana().setVisible(true);
 			controlador.getVentana().toFront();
+			
+			// Si esta viendo la tabla de contactos, se actualiza
+			if (controlador != null && controlador.getControladorContactos() != null)
+				controlador.getControladorContactos().llenarTabla();
 		}
 	}
 	
