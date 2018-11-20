@@ -2,6 +2,7 @@ package com.ungs.formar.vista.gestion.cursos;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -9,7 +10,9 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -18,6 +21,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import com.ungs.formar.vista.tablas.RenderCursadas;
 import com.ungs.formar.vista.util.VentanaInterna;
 
 public class GestionarCursos extends VentanaInterna {
@@ -77,6 +82,8 @@ public class GestionarCursos extends VentanaInterna {
 		tablaCursos.setDefaultEditor(Object.class, null);
 		tablaCursos.getTableHeader().setReorderingAllowed(false);
 		tablaCursos.setRowSorter(sorter);
+		RenderCursadas render = new RenderCursadas();
+		tablaCursos.setDefaultRenderer(Object.class, render);
 
 		tablaCursos.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tablaCursos.getColumnModel().getColumn(1).setPreferredWidth(50);
