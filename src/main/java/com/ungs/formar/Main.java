@@ -7,6 +7,7 @@ import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
@@ -16,6 +17,15 @@ public class Main {
 
 	public static void main(String[] args) {
 	
+		try
+		{
+			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+		}
+		catch (Exception e)
+		{
+		   e.printStackTrace();
+		}
+		
 		if(SystemTray.isSupported()){
 			SystemTray tray = SystemTray.getSystemTray();
 			ImageIcon image2 = new ImageIcon("imagenes/tray image.png");
