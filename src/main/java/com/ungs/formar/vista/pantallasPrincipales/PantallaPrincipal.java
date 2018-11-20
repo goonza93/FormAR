@@ -27,7 +27,8 @@ public class PantallaPrincipal extends JFrame {
 	, menuTareasCrearTarea, menuTareasConsultarTareas, menuRecadosCrearRecado
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios, menuInscripcionesConsultarInscripciones
-	, menuNotificacionesVerNotificaciones, menuCursosConsultarAreas, menuCursadasConsultarCursadas;
+	, menuNotificacionesVerNotificaciones, menuCursosConsultarAreas, menuCursadasConsultarCursadas
+	, menuArchivoVerManual;
 	private JMenu menuArchivo, menuAlumnos, menuInscripciones, menuContactos, menuTareas, menuRecados
 	, menuUsuarios, menuNotificaciones, menuCursadas, menuCursos;
 	private JMenuBar notifBar, barraPrincipal;
@@ -100,6 +101,7 @@ public class PantallaPrincipal extends JFrame {
 		menuArchivoImportarBD = new JMenuItem("Importar base de datos");
 		menuArchivoExportarBD = new JMenuItem("Exportar base de datos");
 		menuArchivoCerrarSesion = new JMenuItem("Cerrar sesion");
+		menuArchivoVerManual = new JMenuItem("Abrir manual de usuario");
 		menuArchivoSalir = new JMenuItem("Salir");
 
 		// MENU ALUMNOS
@@ -161,6 +163,7 @@ public class PantallaPrincipal extends JFrame {
 			menuArchivo.add(menuArchivoCambiarEmailSistema);
 			menuArchivo.add(menuArchivoImportarBD);
 			menuArchivo.add(menuArchivoExportarBD);
+			menuArchivo.add(menuArchivoVerManual);
 			menuArchivo.add(menuArchivoSalir);
 			
 			menuAlumnos.add(menuAlumnoCrearAlumno);
@@ -207,6 +210,7 @@ public class PantallaPrincipal extends JFrame {
 			//menuArchivo.add(menuArchivoCambiarEmailSistema);
 			//menuArchivo.add(menuArchivoImportarBD);
 			//menuArchivo.add(menuArchivoExportarBD);
+			menuArchivo.add(menuArchivoVerManual);
 			menuArchivo.add(menuArchivoSalir);
 			
 			menuAlumnos.add(menuAlumnoCrearAlumno);
@@ -255,6 +259,7 @@ public class PantallaPrincipal extends JFrame {
 			//menuArchivo.add(menuArchivoCambiarEmailSistema);
 			//menuArchivo.add(menuArchivoImportarBD);
 			//menuArchivo.add(menuArchivoExportarBD);
+			menuArchivo.add(menuArchivoVerManual);
 			menuArchivo.add(menuArchivoSalir);
 			
 			menuCursadas.add(menuCursadasConsultarCursadas);
@@ -402,6 +407,10 @@ public class PantallaPrincipal extends JFrame {
 
 	public JMenuItem getMenuNotificacionesVerNotificaciones() {
 		return menuNotificacionesVerNotificaciones;
+	}
+	
+	public JMenuItem getMenuArchivoVerManual(){
+		return menuArchivoVerManual;
 	}
 	
 	public JMenu getMenuRecados(){

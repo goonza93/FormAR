@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.pantallasPrincipales;
 
+import java.awt.Desktop;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,6 +89,7 @@ public class ControladorPrincipal implements ActionListener {
 		});
 		// Listeners MENU ARCHIVO
 		ventana.getMenuArchivoCambiarContrasena().addActionListener(s -> mostrarCambiarPass());
+		ventana.getMenuArchivoVerManual().addActionListener(s -> abrirManual());
 		ventana.getMenuArchivoCerrarSesion().addActionListener(s -> cerrarSesion());
 		ventana.getMenuArchivoCambiarEmailSistema().addActionListener(s -> new ControladorCambiarEmail(this));
 		ventana.getMenuArchivoExportarBD().addActionListener(s -> exportarBD());
@@ -124,6 +126,14 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuNotificacionesVerNotificaciones().addActionListener(s -> mostrarNotificaciones());
 		// Listeners MENU CURSADAS -- SOLO INSTRUCTORES
 		ventana.getMenuCursadasConsultarCursadas().addActionListener(s -> mostrarCursadasParaInstructor());
+	}
+
+	private void abrirManual() {
+		try {
+            Desktop.getDesktop().open(new File("manual.pdf"));
+        } catch (Exception ex) {
+        	Popup.mostrar("Usted decidió no instalar el manual.");
+        }
 	}
 
 	private void iniciarScheduler() {
