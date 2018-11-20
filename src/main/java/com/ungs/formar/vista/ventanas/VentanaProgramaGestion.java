@@ -229,8 +229,8 @@ public class VentanaProgramaGestion extends VentanaInterna {
 		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
 		filtros.add(RowFilter.regexFilter("(?i)" + txtAreaFiltro.getText(), 0));
 		filtros.add(RowFilter.regexFilter("(?i)" + txtNombreFiltro.getText(), 1));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtFechaAprobacionFiltro.getText(), 2));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtCargaHorariaFiltro.getText(), 3));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtFechaAprobacionFiltro.getText(), 3));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtCargaHorariaFiltro.getText(), 4));
 		return filtros;
 	}
 

@@ -257,10 +257,10 @@ public class GestionarCursos extends VentanaInterna {
 	public List<RowFilter<Object, Object>> crearFiltros() {
 		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
 		filtros.add(RowFilter.regexFilter("(?i)" + txtCursoFiltro.getText(), 0));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtAreaFiltro.getText(), 2));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtEstadoFiltro.getText(), 3));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtInstructorFiltro.getText(), 10));
-		filtros.add(RowFilter.regexFilter("(?i)" + txtResponsableFiltro.getText(), 11));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtAreaFiltro.getText(), 3));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtEstadoFiltro.getText(), 4));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtInstructorFiltro.getText(), 11));
+		filtros.add(RowFilter.regexFilter("(?i)" + txtResponsableFiltro.getText(), 12));
 		return filtros;
 	}
 	
