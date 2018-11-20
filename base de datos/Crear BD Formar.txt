@@ -269,7 +269,7 @@ CREATE TABLE for_notificaciones (
 	ID INT(4) AUTO_INCREMENT,
 	tipo INT(1) NOT NULL,
 	empleado INT(4) NOT NULL,
-	contenido VARCHAR(40) NOT NULL,
+	contenido VARCHAR(100) NOT NULL,
 	mostrado BOOLEAN NOT NULL,
 	leido BOOLEAN NOT NULL,
 	fecha DATE,
