@@ -314,6 +314,9 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 			controlador.getVentana().setEnabled(true);
 			controlador.getVentana().setVisible(true);
 			controlador.getVentana().toFront();
+			
+			if (controlador.getControladorEmpleadoABM() != null)
+				controlador.getControladorEmpleadoABM().llenarTabla();
 		}
 	}
 
