@@ -21,7 +21,7 @@ public class ControladorNotificaciones implements ControladorInterno {
 		llenarTabla();
 	}
 	
-	private void llenarTabla() {
+	public void llenarTabla() {
 		ventana.getModelo().setRowCount(0);
 		ventana.getModelo().setColumnCount(0);
 		ventana.getModelo().setColumnIdentifiers(ventana.getNombreColumnas());

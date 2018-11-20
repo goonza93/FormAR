@@ -79,7 +79,11 @@ public class Notifier implements Runnable {
 	private void actualizarNotificaciones() {
 		List<Notificacion> nuevos = NotificacionManager.traerNotificacionesSinLeer(Sesion.getEmpleado());
 		if(!nuevos.isEmpty()){
+			// Si hay nuevas notificaciones
 			principal.getMenuNotificaciones().setText("  Notificaciones("+nuevos.size()+")");
+			if (principal.getControladorNotificaciones() != null)
+				principal.getControladorNotificaciones().llenarTabla();
+			
 		} else {
 			principal.getMenuNotificaciones().setText("  Notificaciones");
 		}
