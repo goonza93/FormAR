@@ -128,7 +128,11 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		ventana.dispose();
 		ventana = null;
 		principal.getVentana().setEnabled(true);
-		principal.getVentana().toFront();;
+		principal.getVentana().toFront();
+		
+		// si se esta viendo la tabla de enviados se recarga
+		if (principal != null && principal.getControladorEnviados() != null)
+			principal.getControladorEnviados().recargar();
 	}
 
 	private void volverP() {
