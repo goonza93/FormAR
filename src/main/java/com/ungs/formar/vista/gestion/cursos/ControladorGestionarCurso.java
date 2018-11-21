@@ -78,7 +78,9 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 					.traerAreaSegunID(
 							ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getAreaID())
 					.getNombre();
-			String codCurso = nombre.subSequence(0, 4)+"-"+this.cursos_en_tabla.get(i).getID().toString();
+			//String codCurso = nombre.subSequence(0, 4)+"-"+this.cursos_en_tabla.get(i).getID().toString();
+			String codCurso = "A DESARROLLAR";
+			String coloreado = "no";
 			String estado = Formato.estado(this.cursos_en_tabla.get(i));
 			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
 			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
@@ -104,7 +106,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 			Object[] fila = { nombre, codCurso ,comision, area, estado, Formato.precio(precio), cupoMinimo.toString(),
 					cupoMaximo.toString(), fechaInicio.toString(), fechaFin == null ? "" : fechaFin.toString(),
 					fechaCierre == null?"":fechaCierre.toString(), nombreApellidoInstructor, nombreApellidoResponsable,
-					horariosString };
+					horariosString , coloreado};
 			this.ventanaGestionarCursos.getModelCursos().addRow(fila);
 
 			// seteo la altura de la celda
@@ -113,6 +115,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 			ventanaGestionarCursos.getTablaCursos().setRowHeight(registro, altura);
 
 		}
+		ventanaGestionarCursos.getTablaCursos().removeColumn(ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(14));
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(0).setPreferredWidth(122);
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(1).setPreferredWidth(30);
 		ventanaGestionarCursos.getTablaCursos().getColumnModel().getColumn(2).setPreferredWidth(30);

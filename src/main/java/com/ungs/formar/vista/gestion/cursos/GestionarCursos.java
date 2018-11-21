@@ -12,7 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -23,7 +27,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.ungs.formar.vista.tablas.RenderCursadas;
+import com.ungs.formar.vista.util.PanelHorizontal;
+import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.VentanaInterna;
+
+import javax.swing.JRadioButton;
 
 public class GestionarCursos extends VentanaInterna {
 	private static final long serialVersionUID = 1L;
@@ -32,7 +40,7 @@ public class GestionarCursos extends VentanaInterna {
 	private JButton btnEditar;
 	private DefaultTableModel modelCursos;
 	private String[] nombreColumnas = { "Curso", "Codigo","Comision","Area", "Estado", "Precio", "Cupo Minimo", "Cupo Maximo", "Fecha inicio",
-			"Fecha fin", "Cierre de inscripciones", "Instructor", "Responsable", "Salas, Dias y Horarios" };
+			"Fecha fin", "Cierre de inscripciones", "Instructor", "Responsable", "Salas, Dias y Horarios", "coloreo"};
 	private JScrollPane spCursos;
 	private JTable tablaCursos;
 	private JLabel lblFiltrar;
@@ -50,6 +58,8 @@ public class GestionarCursos extends VentanaInterna {
 	private JLabel lblResponsable;
 	private JTextField txtResponsableFiltro;
 	private final TableRowSorter<TableModel> filtro;
+	private JRadioButton rdbtnTodos, rdbtnAIniciar,	rdbtnAFinalizar;
+	private ButtonGroup radioBtnGroup;
 
 	public GestionarCursos() {
 		super("Gestion de cursadas", 1375, 629);
@@ -149,16 +159,47 @@ public class GestionarCursos extends VentanaInterna {
 		txtResponsableFiltro.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtResponsableFiltro.setColumns(10);
 		
+		rdbtnTodos = new JRadioButton("Todos");
+		JLabel lblTodos = new JLabel("  Sin color");
+		
+		rdbtnAIniciar = new JRadioButton(" A iniciar");
+		JLabel lblIniciar = new JLabel(" Color celeste");
+		
+		rdbtnAFinalizar = new JRadioButton("  A finalizar");
+		JLabel lblFinalizar = new JLabel("  Color naranja");
+		
+		radioBtnGroup = new ButtonGroup();
+		radioBtnGroup.add(rdbtnTodos);
+		radioBtnGroup.add(rdbtnAIniciar);
+		radioBtnGroup.add(rdbtnAFinalizar);
+		
+		PanelVertical panelTodos = new PanelVertical();
+		panelTodos.add(rdbtnTodos);
+		panelTodos.add(lblTodos);
+		PanelVertical panelAIniciar = new PanelVertical();
+		panelAIniciar.add(rdbtnAIniciar);
+		panelAIniciar.add(lblIniciar);
+		PanelVertical panelAFinalizar = new PanelVertical();
+		panelAFinalizar.add(rdbtnAFinalizar);
+		panelAFinalizar.add(lblFinalizar);
+		
+		
+		PanelHorizontal radioBtns = new PanelHorizontal();
+		radioBtns.add(panelTodos);
+		radioBtns.add(panelAIniciar);
+		radioBtns.add(panelAFinalizar);
+		
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCursos, GroupLayout.DEFAULT_SIZE, 1344, Short.MAX_VALUE)
 							.addContainerGap())
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
@@ -188,7 +229,10 @@ public class GestionarCursos extends VentanaInterna {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblResponsable, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
 								.addComponent(txtResponsableFiltro, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
-							.addGap(359))
+							.addGap(113)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(radioBtns))
+							.addGap(37))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblFiltrar, GroupLayout.DEFAULT_SIZE, 1344, Short.MAX_VALUE)
@@ -200,30 +244,35 @@ public class GestionarCursos extends VentanaInterna {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblFiltrar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(22)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(21)
-							.addComponent(txtEstadoFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addGap(22)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(21)
+									.addComponent(txtEstadoFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(21)
+									.addComponent(txtCursoFiltro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(21)
+									.addComponent(txtAreaFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblInstructor, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblEstado, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblArea, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCurso))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtInstructorFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblResponsable, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+									.addGap(6)
+									.addComponent(txtResponsableFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(21)
-							.addComponent(txtCursoFiltro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(21)
-							.addComponent(txtAreaFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblInstructor, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblEstado, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblArea, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCurso))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtInstructorFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblResponsable, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addGap(6)
-							.addComponent(txtResponsableFiltro, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-					.addGap(35)
+							.addComponent(radioBtns)))
+					.addGap(25)
 					.addComponent(lblCursos)
 					.addGap(9)
 					.addComponent(spCursos, GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
@@ -244,6 +293,11 @@ public class GestionarCursos extends VentanaInterna {
 		txtEstadoFiltro.getDocument().addDocumentListener(listener);
 		txtInstructorFiltro.getDocument().addDocumentListener(listener);
 		txtResponsableFiltro.getDocument().addDocumentListener(listener);
+		ItemListener itemListener = crearItemListener();
+		rdbtnTodos.addItemListener(itemListener);
+		rdbtnAIniciar.addItemListener(itemListener);
+		rdbtnAFinalizar.addItemListener(itemListener);
+		
 	}
 
 	/*public void mostrar() {
@@ -254,6 +308,29 @@ public class GestionarCursos extends VentanaInterna {
 		this.frame.setVisible(false);
 	}*/
 
+	private ItemListener crearItemListener() {
+		ItemListener nuevo = new ItemListener(){
+
+			public void itemStateChanged(ItemEvent e) {
+				filtro.setRowFilter(RowFilter.andFilter(crearFiltros()));
+			}
+			
+		};
+		return nuevo;
+	}
+	
+	private RowFilter<Object, Object> rowItemFilter(){
+		RowFilter<Object, Object> filtroitem = null;
+		if (rdbtnAIniciar.isSelected()){
+			filtroitem = RowFilter.regexFilter("(?i)" + "iniciar", 14);
+		} else if (rdbtnAFinalizar.isSelected()){
+			filtroitem = RowFilter.regexFilter("(?i)" + "finalizar", 14);
+		} else {
+			filtroitem = RowFilter.regexFilter("(?i)" , 14);
+		}
+		return filtroitem;
+	}
+
 	public List<RowFilter<Object, Object>> crearFiltros() {
 		List<RowFilter<Object, Object>> filtros = new ArrayList<RowFilter<Object, Object>>(2);
 		filtros.add(RowFilter.regexFilter("(?i)" + txtCursoFiltro.getText(), 0));
@@ -261,6 +338,7 @@ public class GestionarCursos extends VentanaInterna {
 		filtros.add(RowFilter.regexFilter("(?i)" + txtEstadoFiltro.getText(), 4));
 		filtros.add(RowFilter.regexFilter("(?i)" + txtInstructorFiltro.getText(), 11));
 		filtros.add(RowFilter.regexFilter("(?i)" + txtResponsableFiltro.getText(), 12));
+		filtros.add(rowItemFilter());
 		return filtros;
 	}
 	
@@ -311,5 +389,4 @@ public class GestionarCursos extends VentanaInterna {
 	public JButton getBtnCambiarEstado() {
 		return btnCambiarEstado;
 	}
-
 }
