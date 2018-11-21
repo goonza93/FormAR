@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
+import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
@@ -21,8 +22,15 @@ public class Main {
 	
 		try
 		{
-			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
-			//AcrylLookAndFeel.setTheme("","","");
+			Properties props = new Properties();
+			props.put("logoString", "FormAR");
+			props.put("centerWindowTitle", "on");
+			
+			AcrylLookAndFeel.setCurrentTheme(props);
+			//ESTOS 2 LOOK AND FEEL ME GUSTAN MAS 
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
 		}
 		catch (Exception e)
 		{
