@@ -18,6 +18,6 @@ public class Popup {
 	}
 	
 	public static String preguntar(String mensaje){
-		return JOptionPane.showInputDialog(null, "What's your name?");
+		return JOptionPane.showInputDialog(null, mensaje);
 	}
 }
