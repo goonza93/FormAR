@@ -25,7 +25,7 @@ public class VentanaTareaABM extends VentanaInterna{
 	
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelo;
-	private String[] columnas = { "Empleado", "Contenido", "Pendiente" };
+	private String[] columnas = { "Contenido", "Pendiente" };
 	private JTable tabla;
 	private JButton btnAgregar, btnEditar, btnBorrar;
 	private JCheckBox chckbxPendientes;
@@ -158,9 +158,9 @@ public class VentanaTareaABM extends VentanaInterna{
 
 			public void itemStateChanged(ItemEvent e) {
 				if(chckbxPendientes.isSelected()){
-					filtro.setRowFilter(RowFilter.regexFilter("true", 2));
+					filtro.setRowFilter(RowFilter.regexFilter("true", 1));
 				} else {
-					filtro.setRowFilter(RowFilter.regexFilter("(?i)", 2));
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)", 1));
 				}
 				
 			}

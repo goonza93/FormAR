@@ -56,13 +56,12 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		tareas = TareaManager.traerTareas();
 		for (Tarea tarea : tareas) {
 			Object[] fila = {
-					Formato.empleado(Sesion.getEmpleado().getID()),
 					tarea.getContenido(),
 					tarea.isPendiente()
 					};
 			ventanaABM.getModelo().addRow(fila);
 		}
-		ventanaABM.getTabla().removeColumn(ventanaABM.getTabla().getColumnModel().getColumn(2));
+		ventanaABM.getTabla().removeColumn(ventanaABM.getTabla().getColumnModel().getColumn(1));
 	}
 
 	private void marcarRealizada() {
