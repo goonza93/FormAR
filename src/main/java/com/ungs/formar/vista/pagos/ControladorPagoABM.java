@@ -7,8 +7,10 @@ import java.util.List;
 import javax.swing.JInternalFrame;
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.AlumnoManager;
+import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Alumno;
+import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.pagos.registrar.ControladorPagoAM;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
@@ -39,8 +41,21 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 			return;
 		}
 		if (!pago.isPagoCompleto()) {
-			invocador.getVentana().setEnabled(false);
-			new ControladorPagoAM(this, pago);
+			Alumno alumno = AlumnoManager.traerAlumnoSegunID(pago.getAlumno());
+			Curso curso = CursoManager.traerCursoPorId(pago.getCursada());
+			Pago proximoPago = Tesoreria.traerProximoPago(alumno, curso);
+			if (!proximoPago.getMes().equals(pago.getMes())) {
+				if (Popup.confirmar("Existe un pago pendiente de la cuota " + proximoPago.getMes()
+						+ ". ¿Desea crear un pago para la cuota " + proximoPago.getMes() + "?")) {
+					invocador.getVentana().setEnabled(false);
+					new ControladorPagoAM(this, proximoPago);
+				}
+				else
+					Popup.mostrar("No se puede registrar un pago posterior a uno que se adeuda.");
+			} else {
+				invocador.getVentana().setEnabled(false);
+				new ControladorPagoAM(this, pago);
+			}
 		} else
 			Popup.mostrar("La cuota seleccionada ya fue pagada.");
 	}

@@ -165,4 +165,13 @@ public class Tesoreria {
 		return Almanaque.diferenciaEnMeses(curso.getFechaInicio(),
 				curso.getFechaFin());
 	}
+
+	public static Pago traerProximoPago(Alumno alumno, Curso curso) {
+		List<Pago> pagosPendientes = traerPagosAlumnoPendientes(alumno, curso);
+		for(Pago pago: pagosPendientes){
+			if(!pago.isPagoCompleto())
+				return pago;
+		}
+		return null;
+	}
 }

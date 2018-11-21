@@ -30,7 +30,7 @@ public class Main {
 			//ESTOS 2 LOOK AND FEEL ME GUSTAN MAS 
 			//UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 			//UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
-			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 		}
 		catch (Exception e)
 		{
