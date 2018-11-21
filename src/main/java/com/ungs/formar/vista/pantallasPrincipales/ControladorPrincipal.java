@@ -93,6 +93,7 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuArchivoVerManual().addActionListener(s -> abrirManual());
 		ventana.getMenuArchivoCerrarSesion().addActionListener(s -> cerrarSesion());
 		ventana.getMenuArchivoCambiarEmailSistema().addActionListener(s -> new ControladorCambiarEmail(this));
+		ventana.getMenuArchivoConfigurarBD().addActionListener(s -> mostrarConfigurarBD());
 		ventana.getMenuArchivoExportarBD().addActionListener(s -> exportarBD());
 		ventana.getMenuArchivoImportarBD().addActionListener(s -> importarBD());
 		ventana.getMenuArchivoSalir().addActionListener(s -> cerrarVentana());
@@ -127,6 +128,10 @@ public class ControladorPrincipal implements ActionListener {
 		ventana.getMenuNotificacionesVerNotificaciones().addActionListener(s -> mostrarNotificaciones());
 		// Listeners MENU CURSADAS -- SOLO INSTRUCTORES
 		ventana.getMenuCursadasConsultarCursadas().addActionListener(s -> mostrarCursadasParaInstructor());
+	}
+
+	private void mostrarConfigurarBD() {
+		// TODO Auto-generated method stub
 	}
 
 	private void abrirManual() {

@@ -31,7 +31,7 @@ public class PantallaPrincipal extends JFrame {
 	, menuRecadosConsultarRecibidos, menuRecadosConsultarEnviados, menuRecadosConsultarArchivados
 	, menuUsuariosCrearUsuario, menuUsuariosConsultarUsuarios, menuInscripcionesConsultarInscripciones
 	, menuNotificacionesVerNotificaciones, menuCursosConsultarAreas, menuCursadasConsultarCursadas
-	, menuArchivoVerManual;
+	, menuArchivoVerManual, menuArchivoConfigurarBD;
 	private JMenu menuArchivo, menuAlumnos, menuInscripciones, menuContactos, menuTareas, menuRecados
 	, menuUsuarios, menuNotificaciones, menuCursadas, menuCursos;
 	private JMenuBar notifBar, barraPrincipal;
@@ -103,6 +103,7 @@ public class PantallaPrincipal extends JFrame {
 		// MENU ARCHIVO
 		menuArchivoCambiarContrasena = new JMenuItem("Cambiar contraseña");
 		menuArchivoCambiarEmailSistema = new JMenuItem("Cambiar E-Mail del sistema");
+		menuArchivoConfigurarBD = new JMenuItem("Configurar base de datos");
 		menuArchivoImportarBD = new JMenuItem("Importar base de datos");
 		menuArchivoExportarBD = new JMenuItem("Exportar base de datos");
 		menuArchivoCerrarSesion = new JMenuItem("Cerrar sesion");
@@ -166,6 +167,7 @@ public class PantallaPrincipal extends JFrame {
 			menuArchivo.add(menuArchivoCambiarContrasena);
 			menuArchivo.add(menuArchivoCerrarSesion);
 			menuArchivo.add(menuArchivoCambiarEmailSistema);
+			menuArchivo.add(menuArchivoConfigurarBD);
 			menuArchivo.add(menuArchivoImportarBD);
 			menuArchivo.add(menuArchivoExportarBD);
 			menuArchivo.add(menuArchivoVerManual);
@@ -416,6 +418,10 @@ public class PantallaPrincipal extends JFrame {
 	
 	public JMenuItem getMenuArchivoVerManual(){
 		return menuArchivoVerManual;
+	}
+	
+	public JMenuItem getMenuArchivoConfigurarBD(){
+		return menuArchivoConfigurarBD;
 	}
 	
 	public JMenu getMenuRecados(){

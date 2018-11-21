@@ -35,12 +35,12 @@ public class VentanaProgramaAM extends JFrame {
 	private JTextArea txtDescripcion; 
 
 	public VentanaProgramaAM() {
-		setTitle("Ingresar programa");
+		setTitle("Crear curso");
 		inicializar();
 	}
 	
 	public VentanaProgramaAM(Programa programa){
-		setTitle("Editar programa");
+		setTitle("Editar curso: "+ programa.getNombre());
 		inicializar();
 		this.programa = programa;
 		txtArea.setText(ProgramaManager.traerAreaSegunID(programa.getAreaID()).getNombre());

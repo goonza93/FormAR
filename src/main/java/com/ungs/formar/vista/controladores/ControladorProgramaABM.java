@@ -76,7 +76,8 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		// Por cada programa en mi lista agrego un registro a la tabla
 		programas = ProgramaManager.traerProgramas();
 		for (Programa programa: programas) {
-			String codCurso = programa.getNombre().subSequence(0, 4)+"-"+programa.getProgramaID().toString();
+			//String codCurso = programa.getNombre().subSequence(0, 4)+"-"+programa.getProgramaID().toString();
+			String codCurso = "A DESARROLAR";
 			Object[] fila = {
 					ProgramaManager.traerAreaSegunID(programa.getAreaID()).getNombre(),
 					programa.getNombre(),
@@ -96,7 +97,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			Popup.mostrar("Seleccione exactamente un curso para ver sus interesados.");
 		} else {
 			if (ContactoManager.traerInteresadosPrograma(programas.get(0).getProgramaID()).isEmpty()){
-				Popup.mostrar("El curso seleccionada no tiene interesados.");
+				Popup.mostrar("El curso seleccionado no tiene interesados.");
 				return;
 			}
 			new ControladorConsultaInteresados(this, programas.get(0));
@@ -140,10 +141,10 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	private void iniciarBaja() {
 		List<Programa> lista = obtenerProgramasSeleccionados();
 		if (lista.size()==0){
-			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para borrar seleccione al menos un programa.");
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para borrar seleccione al menos un curso.");
 		} 
 		else if(ProgramaManager.estaAsignado(lista.get(0))){
-			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "El programa seleccionado esta asignado y no puede borrarse");
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "El curso seleccionado esta asignado y no puede borrarse");
 		}
 		else {
 			int confirm = JOptionPane.showOptionDialog(null, "¿¡Estas seguro que queres borrar lo seleccionado!?",
@@ -162,7 +163,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	private void iniciarModificacion() {
 		List<Programa> lista = obtenerProgramasSeleccionados();
 		if (lista.size()!=1){
-			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para editar seleccione exactamente un programa.");
+			JOptionPane.showMessageDialog(this.ventanaProgramaGestion, "Para editar seleccione exactamente un curso.");
 		}
 		else {
 			Programa aEditar = lista.get(0);
