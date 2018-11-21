@@ -61,7 +61,7 @@ public class VentanaProgramaGestion extends VentanaInterna {
 		btnBorrar = new JButton("BORRAR");
 		btnBorrar.setFont(new Font("Arial", Font.PLAIN, 12));
 
-		JLabel lblProgramas = new JLabel("PROGRAMAS:");
+		JLabel lblProgramas = new JLabel("CURSOS:");
 		lblProgramas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramas.setFont(new Font("Arial", Font.BOLD, 12));
 
