@@ -48,8 +48,17 @@ public class NotificacionManager {
 	}
 	
 	public static List<Notificacion> traerNotificacionesSinMostrar(Empleado empleado) {
-		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
-		return odb.selectByEmpleadoSinMostrar(empleado);
+		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();		
+		List<Notificacion> aux = odb.selectByEmpleadoSinMostrar(empleado);
+		List<Notificacion> ret = new ArrayList<Notificacion>();
+		for(Notificacion act:aux){
+			if(act.getFechaAMostrar()!=null && act.getFechaAMostrar().after(Almanaque.hoy())){
+				
+			} else {
+				ret.add(act);
+			}
+		}
+		return ret;
 	}
 	
 	public static List<Notificacion> traerNotificacionesSinLeer(Empleado empleado) {

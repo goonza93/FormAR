@@ -298,6 +298,19 @@ public class ControladorPrincipal implements ActionListener {
 	}
 		
 	private void mostrarVentana(ControladorInterno nuevo) {
+		controladorNotificaciones = null;
+		if (controlador == null || controlador.finalizar()) {
+			ventana.getContentPane().removeAll();
+			ventana.getContentPane().repaint();
+			
+			controlador = nuevo;
+			PanelVertical panel = new PanelVertical();
+			panel.add(controlador.getVentana());
+			ventana.setContentPane(panel);
+		}
+	}
+	
+	private void mostrarVentanaNoti(ControladorInterno nuevo, boolean notif){
 		if (controlador == null || controlador.finalizar()) {
 			ventana.getContentPane().removeAll();
 			ventana.getContentPane().repaint();
@@ -317,7 +330,7 @@ public class ControladorPrincipal implements ActionListener {
 	
 	private void mostrarNotificaciones() {
 		controladorNotificaciones = new ControladorNotificaciones(this); 
-		mostrarVentana(controladorNotificaciones);
+		mostrarVentanaNoti(controladorNotificaciones, true);
 	}
 
 	private void mostrarConsultarInscripciones() {
