@@ -175,7 +175,6 @@ public class GestionarCursos extends VentanaInterna {
 		
 		PanelVertical panelTodos = new PanelVertical();
 		panelTodos.add(rdbtnTodos);
-		panelTodos.add(lblTodos);
 		PanelVertical panelAIniciar = new PanelVertical();
 		panelAIniciar.add(rdbtnAIniciar);
 		panelAIniciar.add(lblIniciar);
