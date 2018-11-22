@@ -71,6 +71,12 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 			return;
 		}
 		
+		Curso curso = seleccion.get(0);
+		if (curso.getEstado() == EstadoCurso.FINALIZADO || curso.getEstado() == EstadoCurso.CANCELADO) {
+			Popup.mostrar("No se puede asignar programas a cursadas finalizadas o canceladas.");
+			return;
+		}
+		
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF only", "pdf", "txt");
 		chooser.setFileFilter(filter);
