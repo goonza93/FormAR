@@ -16,6 +16,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
 public class VentanaPagoABM extends VentanaInterna {
@@ -24,6 +25,7 @@ public class VentanaPagoABM extends VentanaInterna {
 	private JButton btnRegistrar, btnFactura, btnBuscar;
 	private JTextField inAlumno, inCursada;
 	private JDateChooser inFechaDesde, inFechaHasta;
+	private JCheckBox inPagado, inFueraDeTermino;
 
 	public VentanaPagoABM() {
 		super("Administracion de pagos", 713,405);
@@ -85,11 +87,20 @@ public class VentanaPagoABM extends VentanaInterna {
 		PanelHorizontal panelBotones = new PanelHorizontal();
 		panelBotones.add(btnRegistrar);
 		panelBotones.add(btnFactura);
+		
+		//CheckBoxes
+		inPagado = new JCheckBox("Pendientes");
+		inFueraDeTermino = new JCheckBox("Fuera de termino");
+		PanelHorizontal panelCheck = new PanelHorizontal();
+		panelCheck.add(inPagado);
+		panelCheck.add(inFueraDeTermino);
+
 
 		// ORGANIZACION DE PANELES
 		PanelVertical panelPrincipal = new PanelVertical();
 		setContentPane(panelPrincipal);
 		panelPrincipal.add(panelBusqueda);
+		panelPrincipal.add(panelCheck);
 		panelPrincipal.add(panelTabla);
 		panelPrincipal.add(panelBotones);
 	}
@@ -124,6 +135,14 @@ public class VentanaPagoABM extends VentanaInterna {
 	
 	public JDateChooser getInFechaHasta() {
 		return inFechaHasta;
+	}
+	
+	public JCheckBox getCheckPagado() {
+		return inPagado;
+	}
+	
+	public JCheckBox getCheckFueraDeTermino() {
+		return inFueraDeTermino;
 	}
 	
 }
