@@ -2,6 +2,7 @@ package com.ungs.formar.vista.gestion.contactos.interacciones;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -61,6 +62,8 @@ public class VentanaInteraccionesAM extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 
 		
 		JLabel lblSeleccionarArea = new JLabel("Area");

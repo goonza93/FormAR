@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.ventanas;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -34,6 +35,8 @@ public class ABMHorario extends JFrame {
 		setResizable(false);
 		setTitle("Ingreso de horario y sala");
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 
 		JLabel lblDia = new JLabel("DIA:");
 		lblDia.setFont(new Font("Arial", Font.PLAIN, 12));

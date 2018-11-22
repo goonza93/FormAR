@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.ventanas;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,6 +53,8 @@ public class GestionarAlumnos {
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setTitle("Gestion de alumnos");
 		frame.setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		frame.setIconImage(img.getImage());
 
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
 

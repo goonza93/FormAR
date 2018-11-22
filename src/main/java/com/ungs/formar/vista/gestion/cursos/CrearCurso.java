@@ -9,6 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,6 +51,8 @@ public class CrearCurso extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		
 		JLabel lblCupoMinimo = new JLabel("CUPO MINIMO:");
 		lblCupoMinimo.setFont(new Font("Arial", Font.PLAIN, 12));

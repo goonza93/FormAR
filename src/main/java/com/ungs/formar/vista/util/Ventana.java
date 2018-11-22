@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.util;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Ventana extends JFrame{
@@ -9,6 +10,8 @@ public class Ventana extends JFrame{
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle(titulo);
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		mostrar();
 	}
 

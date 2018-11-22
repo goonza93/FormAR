@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.seleccion.cursos;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -19,6 +20,8 @@ public class VentanaSeleccionarCurso extends JFrame {
 		setBounds(100, 100, 518, 362);
 		setTitle("Seleccionar curso");
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 
 		// LA TABLA
 		tabla = new TablaCursos(CursoManager.traerCursos());

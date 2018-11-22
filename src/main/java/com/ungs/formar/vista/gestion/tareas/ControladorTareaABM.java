@@ -134,6 +134,9 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		TareaManager.crearTarea(Sesion.getEmpleado().getID(), contenido);
 		
 		// crea la notificacion solo si puso fecha
+		String hora = "hora"; //ventana.get
+		String minutos = "minutos"; //ventana.get
+		
 		Date fecha = ventanaAM.getDateChooser().getDate() == null ? null : new Date(ventanaAM.getDateChooser().getDate().getTime());
 		if(fecha != null) {
 			String contenidoNotificacion = "Tenes una tarea pendiente para hoy";

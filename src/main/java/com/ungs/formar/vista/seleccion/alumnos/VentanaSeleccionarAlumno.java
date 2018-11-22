@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.seleccion.alumnos;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +19,8 @@ public class VentanaSeleccionarAlumno extends JFrame {
 		setBounds(100, 100, 700, 400);
 		setTitle("Seleccionar alumno");
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 
 		// LA TABLA
 		tabla = new TablaAlumnos(AlumnoManager.traerAlumnos());

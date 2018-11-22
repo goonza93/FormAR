@@ -2,6 +2,7 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -61,6 +62,8 @@ public class AsignacionesInstructor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		
 		JScrollPane spInstructores = new JScrollPane();
 		spInstructores.setBounds(10, 198, 482, 231);

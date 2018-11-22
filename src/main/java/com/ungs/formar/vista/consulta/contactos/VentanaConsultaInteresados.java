@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +43,8 @@ public class VentanaConsultaInteresados {
 		ventana.setBounds(100, 100, 750, 600);
 		ventana.setTitle("Contactos interesados en el area: "+ area.getNombre());
 		ventana.setLocationRelativeTo(null); // Centrar ventana
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		ventana.setIconImage(img.getImage());
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.seleccion.empleado;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,11 +11,15 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import com.ungs.formar.persistencia.definidos.Rol;
+
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -35,6 +40,8 @@ public class VentanaSeleccionarEmpleado extends JFrame {
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		
 		String titulo = "Selección de "+(rol.equals(Rol.COMPLETO) ? "empleados": rol);
 		setTitle(titulo);
