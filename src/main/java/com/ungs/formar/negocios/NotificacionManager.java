@@ -1,7 +1,8 @@
 package com.ungs.formar.negocios;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.ungs.formar.persistencia.FactoryODB;
@@ -13,7 +14,8 @@ import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 public class NotificacionManager {
 
 	public static void crearNotificacion(TipoNotificacion tipo, Integer empleadoID, String contenido, Date fechaANotificar){
-		Notificacion notificacion = new Notificacion(-1,tipo, empleadoID, contenido, false, false, fechaANotificar);
+		Timestamp datetime = new Timestamp(fechaANotificar.getTime());
+		Notificacion notificacion = new Notificacion(-1,tipo, empleadoID, contenido, false, false, datetime);
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
 		odb.insert(notificacion);
 	}

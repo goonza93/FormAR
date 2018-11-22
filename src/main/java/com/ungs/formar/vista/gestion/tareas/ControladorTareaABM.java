@@ -3,6 +3,8 @@ package com.ungs.formar.vista.gestion.tareas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,14 +135,23 @@ public class ControladorTareaABM implements ActionListener, ControladorInterno {
 		String contenido = ventanaAM.getContenido().getText();
 		TareaManager.crearTarea(Sesion.getEmpleado().getID(), contenido);
 		
-		// crea la notificacion solo si puso fecha
-		String hora = "hora"; //ventana.get
-		String minutos = "minutos"; //ventana.get
-		
 		Date fecha = ventanaAM.getDateChooser().getDate() == null ? null : new Date(ventanaAM.getDateChooser().getDate().getTime());
 		if(fecha != null) {
+			String hora = (String) ventanaAM.getComboHoras().getSelectedItem(); //ventana.get
+			String minutos = (String) ventanaAM.getComboMinutos().getSelectedItem();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sinHorario = new SimpleDateFormat("yyyy-MM-dd");
+			String diaSinHorario = sinHorario.format(fecha);
+			java.util.Date fechaConHorarios = null;
+			try {
+				fechaConHorarios = simpleDateFormat.parse(diaSinHorario+" "+hora+":"+minutos+":00");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			String contenidoNotificacion = "Tenes una tarea pendiente para hoy";
-			NotificacionManager.crearNotificacion(TipoNotificacion.TAREA, Sesion.getEmpleado().getID(), contenidoNotificacion, fecha);
+			NotificacionManager.crearNotificacion(TipoNotificacion.TAREA, Sesion.getEmpleado().getID(), contenidoNotificacion, fechaConHorarios);
 		}
 		
 		ventanaAM.dispose();

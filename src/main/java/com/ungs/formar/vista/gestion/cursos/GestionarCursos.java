@@ -16,7 +16,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
@@ -160,7 +159,7 @@ public class GestionarCursos extends VentanaInterna {
 		txtResponsableFiltro.setColumns(10);
 		
 		rdbtnTodos = new JRadioButton("Todos");
-		JLabel lblTodos = new JLabel("  Sin color");
+		//JLabel lblTodos = new JLabel("  Sin color");
 		
 		rdbtnAIniciar = new JRadioButton(" A iniciar");
 		JLabel lblIniciar = new JLabel(" Color celeste");

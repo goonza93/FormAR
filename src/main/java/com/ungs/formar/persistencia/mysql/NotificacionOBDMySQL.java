@@ -102,7 +102,7 @@ public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 						resultados.getString("contenido"),
 						resultados.getBoolean("mostrado"),
 						resultados.getBoolean("leido"),
-						resultados.getDate("fecha")
+						resultados.getTimestamp("fecha")
 						));
 				}
 			

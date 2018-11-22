@@ -1,6 +1,7 @@
 package com.ungs.formar.persistencia.entidades;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 
@@ -8,10 +9,10 @@ public class Notificacion {
 	private Integer ID, empleado;
 	private String contenido;
 	private boolean mostrado, leido;
-	private Date fechaAMostrar;
+	private Timestamp fechaAMostrar;
 	private TipoNotificacion tipo;
 	
-	public Notificacion(Integer ID, TipoNotificacion tipo, Integer empleadoID, String contenido, boolean mostrado, boolean leido, Date fechaANotificar){
+	public Notificacion(Integer ID, TipoNotificacion tipo, Integer empleadoID, String contenido, boolean mostrado, boolean leido, Timestamp fechaANotificar){
 		this.ID = ID;
 		this.tipo = tipo;
 		this.empleado = empleadoID;
@@ -53,11 +54,11 @@ public class Notificacion {
 		this.leido = leido;
 	}
 
-	public Date getFechaAMostrar() {
+	public Timestamp getFechaAMostrar() {
 		return fechaAMostrar;
 	}
 
-	public void setFechaAMostrar(Date fechaAMostrar) {
+	public void setFechaAMostrar(Timestamp fechaAMostrar) {
 		this.fechaAMostrar = fechaAMostrar;
 	}
 
