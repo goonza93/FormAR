@@ -107,7 +107,7 @@ public class Tesoreria {
 	}
 
 	public static List<Pago> traerPagosBusqueda(String dni, String curso, java.util.Date fechaDesde,
-			java.util.Date fechaHasta) {
+			java.util.Date fechaHasta, boolean soloPagados, boolean soloFueraDeTermino) {
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		Alumno alumno = AlumnoManager.traerAlumnoSegunDNI(dni);
 		Date desde = (fechaDesde == null) ? null : new Date(fechaDesde.getTime());
@@ -117,7 +117,8 @@ public class Tesoreria {
 
 		if (!pagosAlumno.isEmpty()) {
 			for (Pago pago : pagosAlumno) {
-				if (validarDesde(pago, desde) && validarHasta(pago, hasta)) {
+				if (validarDesde(pago, desde) && validarHasta(pago, hasta)
+						&& filtrarPorPagadosTermino(soloPagados, soloFueraDeTermino, pago)) {
 					if (!curso.isEmpty()) {
 						Curso cursoPago = CursoManager.traerCursoPorId(pago.getCursada());
 						Programa programaPago = ProgramaManager.traerProgramaSegunID(cursoPago.getPrograma());
@@ -176,27 +177,34 @@ public class Tesoreria {
 	}
 
 	public static void actualizarFuerasDeTermino(List<Pago> pagos) {
-		if(pagos.isEmpty())
+		if (pagos.isEmpty())
 			return;
-		
+
 		Integer cursadaID = pagos.get(0).getCursada();
 		Date fechaInicioCurso = CursoManager.traerCursoPorId(pagos.get(0).getCursada()).getFechaInicio();
-		
+
 		for (Pago pago : pagos) {
-			if(pago.getCursada() != cursadaID){
+			if (pago.getCursada() != cursadaID) {
 				cursadaID = pago.getCursada();
 				fechaInicioCurso = CursoManager.traerCursoPorId(pago.getCursada()).getFechaInicio();
 			}
-			
-			if (!pago.isPagoCompleto() && 
-					Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()) >1) {
+
+			if (!pago.isPagoCompleto() && Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()) > 1) {
 				pago.setPagoEnTermino(false);
-			} else if(!pago.isPagoCompleto())
+			} else if (!pago.isPagoCompleto())
 				pago.setPagoEnTermino(true);
-			
+
 			actualizarPago(pago);
 			System.out.println(Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()));
 			fechaInicioCurso = new java.sql.Date(Almanaque.aumentarUnMes(fechaInicioCurso).getTime());
 		}
+	}
+
+	private static boolean filtrarPorPagadosTermino(boolean soloPagados, boolean soloFueraDeTermino, Pago pago) {
+		if(soloPagados && pago.isPagoCompleto())
+			return false;
+		if(soloFueraDeTermino && pago.isPagoEnTermino())
+			return false;
+		return true;
 	}
 }

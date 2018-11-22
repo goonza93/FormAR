@@ -29,6 +29,8 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		ventana.getRegistrar().addActionListener(s -> registrar());
 		ventana.getFactura().addActionListener(s -> verFactura());
 		ventana.getBtnBuscar().addActionListener(s -> buscar());
+		ventana.getCheckFueraDeTermino().addActionListener(s -> recargar());
+		ventana.getCheckPagado().addActionListener(s -> recargar());
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -49,8 +51,7 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 						+ ". ¿Desea crear un pago para la cuota " + proximoPago.getMes() + "?")) {
 					invocador.getVentana().setEnabled(false);
 					new ControladorPagoAM(this, proximoPago);
-				}
-				else
+				} else
 					Popup.mostrar("No se puede registrar un pago posterior a uno que se adeuda.");
 			} else {
 				invocador.getVentana().setEnabled(false);
@@ -121,9 +122,12 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		Date fechaDesde = ventana.getInFechaDesde().getDate();
 		Date fechaHasta = ventana.getInFechaHasta().getDate();
 		Alumno alumno = AlumnoManager.traerAlumnoSegunDNI(dniAlumno);
+		boolean soloPendientesPago = ventana.getCheckPagado().isSelected();
+		boolean soloFueraDeTermino = ventana.getCheckFueraDeTermino().isSelected();
 		boolean avisarTodosCompletos = true;
 
-		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, cursada, fechaDesde, fechaHasta);
+		List<Pago> pagos = Tesoreria.traerPagosBusqueda(dniAlumno, cursada, fechaDesde, fechaHasta, soloPendientesPago,
+				soloFueraDeTermino);
 		if (pagos.size() == 0) {
 			Popup.mostrar(
 					"El alumno " + alumno.getApellido() + ", " + alumno.getNombre() + " , No tiene inscripciones.");
@@ -160,4 +164,7 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		invocador.getVentana().toFront();
 	}
 
+	public void actualizarTabla() {
+
+	}
 }
