@@ -16,6 +16,13 @@ CREATE TABLE for_salas (
 	PRIMARY KEY (ID)
 );
 
+-- ESQUEMA CONFIGURACION
+CREATE TABLE for_configuracion (
+	clave VARCHAR(100),
+	valor VARCHAR(100),
+    PRIMARY KEY (clave)
+);
+
 -- ESQUEMA DIAS DE LA SEMANA
 CREATE TABLE for_dias (
 	ID INT(4) AUTO_INCREMENT,
@@ -320,3 +327,7 @@ INSERT INTO for_roles (descripcion) VALUES ('SUPERVISOR');
 
 -- INSERTAR SALA "FANTASMA"
 INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);
+
+-- INSERTAR EMAIL
+INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);
+
