@@ -1,4 +1,4 @@
-﻿USE formar;
+﻿USE formar_grupo4;
 
 -- INSERTAR SALAS
 INSERT INTO formar_salas (nombre, numero, capacidad, activo) VALUES ("Aula Magna", 1015, 300, true);

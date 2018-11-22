@@ -8,11 +8,11 @@ import java.sql.Statement;
 
 public class ODB {
 	protected String driver = "com.mysql.jdbc.Driver";
-	protected final String cadenaConexion = "jdbc:mysql://localhost:3306/formar?autoReconnect=true&useSSL=false"; 
+	protected final String cadenaConexion = "jdbc:mysql://localhost:3306/formar_grupo4?autoReconnect=true&useSSL=false"; 
 	protected String usuarioBD = "root"; 
 	protected String passwordBD = "root";
 	protected static Connection conexion = null;
-	protected String bd ="formar";
+	protected String bd ="formar_grupo4";
 
 		
 	// Ejecutar sentencias que no traigan resultados
