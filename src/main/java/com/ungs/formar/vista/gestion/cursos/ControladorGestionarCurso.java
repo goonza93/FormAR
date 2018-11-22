@@ -375,6 +375,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 				if (confirm == 0) {
 					aEditar.setEstado(EstadoCurso.FINALIZADO);
 					CursoManager.cambiarEstadoCurso(aEditar);
+					InscripcionManager.cargarNotaFinal(aEditar);
 				}
 			}
 			// Si el curso esta FINALIZADO no puede cambiar de estado

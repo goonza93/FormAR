@@ -9,6 +9,7 @@ import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.entidades.Horario;
 import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
@@ -33,6 +34,11 @@ public class InscripcionManager {
 		Inscripcion inscripcion = new Inscripcion(-1, alumno.getID(), empleado.getID(), curso.getID(), fecha, 1.0);
 		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
 		obd.insert(inscripcion);
+	}
+	
+	public static void actualizarInscripion(Inscripcion inscripcion){
+		InscripcionOBD obd = FactoryODB.crearInscripcionOBD();
+		obd.update(inscripcion);
 	}
 
 	public static boolean estaInscripto(Curso curso, Alumno alumno) {
@@ -130,4 +136,33 @@ public class InscripcionManager {
 		return false;
 	}
 	
+	public static void cargarNotaFinal(Curso curso){
+		List<Alumno> alumnos = traerAlumnosInscriptos(curso);
+		List<String> examenes = Instructor.traerExamenesDeCurso(curso);
+		if(examenes.isEmpty() || alumnos.isEmpty())
+			return;
+		
+		double notas = 0;
+		int cantExamenes = examenes.size();
+		
+
+		for(Alumno alumno : alumnos){
+			notas = 0;
+			for(String nombreExamen : examenes){
+				Examen examen = Instructor.traerNota(curso, alumno, nombreExamen);
+				notas += examen.getNota();
+			}
+			System.out.println(notas);
+			notas = notas / cantExamenes;
+			System.out.println("PROMEDIO "+notas);
+			Inscripcion inscripcion = traerInscripcion(alumno, curso);
+			inscripcion.setNota(notas);
+			actualizarInscripion(inscripcion);
+		}
+	}
+	
+	public static double traerNotaFinal(Curso curso, Alumno alumno){
+		Inscripcion inscripcion = traerInscripcion(alumno, curso);
+		return inscripcion.getNota();
+	}
 }

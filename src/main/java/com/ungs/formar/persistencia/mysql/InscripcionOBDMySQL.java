@@ -6,9 +6,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 
@@ -86,6 +89,17 @@ public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 		}
 			
 		return inscripciones;
+	}
+	
+	public void update(Inscripcion inscripcion) {
+		String valores = " alumno = "+inscripcion.getAlumno()
+				+", empleado = "+ inscripcion.getEmpleado()
+				+", curso = "+ inscripcion.getCurso()
+				+", fecha = '"+inscripcion.getFecha()+"'"
+				+", nota = "+ inscripcion.getNota();
+		String condicion = "ID = "+inscripcion.getID();		
+		String sql = "update "+tabla+" set "+valores+" where ("+condicion+");";
+		ejecutarSQL(sql);
 	}
 
 }

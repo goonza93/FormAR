@@ -43,7 +43,7 @@ public class ControladorGestionNotas implements ActionListener {
 	private void consultar() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para consultar las notas de los examenes.");
 			return;
 		}
 		
