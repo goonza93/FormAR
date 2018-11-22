@@ -26,6 +26,7 @@ import com.ungs.formar.negocios.EmpleadoManager;
 import com.ungs.formar.negocios.Hash;
 import com.ungs.formar.negocios.Validador;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.configuracion.ControladorConfiguracionBD;
 import com.ungs.formar.vista.controladores.ControladorProgramaABM;
 import com.ungs.formar.vista.email.ControladorCambiarEmail;
 import com.ungs.formar.vista.gestion.alumnos.ControladorAlumnoABM;
@@ -131,7 +132,8 @@ public class ControladorPrincipal implements ActionListener {
 	}
 
 	private void mostrarConfigurarBD() {
-		// TODO Auto-generated method stub
+		ventana.setEnabled(false);
+		new ControladorConfiguracionBD(this);
 	}
 
 	private void abrirManual() {
