@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.ungs.formar.negocios.Configuracion;
 import com.ungs.formar.vista.util.EntradaTexto;
 import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -19,10 +21,11 @@ public class VentanaCambiarEmail extends Ventana {
 		super("Cambiar direcion de E-Mail de la empresa");
 
 		// ENTRADAS
-		Dimension largoLabel = new Dimension(200, 30);
-		Dimension largoTexto = new Dimension(200, 30);
-		inDireccion = new EntradaTexto("Nueva direccion de E-Mail", largoLabel, largoTexto);
-		inPassword = new EntradaTexto("Nueva password de E-Mail", largoLabel, largoTexto);
+		Dimension largoLabel = new Dimension(100, 30);
+		Dimension largoTexto = new Dimension(250, 30);
+		inDireccion = new EntradaTexto("Direccion", largoLabel, largoTexto);
+		inPassword = new EntradaTexto("Password", largoLabel, largoTexto);
+		inDireccion.getTextField().setText(Configuracion.leerDireccionEmail());
 		
 		// BOTONES
 		btnAceptar = new JButton("Aceptar");
