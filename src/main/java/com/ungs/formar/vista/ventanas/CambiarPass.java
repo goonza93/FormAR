@@ -2,6 +2,7 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -53,6 +54,8 @@ public class CambiarPass extends JFrame {
 		setLocationRelativeTo(null);
 		setTitle("Cambio de contraseña");
 		setResizable(false);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

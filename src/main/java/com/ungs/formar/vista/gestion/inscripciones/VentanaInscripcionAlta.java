@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -43,6 +44,8 @@ public class VentanaInscripcionAlta {
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.setTitle("Inscribir al curso:"+Formato.nombre(curso));
 		ventana.setLocationRelativeTo(null); // Centrar ventana
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		ventana.setIconImage(img.getImage());
 		
 		// CREO LA TABLA DE ALUMNOS
 		modeloAlumnos = new DefaultTableModel(null, nombreColumnas);

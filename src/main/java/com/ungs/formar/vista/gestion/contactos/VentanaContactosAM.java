@@ -2,6 +2,7 @@ package com.ungs.formar.vista.gestion.contactos;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,6 +44,8 @@ public class VentanaContactosAM extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 
 		// AGREGO LAS ETIQUETAS
 		JLabel lblNombre = new JLabel("Nombre:");

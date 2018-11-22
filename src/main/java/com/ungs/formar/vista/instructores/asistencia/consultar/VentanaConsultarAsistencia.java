@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.instructores.asistencia.consultar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -25,6 +26,8 @@ public class VentanaConsultarAsistencia {
 		ventana.setLocationRelativeTo(null);
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.setTitle("Consultar asistencias");
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		ventana.setIconImage(img.getImage());
 		
 		// TABLA
 		modelo = new DefaultTableModel(null, columnas);

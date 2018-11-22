@@ -1,5 +1,7 @@
 package com.ungs.formar.vista.util;
 
+import java.beans.PropertyVetoException;
+
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
@@ -8,6 +10,7 @@ public abstract class VentanaInterna extends JInternalFrame{
 	
 	public VentanaInterna(String titulo, int ancho, int alto) {
 		setTitle(titulo);
+		setFrameIcon(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, ancho, alto);
 		mostrar();

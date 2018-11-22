@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.ventanas.seleccion;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,6 +44,8 @@ public class SeleccionarSala extends JFrame {
 		setTitle("Seleccion de sala");
 		setResizable(false);
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

@@ -2,6 +2,7 @@ package com.ungs.formar.vista.gestion.alumnos;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,6 +40,8 @@ public class VentanaAlumnoAM extends JFrame {
 	}
 	
 	private void cargarComponentes() {
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		setBounds(100, 100, 400, 300);
 		setLocationRelativeTo(null); // Centrar pantalla
 		setResizable(false);

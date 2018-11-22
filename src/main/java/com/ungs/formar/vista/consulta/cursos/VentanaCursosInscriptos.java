@@ -3,6 +3,7 @@ package com.ungs.formar.vista.consulta.cursos;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,6 +36,8 @@ public class VentanaCursosInscriptos {
 		ventana.setLocationRelativeTo(null);
 		PanelVertical panelPrincipal = new PanelVertical();
 		ventana.setContentPane(panelPrincipal);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		ventana.setIconImage(img.getImage());
 		ventana.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

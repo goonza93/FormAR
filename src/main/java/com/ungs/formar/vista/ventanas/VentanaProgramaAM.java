@@ -2,6 +2,7 @@ package com.ungs.formar.vista.ventanas;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +17,7 @@ import com.ungs.formar.persistencia.entidades.Programa;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+
 import java.awt.Font;
 
 import javax.swing.JScrollPane;
@@ -58,6 +60,8 @@ public class VentanaProgramaAM extends JFrame {
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		JPanel panel = new JPanel();

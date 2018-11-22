@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.ventanas.seleccion;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,6 +42,8 @@ public class SeleccionarDiaHorario extends JFrame {
 		contentPane.setLayout(null);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
 
 		JScrollPane spDiasHorarios = new JScrollPane();
 		spDiasHorarios.setBounds(10, 68, 482, 206);
