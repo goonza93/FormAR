@@ -279,7 +279,7 @@ CREATE TABLE formar_notificaciones (
 	contenido VARCHAR(100) NOT NULL,
 	mostrado BOOLEAN NOT NULL,
 	leido BOOLEAN NOT NULL,
-	fecha DATE,
+	fecha DATETIME,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID)
 );
