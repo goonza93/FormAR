@@ -3,6 +3,7 @@ package com.ungs.formar.persistencia;
 import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 import com.ungs.formar.persistencia.interfaces.AreaOBD;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
+import com.ungs.formar.persistencia.interfaces.ConfiguracionOBD;
 import com.ungs.formar.persistencia.interfaces.CursoODB;
 import com.ungs.formar.persistencia.interfaces.DiaOBD;
 import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
@@ -22,6 +23,7 @@ import com.ungs.formar.persistencia.interfaces.TareaOBD;
 import com.ungs.formar.persistencia.mysql.AlumnoODBMySQL;
 import com.ungs.formar.persistencia.mysql.AreaOBDMySQL;
 import com.ungs.formar.persistencia.mysql.AsistenciaOBDMySQL;
+import com.ungs.formar.persistencia.mysql.ConfiguracionOBDMySQL;
 import com.ungs.formar.persistencia.mysql.CursoODBMySQL;
 import com.ungs.formar.persistencia.mysql.DiaODBMySQL;
 import com.ungs.formar.persistencia.mysql.EmpleadoODBMySQL;
@@ -116,5 +118,9 @@ public class FactoryODB {
 	public static NotificacionOBD crearNotificacionOBD() {
 		return new NotificacionOBDMySQL();
 	}
-	
+
+	public static ConfiguracionOBD crearConfiguracionOBD() {
+		return new ConfiguracionOBDMySQL();
+	}
+
 }

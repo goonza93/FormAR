@@ -1,6 +1,8 @@
 package com.ungs.formar.negocios;
 
+import com.ungs.formar.persistencia.FactoryODB;
 import com.ungs.formar.persistencia.Propiedades;
+import com.ungs.formar.persistencia.interfaces.ConfiguracionOBD;
 
 public class Configuracion {
 	
@@ -24,8 +26,12 @@ public class Configuracion {
 		return Propiedades.recuperar("direccion_email");
 	}
 	
-	public static String leerPasswordEmail() {
-		return Propiedades.recuperar("password_email");
+	public static String leerPasswordEmail() throws Exception {
+		ConfiguracionOBD obd = FactoryODB.crearConfiguracionOBD();
+		String ret = obd.selectByClave("password_email");
+		if (ret == null)
+			throw new Exception("Aun no se ha colocado un E-Mail de sistema valido.");
+		return ret;
 	}
 
 	public static void guardarIP(String valor) {
@@ -49,7 +55,12 @@ public class Configuracion {
 	}
 	
 	public static void guardarPasswordEmail(String valor) {
-		Propiedades.guardar("password_email", valor);
+		ConfiguracionOBD obd = FactoryODB.crearConfiguracionOBD();
+		String ret = obd.selectByClave("password_email");
+		if (ret == null)
+			obd.insert("password_email", valor);
+		else
+			obd.update("password_email", valor);
 	}
 	
 }	

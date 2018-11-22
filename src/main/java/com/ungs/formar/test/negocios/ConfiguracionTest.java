@@ -25,7 +25,7 @@ public class ConfiguracionTest {
 	}
 	
 	public static void leerPasswordEmailTest() {
-		System.out.println("___Leer password email test: "+Configuracion.leerPasswordEmail());
+		//System.out.println("___Leer password email test: "+Configuracion.leerPasswordEmail());
 	}
 	
 	public static void guardarIPTest(String valor) {
