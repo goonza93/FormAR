@@ -164,9 +164,16 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
 			return;
 		}
+
+		// Solo se puede consultar notas de un curso inicado
+		Curso curso = seleccion.get(0);
+		if (curso.getEstado() != EstadoCurso.INICIADO) {
+			Popup.mostrar("Solo se pueden consultar notas de un examen para cursos en estado INICIADO.");
+			return;
+		}
 		
 		invocador.getVentana().setEnabled(false);
-		new ControladorConsultarNotas(this, seleccion.get(0));
+		new ControladorConsultarNotas(this, curso);
 	}
 	
 	private void cargar() {
@@ -176,8 +183,15 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 			return;
 		}
 		
+		// Solo se puede cargar notas de un curso inicado
+		Curso curso = seleccion.get(0);
+		if (curso.getEstado() != EstadoCurso.INICIADO) {
+			Popup.mostrar("Solo se pueden cargar notas de un examen para cursos en estado INICIADO.");
+			return;
+		}
+		
 		invocador.getVentana().setEnabled(false);
-		new ControladorCargarExamen(this, seleccion.get(0));
+		new ControladorCargarExamen(this, curso);
 	}
 
 	public void mostrar() {
