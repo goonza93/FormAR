@@ -152,7 +152,9 @@ public class InscripcionManager {
 				Examen examen = Instructor.traerNota(curso, alumno, nombreExamen);
 				notas += examen.getNota();
 			}
+			System.out.println(notas);
 			notas = notas / cantExamenes;
+			System.out.println("PROMEDIO "+notas);
 			Inscripcion inscripcion = traerInscripcion(alumno, curso);
 			inscripcion.setNota(notas);
 			actualizarInscripion(inscripcion);

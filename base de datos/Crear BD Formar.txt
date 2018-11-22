@@ -173,7 +173,7 @@ CREATE TABLE for_inscripciones (
 	empleado INT(4) NOT NULL,
 	curso INT(4) NOT  NULL,
 	fecha DATE NOT NULL,
-	nota DECIMAL(10,0) DEFAULT NULL,
+	nota DOUBLE DEFAULT NULL,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID),
 	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
