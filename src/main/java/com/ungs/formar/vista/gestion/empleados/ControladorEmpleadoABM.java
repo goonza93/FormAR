@@ -329,7 +329,7 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		String dni = ventanaAM.getDNI().getText();
 		String telefono = ventanaAM.getTelefono().getText();
 		String email = ventanaAM.getEmail().getText();
-		String usuario = ventanaAM.getUsuario().getText();// falta validar
+		//String usuario = ventanaAM.getUsuario().getText();// falta validar
 		
 		boolean isOk = true;
 		String mensaje = "Se encontraron los siguientes errores:\n";

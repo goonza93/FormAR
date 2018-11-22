@@ -1,6 +1,8 @@
 package com.ungs.formar.vista.gestion.empleados;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -63,6 +65,21 @@ public class VentanaEmpleadoAM extends JFrame {
 		inDNI = new EntradaTexto("DNI", largoLabel, largoTexto);
 		inEmail = new EntradaTexto("E-Mail", largoLabel, largoTexto);
 		inTelefono = new EntradaTexto("Telefono", largoLabel, largoTexto);
+		
+		// AGREGO EL KEY LISTENER PARA ACTUALIZAR EL USUARIO MIENTRAS ESCRIBE
+		KeyListener listener = new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) { actualizarUsuario();}
+			
+			@Override
+			public void keyReleased(KeyEvent e) { actualizarUsuario();}
+			
+			@Override
+			public void keyPressed(KeyEvent e) { actualizarUsuario();}
+		}; 
+		
+		inNombre.getTextField().addKeyListener(listener);
+		inApellido.getTextField().addKeyListener(listener);
 
 		// OTRAS ENTRADAS
 		JLabel lblFechaIngreso = new JLabel("Fecha de ingreso:");
@@ -166,6 +183,16 @@ public class VentanaEmpleadoAM extends JFrame {
 
 	public JComboBox<Rol> getRol(){
 		return inRol;
+	}
+	
+	private void actualizarUsuario() {
+		String nombre = inNombre.getTextField().getText();
+		String apellido = inApellido.getTextField().getText();
+		String usuario = "";
+		if (nombre.length() > 0)
+			usuario += nombre.charAt(0);
+		usuario += apellido.substring(0, Math.min(6, apellido.length()));
+		inUsuario.getTextField().setText(usuario);
 	}
 	
 }
