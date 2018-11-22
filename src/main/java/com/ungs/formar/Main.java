@@ -24,7 +24,7 @@ public class Main {
 		{
 			Properties props = new Properties();
 			props.put("logoString", "FormAR");
-			props.put("centerWindowTitle", "on");
+			//props.put("centerWindowTitle", "on");
 			
 			AcrylLookAndFeel.setCurrentTheme(props);
 			//ESTOS 2 LOOK AND FEEL ME GUSTAN MAS 
