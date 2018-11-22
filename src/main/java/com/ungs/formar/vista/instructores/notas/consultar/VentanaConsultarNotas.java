@@ -29,8 +29,8 @@ public class VentanaConsultarNotas {
 		// TABLA
 		modelo = new DefaultTableModel(null, columnas);
 		tabla = new JTable(modelo);
-		JScrollPane panelTabla = new JScrollPane();
-		panelTabla.setViewportView(tabla);
+		JScrollPane panelTabla = new JScrollPane(tabla, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		// CREO LOS BOTONES
 		btnVolver = new JButton("Volver");

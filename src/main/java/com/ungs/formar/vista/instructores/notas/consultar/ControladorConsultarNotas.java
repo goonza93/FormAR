@@ -67,6 +67,9 @@ public class ControladorConsultarNotas implements ActionListener, Consultable {
 			
 			ventana.getModelo().addRow(fila);
 		}
+		
+		ventana.getTabla().getColumn("Nombre").setPreferredWidth(150);
+		ventana.getTabla().getColumn("Apellido").setPreferredWidth(150);
 	}
 
 	public void actionPerformed(ActionEvent e) {
