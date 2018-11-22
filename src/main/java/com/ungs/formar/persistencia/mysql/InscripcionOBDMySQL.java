@@ -17,7 +17,7 @@ import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 
 public class InscripcionOBDMySQL extends ODB implements InscripcionOBD{
 	private final String campos = "alumno, empleado, curso, fecha, nota";
-	private final String tabla = "for_inscripciones";
+	private final String tabla = "formar_inscripciones";
 	
 	public void insert(Inscripcion inscripcion) {
 		String fecha = inscripcion.getFecha() == null ? null: "'"+inscripcion.getFecha()+"'"; 

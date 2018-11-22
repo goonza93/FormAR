@@ -15,7 +15,7 @@ import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 
 public class NotificacionOBDMySQL extends ODB implements NotificacionOBD {
 	private final String campos = "tipo, empleado, contenido, mostrado, leido, fecha";
-	private final String tabla = "for_notificaciones";
+	private final String tabla = "formar_notificaciones";
 
 	public void insert(Notificacion notificacion) {
 		String empleado = "'"+notificacion.getEmpleado()+"'";

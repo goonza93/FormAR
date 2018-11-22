@@ -13,7 +13,7 @@ import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 
 public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas, activo";
-	private final String tabla = "for_programas";
+	private final String tabla = "formar_programas";
 	private final String ID = "ID";
 
 	public void insert (Programa programa) {

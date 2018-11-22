@@ -7,7 +7,7 @@ CREATE DATABASE formar;
 USE formar;
 
 -- ESQUEMA SALAS
-CREATE TABLE for_salas (
+CREATE TABLE formar_salas (
 	ID INT(4) AUTO_INCREMENT,
 	numero INT(4) NOT NULL,
 	nombre VARCHAR(50),
@@ -17,28 +17,28 @@ CREATE TABLE for_salas (
 );
 
 -- ESQUEMA CONFIGURACION
-CREATE TABLE for_configuracion (
+CREATE TABLE formar_configuracion (
 	clave VARCHAR(100),
 	valor VARCHAR(100),
     PRIMARY KEY (clave)
 );
 
 -- ESQUEMA DIAS DE LA SEMANA
-CREATE TABLE for_dias (
+CREATE TABLE formar_dias (
 	ID INT(4) AUTO_INCREMENT,
 	descripcion VARCHAR(20),
 	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA ROLES DE EMPLEADO
-CREATE TABLE for_roles (
+CREATE TABLE formar_roles (
 	ID INT(1) AUTO_INCREMENT,
 	descripcion VARCHAR(50),
 	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA ALUMNOS
-CREATE TABLE for_alumnos (
+CREATE TABLE formar_alumnos (
 	ID INT(4) AUTO_INCREMENT,
 	DNI VARCHAR(20) NOT NULL UNIQUE,
 	nombre VARCHAR(50) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE for_alumnos (
 );
 
 -- ESQUEMA DE AREAS DE INTERES
-CREATE TABLE for_areas (
+CREATE TABLE formar_areas (
 	ID INT(4) AUTO_INCREMENT,
 	nombre VARCHAR(50),
 	descripcion VARCHAR(200),
@@ -60,14 +60,14 @@ CREATE TABLE for_areas (
 );
 
 -- ESQUEMA ESTADO DE CURSO
-CREATE TABLE for_estados_curso (
+CREATE TABLE formar_estados_curso (
 	ID INT(4) AUTO_INCREMENT,
 	descripcion VARCHAR(20),
 	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA DE PROGRAMAS
-CREATE TABLE for_programas (
+CREATE TABLE formar_programas (
 	ID INT(4) AUTO_INCREMENT,
 	area INT(11),
 	nombre VARCHAR(50) NOT NULL,
@@ -76,11 +76,11 @@ CREATE TABLE for_programas (
 	horas INT(4) NOT NULL,
 	activo BOOLEAN NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (area) REFERENCES for_areas(ID)
+	FOREIGN KEY (area) REFERENCES formar_areas(ID)
 );
 
 -- ESQUEMAS HORARIOS
-CREATE TABLE for_horarios (
+CREATE TABLE formar_horarios (
 	ID INT(4) AUTO_INCREMENT,
 	dia INT(1) NOT NULL,
 	hora_inicio INT(2) NOT NULL,
@@ -88,11 +88,11 @@ CREATE TABLE for_horarios (
     minuto_inicio INT(2) NOT NULL,
     minuto_fin INT(2) NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (dia) REFERENCES for_dias(ID)
+	FOREIGN KEY (dia) REFERENCES formar_dias(ID)
 );
 
 -- ESQUEMA DE EMPLEADOS
-CREATE TABLE for_empleados (
+CREATE TABLE formar_empleados (
 	ID INT(4) AUTO_INCREMENT,
 	rol INT(1) NOT NULL,
 	DNI VARCHAR(20) NOT NULL,
@@ -106,11 +106,11 @@ CREATE TABLE for_empleados (
 	usuario VARCHAR(50) NOT NULL UNIQUE,
 	password VARCHAR(50) NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (rol) REFERENCES for_roles(ID)
+	FOREIGN KEY (rol) REFERENCES formar_roles(ID)
 );
 
 -- ESQUEMA PARA GUARDAR LOS PDF
-CREATE TABLE for_archivos (
+CREATE TABLE formar_archivos (
 	ID INT(4) AUTO_INCREMENT,
 	nombre VARCHAR(50) NOT NULL,
 	archivo mediumblob DEFAULT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE for_archivos (
 );
 
 -- ESQUEMA CURSOS
-CREATE TABLE for_cursos (
+CREATE TABLE formar_cursos (
 	ID INT(4) AUTO_INCREMENT,
 	cupo_minimo INT(3),
 	cupo_maximo INT(3),
@@ -134,27 +134,27 @@ CREATE TABLE for_cursos (
 	programa INT(4) NOT NULL,
 	estado INT(4) NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (instructor) REFERENCES for_empleados(ID),
-	FOREIGN KEY (responsable) REFERENCES for_empleados(ID),
-	FOREIGN KEY (programa) REFERENCES for_programas(ID),
-	FOREIGN KEY (estado) REFERENCES for_estados_curso(ID),
-	FOREIGN KEY (contenido) REFERENCES for_archivos(ID)
+	FOREIGN KEY (instructor) REFERENCES formar_empleados(ID),
+	FOREIGN KEY (responsable) REFERENCES formar_empleados(ID),
+	FOREIGN KEY (programa) REFERENCES formar_programas(ID),
+	FOREIGN KEY (estado) REFERENCES formar_estados_curso(ID),
+	FOREIGN KEY (contenido) REFERENCES formar_archivos(ID)
 );
 
 -- ESQUEMA DE ASISTENCIAS
-CREATE TABLE for_asistencias (
+CREATE TABLE formar_asistencias (
 	ID INT(10) AUTO_INCREMENT,
 	curso INT(4) NOT NULL,
 	alumno INT(4) NOT NULL,
 	fecha DATE NOT NULL,
 	presente BOOLEAN NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (curso) REFERENCES for_cursos(ID),
-	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID)
+	FOREIGN KEY (curso) REFERENCES formar_cursos(ID),
+	FOREIGN KEY (alumno) REFERENCES formar_alumnos(ID)
 );
 
 -- ESQUEMA EXAMENES
-CREATE TABLE for_examenes (
+CREATE TABLE formar_examenes (
 	ID INT(4) AUTO_INCREMENT,
 	alumno INT(4) DEFAULT NULL,
 	curso INT(4) DEFAULT NULL,
@@ -162,12 +162,12 @@ CREATE TABLE for_examenes (
 	descripcion VARCHAR(50) NOT NULL,
 	nota INT(2) NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (curso) REFERENCES for_cursos(ID),
-	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID)
+	FOREIGN KEY (curso) REFERENCES formar_cursos(ID),
+	FOREIGN KEY (alumno) REFERENCES formar_alumnos(ID)
 );
 
 -- ESQUEMA INSCRIPCIONES
-CREATE TABLE for_inscripciones (
+CREATE TABLE formar_inscripciones (
 	ID INT(4) AUTO_INCREMENT,
 	alumno INT(4) NOT NULL,
 	empleado INT(4) NOT NULL,
@@ -175,26 +175,26 @@ CREATE TABLE for_inscripciones (
 	fecha DATE NOT NULL,
 	nota DOUBLE DEFAULT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
-	FOREIGN KEY (curso) REFERENCES for_cursos(ID)
+	FOREIGN KEY (alumno) REFERENCES formar_alumnos(ID),
+	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID),
+	FOREIGN KEY (curso) REFERENCES formar_cursos(ID)
 );
 
 -- ESQUEMA HORARIOS DE CURSADA CON SALA
-CREATE TABLE for_horarios_cursada (
+CREATE TABLE formar_horarios_cursada (
 	ID INT(4) AUTO_INCREMENT,
 	curso INT(4) NOT NULL,
 	horario INT(4) NOT NULL,
     sala INT(4),
 	activo BOOLEAN NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (curso) REFERENCES for_cursos(ID),
-	FOREIGN KEY (horario) REFERENCES for_horarios(ID),
-	FOREIGN KEY (sala) REFERENCES for_salas(ID)
+	FOREIGN KEY (curso) REFERENCES formar_cursos(ID),
+	FOREIGN KEY (horario) REFERENCES formar_horarios(ID),
+	FOREIGN KEY (sala) REFERENCES formar_salas(ID)
 );
 
 -- ESQUEMA INTERESADOS
-CREATE TABLE for_interesados (
+CREATE TABLE formar_interesados (
 	ID INT(4) AUTO_INCREMENT,
 	DNI VARCHAR(20) NOT NULL UNIQUE,
 	nombre VARCHAR(50) NOT NULL,
@@ -205,7 +205,7 @@ CREATE TABLE for_interesados (
 );
 
 -- ESQUEMA INTERACCIONES
-CREATE TABLE for_interacciones (
+CREATE TABLE formar_interacciones (
 	ID INT(4) AUTO_INCREMENT,
 	empleado INT(4) NOT NULL,
 	interesado INT(4) NOT NULL,
@@ -214,14 +214,14 @@ CREATE TABLE for_interacciones (
 	fecha DATE NOT NULL,
 	descripcion VARCHAR(500) NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID),
-	FOREIGN KEY (interesado) REFERENCES for_interesados(ID),
-	FOREIGN KEY (area) REFERENCES for_areas(ID),
-	FOREIGN KEY (curso) REFERENCES for_programas(ID)
+	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID),
+	FOREIGN KEY (interesado) REFERENCES formar_interesados(ID),
+	FOREIGN KEY (area) REFERENCES formar_areas(ID),
+	FOREIGN KEY (curso) REFERENCES formar_programas(ID)
 );
 
 -- ESQUEMA RECADOS
-CREATE TABLE for_recados (
+CREATE TABLE formar_recados (
 	ID INT(4) AUTO_INCREMENT,
 	emisor INT(4) NOT NULL,
 	receptor INT(4) NOT NULL,
@@ -232,20 +232,20 @@ CREATE TABLE for_recados (
 	archivado BOOLEAN NOT NULL,
 	fecha DATE NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (emisor) REFERENCES for_empleados(ID),
-	FOREIGN KEY (receptor) REFERENCES for_empleados(ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+	FOREIGN KEY (emisor) REFERENCES formar_empleados(ID),
+	FOREIGN KEY (receptor) REFERENCES formar_empleados(ID),
+	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID)
 );
 
 -- ESQUEMA MESES
-CREATE TABLE for_meses(
+CREATE TABLE formar_meses(
 	ID INT(4) AUTO_INCREMENT,
 	descripcion VARCHAR(20),
 	PRIMARY KEY (ID)
 );
 
 -- ESQUEMA PAGOS
-CREATE TABLE for_pagos (
+CREATE TABLE formar_pagos (
 	ID INT(4) AUTO_INCREMENT,
 	alumno INT(4) NOT NULL,
 	cursada INT(4) NOT NULL,
@@ -256,23 +256,23 @@ CREATE TABLE for_pagos (
 	pago_completo BOOLEAN NOT NULL,
 	fecha DATE,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (alumno) REFERENCES for_alumnos(ID),
-	FOREIGN KEY (cursada) REFERENCES for_cursos(ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+	FOREIGN KEY (alumno) REFERENCES formar_alumnos(ID),
+	FOREIGN KEY (cursada) REFERENCES formar_cursos(ID),
+	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID)
 );
 
 -- ESQUEMA TAREAS
-CREATE TABLE for_tareas (
+CREATE TABLE formar_tareas (
 	ID INT(4) AUTO_INCREMENT,
 	empleado INT(4) NOT NULL,
 	contenido VARCHAR(100) NOT NULL,
 	pendiente BOOLEAN NOT NULL,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID)
 );
 
 -- ESQUEMA NOTIFICACIONES
-CREATE TABLE for_notificaciones (
+CREATE TABLE formar_notificaciones (
 	ID INT(4) AUTO_INCREMENT,
 	tipo INT(1) NOT NULL,
 	empleado INT(4) NOT NULL,
@@ -281,7 +281,7 @@ CREATE TABLE for_notificaciones (
 	leido BOOLEAN NOT NULL,
 	fecha DATE,
 	PRIMARY KEY (ID),
-	FOREIGN KEY (empleado) REFERENCES for_empleados(ID)
+	FOREIGN KEY (empleado) REFERENCES formar_empleados(ID)
 );
 
 
@@ -291,43 +291,43 @@ CREATE TABLE for_notificaciones (
 -- INSERT DE DATOS PREDEFINIDOS
 
 -- INSERTAR DIAS DE LA SEMANA
-INSERT INTO for_dias (descripcion) VALUES ("Domingo");
-INSERT INTO for_dias (descripcion) VALUES ("Lunes");
-INSERT INTO for_dias (descripcion) VALUES ("Martes");
-INSERT INTO for_dias (descripcion) VALUES ("Miércoles");
-INSERT INTO for_dias (descripcion) VALUES ("Jueves");
-INSERT INTO for_dias (descripcion) VALUES ("Viernes");
-INSERT INTO for_dias (descripcion) VALUES ("Sábado");
+INSERT INTO formar_dias (descripcion) VALUES ("Domingo");
+INSERT INTO formar_dias (descripcion) VALUES ("Lunes");
+INSERT INTO formar_dias (descripcion) VALUES ("Martes");
+INSERT INTO formar_dias (descripcion) VALUES ("Miércoles");
+INSERT INTO formar_dias (descripcion) VALUES ("Jueves");
+INSERT INTO formar_dias (descripcion) VALUES ("Viernes");
+INSERT INTO formar_dias (descripcion) VALUES ("Sábado");
 
 -- INSERTAR MESES DEL AÑO
-INSERT INTO for_meses (descripcion) VALUES ("Enero");
-INSERT INTO for_meses (descripcion) VALUES ("Febrero");
-INSERT INTO for_meses (descripcion) VALUES ("Marzo");
-INSERT INTO for_meses (descripcion) VALUES ("Abril");
-INSERT INTO for_meses (descripcion) VALUES ("Mayo");
-INSERT INTO for_meses (descripcion) VALUES ("Junio");
-INSERT INTO for_meses (descripcion) VALUES ("Julio");
-INSERT INTO for_meses (descripcion) VALUES ("Agosto");
-INSERT INTO for_meses (descripcion) VALUES ("Septiembre");
-INSERT INTO for_meses (descripcion) VALUES ("Octubre");
-INSERT INTO for_meses (descripcion) VALUES ("Noviembre");
-INSERT INTO for_meses (descripcion) VALUES ("Diciembre");
+INSERT INTO formar_meses (descripcion) VALUES ("Enero");
+INSERT INTO formar_meses (descripcion) VALUES ("Febrero");
+INSERT INTO formar_meses (descripcion) VALUES ("Marzo");
+INSERT INTO formar_meses (descripcion) VALUES ("Abril");
+INSERT INTO formar_meses (descripcion) VALUES ("Mayo");
+INSERT INTO formar_meses (descripcion) VALUES ("Junio");
+INSERT INTO formar_meses (descripcion) VALUES ("Julio");
+INSERT INTO formar_meses (descripcion) VALUES ("Agosto");
+INSERT INTO formar_meses (descripcion) VALUES ("Septiembre");
+INSERT INTO formar_meses (descripcion) VALUES ("Octubre");
+INSERT INTO formar_meses (descripcion) VALUES ("Noviembre");
+INSERT INTO formar_meses (descripcion) VALUES ("Diciembre");
 
 -- INSERTAR ESTADOS DE CURSO
-INSERT INTO for_estados_curso (descripcion) VALUES ("Creado");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Publicado");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Iniciado");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Finalizado");
-INSERT INTO for_estados_curso (descripcion) VALUES ("Cancelado");
+INSERT INTO formar_estados_curso (descripcion) VALUES ("Creado");
+INSERT INTO formar_estados_curso (descripcion) VALUES ("Publicado");
+INSERT INTO formar_estados_curso (descripcion) VALUES ("Iniciado");
+INSERT INTO formar_estados_curso (descripcion) VALUES ("Finalizado");
+INSERT INTO formar_estados_curso (descripcion) VALUES ("Cancelado");
 
 -- INSERTAR ROLES DE EMPLEADO
-INSERT INTO for_roles (descripcion) VALUES ('ADMINISTRATIVO');
-INSERT INTO for_roles (descripcion) VALUES ('INSTRUCTOR');
-INSERT INTO for_roles (descripcion) VALUES ('SUPERVISOR');
+INSERT INTO formar_roles (descripcion) VALUES ('ADMINISTRATIVO');
+INSERT INTO formar_roles (descripcion) VALUES ('INSTRUCTOR');
+INSERT INTO formar_roles (descripcion) VALUES ('SUPERVISOR');
 
 -- INSERTAR SALA "FANTASMA"
-INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);
+INSERT INTO formar_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);
 
 -- INSERTAR EMAIL
-INSERT INTO for_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);
+-- INSERT INTO formar_salas (nombre, numero, capacidad, activo) VALUES ("A DESIGNAR", 0, 9999, true);
 

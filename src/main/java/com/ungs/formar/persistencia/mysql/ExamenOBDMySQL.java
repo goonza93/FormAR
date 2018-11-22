@@ -14,7 +14,7 @@ import com.ungs.formar.persistencia.entidades.Examen;
 import com.ungs.formar.persistencia.interfaces.ExamenOBD;
 
 public class ExamenOBDMySQL extends ODB implements ExamenOBD {
-	private final String tabla = "for_examenes";
+	private final String tabla = "formar_examenes";
 	private final String campos = "alumno, curso, fecha, descripcion, nota";
 
 	public void insert(Examen examen) {

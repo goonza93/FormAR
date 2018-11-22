@@ -14,7 +14,7 @@ import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 
 public class EmpleadoODBMySQL extends ODB implements EmpleadoODB{
 	private final String campos = "rol, DNI, nombre, apellido, telefono, email, fecha_ingreso, fecha_egreso, usuario, password, activo";
-	private final String tabla = "for_empleados";
+	private final String tabla = "formar_empleados";
 
 	public void insert(Empleado empleado) {
 		String dni = empleado.getDNI()==null ? null: "'"+empleado.getDNI()+"'";

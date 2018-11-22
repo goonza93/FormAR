@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.interfaces.HorarioOBD;
 
 public class HorarioOBDMySQL extends ODB implements HorarioOBD{
 	private final String campos = "dia, hora_inicio, hora_fin, minuto_inicio, minuto_fin";
-	private final String tabla = "for_horarios";
+	private final String tabla = "formar_horarios";
 	private final String ID = "ID";
 
 	public void insert(Horario horario) {

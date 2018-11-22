@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.entidades.Area;
 import com.ungs.formar.persistencia.interfaces.AreaOBD;
 
 public class AreaOBDMySQL extends ODB implements AreaOBD {
-	private final String tabla = "for_areas";
+	private final String tabla = "formar_areas";
 	private final String campos = "nombre, descripcion, activo";
 
 	public void insert (Area area) {

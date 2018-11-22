@@ -13,7 +13,7 @@ import com.ungs.formar.persistencia.interfaces.InteraccionOBD;
 
 public class InteraccionOBDMySQL extends ODB implements InteraccionOBD {
 	private final String campos = "empleado, interesado, area, curso, fecha, descripcion";
-	private final String tabla = "for_interacciones";
+	private final String tabla = "formar_interacciones";
 
 	public void insert(Interaccion interaccion) {
 		String empleado = "'"+interaccion.getEmpleadoID()+"'";

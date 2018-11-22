@@ -13,7 +13,7 @@ import com.ungs.formar.persistencia.interfaces.InteresadoOBD;
 
 public class InteresadoOBDMySQL extends ODB implements InteresadoOBD {
 	private final String campos = "DNI, nombre, apellido, telefono, email";
-	private final String tabla = "for_interesados";
+	private final String tabla = "formar_interesados";
 
 	public void insert(Interesado interesado) {
 		String dni = "'"+interesado.getDNI()+"'";

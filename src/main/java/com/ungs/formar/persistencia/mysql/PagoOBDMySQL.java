@@ -15,7 +15,7 @@ import com.ungs.formar.persistencia.interfaces.PagoOBD;
 
 public class PagoOBDMySQL extends ODB implements PagoOBD{
 	private final String campos = "alumno, cursada, empleado, monto, mes, pago_en_termino, pago_completo, fecha";
-	private final String tabla = "for_pagos";
+	private final String tabla = "formar_pagos";
 
 	public void insert(Pago pago) {
 		String valores = pago.getAlumno()

@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.interfaces.AlumnoODB;
 
 public class AlumnoODBMySQL extends ODB implements AlumnoODB{
 	private final String campos = "DNI, nombre, apellido, telefono, email, activo, bloqueado";
-	private final String tabla = "for_alumnos";
+	private final String tabla = "formar_alumnos";
 	
 	public void insert (Alumno alumno) {
 		String dni = "'"+alumno.getDNI()+"'";

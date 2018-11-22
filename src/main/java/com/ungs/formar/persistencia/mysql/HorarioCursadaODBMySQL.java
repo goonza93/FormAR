@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.entidades.HorarioCursada;
 import com.ungs.formar.persistencia.interfaces.HorarioCursadaOBD;
 
 public class HorarioCursadaODBMySQL extends ODB implements HorarioCursadaOBD {
-	private final String tabla = "for_horarios_cursada";
+	private final String tabla = "formar_horarios_cursada";
 
 	public void insert(HorarioCursada horarioCursada) {
 		String campos = "curso, horario, sala, activo";

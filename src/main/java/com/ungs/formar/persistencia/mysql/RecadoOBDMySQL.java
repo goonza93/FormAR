@@ -13,7 +13,7 @@ import com.ungs.formar.persistencia.entidades.Recado;
 import com.ungs.formar.persistencia.interfaces.RecadoOBD;
 
 public class RecadoOBDMySQL extends ODB implements RecadoOBD{
-	private final String tabla = "for_recados";
+	private final String tabla = "formar_recados";
 	private final String campos = "emisor, receptor, empleado, contenido, titulo, leido, archivado, fecha";
 
 	public void insert(Recado recado) {

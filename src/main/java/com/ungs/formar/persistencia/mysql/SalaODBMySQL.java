@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.interfaces.SalaODB;
 
 public class SalaODBMySQL extends ODB implements SalaODB{
 	private final String campos = "numero, nombre, capacidad, activo";
-	private final String tabla = "for_salas";
+	private final String tabla = "formar_salas";
 
 	public void insert(Sala sala) {
 		String nombre = sala.getNombre() == null ? null : "'"+sala.getNombre()+"'";

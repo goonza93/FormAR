@@ -15,7 +15,7 @@ import com.ungs.formar.persistencia.entidades.Curso;
 import com.ungs.formar.persistencia.interfaces.AsistenciaOBD;
 
 public class AsistenciaOBDMySQL extends ODB implements AsistenciaOBD {
-	private final String tabla = "for_asistencias";
+	private final String tabla = "formar_asistencias";
 	private final String campos = "curso, alumno, fecha, presente";
 
 	public void insert (Asistencia asistencia) {

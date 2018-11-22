@@ -13,7 +13,7 @@ import com.ungs.formar.persistencia.interfaces.TareaOBD;
 
 public class TareaOBDMySQL extends ODB implements TareaOBD {
 	private final String campos = "empleado, contenido, pendiente";
-	private final String tabla = "for_tareas";
+	private final String tabla = "formar_tareas";
 
 	public void insert(Tarea tarea) {
 		String empleado = "'"+tarea.getEmpleado()+"'";

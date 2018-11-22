@@ -16,7 +16,7 @@ import com.ungs.formar.persistencia.interfaces.CursoODB;
 
 public class CursoODBMySQL extends ODB implements CursoODB{
 	private final String campos = "cupo_minimo, cupo_maximo, precio, comision, fecha_inicio, fecha_fin, fecha_cierre, contenido, horas, instructor, responsable, programa, estado";
-	private final String tabla = "for_cursos";
+	private final String tabla = "formar_cursos";
 	
 	public void insert (Curso curso) {
 		String fInicio = curso.getFechaInicio() == null ? null : "'"+curso.getFechaInicio()+"'"; 

@@ -19,7 +19,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
 
 	public Pdf traerPdf(Integer id) {
 		Pdf ret = new Pdf();
-		String sql = "SELECT * FROM for_archivos WHERE (ID = "+id+");";
+		String sql = "SELECT * FROM formar_archivos WHERE (ID = "+id+");";
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		try {
@@ -49,7 +49,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     public ArrayList<Pdf> Listar_Pdf() {
         ArrayList<Pdf> list = new ArrayList<Pdf>();
         
-        String sql = "SELECT * FROM for_archivos";
+        String sql = "SELECT * FROM formar_archivos";
         ResultSet rs = null;
         PreparedStatement ps = null;
         try {
@@ -80,7 +80,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
 
     /*Metodo agregar*/
     public void insert(Pdf vo) {
-        String sql = "INSERT INTO for_archivos (ID, nombre, archivo) VALUES(?, ?, ?);";
+        String sql = "INSERT INTO formar_archivos (ID, nombre, archivo) VALUES(?, ?, ?);";
         PreparedStatement ps = null;
         try {
             ps = getConexion().prepareStatement(sql);
@@ -105,7 +105,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     /*Metodo Modificar*/
     public void update(Pdf vo) {
     	
-        String sql = "UPDATE for_archivos SET nombre = ?, archivo = ? WHERE ID = ?;";
+        String sql = "UPDATE formar_archivos SET nombre = ?, archivo = ? WHERE ID = ?;";
         PreparedStatement ps = null;
         try {
             ps = getConexion().prepareStatement(sql);
@@ -128,7 +128,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     /*
     public void Modificar_Pdf2(Pdf vo) {
     	 ODB conec = new ODB();
-        String sql = "UPDATE for_pdf SET nombrepdf = ? WHERE contenido_ID = ?;";
+        String sql = "UPDATE formar_pdf SET nombrepdf = ? WHERE contenido_ID = ?;";
         PreparedStatement ps = null;
         try {
             ps = conec.getConnection().prepareStatement(sql);
@@ -151,7 +151,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
     /*Metodo Eliminar*/
     public void delete(Pdf vo) {
     	
-        String sql = "DELETE FROM for_archivos WHERE ID = ?;";
+        String sql = "DELETE FROM formar_archivos WHERE ID = ?;";
         PreparedStatement ps = null;
         try {
             ps = getConexion().prepareStatement(sql);
@@ -178,7 +178,7 @@ public class PdfODBMySQL  extends ODB implements PdfOBD{
         String nombre = "";
 
         try {
-            ps = getConexion().prepareStatement("SELECT archivo, nombre FROM for_archivos WHERE ID = ?;");
+            ps = getConexion().prepareStatement("SELECT archivo, nombre FROM formar_archivos WHERE ID = ?;");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
