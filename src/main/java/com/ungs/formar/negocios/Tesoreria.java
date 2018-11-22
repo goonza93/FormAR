@@ -22,8 +22,8 @@ public class Tesoreria {
 			throw new Exception(
 					"El alumno " + alumno.getApellido() + " no esta inscripto a " + Formato.nombre(curso) + ".");
 
-		Pago pago = new Pago(idPago, alumno.getID(), curso.getID(), empleado.getID(), monto, mes, pagoEnTermino,
-				true, Almanaque.hoy());
+		Pago pago = new Pago(idPago, alumno.getID(), curso.getID(), empleado.getID(), monto, mes, pagoEnTermino, true,
+				Almanaque.hoy());
 		PagoOBD obd = FactoryODB.crearPagoOBD();
 		obd.update(pago);
 	}
@@ -32,9 +32,8 @@ public class Tesoreria {
 			boolean pagoEnTermino, boolean pagoCompleto) throws Exception {
 
 		List<Pago> pagos = traerPagosAlumno(alumno, curso);
-		for(Pago pago : pagos){
-			if(!pago.isPagoCompleto()){
-				pagoEnTermino = pagoEnTermino(alumno, curso);
+		for (Pago pago : pagos) {
+			if (!pago.isPagoCompleto()) {
 				registrarPago(alumno, curso, empleado, monto, pago.getMes(), pagoEnTermino, true, pago.getID());
 			}
 		}
@@ -57,38 +56,37 @@ public class Tesoreria {
 
 	public static List<Pago> traerPagosAlumno(Alumno alumno, Curso curso) {
 		PagoOBD obd = FactoryODB.crearPagoOBD();
+		List<Pago> retorno = obd.selectByAlumno(alumno, curso);
+		actualizarFuerasDeTermino(retorno);
 		return obd.selectByAlumno(alumno, curso);
 	}
-	
+
 	public static List<Pago> traerPagosAlumnoPendientes(Alumno alumno, Curso curso) {
 		List<Pago> todosPagos = traerPagosAlumno(alumno, curso);
 		List<Pago> pagosPendientes = new ArrayList<Pago>();
-		for(Pago pago: todosPagos){
-			if(!pago.isPagoCompleto())
+		for (Pago pago : todosPagos) {
+			if (!pago.isPagoCompleto())
 				pagosPendientes.add(pago);
 		}
+		actualizarFuerasDeTermino(pagosPendientes);
 		return pagosPendientes;
 	}
 
-	public static boolean pagoEnTermino(Alumno alumno, Curso curso) {
-		List<Pago> pagos = traerPagosAlumno(alumno, curso);
-		Pago ultimoPago = null;
-		if (!pagos.isEmpty()) {
-			ultimoPago = pagos.get(pagos.size() - 1);
-
-			// Le aumento un mes para saber cuando era el proximo pago.
-			// Si la fecha del proximo pago, esta en el mismo mes o despues que
-			// el mes actual
-			// Es decir, la dif de meses es >=0, esta en termino
-			java.sql.Date proximoPago = Almanaque.hoy();
-			if(ultimoPago.getFecha() != null)
-				proximoPago = new java.sql.Date(Almanaque.aumentarUnMes(ultimoPago.getFecha()).getTime());
-			if (Almanaque.diferenciaEnMeses(Almanaque.hoy(), proximoPago) < 0)
-				return false;
-		} else if (Almanaque.diferenciaEnMeses(Almanaque.hoy(), curso.getFechaInicio()) < 0)
-			return false;
-		return true;
-	}
+	/*
+	 * public static boolean pagoEnTermino(Alumno alumno, Curso curso) {
+	 * List<Pago> pagos = traerPagosAlumno(alumno, curso); Pago ultimoPago =
+	 * null; if (!pagos.isEmpty()) { ultimoPago = pagos.get(pagos.size() - 1);
+	 * 
+	 * // Le aumento un mes para saber cuando era el proximo pago. // Si la
+	 * fecha del proximo pago, esta en el mismo mes o despues que // el mes
+	 * actual // Es decir, la dif de meses es >=0, esta en termino java.sql.Date
+	 * proximoPago = Almanaque.hoy(); if(ultimoPago.getFecha() != null)
+	 * proximoPago = new
+	 * java.sql.Date(Almanaque.aumentarUnMes(ultimoPago.getFecha()).getTime());
+	 * if (Almanaque.diferenciaEnMeses(Almanaque.hoy(), proximoPago) < 0) return
+	 * false; } else if (Almanaque.diferenciaEnMeses(Almanaque.hoy(),
+	 * curso.getFechaInicio()) < 0) return false; return true; }
+	 */
 
 	public static Integer costoMensual(Curso curso) {
 
@@ -101,8 +99,8 @@ public class Tesoreria {
 	public static Integer costoRestante(Alumno alumno, Curso curso) {
 		List<Pago> pagos = traerPagosAlumno(alumno, curso);
 		Integer cantCuotasImpagas = 0;
-		for(Pago pago : pagos){
-			if(!pago.isPagoCompleto())
+		for (Pago pago : pagos) {
+			if (!pago.isPagoCompleto())
 				cantCuotasImpagas++;
 		}
 		return cantCuotasImpagas * costoMensual(curso);
@@ -130,6 +128,7 @@ public class Tesoreria {
 				}
 			}
 		}
+		actualizarFuerasDeTermino(retorno);
 		return retorno;
 	}
 
@@ -152,26 +151,52 @@ public class Tesoreria {
 	public static void crearPagos(Curso cursoSeleccionado, Alumno alumno) {
 		Integer cantCuotas = Almanaque.diferenciaEnMeses(cursoSeleccionado.getFechaInicio(),
 				cursoSeleccionado.getFechaFin());
-		Integer monto = cursoSeleccionado.getPrecio()/cantCuotas;
+		Integer monto = cursoSeleccionado.getPrecio() / cantCuotas;
 		for (int i = 0; i < cantCuotas; i++) {
-			Pago pago = new Pago(-1, alumno.getID(), cursoSeleccionado.getID(), null, monto, i+1, null, false, null);
+			Pago pago = new Pago(-1, alumno.getID(), cursoSeleccionado.getID(), null, monto, i + 1, null, false, null);
 			PagoOBD obd = FactoryODB.crearPagoOBD();
 			obd.insert(pago);
 		}
+		List<Pago> actualizarFueraDeTermino = traerPagosAlumno(alumno, cursoSeleccionado);
+		actualizarFuerasDeTermino(actualizarFueraDeTermino);
 	}
 
-	public static Integer cantCuotas(Integer idCurso){
+	public static Integer cantCuotas(Integer idCurso) {
 		Curso curso = CursoManager.traerCursoPorId(idCurso);
-		return Almanaque.diferenciaEnMeses(curso.getFechaInicio(),
-				curso.getFechaFin());
+		return Almanaque.diferenciaEnMeses(curso.getFechaInicio(), curso.getFechaFin());
 	}
 
 	public static Pago traerProximoPago(Alumno alumno, Curso curso) {
 		List<Pago> pagosPendientes = traerPagosAlumnoPendientes(alumno, curso);
-		for(Pago pago: pagosPendientes){
-			if(!pago.isPagoCompleto())
+		for (Pago pago : pagosPendientes) {
+			if (!pago.isPagoCompleto())
 				return pago;
 		}
 		return null;
+	}
+
+	public static void actualizarFuerasDeTermino(List<Pago> pagos) {
+		if(pagos.isEmpty())
+			return;
+		
+		Integer cursadaID = pagos.get(0).getCursada();
+		Date fechaInicioCurso = CursoManager.traerCursoPorId(pagos.get(0).getCursada()).getFechaInicio();
+		
+		for (Pago pago : pagos) {
+			if(pago.getCursada() != cursadaID){
+				cursadaID = pago.getCursada();
+				fechaInicioCurso = CursoManager.traerCursoPorId(pago.getCursada()).getFechaInicio();
+			}
+			
+			if (!pago.isPagoCompleto() && 
+					Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()) >1) {
+				pago.setPagoEnTermino(false);
+			} else if(!pago.isPagoCompleto())
+				pago.setPagoEnTermino(true);
+			
+			actualizarPago(pago);
+			System.out.println(Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()));
+			fechaInicioCurso = new java.sql.Date(Almanaque.aumentarUnMes(fechaInicioCurso).getTime());
+		}
 	}
 }

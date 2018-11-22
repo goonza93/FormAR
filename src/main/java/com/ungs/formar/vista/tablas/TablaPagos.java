@@ -34,7 +34,7 @@ public class TablaPagos extends JTable{
 					(pago.getEmpleado() == 0) ? " - " : Formato.empleado(pago.getEmpleado()),
 					Formato.precio(pago.getMonto()),
 					pago.getMes() + " de " + Tesoreria.cantCuotas(pago.getCursada()),
-					(pago.isPagoCompleto() == false ? " - " : (pago.isPagoEnTermino() == false ? " NO " : "SI")),
+					(pago.isPagoEnTermino() == false ? " NO " : "SI"),
 					(pago.isPagoCompleto() == false ? " NO " : " SI "),
 					(pago.getFecha() == null ? " - " : pago.getFecha())
 			};

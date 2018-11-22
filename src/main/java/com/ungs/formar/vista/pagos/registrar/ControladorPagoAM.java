@@ -24,14 +24,11 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 	private Curso curso;
 	private Alumno alumno;
 	private Pago pago;
-	
-	
-	/*public ControladorPagoAM(ControladorPagoABM invocador) {
-		this.invocador = invocador;
-		ventana = new VentanaPagoAM();
-		inicializar();
-	}
-*/
+
+	/*
+	 * public ControladorPagoAM(ControladorPagoABM invocador) { this.invocador =
+	 * invocador; ventana = new VentanaPagoAM(); inicializar(); }
+	 */
 	public ControladorPagoAM(ControladorPagoABM invocador, Pago pago) {
 		this.invocador = invocador;
 		this.pago = pago;
@@ -73,19 +70,20 @@ public class ControladorPagoAM implements ActionListener, AlumnoSeleccionable, C
 
 	private void registrar() {
 		Empleado empleado = Sesion.getEmpleado();
-		boolean pagoEnTermino = Tesoreria.pagoEnTermino(alumno, curso);
 		boolean pagoCompleto = ventana.getPagoCompleto().isSelected();
 		String montoMensaje = pago.getMonto().toString();
-		if(pagoCompleto)
+		if (pagoCompleto)
 			montoMensaje = Tesoreria.costoRestante(alumno, curso).toString();
-				
+
 		if (Popup.confirmar("Desea crear un pago por $" + montoMensaje + " ?")) {
 			try {
 				if (!pagoCompleto) {
 					Integer mes = Integer.decode(ventana.getMes().getText());
-					Tesoreria.registrarPago(alumno, curso, empleado, pago.getMonto(), mes, pagoEnTermino, pagoCompleto, this.pago.getID());
+					Tesoreria.registrarPago(alumno, curso, empleado, pago.getMonto(), mes, pago.isPagoEnTermino(),
+							pagoCompleto, this.pago.getID());
 				} else {
-					Tesoreria.registrarPagoCompleto(alumno, curso, empleado, pago.getMonto(), pagoEnTermino, pagoCompleto);
+					Tesoreria.registrarPagoCompleto(alumno, curso, empleado, pago.getMonto(), pago.isPagoEnTermino(),
+							pagoCompleto);
 				}
 
 				ventana.dispose();
