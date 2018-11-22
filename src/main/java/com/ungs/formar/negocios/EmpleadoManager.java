@@ -10,11 +10,11 @@ import com.ungs.formar.persistencia.interfaces.EmpleadoODB;
 
 public class EmpleadoManager {
 
-	public static void crearEmpleado(Rol rol, String DNI, String nombre, String apellido, String telefono, String email,
-			Date fechaIngreso, Date fechaEgreso) {
-		
+	public static void crearEmpleado(Rol rol, String DNI, String nombre, String apellido, String usuario,
+			String telefono, String email, Date fechaIngreso, Date fechaEgreso) {
+		//nombre.charAt(0)+apellido.substring(0, Math.min(6, apellido.length()))
 		Empleado empleado = new Empleado(-1, DNI, nombre, apellido, telefono, email, 
-				nombre.charAt(0)+apellido.substring(0, Math.min(6, apellido.length())), Hash.md5(DNI), fechaIngreso, fechaEgreso, rol, true);
+				usuario, Hash.md5(DNI), fechaIngreso, fechaEgreso, rol, true);
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		odb.insert(empleado);
 	}

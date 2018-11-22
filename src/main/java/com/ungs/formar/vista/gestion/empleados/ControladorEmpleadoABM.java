@@ -247,8 +247,9 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		if (validarCampos()) {
 			Empleado empleado = ventanaAM.getEmpleado();
 			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem();
-			String apellido = ventanaAM.getApellido().getText();
 			String nombre = ventanaAM.getNombre().getText();
+			String apellido = ventanaAM.getApellido().getText();
+			String usuario = ventanaAM.getUsuario().getText();
 			String dni = ventanaAM.getDNI().getText();
 			String telefono = ventanaAM.getTelefono().getText();
 			String email = ventanaAM.getEmail().getText();
@@ -256,7 +257,7 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 
 			// Creo un nuevo empleado
 			if (empleado == null) {
-				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
+				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, usuario, telefono, email, fechaIngreso, null);
 				Popup.mostrar("El empleado se creado exitosamente");
 			
 			// Edito un empleado existente
@@ -285,8 +286,9 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		if (validarCampos()) {
 			Empleado empleado = ventanaAM.getEmpleado();
 			Rol rol = (Rol) ventanaAM.getRol().getSelectedItem();
-			String apellido = ventanaAM.getApellido().getText();
 			String nombre = ventanaAM.getNombre().getText();
+			String apellido = ventanaAM.getApellido().getText();
+			String usuario = ventanaAM.getUsuario().getText();
 			String dni = ventanaAM.getDNI().getText();
 			String telefono = ventanaAM.getTelefono().getText();
 			String email = ventanaAM.getEmail().getText();
@@ -294,13 +296,14 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 
 			// Creo uno nuevo
 			if (empleado == null) {
-				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, telefono, email, fechaIngreso, null);
+				EmpleadoManager.crearEmpleado(rol, dni, nombre, apellido, usuario,telefono, email, fechaIngreso, null);
 				Popup.mostrar("El empleado se creado exitosamente");
 				
 			// Edito uno existente
 			} else {
-				empleado.setApellido(apellido);
 				empleado.setNombre(nombre);
+				empleado.setApellido(apellido);
+				empleado.setUsuario(usuario);
 				empleado.setDNI(dni);
 				empleado.setTelefono(telefono);
 				empleado.setEmail(email);
@@ -326,7 +329,8 @@ public class ControladorEmpleadoABM implements ActionListener, ControladorIntern
 		String dni = ventanaAM.getDNI().getText();
 		String telefono = ventanaAM.getTelefono().getText();
 		String email = ventanaAM.getEmail().getText();
-
+		String usuario = ventanaAM.getUsuario().getText();// falta validar
+		
 		boolean isOk = true;
 		String mensaje = "Se encontraron los siguientes errores:\n";
 

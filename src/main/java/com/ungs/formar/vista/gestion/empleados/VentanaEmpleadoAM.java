@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.persistencia.definidos.Rol;
 import com.ungs.formar.persistencia.entidades.Empleado;
+import com.ungs.formar.vista.util.EntradaTexto;
 import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -20,7 +21,7 @@ import com.ungs.formar.vista.util.PanelVertical;
 
 public class VentanaEmpleadoAM extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JTextField inApellido, inNombre, inDNI, inEmail, inTelefono;
+	private EntradaTexto inNombre, inApellido, inUsuario, inDNI, inEmail, inTelefono;
 	private JDateChooser inIngreso;
 	private JComboBox<Rol> inRol;
 	private JButton btnAceptar, btnCancelar;
@@ -42,83 +43,55 @@ public class VentanaEmpleadoAM extends JFrame {
 		cargarComponentes();
 		setTitle("Modificar usuario: " + Formato.empleado(empleado.getID()));
 		
-		inApellido.setText(empleado.getApellido());
-		inNombre.setText(empleado.getNombre());
-		inDNI.setText(empleado.getDNI());
-		inTelefono.setText(empleado.getTelefono());
-		inEmail.setText(empleado.getEmail());
+		inApellido.getTextField().setText(empleado.getApellido());
+		inNombre.getTextField().setText(empleado.getNombre());
+		inDNI.getTextField().setText(empleado.getDNI());
+		inTelefono.getTextField().setText(empleado.getTelefono());
+		inEmail.getTextField().setText(empleado.getEmail());
 		inIngreso.setDate(empleado.getFechaIngreso());
 		inRol.setSelectedItem(empleado.getRol());
 	}
 	
 	public void cargarComponentes() {
-		setBounds(100, 100, 400, 300);
-		PanelVertical panelPrincipal = new PanelVertical();
-		setContentPane(panelPrincipal);
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		ImageIcon img = new ImageIcon("imagenes/icono.png");
-		setIconImage(img.getImage());
+		
+		// ENTRADAS DE TEXTO
+		Dimension largoLabel = new Dimension(125, 25);
+		Dimension largoTexto = new Dimension(250, 25);
+		inNombre = new EntradaTexto("Nombre", largoLabel, largoTexto);
+		inApellido = new EntradaTexto("Apellido", largoLabel, largoTexto);
+		inUsuario = new EntradaTexto("Usuario", largoLabel, largoTexto);
+		inDNI = new EntradaTexto("DNI", largoLabel, largoTexto);
+		inEmail = new EntradaTexto("E-Mail", largoLabel, largoTexto);
+		inTelefono = new EntradaTexto("Telefono", largoLabel, largoTexto);
 
-		// AGREGO LAS ETIQUETAS
-		JLabel lblNombre = new JLabel("Nombre:");
-		JLabel lblApellido = new JLabel("Apellido:");
-		JLabel lblDni = new JLabel("DNI:");
-		JLabel lblEmail = new JLabel("E-Mail:");
-		JLabel lblTelefono = new JLabel("Teléfono:");
+		// OTRAS ENTRADAS
 		JLabel lblFechaIngreso = new JLabel("Fecha de ingreso:");
-		JLabel lblRolIngresado = new JLabel("Rol:");
-
-		EmptyBorder bordeEtiqueta = new EmptyBorder(5, 50, 5, 50);
-		lblNombre.setBorder(bordeEtiqueta);
-		lblApellido.setBorder(bordeEtiqueta);
-		lblDni.setBorder(bordeEtiqueta);
-		lblTelefono.setBorder(bordeEtiqueta);
-		lblEmail.setBorder(bordeEtiqueta);
-		lblFechaIngreso.setBorder(bordeEtiqueta);
-		lblRolIngresado.setBorder(bordeEtiqueta);
-		
-		PanelVertical panelEtiquetas = new PanelVertical();
-		panelEtiquetas.add(lblApellido);
-		panelEtiquetas.add(lblNombre);
-		panelEtiquetas.add(lblDni);
-		panelEtiquetas.add(lblEmail);
-		panelEtiquetas.add(lblTelefono);
-		panelEtiquetas.add(lblFechaIngreso);
-		panelEtiquetas.add(lblRolIngresado);
-		
-		// AGREGO LAS ENTRADAS
-		inApellido = new JTextField();
-		inNombre = new JTextField();
-		inDNI = new JTextField();
-		inTelefono = new JTextField();
-		inEmail = new JTextField();
+		lblFechaIngreso.setMaximumSize(largoLabel);
+		lblFechaIngreso.setMinimumSize(largoLabel);
+		lblFechaIngreso.setPreferredSize(largoLabel);
 		inIngreso = new JDateChooser();
+		inIngreso.setMaximumSize(largoTexto);
+		
+		PanelHorizontal panelFecha = new PanelHorizontal();
+		panelFecha.add(lblFechaIngreso);
+		panelFecha.add(inIngreso);
+
+		JLabel lblRolIngresado = new JLabel("Rol:");
+		lblRolIngresado.setPreferredSize(largoLabel);
+		lblRolIngresado.setMinimumSize(largoLabel);
+		lblRolIngresado.setMaximumSize(largoLabel);
+		
 		inRol = new JComboBox<Rol>();
+		inRol.setMaximumSize(largoTexto);
 		if(rol==Rol.SUPERVISOR){
 			inRol.addItem(Rol.SUPERVISOR);
 			inRol.addItem(Rol.ADMINISTRATIVO);
 		}
 		inRol.addItem(Rol.INSTRUCTOR);
 		
-		Dimension largoEntrada = new Dimension(Short.MAX_VALUE, 25);
-		inNombre.setMaximumSize(largoEntrada);
-		inApellido.setMaximumSize(largoEntrada);
-		inDNI.setMaximumSize(largoEntrada);
-		inEmail.setMaximumSize(largoEntrada);
-		inTelefono.setMaximumSize(largoEntrada);
-		inIngreso.setMaximumSize(largoEntrada);
-		inRol.setMaximumSize(largoEntrada);
-		
-		PanelVertical panelEntradas = new PanelVertical();
-		panelEntradas.add(inApellido);
-		panelEntradas.add(inNombre);
-		panelEntradas.add(inDNI);
-		panelEntradas.add(inEmail);
-		panelEntradas.add(inTelefono);
-		panelEntradas.add(inIngreso);
-		panelEntradas.add(inRol);
+		PanelHorizontal panelRol= new PanelHorizontal();
+		panelRol.add(lblRolIngresado);
+		panelRol.add(inRol);
 		
 		// AGREGO LOS BOTONES
 		btnAceptar = new JButton("Aceptar");
@@ -130,15 +103,25 @@ public class VentanaEmpleadoAM extends JFrame {
 		panelBotones.add(btnCancelar);
 		
 		// ACOMODO LOS PANELES EN LA VENTANA
-		PanelHorizontal panelH = new PanelHorizontal();
-		panelH.add(panelEtiquetas);
-		panelH.add(panelEntradas);
-		panelPrincipal.add(panelH);
-		panelPrincipal.add(panelBotones);
-	}
+		PanelVertical panelPrincipal = new PanelVertical();
+		setContentPane(panelPrincipal);
+		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-	public JTextField getNombre() {
-		return inNombre;
+		panelPrincipal.add(inNombre);
+		panelPrincipal.add(inApellido);
+		panelPrincipal.add(inUsuario);
+		panelPrincipal.add(inDNI);
+		panelPrincipal.add(inEmail);
+		panelPrincipal.add(inTelefono);
+		panelPrincipal.add(panelFecha);
+		panelPrincipal.add(panelRol);
+		panelPrincipal.add(panelBotones);
+		
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		ImageIcon img = new ImageIcon("imagenes/icono.png");
+		setIconImage(img.getImage());
+		pack();
+		setLocationRelativeTo(null);
 	}
 
 	public JButton botonAceptar() {
@@ -149,20 +132,28 @@ public class VentanaEmpleadoAM extends JFrame {
 		return btnCancelar;
 	}
 
+	public JTextField getNombre() {
+		return inNombre.getTextField();
+	}
+
 	public JTextField getApellido() {
-		return inApellido;
+		return inApellido.getTextField();
+	}
+
+	public JTextField getUsuario() {
+		return inUsuario.getTextField();
 	}
 
 	public JTextField getDNI() {
-		return inDNI;
+		return inDNI.getTextField();
 	}
 
 	public JTextField getEmail() {
-		return inEmail;
+		return inEmail.getTextField();
 	}
 
 	public JTextField getTelefono() {
-		return inTelefono;
+		return inTelefono.getTextField();
 	}
 
 	public JDateChooser getFechaIngreso() {
