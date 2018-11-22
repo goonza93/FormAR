@@ -35,7 +35,7 @@ public class Analitico {
 		List<String> curso = new ArrayList<String>();
 		List<Date> fechaInicio = new ArrayList<Date>();
 		List<Date> fechaFin = new ArrayList<Date>();
-		List<Integer> notas = new ArrayList<Integer>();
+		List<Double> nota = new ArrayList<Double>();
 
 		for (Curso cursada : cursos) {
 			if (cursada.getEstado() == EstadoCurso.FINALIZADO) {
@@ -45,7 +45,7 @@ public class Analitico {
 				curso.add(ProgramaManager.traerProgramaSegunID(cursada.getPrograma()).getNombre());
 				fechaInicio.add(cursada.getFechaInicio());
 				fechaFin.add(cursada.getFechaFin());
-				notas.add(ReportesManager.notaFinal(cursada, alumno));
+				nota.add(InscripcionManager.traerNotaFinal(cursada, alumno));
 			}
 		}
 		if (curso.size() != 0)
@@ -55,7 +55,7 @@ public class Analitico {
 		totalCursos.put("curso", curso);
 		totalCursos.put("fechaInicio", fechaInicio);
 		totalCursos.put("fechaFin", fechaFin);
-		totalCursos.put("nota", notas);
+		totalCursos.put("nota", nota);
 		totalCursos.put("fechaHoy", Almanaque.hoy());
 		totalCursos.put("persona", alumno.getApellido() + ", "+alumno.getNombre()+".");
 
