@@ -14,7 +14,10 @@ import com.ungs.formar.persistencia.interfaces.NotificacionOBD;
 public class NotificacionManager {
 
 	public static void crearNotificacion(TipoNotificacion tipo, Integer empleadoID, String contenido, Date fechaANotificar){
-		Timestamp datetime = new Timestamp(fechaANotificar.getTime());
+		Timestamp datetime = null;
+		if(fechaANotificar!=null){
+			datetime = new Timestamp(fechaANotificar.getTime());
+		}
 		Notificacion notificacion = new Notificacion(-1,tipo, empleadoID, contenido, false, false, datetime);
 		NotificacionOBD odb = FactoryODB.crearNotificacionOBD();
 		odb.insert(notificacion);
