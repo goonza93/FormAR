@@ -12,7 +12,7 @@ import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.persistencia.interfaces.ProgramaODB;
 
 public class ProgramaODBMySQL extends ODB implements ProgramaODB{
-	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas, activo";
+	private final String campos = "area, nombre, fecha_aprobacion, descripcion, horas, activo, codigo";
 	private final String tabla = "formar_programas";
 	private final String ID = "ID";
 
@@ -22,13 +22,15 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 		String fechaAprobacion = "'"+programa.getFechaAprobacion()+"'";
 		String descripcion ="'"+programa.getDescripcion()+"'";
 		String cargaHoraria = "'"+programa.getHoras()+"'";
+		String codigo = "'"+programa.getCodigo()+"'";
 		
 		String valores = area
 				+", "+nombre
 				+", "+fechaAprobacion
 				+", "+descripcion
 				+", "+cargaHoraria
-				+", "+true;
+				+", "+true
+				+", "+codigo;
 				
 				
 		String consulta = "insert into "+tabla+"("+campos+") values("+valores+");";
@@ -41,6 +43,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 		String fechaAprobacion = "'"+programa.getFechaAprobacion()+"'";
 		String descripcion ="'"+programa.getDescripcion()+"'";
 		String cargaHoraria = "'"+programa.getHoras()+"'";
+		String codigo = "'"+programa.getCodigo()+"'";
 		String condicion = ID+"="+programa.getProgramaID();
 		
 		String consulta = "update " + tabla
@@ -49,6 +52,7 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 				+", fecha_aprobacion = "+fechaAprobacion
 				+", descripcion = "+descripcion
 				+", horas = "+cargaHoraria
+				+", codigo = "+codigo
 				+"  where ("+condicion+");";
 		ejecutarSQL(consulta);
 	}
@@ -75,10 +79,19 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 		
 		return programa;
 	}
+	
+	public Programa selectByCodigo(String codigo){
+		String condicion = "codigo = "+codigo;
+		List<Programa> programas= selectByCondicion(condicion);
+		Programa programa = null;
+		if(programas.size()>0)
+			programa = programas.get(0);
+		return programa;
+	}
 
 	private List<Programa> selectByCondicion(String condicion) {
 		List<Programa> programas = new ArrayList<Programa>();
-		String campos = "ID, area, horas, nombre, fecha_aprobacion, descripcion";
+		String campos = "ID, area, horas, nombre, fecha_aprobacion, descripcion, codigo";
 		String comandoSQL = "select "+campos+" from "+tabla+" where ("+condicion+");";  
 		
 		try { 
@@ -94,7 +107,8 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 						resultados.getInt("horas"),
 						resultados.getString("nombre"),
 						resultados.getString("descripcion"),
-						resultados.getDate("fecha_aprobacion")
+						resultados.getDate("fecha_aprobacion"),
+						resultados.getString("codigo")
 						));
 			}
 			
@@ -114,4 +128,5 @@ public class ProgramaODBMySQL extends ODB implements ProgramaODB{
 		String condicion = "area = "+id;
 		return selectByCondicion(condicion); 
 	}
+	
 }

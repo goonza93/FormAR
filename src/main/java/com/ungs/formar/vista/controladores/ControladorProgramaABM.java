@@ -76,12 +76,10 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 		// Por cada programa en mi lista agrego un registro a la tabla
 		programas = ProgramaManager.traerProgramas();
 		for (Programa programa: programas) {
-			//String codCurso = programa.getNombre().subSequence(0, 4)+"-"+programa.getProgramaID().toString();
-			String codCurso = "A DESARROLAR";
 			Object[] fila = {
 					ProgramaManager.traerAreaSegunID(programa.getAreaID()).getNombre(),
 					programa.getNombre(),
-					codCurso,
+					programa.getCodigo(),
 					programa.getFechaAprobacion(),
 					programa.getHoras()
 					};
@@ -174,7 +172,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			this.ventanaProgramaAM.getTxtArea().setText(area.getNombre());
 			this.ventanaProgramaAM.getTxtDescripcion().setText(aEditar.getDescripcion());
 			this.ventanaProgramaAM.getDateChooserAprobacion().setDate(aEditar.getFechaAprobacion());
-			
+			this.ventanaProgramaAM.getTxtCodigo().setText(aEditar.getCodigo());
 			this.ventanaProgramaAM.getBtnCancelar().addActionListener(s -> cancelarAM());
 			this.ventanaProgramaAM.getBtnAceptar().addActionListener(s -> aceptarAM());
 			this.ventanaProgramaAM.getBtnSeleccionArea().addActionListener(s -> mostrarSeleccionarArea());
@@ -188,6 +186,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			controladorPrincipal.getVentana().setEnabled(false);
 			
 			if(ProgramaManager.estaAsignado(lista.get(0))){
+				this.ventanaProgramaAM.getTxtCodigo().setEnabled(false);
 				this.ventanaProgramaAM.getTxtNombre().setEnabled(false);
 				this.ventanaProgramaAM.getBtnSeleccionArea().setEnabled(false);
 				this.ventanaProgramaAM.getTxtCargaHoraria().setEnabled(false);
@@ -204,8 +203,13 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			Date fechaAprobacion = ventanaProgramaAM.getDateChooserAprobacion().getDate();
 			String descripcion = ventanaProgramaAM.getTxtDescripcion().getText();
 			Integer cargaHoraria = Integer.valueOf(ventanaProgramaAM.getTxtCargaHoraria().getText());
+			String codigo = ventanaProgramaAM.getTxtCodigo().getText();
+			if(ProgramaManager.codigoEnUso(codigo)){
+				Popup.mostrar("El codigo ingresado esta en uso.");
+				return;
+			}
 			if(programa == null){
-				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion);
+				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion, codigo);
 			} else {
 				programa.setAreaID(this.area.getID()); // otro defaulteo a 1...
 				programa.setNombre(nombre);
@@ -232,8 +236,13 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			Date fechaAprobacion = ventanaProgramaAM.getDateChooserAprobacion().getDate();
 			String descripcion = ventanaProgramaAM.getTxtDescripcion().getText();
 			Integer cargaHoraria = Integer.valueOf(ventanaProgramaAM.getTxtCargaHoraria().getText());
+			String codigo = ventanaProgramaAM.getTxtCodigo().getText();
+			if(ProgramaManager.codigoEnUso(codigo)){
+				Popup.mostrar("El codigo ingresado esta en uso.");
+				return;
+			}
 			if(programa == null){
-				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion);
+				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion, codigo);
 			} else {
 				programa.setAreaID(this.area.getID()); // otro defaulteo a 1...
 				programa.setNombre(nombre);

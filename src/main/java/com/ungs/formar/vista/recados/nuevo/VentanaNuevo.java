@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -45,7 +46,12 @@ public class VentanaNuevo extends Ventana {
 	private JToolBar bar;
 	private StyledEditorKit.ForegroundAction fcolor;
 	private JComboBox combo;
+	private int last;
+	private int previous;
+	private Timer theTimer;
+	private Style actual;
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public VentanaNuevo() {
 		super("Enviar recado");
 		setBounds(100, 100, 450, 400);
@@ -53,6 +59,9 @@ public class VentanaNuevo extends Ventana {
 		// DESTINATARIO
 		JLabel lblDestinatario = new JLabel("Destinatario");
 		btnSeleccionar = new JButton("Seleccionar");
+		last = 0;
+		previous = 0;
+		theTimer = null;
 		
 		inDestinatario = new JTextField();
 		inDestinatario.setEnabled(false);
@@ -75,19 +84,72 @@ public class VentanaNuevo extends Ventana {
 		inMensaje = new JTextPane();
 		inMensaje.setContentType("text/HTML");
 		editor = new HTMLEditorKit();
-		inMensaje.setEditorKit(editor);
+		inMensaje.setEditorKit(editor);/*
 		inMensaje.getDocument().addDocumentListener(new DocumentListener(){
 
 			@Override
 			public void changedUpdate(DocumentEvent arg0) {
-				
+		       }
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				try{
+		            StyledDocument doc = inMensaje.getStyledDocument();
+
+		           last = doc.getLength();
+		           String str = doc.getText(last -1, 1);
+
+		           if( str.charAt(0) == ' ' || str.charAt(0) == '\n' ) {
+
+		             // search for the (start of the) last word
+		             str = doc.getText(0, last);
+		             for (int i=last-2; i>0; i--)
+		                 if (str.charAt(i)==' ' || str.charAt(i)=='\n') {
+		                     previous = i;
+		                     break;
+		                 }
+		               
+		             str = doc.getText( previous, last - previous );
+
+		             // Temporary remove the document listener
+		             final DocumentListener listener = this;
+		             inMensaje.getDocument().removeDocumentListener(listener);
+		             
+		             int delay = 500; //milliseconds
+		             ActionListener taskPerformer = new ActionListener() {
+		                private int pos = previous;
+		                public void actionPerformed(ActionEvent evt) {
+		                    if (!(pos<last)) {
+		                        theTimer.stop(); // stop the timer
+		                        inMensaje.getDocument().addDocumentListener(listener); // add the doc listener again
+		                        return;
+		                    }
+		                    try {
+		                        String current = inMensaje.getDocument().getText(pos, 1);
+		                        inMensaje.getDocument().remove(pos, 1);
+		                        inMensaje.getDocument().insertString(pos, current, actual);
+		                        pos++;
+		                    } catch (BadLocationException ex) {
+		                        ex.printStackTrace();
+		                    }
+		                }
+		             };
+		             theTimer = new Timer(delay, taskPerformer);
+		             theTimer.start();
+		            
+		           } //end if
+		         }
+		         catch( Exception ex){}
+		         return;
 			}
 
 			@Override
-			public void insertUpdate(DocumentEvent arg0) {}
-			@Override
-			public void removeUpdate(DocumentEvent arg0) {}
-		});
+			public void removeUpdate(DocumentEvent arg0) {
+			
+				
+			}
+			
+		});*/
 		bar = new JToolBar();
 		bar.setFloatable(false);
 		bar.add(new StyledEditorKit.BoldAction());
@@ -96,7 +158,7 @@ public class VentanaNuevo extends Ventana {
 		bar.add(new StyledEditorKit.FontSizeAction("12", 12));
 		bar.add(new StyledEditorKit.FontSizeAction("14", 14));
 		bar.add(new StyledEditorKit.FontSizeAction("16", 16));
-		String[] colores = {"Negro", "Azuk", "Cyan", "Gris oscuro"
+		String[] colores = {"Negro", "Azul", "Cyan", "Gris oscuro"
 				, "Gris", "Gris claro", "Verde", "Magenta", "Naranja"
 				, "Rosa", "Rojo", "Blanco", "Amarillo"};
 		combo = new JComboBox(colores);
@@ -157,6 +219,7 @@ public class VentanaNuevo extends Ventana {
 		        		e1.printStackTrace();
 		        	}
 				}
+		        actual = style;
 		        inMensaje.grabFocus();
 		        inMensaje.setSelectionStart(inMensaje.getSelectionEnd());
 			}

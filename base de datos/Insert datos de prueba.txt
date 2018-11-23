@@ -15,14 +15,14 @@ INSERT INTO formar_areas (nombre, descripcion, activo) values ("Decoración", "C
 
 
 -- INSERTAR PROGRAMAS
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (1, "Java I", 10, '2016-05-15',"Introduccion al lenguaje java y estructuras basicas de datos.", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (1, "Python I", 20, '2016-05-18',"Introduccion al lenguaje python y estructuras basicas de datos ", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (2, "Golf", 30, '2016-11-20',"Reglas basicas de golf y tecnicas de golpeo", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (2, "Squash", 40, '2018-09-21',"Reglas del squash, y practica para novatos", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (3, "Contabilidad I", 50, '2016-11-20',"Introduccion a la contabilidad", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (3, "Contabilidad II", 60, '2018-09-21',"Contabilidad avanzada", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (4, "Decoracion de Interiores", 70, '2016-11-20',"Como decorar interiores", true);
-INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo) values (4, "Decoracion de Exteriores", 80, '2018-09-21',"Como decorar exteriores", true);
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (1, "Java I", 10, '2016-05-15',"Introduccion al lenguaje java y estructuras basicas de datos.", true, "Java-1");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (1, "Python I", 20, '2016-05-18',"Introduccion al lenguaje python y estructuras basicas de datos ", true, "Pyth-1");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (2, "Golf", 30, '2016-11-20',"Reglas basicas de golf y tecnicas de golpeo", true, "Golf-1");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (2, "Squash", 40, '2018-09-21',"Reglas del squash, y practica para novatos", true, "Squa-1");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (3, "Contabilidad I", 50, '2016-11-20',"Introduccion a la contabilidad", true, "Cont-1");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (3, "Contabilidad II", 60, '2018-09-21',"Contabilidad avanzada", true, "Cont-2");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (4, "Decoracion de Interiores", 70, '2016-11-20',"Como decorar interiores", true, "Deco-1");
+INSERT INTO formar_programas (area, nombre, horas, fecha_aprobacion, descripcion, activo, codigo) values (4, "Decoracion de Exteriores", 80, '2018-09-21',"Como decorar exteriores", true, "Deco-2");
 
 
 -- INSERTAR EMPLEADOS

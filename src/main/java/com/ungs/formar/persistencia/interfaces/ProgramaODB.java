@@ -18,4 +18,6 @@ public interface ProgramaODB {
 
 	public List<Programa> selectByArea(Integer id);
 	
+	public Programa selectByCodigo(String codigo);
+	
 }

@@ -35,6 +35,7 @@ public class VentanaProgramaAM extends JFrame {
 	private JButton btnCancelar;
 	private Programa programa;
 	private JTextArea txtDescripcion; 
+	private JTextField txtCodigo;
 
 	public VentanaProgramaAM() {
 		setTitle("Crear curso");
@@ -53,7 +54,7 @@ public class VentanaProgramaAM extends JFrame {
 	}
 	
 	private void inicializar(){
-		setBounds(100, 100, 450, 343);
+		setBounds(100, 100, 450, 394);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -111,47 +112,61 @@ public class VentanaProgramaAM extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
+		JLabel lblCodigo = new JLabel("CODIGO");
+		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 12));
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtCodigo.setColumns(10);
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnAceptar, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-							.addGap(182)
-							.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblCodigo, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtCodigo, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+							.addGap(18))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+									.addComponent(btnAceptar, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+									.addGap(182)
+									.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
 								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblArea, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+											.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+												.addComponent(lblArea, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+													.addPreferredGap(ComponentPlacement.RELATED))
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+													.addPreferredGap(ComponentPlacement.RELATED)))
+											.addGap(38))
+										.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+											.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
 											.addPreferredGap(ComponentPlacement.RELATED))
 										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+											.addComponent(lblDescripcion, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
 											.addPreferredGap(ComponentPlacement.RELATED)))
-									.addGap(38))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblDescripcion, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-										.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED)))
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-									.addComponent(txtNombre, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(txtArea, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(btnSeleccionArea, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED))
-									.addComponent(dateChooserAprobacion, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-									.addComponent(txtCargaHoraria, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-									.addGap(1)))))
-					.addGap(18))
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtNombre, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+										.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+											.addComponent(txtArea, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnSeleccionArea, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED))
+										.addComponent(dateChooserAprobacion, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+										.addComponent(txtCargaHoraria, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)))))
+							.addGap(18))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -173,19 +188,22 @@ public class VentanaProgramaAM extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtCargaHoraria, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCargaHoraria))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCodigo, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtCodigo, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(16)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblDescripcion)
-							.addGap(54)))
+							.addGap(65)
+							.addComponent(lblDescripcion))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(18)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAceptar)
-						.addComponent(btnCancelar))
-					.addContainerGap())
+						.addComponent(btnCancelar)
+						.addComponent(btnAceptar))
+					.addGap(56))
 		);
 		
 		txtDescripcion = new JTextArea();
@@ -208,6 +226,10 @@ public class VentanaProgramaAM extends JFrame {
 
 	public JTextArea getTxtDescripcion() {
 		return txtDescripcion;
+	}
+	
+	public JTextField getTxtCodigo(){
+		return txtCodigo;
 	}
 
 	public Programa getPrograma() {

@@ -75,6 +75,7 @@ CREATE TABLE formar_programas (
 	descripcion VARCHAR(500) NOT NULL,
 	horas INT(4) NOT NULL,
 	activo BOOLEAN NOT NULL,
+	codigo VARCHAR(20) NOT NULL,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (area) REFERENCES formar_areas(ID)
 );

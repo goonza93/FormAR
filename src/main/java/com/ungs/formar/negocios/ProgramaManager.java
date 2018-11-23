@@ -33,9 +33,9 @@ public class ProgramaManager {
 		return obd.selectByID(ID);
 	}
 	
-	public static void crearPrograma(Integer areaID, Integer horas, String nombre, String descripcion, Date fechaAprobacion){
+	public static void crearPrograma(Integer areaID, Integer horas, String nombre, String descripcion, Date fechaAprobacion, String codigo){
 		java.sql.Date fechaEnSql = new java.sql.Date(fechaAprobacion.getTime());
-		Programa programa = new Programa(-1,areaID,horas,nombre,descripcion,fechaEnSql);
+		Programa programa = new Programa(-1,areaID,horas,nombre,descripcion,fechaEnSql, codigo);
 		ProgramaODB odb = FactoryODB.crearProgramaODB();
 		odb.insert(programa);
 	}
@@ -55,5 +55,17 @@ public class ProgramaManager {
 		List<Curso> cursos = obd.selectByPrograma(programa.getProgramaID());
 		
 		return !(cursos.isEmpty());
+	}
+	
+	public static Programa traerProgramaPorCodigo(String codigo) {
+		ProgramaODB odb = FactoryODB.crearProgramaODB();
+		return odb.selectByCodigo(codigo);
+	}
+	
+	public static boolean codigoEnUso(String codigo){
+		if(traerProgramaPorCodigo(codigo)!=null){
+			return true;
+		}
+		return false;
 	}
 }
