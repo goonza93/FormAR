@@ -10,10 +10,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
-	public static boolean sendEmail(String email, String password) {
-		String msjEmail = "Se ha generado una nueva contraseña para su usuario de FormAR.\n"
-				+ "Su nueva contraseña es "+password+"\n"
-						+ "Por favor, no se olvide de cambiarla.";
+	public static boolean sendEmail(String email, String password, String mensaje) {
+		
 		try {
 			Properties props = new Properties();
 
@@ -42,7 +40,7 @@ public class EmailSender {
 			message.setSubject("Nueva contraseña");
 			//EMAIL Destinatario
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			message.setText(msjEmail);
+			message.setText(mensaje);
 			// Envia el mensaje
 			Transport t = session.getTransport("smtp");
 			
