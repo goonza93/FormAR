@@ -78,8 +78,7 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 					.traerAreaSegunID(
 							ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getAreaID())
 					.getNombre();
-			//String codCurso = nombre.subSequence(0, 4)+"-"+this.cursos_en_tabla.get(i).getID().toString();
-			String codCurso = "A DESARROLLAR";
+			String codCurso = ProgramaManager.traerProgramaSegunID(this.cursos_en_tabla.get(i).getPrograma()).getCodigo();
 			String coloreado = "no";
 			String estado = Formato.estado(this.cursos_en_tabla.get(i));
 			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
@@ -91,18 +90,18 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 			Empleado responsable = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getResponsable());
 			List<HorarioCursada> horarios = CursoManager.obtenerHorariosDeCursada(this.cursos_en_tabla.get(i));
 			String horariosString = HorarioCursadaManager.obtenerVistaDeHorariosYSalas(horarios);
-			// Date fechaCierreInscripcion =
-			// this.cursos_en_tabla.get(i).getFechaCierreInscripcion();
 			Integer precio = this.cursos_en_tabla.get(i).getPrecio();
 			String comision = this.cursos_en_tabla.get(i).getComision();
 			String nombreApellidoInstructor = "A DESIGNAR";
 			String nombreApellidoResponsable = "A DESIGNAR";
+			
 			if (instructor != null) {
 				nombreApellidoInstructor = instructor.getApellido() + " " + instructor.getNombre();
 			}
 			if (responsable != null) {
 				nombreApellidoResponsable = responsable.getApellido() + " " + responsable.getNombre();
 			}
+			
 			Object[] fila = { nombre, codCurso ,comision, area, estado, Formato.precio(precio), cupoMinimo.toString(),
 					cupoMaximo.toString(), fechaInicio.toString(), fechaFin == null ? "" : fechaFin.toString(),
 					fechaCierre == null?"":fechaCierre.toString(), nombreApellidoInstructor, nombreApellidoResponsable,

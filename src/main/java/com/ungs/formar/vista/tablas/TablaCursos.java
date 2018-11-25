@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.ungs.formar.negocios.ProgramaManager;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.util.Formato;
 
 public class TablaCursos extends JTable{
@@ -32,11 +33,10 @@ public class TablaCursos extends JTable{
 		modelo.setColumnIdentifiers(columnas);
 
 		for (Curso curso : cursos) {
-			String nombreCursada = ProgramaManager.traerProgramaSegunID(curso.getPrograma()).getNombre();
-			String codCurso = nombreCursada.subSequence(0, 4)+"-"+curso.getID().toString();
+			Programa programa = ProgramaManager.traerProgramaSegunID(curso.getPrograma());
 			Object[] fila = {
 					Formato.nombre(curso),
-					codCurso,
+					programa.getCodigo(),
 					Formato.area(curso),
 					Formato.estado(curso),
 					curso.getCupoMinimo().toString(),

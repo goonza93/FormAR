@@ -13,6 +13,7 @@ import com.ungs.formar.negocios.ReportesManager;
 import com.ungs.formar.persistencia.definidos.EstadoCurso;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
+import com.ungs.formar.persistencia.entidades.Programa;
 import com.ungs.formar.vista.util.Popup;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -40,9 +41,9 @@ public class Analitico {
 		for (Curso cursada : cursos) {
 			if (cursada.getEstado() == EstadoCurso.FINALIZADO) {
 				String nombreCursada = ProgramaManager.traerProgramaSegunID(cursada.getPrograma()).getNombre();
-				String codCurso = nombreCursada.subSequence(0, 4)+"-"+cursada.getID().toString();
-				codigoCurso.add(codCurso);
-				curso.add(ProgramaManager.traerProgramaSegunID(cursada.getPrograma()).getNombre());
+				Programa programa = ProgramaManager.traerProgramaSegunID(cursada.getPrograma());
+				codigoCurso.add(programa.getCodigo());
+				curso.add(nombreCursada);
 				fechaInicio.add(cursada.getFechaInicio());
 				fechaFin.add(cursada.getFechaFin());
 				nota.add(InscripcionManager.traerNotaFinal(cursada, alumno));
