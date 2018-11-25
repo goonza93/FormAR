@@ -193,7 +193,7 @@ public class ControladorLogin implements ActionListener {
 		String msjEmail = "Se ha generado una nueva contraseña para su usuario de FormAR.\n"
 				+ "Su nueva contraseña es "+nuevaPass+"\n"
 						+ "Por favor, no se olvide de cambiarla.";
-		if (EmailSender.sendEmail(email, nuevaPass, msjEmail))
+		if (EmailSender.sendEmail(email, msjEmail))
 			Popup.mostrar("Se envio su nueva contraseña a " + email);
 		else {
 			Popup.mostrar(

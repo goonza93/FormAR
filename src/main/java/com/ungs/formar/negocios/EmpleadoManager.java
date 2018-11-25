@@ -46,6 +46,11 @@ public class EmpleadoManager {
 		return odb.selectByRol(Rol.ADMINISTRATIVO);
 	}
 	
+	public static List<Empleado> traerSupervisores(){
+		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
+		return odb.selectByRol(Rol.SUPERVISOR);
+	}
+	
 	public static List<Empleado> traerInstructores(){
 		EmpleadoODB odb = FactoryODB.crearEmpleadoODB();
 		return odb.selectByRol(Rol.INSTRUCTOR);
@@ -56,6 +61,16 @@ public class EmpleadoManager {
 		List<Empleado> instructores = traerInstructores();
 		List<Empleado> ret = new ArrayList<Empleado>();
 		for(Empleado e : instructores){
+			if(e.getActivo())
+				ret.add(e);
+		}
+		return ret;
+	}
+	
+	public static List<Empleado> traerSupervisoresActivos(){
+		List<Empleado> supervisores = traerSupervisores();
+		List<Empleado> ret = new ArrayList<Empleado>();
+		for(Empleado e : supervisores){
 			if(e.getActivo())
 				ret.add(e);
 		}

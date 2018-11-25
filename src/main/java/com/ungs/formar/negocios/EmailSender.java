@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
 
-	public static boolean sendEmail(String email, String password, String mensaje) {
+	public static boolean sendEmail(String email, String mensaje) {
 		
 		try {
 			Properties props = new Properties();
