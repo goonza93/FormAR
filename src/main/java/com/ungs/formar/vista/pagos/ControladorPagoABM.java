@@ -130,7 +130,7 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 				soloFueraDeTermino);
 		if (pagos.size() == 0) {
 			Popup.mostrar(
-					"El alumno " + alumno.getApellido() + ", " + alumno.getNombre() + " , No tiene inscripciones.");
+					"El alumno " + alumno.getApellido() + ", " + alumno.getNombre() + " , No tiene pagos con los criterios ingresados.");
 			return;
 		}
 		for (Pago pago : pagos) {
@@ -164,7 +164,4 @@ public class ControladorPagoABM implements ActionListener, ControladorInterno {
 		invocador.getVentana().toFront();
 	}
 
-	public void actualizarTabla() {
-
-	}
 }
