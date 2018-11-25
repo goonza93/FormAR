@@ -429,7 +429,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 			// Crear un nuevo alumno
 			if (alumno == null) {
 				AlumnoManager.crearAlumno(dni, nombre, apellido, telefono, email);
-				Popup.mostrar("El alumno se creado correctamente");
 
 			// Editar un alumno existente
 			} else {
@@ -439,7 +438,6 @@ public class ControladorAlumnoABM implements ActionListener, Consultable, AreaSe
 				alumno.setTelefono(telefono);
 				alumno.setEmail(email);
 				AlumnoManager.editarAlumno(alumno);
-				Popup.mostrar("El alumno se editado correctamente");
 			}
 
 			llenarTabla();
