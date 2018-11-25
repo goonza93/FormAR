@@ -38,7 +38,7 @@ public class Validador {
 	}
 	
 	public static boolean validarNombre(String texto) {
-		return (formatoLetraEspacio(texto));
+		return (formatoNumeroLetraEspacio(texto));
 	}
 	
 	public static boolean validarDNI(String texto) {

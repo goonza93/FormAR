@@ -197,7 +197,6 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 	private void aceptarAM() {
 		if(validarCampos()){
 			Programa programa = ventanaProgramaAM.getPrograma();
-			//String area = aca iria el ID no el nombre...
 			Integer area = this.area.getID(); // esta como default el 1.
 			String nombre = ventanaProgramaAM.getTxtNombre().getText();
 			Date fechaAprobacion = ventanaProgramaAM.getDateChooserAprobacion().getDate();
@@ -211,7 +210,7 @@ public class ControladorProgramaABM implements ActionListener, AreaSeleccionable
 			if(programa == null){
 				ProgramaManager.crearPrograma(area,cargaHoraria,nombre,descripcion,fechaAprobacion, codigo);
 			} else {
-				programa.setAreaID(this.area.getID()); // otro defaulteo a 1...
+				programa.setAreaID(this.area.getID());
 				programa.setNombre(nombre);
 				programa.setDescripcion(descripcion);
 				programa.setHoras(cargaHoraria);
