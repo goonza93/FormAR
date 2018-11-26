@@ -99,7 +99,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 	private void abrirArchivo() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para consultar las notas de los examenes.");
 			return;
 		}
 		if(seleccion.get(0).getContenido() != null){
@@ -117,7 +117,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 	private void consultar() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar su asistencia.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para consultar su asistencia.");
 			return;
 		}
 		
@@ -128,7 +128,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		}
 		
 		if(Instructor.traerFechasTomarAsistencia(curso).isEmpty()){
-			Popup.mostrar("Las aistencias no estan disponibles.");
+			Popup.mostrar("Las asistencias no estan disponibles.");
 			return;
 		}
 		
@@ -139,7 +139,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 	private void tomar() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para tomarle asistencia.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para tomarle asistencia.");
 			return;
 		}
 		
@@ -151,12 +151,12 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		
 		Date fecha = Instructor.proximaFechaTomarAsistencia(curso);
 		if (fecha == null) {
-			Popup.mostrar("Ya se han tomado todas las asistensias posibles para este curso.");
+			Popup.mostrar("Ya se han tomado todas las asistencias posibles para este curso.");
 			return;
 		}
 		
 		if (fecha.after(Almanaque.hoy())) {
-			Popup.mostrar("Ya se han cargado todas las asistensias posibles hasta el dia de hoy.");
+			Popup.mostrar("Ya se han cargado todas las asistencias posibles hasta el dia de hoy.");
 			return;
 		}
 		
@@ -167,14 +167,14 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 	private void consultarNotas() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para consultar las notas de los examenes.");
 			return;
 		}
 
 		// Solo se puede consultar notas de un curso inicado
 		Curso curso = seleccion.get(0);
-		if (curso.getEstado() != EstadoCurso.INICIADO) {
-			Popup.mostrar("Solo se pueden consultar notas de un examen para cursos en estado INICIADO.");
+		if (!(curso.getEstado() == EstadoCurso.INICIADO || curso.getEstado() == EstadoCurso.FINALIZADO)) {
+			Popup.mostrar("Solo se pueden consultar notas de un examen para cursos en estado iniciado y finalizado.");
 			return;
 		}
 		
@@ -185,7 +185,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 	private void cargar() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para cargar las notas de un examen.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para cargar las notas de un examen.");
 			return;
 		}
 		
