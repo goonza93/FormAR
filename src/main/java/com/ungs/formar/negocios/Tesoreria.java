@@ -153,10 +153,14 @@ public class Tesoreria {
 		Integer cantCuotas = Almanaque.diferenciaEnMeses(cursoSeleccionado.getFechaInicio(),
 				cursoSeleccionado.getFechaFin());
 		Integer monto = cursoSeleccionado.getPrecio() / cantCuotas;
+		Integer montoAcumulado = 0;
 		for (int i = 0; i < cantCuotas; i++) {
+			if(i == cantCuotas-1)
+				monto = cursoSeleccionado.getPrecio()-montoAcumulado;
 			Pago pago = new Pago(-1, alumno.getID(), cursoSeleccionado.getID(), null, monto, i + 1, null, false, null);
 			PagoOBD obd = FactoryODB.crearPagoOBD();
 			obd.insert(pago);
+			montoAcumulado += monto;
 		}
 		List<Pago> actualizarFueraDeTermino = traerPagosAlumno(alumno, cursoSeleccionado);
 		actualizarFuerasDeTermino(actualizarFueraDeTermino);
