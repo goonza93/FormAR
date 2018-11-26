@@ -1,8 +1,17 @@
 package com.ungs.formar.vista.recados.leer;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.html.HTMLEditorKit;
 import com.ungs.formar.persistencia.entidades.Recado;
@@ -14,6 +23,8 @@ import com.ungs.formar.vista.util.Ventana;
 public class VentanaLeerRecado extends Ventana{
 	private static final long serialVersionUID = 1L;
 	private JButton btnVolver, btnBorrar, btnArchivar;
+	private HTMLEditorKit editor;
+	private JTextPane outMensaje;
 
 	public VentanaLeerRecado(Recado recado) {
 		super("Leer recado");
@@ -33,10 +44,12 @@ public class VentanaLeerRecado extends Ventana{
 		panelFicha.add(lblArchivado);
 		
 		// EL MENSAJE
-		JEditorPane outMensaje = new JEditorPane();
+		outMensaje = new JTextPane();
+		editor = new HTMLEditorKit();
+		
 		outMensaje.setContentType("text/HTML");
-		outMensaje.setEditorKit(new HTMLEditorKit());
-		outMensaje.setText(recado.getContenido());
+		outMensaje.setEditorKit(editor);
+		outMensaje.setText(recado.getContenido());		
 		outMensaje.setEditable(false);
 		PanelHorizontal panelMensaje = new PanelHorizontal();
 		panelMensaje.add(outMensaje);

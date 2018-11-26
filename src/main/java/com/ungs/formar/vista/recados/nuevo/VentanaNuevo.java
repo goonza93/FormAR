@@ -2,66 +2,39 @@ package com.ungs.formar.vista.recados.nuevo;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
-import javax.swing.Timer;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import javax.swing.text.StyledEditorKit;
-import javax.swing.text.html.HTML;
-import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import com.ungs.formar.vista.util.ColorChooserButton;
+import com.ungs.formar.vista.util.ColorChooserButton.ColorChangedListener;
 import com.ungs.formar.vista.util.FormatoLimitado;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
 import com.ungs.formar.vista.util.Ventana;
 
+@SuppressWarnings("unused")
 public class VentanaNuevo extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private JButton btnSeleccionar, btnEnviar, btnCancelar, btnColor;
+	private JButton btnSeleccionar, btnEnviar, btnCancelar;
+	private ColorChooserButton btnColor;
 	private JTextField inDestinatario, inTitulo;
 	private JTextPane inMensaje;
-	private JColorChooser cChooser;
-	private JDialog cChooserDialog;
 	private HTMLEditorKit editor;
-	private Color color;
 	private JToolBar bar;
-	private StyledEditorKit.ForegroundAction fcolor;
-	private JComboBox combo;
-	private int last;
-	private int previous;
-	private Timer theTimer;
-	private Style actual;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public VentanaNuevo() {
 		super("Enviar recado");
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 500, 400);
 		setLocationRelativeTo(null);
 		// DESTINATARIO
 		JLabel lblDestinatario = new JLabel("Destinatario");
 		btnSeleccionar = new JButton("Seleccionar");
-		last = 0;
-		previous = 0;
-		theTimer = null;
 		
 		inDestinatario = new JTextField();
 		inDestinatario.setEnabled(false);
@@ -82,74 +55,16 @@ public class VentanaNuevo extends Ventana {
 		panelTitulo.add(inTitulo);
 		
 		inMensaje = new JTextPane();
-		inMensaje.setContentType("text/HTML");
+/*
+		editor = new RTFEditorKit();
+		inMensaje.setEditorKit(editor);
+		inMensaje.setContentType(editor.getContentType());
+*/
 		editor = new HTMLEditorKit();
-		inMensaje.setEditorKit(editor);/*
-		inMensaje.getDocument().addDocumentListener(new DocumentListener(){
-
-			@Override
-			public void changedUpdate(DocumentEvent arg0) {
-		       }
-
-			@Override
-			public void insertUpdate(DocumentEvent arg0) {
-				try{
-		            StyledDocument doc = inMensaje.getStyledDocument();
-
-		           last = doc.getLength();
-		           String str = doc.getText(last -1, 1);
-
-		           if( str.charAt(0) == ' ' || str.charAt(0) == '\n' ) {
-
-		             // search for the (start of the) last word
-		             str = doc.getText(0, last);
-		             for (int i=last-2; i>0; i--)
-		                 if (str.charAt(i)==' ' || str.charAt(i)=='\n') {
-		                     previous = i;
-		                     break;
-		                 }
-		               
-		             str = doc.getText( previous, last - previous );
-
-		             // Temporary remove the document listener
-		             final DocumentListener listener = this;
-		             inMensaje.getDocument().removeDocumentListener(listener);
-		             
-		             int delay = 500; //milliseconds
-		             ActionListener taskPerformer = new ActionListener() {
-		                private int pos = previous;
-		                public void actionPerformed(ActionEvent evt) {
-		                    if (!(pos<last)) {
-		                        theTimer.stop(); // stop the timer
-		                        inMensaje.getDocument().addDocumentListener(listener); // add the doc listener again
-		                        return;
-		                    }
-		                    try {
-		                        String current = inMensaje.getDocument().getText(pos, 1);
-		                        inMensaje.getDocument().remove(pos, 1);
-		                        inMensaje.getDocument().insertString(pos, current, actual);
-		                        pos++;
-		                    } catch (BadLocationException ex) {
-		                        ex.printStackTrace();
-		                    }
-		                }
-		             };
-		             theTimer = new Timer(delay, taskPerformer);
-		             theTimer.start();
-		            
-		           } //end if
-		         }
-		         catch( Exception ex){}
-		         return;
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent arg0) {
-			
-				
-			}
-			
-		});*/
+		inMensaje.setContentType("text/HTML");
+		inMensaje.setEditorKit(editor);
+		
+	
 		bar = new JToolBar();
 		bar.setFloatable(false);
 		bar.add(new StyledEditorKit.BoldAction());
@@ -158,90 +73,19 @@ public class VentanaNuevo extends Ventana {
 		bar.add(new StyledEditorKit.FontSizeAction("12", 12));
 		bar.add(new StyledEditorKit.FontSizeAction("14", 14));
 		bar.add(new StyledEditorKit.FontSizeAction("16", 16));
-		String[] colores = {"Negro", "Azul", "Cyan", "Gris oscuro"
-				, "Gris", "Gris claro", "Verde", "Magenta", "Naranja"
-				, "Rosa", "Rojo", "Blanco", "Amarillo"};
-		combo = new JComboBox(colores);
-		combo.setSelectedIndex(0);
-		combo.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int i = combo.getSelectedIndex();
-				StyledDocument doc = inMensaje.getStyledDocument();
-		        Style style = inMensaje.addStyle("negro", null);
-		        int start = inMensaje.getSelectionStart();
-		        int end = inMensaje.getSelectionEnd();
-		        String txt = inMensaje.getSelectedText();
-				if(i==0){
-					style = inMensaje.addStyle("negro", null);
-					StyleConstants.setForeground(style, Color.BLACK);
-				} else if(i==1){
-					style = inMensaje.addStyle("azul", null);
-			        StyleConstants.setForeground(style, Color.BLUE);
-				} else if(i==2){
-					style = inMensaje.addStyle("cyan", null);
-					StyleConstants.setForeground(style, Color.CYAN);
-				} else if(i==3){
-					style = inMensaje.addStyle("grisoscuro", null);
-					StyleConstants.setForeground(style, Color.DARK_GRAY);
-				} else if(i==4){
-					style = inMensaje.addStyle("gris", null);
-					StyleConstants.setForeground(style, Color.GRAY);
-				} else if(i==5){
-					style = inMensaje.addStyle("grisclaro", null);
-					StyleConstants.setForeground(style, Color.LIGHT_GRAY);
-				} else if(i==6){
-					style = inMensaje.addStyle("verde", null);
-					StyleConstants.setForeground(style, Color.GREEN);
-				} else if(i==7){
-					style = inMensaje.addStyle("magenta", null);
-					StyleConstants.setForeground(style, Color.MAGENTA);
-				} else if(i==8){
-					style = inMensaje.addStyle("naranja", null);
-					StyleConstants.setForeground(style, Color.ORANGE);
-				} else if(i==9){
-					style = inMensaje.addStyle("rosa", null);
-					StyleConstants.setForeground(style, Color.PINK);
-				} else if(i==10){
-					style = inMensaje.addStyle("rojo", null);
-					StyleConstants.setForeground(style, Color.RED);
-				} else if(i==11){
-					style = inMensaje.addStyle("blanco", null);
-					StyleConstants.setForeground(style, Color.WHITE);
-				} else if(i==12){
-					style = inMensaje.addStyle("amarillo", null);
-					StyleConstants.setForeground(style, Color.YELLOW);
-				}
-		        if(end != start){
-		        	try {
-		        		doc.setCharacterAttributes(start, txt.length(), style, false);
-		        	} catch (Exception e1) {
-		        		e1.printStackTrace();
-		        	}
-				}
-		        actual = style;
-		        inMensaje.grabFocus();
-		        inMensaje.setSelectionStart(inMensaje.getSelectionEnd());
-			}
-		});
-		bar.add(combo);
+		bar.add(new StyledEditorKit.ForegroundAction("Rojo", Color.RED));
+		bar.add(new StyledEditorKit.ForegroundAction("Azul", Color.BLUE));
+		bar.add(new StyledEditorKit.ForegroundAction("Verde", Color.GREEN));
+		bar.add(new StyledEditorKit.ForegroundAction("Negro", Color.BLACK));
 		
-		
-		// bar.add(new StyledEditorKit.ForegroundAction("Color", JColorChooser.showDialog(new Frame(), "hola", color)));
-		//this.pack();
 /*
-		cChooser = new JColorChooser();
-		cChooser.setVisible(true);
-		cChooser.getColor();*/
-		/*
-		btnColor = new JButton("Color");
-		bar.add(btnColor);
-		btnColor.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				changeColor();
-			}
+		btnColor = new ColorChooserButton(Color.BLACK);
+		btnColor.addColorChangedListener(new ColorChangedListener() {
+		    public void colorChanged(Color newColor) {
+		    	editor.insertHTML(doc, offset, html, popDepth, pushDepth, insertTag);
+		    }
 		});
+		bar.add(btnColor);
 */
 		PanelVertical panelMensaje = new PanelVertical();
 		panelMensaje.add(panelTitulo);
@@ -263,6 +107,110 @@ public class VentanaNuevo extends Ventana {
 		setContentPane(panelPrincipal);
 	}
 	
+	public JButton getSeleccionar() {
+		return btnSeleccionar;
+	}
+
+	public JButton getEnviar() {
+		return btnEnviar;
+	}
+
+	public JButton getCancelar() {
+		return btnCancelar;
+	}
+
+	public JTextField getDestinatario() {
+		return inDestinatario;
+	}
+
+	public JTextPane getMensaje() {
+		return inMensaje;
+	}
+	
+	public HTMLEditorKit getEditor(){
+		return editor;
+	}
+	
+	public JTextField getTitulo() {
+		return inTitulo;
+	}
+	
+}
+
+
+
+/*
+String[] colores = {"Negro", "Azul", "Cyan", "Gris oscuro"
+		, "Gris", "Gris claro", "Verde", "Magenta", "Naranja"
+		, "Rosa", "Rojo", "Blanco", "Amarillo"};
+combo = new JComboBox(colores);
+combo.setSelectedIndex(0);
+combo.addActionListener(new ActionListener(){
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int i = combo.getSelectedIndex();
+		StyledDocument doc = inMensaje.getStyledDocument();
+        Style style = inMensaje.addStyle("negro", null);
+        int start = inMensaje.getSelectionStart();
+        int end = inMensaje.getSelectionEnd();
+        String txt = inMensaje.getSelectedText();
+		if(i==0){
+			style = inMensaje.addStyle("negro", null);
+			StyleConstants.setForeground(style, Color.BLACK);
+		} else if(i==1){
+			style = inMensaje.addStyle("azul", null);
+	        StyleConstants.setForeground(style, Color.BLUE);
+		} else if(i==2){
+			style = inMensaje.addStyle("cyan", null);
+			StyleConstants.setForeground(style, Color.CYAN);
+		} else if(i==3){
+			style = inMensaje.addStyle("grisoscuro", null);
+			StyleConstants.setForeground(style, Color.DARK_GRAY);
+		} else if(i==4){
+			style = inMensaje.addStyle("gris", null);
+			StyleConstants.setForeground(style, Color.GRAY);
+		} else if(i==5){
+			style = inMensaje.addStyle("grisclaro", null);
+			StyleConstants.setForeground(style, Color.LIGHT_GRAY);
+		} else if(i==6){
+			style = inMensaje.addStyle("verde", null);
+			StyleConstants.setForeground(style, Color.GREEN);
+		} else if(i==7){
+			style = inMensaje.addStyle("magenta", null);
+			StyleConstants.setForeground(style, Color.MAGENTA);
+		} else if(i==8){
+			style = inMensaje.addStyle("naranja", null);
+			StyleConstants.setForeground(style, Color.ORANGE);
+		} else if(i==9){
+			style = inMensaje.addStyle("rosa", null);
+			StyleConstants.setForeground(style, Color.PINK);
+		} else if(i==10){
+			style = inMensaje.addStyle("rojo", null);
+			StyleConstants.setForeground(style, Color.RED);
+		} else if(i==11){
+			style = inMensaje.addStyle("blanco", null);
+			StyleConstants.setForeground(style, Color.WHITE);
+		} else if(i==12){
+			style = inMensaje.addStyle("amarillo", null);
+			StyleConstants.setForeground(style, Color.YELLOW);
+		}
+        if(end != start){
+        	try {
+        		doc.setCharacterAttributes(start, txt.length(), style, false);
+        	} catch (Exception e1) {
+        		e1.printStackTrace();
+        	}
+		} else {
+			inMensaje.setCharacterAttributes(style, false);
+		}
+        inMensaje.grabFocus();
+        inMensaje.setSelectionStart(inMensaje.getSelectionEnd());
+	}
+});
+bar.add(combo);
+
+this.pack();
+
 	public void applyStyle() {
 	    String text = inMensaje.getText();
 	    int i = combo.getSelectedIndex();
@@ -293,53 +241,11 @@ public class VentanaNuevo extends Ventana {
 		} else if(i==12){
 			inMensaje.getStyledDocument().setCharacterAttributes(0, text.length(), inMensaje.getStyle("amarillo"), false);
 		}
-/*
+
 	    char[] textChar = text.toCharArray();
 	    for(int x=0, len=textChar.length; x<len; x++){
 	        if(Character.isDigit(textChar[x]))
 	            inMensaje.getStyledDocument().setCharacterAttributes(x, 1, inMensaje.getStyle("numbers"), true);
-	    }*/
+	    }
 	}
-	
-	private void changeColor() {
-		/*
-		cChooserDialog = JColorChooser.createDialog(new JFrame(),"Color Chooser",true,cChooser,new StyledEditorKit.ForegroundAction("Color",cChooser.getColor()),null);
-		cChooserDialog.setVisible(true);
-		*/
-		cChooser = new JColorChooser(color);
-        ActionListener okListener = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                color = cChooser.getColor();
-                JColorChooser.showDialog(new Frame(), "hola", color);
-                fcolor = new StyledEditorKit.ForegroundAction("Color", color);
-                repaint();
-            }
-        };
-        JColorChooser.createDialog(new Frame(), "Select color", true, cChooser, okListener, null).setVisible(true);
-	}
-
-	public JButton getSeleccionar() {
-		return btnSeleccionar;
-	}
-
-	public JButton getEnviar() {
-		return btnEnviar;
-	}
-
-	public JButton getCancelar() {
-		return btnCancelar;
-	}
-
-	public JTextField getDestinatario() {
-		return inDestinatario;
-	}
-
-	public JEditorPane getMensaje() {
-		return inMensaje;
-	}
-	
-	public JTextField getTitulo() {
-		return inTitulo;
-	}
-	
-}
+*/

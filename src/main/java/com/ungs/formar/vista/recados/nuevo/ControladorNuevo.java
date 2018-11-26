@@ -4,8 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.sql.Date;
 import java.util.List;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.StyledDocument;
 
 import com.ungs.formar.negocios.Mensajero;
 import com.ungs.formar.negocios.NotificacionManager;
@@ -61,6 +68,17 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 	public void actionPerformed(ActionEvent e) {}
 
 	private void enviar() {
+		/*
+		Document doc = ventana.getMensaje().getDocument();
+		MyOutputStream out = new MyOutputStream();
+		try {
+			//ventana.getEditor().write(writer, doc, 0, doc.getLength());
+			ventana.getEditor().write(out, doc, 0, doc.getLength());
+		} catch (IOException | BadLocationException e) {
+			e.printStackTrace();
+		}
+		String RTFText = out.getString();
+		*/
 		Empleado emisor = Sesion.getEmpleado();
 		String titulo = ventana.getTitulo().getText();
 		String mensaje = ventana.getMensaje().getText();
@@ -71,7 +89,7 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 		if(titulo.equals("")){
 			titulo = "Sin titulo";
 		}
-		if(mensaje.equals("")){
+		if(mensaje.isEmpty()){
 			Popup.mostrar("El mensaje esta vacio.");
 			return;
 		}
@@ -104,6 +122,17 @@ public class ControladorNuevo implements ActionListener, EmpleadoSeleccionable{
 	}
 	
 	private void enviarP() {
+		/*
+		Document doc = ventana.getMensaje().getDocument();
+		MyOutputStream out = new MyOutputStream(); //doc.getText(0, doc.getLength())
+		try {
+			//ventana.getEditor().write(writer, doc, 0, doc.getLength());
+			ventana.getEditor().write(out, doc, 0, doc.getLength());
+		} catch (IOException | BadLocationException e) {
+			e.printStackTrace();
+		}
+		String RTFText = out.getString();
+		*/
 		Empleado emisor = Sesion.getEmpleado();
 		String titulo = ventana.getTitulo().getText();
 		String mensaje = ventana.getMensaje().getText();
