@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +85,14 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 			cancelar();
 
 	}
+	
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
+	}
 
 	private void guardar() {
 		if (validarCampos()) {
@@ -92,7 +103,9 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 				Examen examen = examenes.get(i);
 				examen.setFecha(fecha);
 				examen.setDescripcion(nombre);
-				examen.setNota((Integer) ventana.getModelo().getValueAt(i, 2));
+				Double nota = (Double) ventana.getModelo().getValueAt(i, 2);
+				nota = round(nota,2);
+				examen.setNota(nota);
 			}
 			
 			Instructor.guardarNotasDeExamen(examenes);
@@ -136,7 +149,7 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 				break;
 			}
 			
-			int nota = (Integer) valor;
+			Double nota = (Double) valor;
 			if (nota >10 || nota <1) {
 				mensaje += "\n    -Todas las notas deben tener un valor entre 1 y 10 incluidos.";
 				break;

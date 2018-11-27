@@ -3,11 +3,12 @@ package com.ungs.formar.persistencia.entidades;
 import java.sql.Date;
 
 public class Examen {
-	private Integer ID, alumno, curso, nota;
+	private Integer ID, alumno, curso;
+	private Double nota;
 	private String descripcion;
 	private Date fecha;
 
-	public Examen(Integer ID, Integer alumno, Integer curso, Integer nota, String descripcion, Date fecha) {
+	public Examen(Integer ID, Integer alumno, Integer curso, Double nota, String descripcion, Date fecha) {
 		this.ID = ID;
 		this.alumno = alumno;
 		this.curso = curso;
@@ -40,11 +41,11 @@ public class Examen {
 		this.curso = curso;
 	}
 
-	public Integer getNota() {
+	public Double getNota() {
 		return nota;
 	}
 
-	public void setNota(Integer nota) {
+	public void setNota(Double nota) {
 		this.nota = nota;
 	}
 

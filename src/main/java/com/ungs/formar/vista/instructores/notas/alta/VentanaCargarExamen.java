@@ -66,7 +66,7 @@ public class VentanaCargarExamen {
 	                case 1:
 	                    return String.class;
 	                default:
-	                    return Integer.class;
+	                    return Double.class;
 	            }
 	        }
 		};

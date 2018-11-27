@@ -161,7 +161,7 @@ CREATE TABLE formar_examenes (
 	curso INT(4) DEFAULT NULL,
 	fecha DATE NOT NULL,
 	descripcion VARCHAR(50) NOT NULL,
-	nota INT(2) NOT NULL,
+	nota DOUBLE NOT NULL,
 	PRIMARY KEY (ID),
 	FOREIGN KEY (curso) REFERENCES formar_cursos(ID),
 	FOREIGN KEY (alumno) REFERENCES formar_alumnos(ID)

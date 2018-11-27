@@ -55,7 +55,7 @@ public class ExamenOBDMySQL extends ODB implements ExamenOBD {
 						resultados.getInt("ID"),
 						resultados.getInt("alumno"),
 						resultados.getInt("curso"),
-						resultados.getInt("nota"),
+						resultados.getDouble("nota"),
 						resultados.getString("descripcion"),
 						resultados.getDate("fecha")
 						));

@@ -13,10 +13,10 @@ import com.ungs.formar.vista.util.Popup;
 
 public class ReportesManager {
 
-	public static Integer notaFinal(Curso cursada, Alumno alumno) {
+	public static Double notaFinal(Curso cursada, Alumno alumno) {
 		List<String> examenes = Instructor.traerExamenesDeCurso(cursada);
 		Integer cantExamenes = 0;
-		Integer notas = 0;
+		Double notas = 0.00;
 		for (int i = 0; i < examenes.size(); i++) {
 			Examen examen = Instructor.traerNota(cursada, alumno, examenes.get(i));
 			if (examen != null) {
