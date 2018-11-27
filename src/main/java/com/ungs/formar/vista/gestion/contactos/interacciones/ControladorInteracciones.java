@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,8 @@ public class ControladorInteracciones implements ActionListener, AreaSeleccionab
 			String areaNombre = area == null ? "" : area.getNombre();
 			Programa programa = ProgramaManager.traerProgramaSegunID(interaccion.getCursoID());
 			String programaNombre = programa == null ? "" : programa.getNombre();
-			Object[] fila = { empleado.getApellido()+", "+empleado.getNombre(), interaccion.getFechaInteraccion(),
+			Object[] fila = { empleado.getApellido()+", "+empleado.getNombre(), 
+					new SimpleDateFormat("dd/MM/yyyy").format(interaccion.getFechaInteraccion()),
 					areaNombre, programaNombre, interaccion.getDescripcion()};
 			ventanaGestionarInteracciones.getModeloInteracciones().addRow(fila);
 		}
