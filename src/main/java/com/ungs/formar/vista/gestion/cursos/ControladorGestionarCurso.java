@@ -2,6 +2,7 @@ package com.ungs.formar.vista.gestion.cursos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -83,9 +84,9 @@ public class ControladorGestionarCurso implements ActionListener, Consultable, C
 			String estado = Formato.estado(this.cursos_en_tabla.get(i));
 			Integer cupoMinimo = this.cursos_en_tabla.get(i).getCupoMinimo();
 			Integer cupoMaximo = this.cursos_en_tabla.get(i).getCupoMaximo();
-			Date fechaInicio = this.cursos_en_tabla.get(i).getFechaInicio();
-			Date fechaFin = this.cursos_en_tabla.get(i).getFechaFin();
-			Date fechaCierre = this.cursos_en_tabla.get(i).getFechaCierre();
+			String fechaInicio = new SimpleDateFormat("dd/MM/yyyy").format(this.cursos_en_tabla.get(i).getFechaInicio());
+			String fechaFin = new SimpleDateFormat("dd/MM/yyyy").format(this.cursos_en_tabla.get(i).getFechaFin());
+			String fechaCierre = new SimpleDateFormat("dd/MM/yyyy").format(this.cursos_en_tabla.get(i).getFechaCierre());
 			Empleado instructor = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getInstructor());
 			Empleado responsable = EmpleadoManager.traerEmpleado(this.cursos_en_tabla.get(i).getResponsable());
 			List<HorarioCursada> horarios = CursoManager.obtenerHorariosDeCursada(this.cursos_en_tabla.get(i));
