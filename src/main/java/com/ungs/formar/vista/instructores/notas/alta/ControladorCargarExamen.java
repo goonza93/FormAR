@@ -85,14 +85,6 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 			cancelar();
 
 	}
-	
-	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
-
-	    BigDecimal bd = new BigDecimal(value);
-	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
-	}
 
 	private void guardar() {
 		if (validarCampos()) {
@@ -104,7 +96,7 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 				examen.setFecha(fecha);
 				examen.setDescripcion(nombre);
 				Double nota = (Double) ventana.getModelo().getValueAt(i, 2);
-				nota = round(nota,2);
+				nota = InscripcionManager.round(nota,2);
 				examen.setNota(nota);
 			}
 			

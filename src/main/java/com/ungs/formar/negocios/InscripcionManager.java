@@ -1,5 +1,7 @@
 package com.ungs.formar.negocios;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,12 +144,12 @@ public class InscripcionManager {
 		if(examenes.isEmpty() || alumnos.isEmpty())
 			return;
 		
-		double notas = 0;
+		Double notas = 0.0;
 		int cantExamenes = examenes.size();
 		
 
 		for(Alumno alumno : alumnos){
-			notas = 0;
+			notas = 0.0;
 			for(String nombreExamen : examenes){
 				Examen examen = Instructor.traerNota(curso, alumno, nombreExamen);
 				notas += examen.getNota();
@@ -156,9 +158,17 @@ public class InscripcionManager {
 			notas = notas / cantExamenes;
 			System.out.println("PROMEDIO "+notas);
 			Inscripcion inscripcion = traerInscripcion(alumno, curso);
-			inscripcion.setNota(notas);
+			inscripcion.setNota(round(notas,2));
 			actualizarInscripion(inscripcion);
 		}
+	}
+	
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
 	}
 	
 	public static double traerNotaFinal(Curso curso, Alumno alumno){
