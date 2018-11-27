@@ -2,11 +2,13 @@ package com.ungs.formar.vista.email;
 
 import java.awt.Dimension;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.ungs.formar.negocios.Configuracion;
 import com.ungs.formar.vista.util.EntradaTexto;
+import com.ungs.formar.vista.util.EntradaTextoPassword;
 import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
@@ -14,7 +16,8 @@ import com.ungs.formar.vista.util.Ventana;
 
 public class VentanaCambiarEmail extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private EntradaTexto inDireccion, inPassword;
+	private EntradaTexto inDireccion;
+	private EntradaTextoPassword inPassword;
 	private JButton btnAceptar, btnCancelar;
 
 	public VentanaCambiarEmail() {
@@ -24,7 +27,7 @@ public class VentanaCambiarEmail extends Ventana {
 		Dimension largoLabel = new Dimension(100, 30);
 		Dimension largoTexto = new Dimension(250, 30);
 		inDireccion = new EntradaTexto("Direccion", largoLabel, largoTexto);
-		inPassword = new EntradaTexto("Password", largoLabel, largoTexto);
+		inPassword = new EntradaTextoPassword("Password", largoLabel, largoTexto);
 		inDireccion.getTextField().setText(Configuracion.leerDireccionEmail());
 		
 		// BOTONES
@@ -55,7 +58,7 @@ public class VentanaCambiarEmail extends Ventana {
 	}
 	
 
-	public JTextField getInPassword() {
+	public JPasswordField getInPassword() {
 		return inPassword.getTextField();
 	}
 	

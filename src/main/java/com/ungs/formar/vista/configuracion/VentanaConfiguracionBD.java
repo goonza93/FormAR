@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.ungs.formar.negocios.Configuracion;
 import com.ungs.formar.vista.util.EntradaTexto;
+import com.ungs.formar.vista.util.EntradaTextoPassword;
 import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
 import com.ungs.formar.vista.util.PanelVertical;
@@ -15,7 +16,8 @@ import com.ungs.formar.vista.util.Ventana;
 
 public class VentanaConfiguracionBD extends Ventana {
 	private static final long serialVersionUID = 1L;
-	private EntradaTexto inUsuario, inPassword, inIP, inPuerto;
+	private EntradaTexto inUsuario, inIP, inPuerto;
+	private EntradaTextoPassword inPassword;
 	private JButton btnAceptar, btnCancelar;
 
 	public VentanaConfiguracionBD() {
@@ -26,7 +28,7 @@ public class VentanaConfiguracionBD extends Ventana {
 		Dimension largoTextfield = new Dimension(250, 25);
 		
 		inUsuario = new EntradaTexto("Usuario", largoLabel, largoTextfield);
-		inPassword = new EntradaTexto("Password", largoLabel, largoTextfield);
+		inPassword = new EntradaTextoPassword("Password", largoLabel, largoTextfield);
 		inIP = new EntradaTexto("IP", largoLabel, largoTextfield);
 		inPuerto = new EntradaTexto("Puerto", largoLabel, largoTextfield);
 		inUsuario.getTextField().setText(Configuracion.leerUsuarioBD());
