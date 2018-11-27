@@ -66,7 +66,7 @@ public class RenderCursadas extends DefaultTableCellRenderer
 
 	private boolean cambiarFondoFin(JTable table, int row2) {
 		String dateString2 = (String) table.getModel().getValueAt(row2, 9);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         if(dateString2.equals("")){
         	return false;
         }
@@ -84,7 +84,7 @@ public class RenderCursadas extends DefaultTableCellRenderer
 
 	private boolean cambiarFondoInicio(JTable table, int row2) {
 		String dateString1 = (String) table.getModel().getValueAt(row2, 8);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Date date1 = null;
 		try {
 			date1 = new Date(format.parse(dateString1).getTime());
