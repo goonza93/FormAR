@@ -30,7 +30,7 @@ public class ControladorSeleccionarArea implements ActionListener {
 		ventana.getModeloAreas().setColumnIdentifiers(ventana.getNombreColumnas());
 		
 		areas = AreaManager.traerTodo();
-		System.out.println(areas.size());
+		//System.out.println(areas.size());
 		for (Area area : areas) {
 			Object[] fila = {
 					area.getNombre(),

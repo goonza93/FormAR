@@ -199,7 +199,7 @@ public class Tesoreria {
 				pago.setPagoEnTermino(true);
 
 			actualizarPago(pago);
-			System.out.println(Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()));
+			//System.out.println(Almanaque.diferenciaEnMeses(fechaInicioCurso, Almanaque.hoy()));
 			fechaInicioCurso = new java.sql.Date(Almanaque.aumentarUnMes(fechaInicioCurso).getTime());
 		}
 	}
