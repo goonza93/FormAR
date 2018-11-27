@@ -100,11 +100,11 @@
 			</textField>
 			<textField>
 				<reportElement x="260" y="0" width="110" height="40" uuid="7b3cb927-55f7-4f20-b1ce-87b63705ae2b"/>
-				<textFieldExpression><![CDATA[$P{fechaInicio}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{fechaInicio}.get($V{REPORT_COUNT}-1));]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="372" y="0" width="98" height="40" uuid="8d21db9d-fb00-4c3c-a097-836a0c6fb982"/>
-				<textFieldExpression><![CDATA[$P{fechaFin}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($P{fechaFin}.get($V{REPORT_COUNT}-1));]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="470" y="0" width="70" height="30" uuid="bf751461-a6c5-45c8-afcb-9509ef29850b"/>
