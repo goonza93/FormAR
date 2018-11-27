@@ -67,7 +67,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 	private void seleccionarArchivo() {
 		List<Curso> seleccion = ventana.getTabla().obtenerSeleccion();
 		if (seleccion.size() != 1) {
-			Popup.mostrar("Debe seleccionar extamente 1 curso para consultar las notas de los examenes.");
+			Popup.mostrar("Debe seleccionar exactamente 1 curso para consultar las notas de los examenes.");
 			return;
 		}
 		
@@ -84,7 +84,7 @@ public class ControladorGestionAsistencias2 implements ActionListener, Controlad
 		File archivo = chooser.getSelectedFile();
 		if (result == JFileChooser.APPROVE_OPTION) {
 			if (archivo != null) {
-				if(Popup.confirmar("¿Esta seguro desea asignar "+archivo.getName()+" como programa especifico?")){
+				if(Popup.confirmar("¿Esta seguro que desea asignar "+archivo.getName()+" como programa especifico?")){
 					this.contenido = PdfManager.crearPdf(archivo);
 					PdfManager.guardarPdf(this.contenido);
 					seleccion.get(0).setContenido(contenido.getContenidoID());

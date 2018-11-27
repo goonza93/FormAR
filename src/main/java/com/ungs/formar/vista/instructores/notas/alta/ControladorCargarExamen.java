@@ -97,7 +97,6 @@ public class ControladorCargarExamen implements ActionListener, Consultable {
 			}
 			
 			Instructor.guardarNotasDeExamen(examenes);
-			Popup.mostrar("Las notas se han guardado correctamente.");
 			volver();
 		}
 	}

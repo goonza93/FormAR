@@ -87,7 +87,6 @@ public class ControladorTomarAsistencia implements ActionListener, Consultable {
 			asistencias.get(i).setPresente((Boolean)ventana.getModelo().getValueAt(i, 2)); // 2 es la columna presente, i es la fila
 		
 		Instructor.guardarAsistencias(asistencias);
-		Popup.mostrar("Las asistencias se han guardado correctamente.");
 		volver();
 	}
 

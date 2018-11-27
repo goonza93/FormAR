@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import com.ungs.formar.negocios.Configuracion;
 import com.ungs.formar.vista.util.EntradaTexto;
 import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.PanelHorizontal;
@@ -28,6 +29,10 @@ public class VentanaConfiguracionBD extends Ventana {
 		inPassword = new EntradaTexto("Password", largoLabel, largoTextfield);
 		inIP = new EntradaTexto("IP", largoLabel, largoTextfield);
 		inPuerto = new EntradaTexto("Puerto", largoLabel, largoTextfield);
+		inUsuario.getTextField().setText(Configuracion.leerUsuarioBD());
+		inIP.getTextField().setText(Configuracion.leerIP());
+		inPuerto.getTextField().setText(Configuracion.leerPuerto());
+		
 		
 		// BOTONES
 		btnAceptar = new JButton("Aceptar");
