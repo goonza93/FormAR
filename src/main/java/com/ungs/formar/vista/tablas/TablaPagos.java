@@ -1,5 +1,6 @@
 package com.ungs.formar.vista.tablas;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class TablaPagos extends JTable{
 					pago.getMes() + " de " + Tesoreria.cantCuotas(pago.getCursada()),
 					(pago.isPagoEnTermino() == false ? " NO " : "SI"),
 					(pago.isPagoCompleto() == false ? " NO " : " SI "),
-					(pago.getFecha() == null ? " - " : pago.getFecha())
+					(pago.getFecha() == null ? " - " : new SimpleDateFormat("dd/MM/yyyy").format(pago.getFecha()))
 			};
 			modelo.addRow(fila);
 		}

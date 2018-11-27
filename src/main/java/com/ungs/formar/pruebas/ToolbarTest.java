@@ -7,18 +7,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JToolBar;
@@ -26,6 +18,11 @@ import javax.swing.JToolBar;
 import com.ungs.formar.vista.util.Ventana;
 
 public class ToolbarTest extends Ventana {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public static final String FontNames[] = { "Serif", "SansSerif", "Courier" };
 
@@ -150,7 +147,8 @@ protected void createToolBar() {
       style |= Font.BOLD;
     if (italicMenu.isSelected())
       style |= Font.ITALIC;
-    Font fn = fonts[index].deriveFont(style);
+    @SuppressWarnings("unused")
+	Font fn = fonts[index].deriveFont(style);
   }
 
   public static void main(String argv[]) {

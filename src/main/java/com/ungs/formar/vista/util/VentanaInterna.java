@@ -1,7 +1,5 @@
 package com.ungs.formar.vista.util;
 
-import java.beans.PropertyVetoException;
-
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 

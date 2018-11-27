@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
-import com.jtattoo.plaf.texture.TextureLookAndFeel;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
 

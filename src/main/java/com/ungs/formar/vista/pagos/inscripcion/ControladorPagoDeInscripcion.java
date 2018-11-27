@@ -37,6 +37,7 @@ public class ControladorPagoDeInscripcion implements ActionListener{
 			cancelar();
 	}
 
+	@SuppressWarnings("unused")
 	private void registrar() {
 		Alumno alumno = ventana.getAlumno();
 		Curso curso = ventana.getCurso();

@@ -1,30 +1,24 @@
 package com.ungs.formar.pruebas;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JToolBar;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-
 import com.ungs.formar.vista.util.Ventana;
 
 public class ToolbarTest2 extends Ventana {
-  public JToolBar toolBar;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+public JToolBar toolBar;
   public JEditorPane text;
 
   public ToolbarTest2() {
@@ -49,7 +43,12 @@ public class ToolbarTest2 extends Ventana {
   }
 
   class SampleAction extends AbstractAction {
-	  public SampleAction(String text) {
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public SampleAction(String text) {
 		  super(text);
 	  }
 	  

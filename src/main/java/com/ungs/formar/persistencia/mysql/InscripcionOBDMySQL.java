@@ -6,12 +6,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.ungs.formar.persistencia.Definido;
 import com.ungs.formar.persistencia.ODB;
 import com.ungs.formar.persistencia.entidades.Alumno;
 import com.ungs.formar.persistencia.entidades.Curso;
-import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.persistencia.entidades.Inscripcion;
 import com.ungs.formar.persistencia.interfaces.InscripcionOBD;
 

@@ -3,23 +3,19 @@ package com.ungs.formar.vista.gestion.tareas;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import com.toedter.calendar.JDateChooser;
 import com.ungs.formar.persistencia.entidades.Empleado;
 import com.ungs.formar.vista.util.Imagen;
 import com.ungs.formar.vista.util.Sesion;
-
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
 public class VentanaTareaAM extends JFrame {
 	private static final long serialVersionUID = 1L;

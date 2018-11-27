@@ -7,17 +7,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-
 import com.ungs.formar.negocios.NotificacionManager;
 import com.ungs.formar.negocios.TareaManager;
 import com.ungs.formar.persistencia.definidos.TipoNotificacion;
 import com.ungs.formar.persistencia.entidades.Tarea;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorInterno;
 import com.ungs.formar.vista.pantallasPrincipales.ControladorPrincipal;
-import com.ungs.formar.vista.util.Formato;
 import com.ungs.formar.vista.util.Popup;
 import com.ungs.formar.vista.util.Sesion;
 

@@ -7,9 +7,7 @@ import java.util.Map;
 import com.ungs.formar.negocios.Tesoreria;
 import com.ungs.formar.persistencia.entidades.Pago;
 import com.ungs.formar.vista.util.Formato;
-
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;

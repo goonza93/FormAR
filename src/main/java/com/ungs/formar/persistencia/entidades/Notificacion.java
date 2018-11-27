@@ -1,6 +1,5 @@
 package com.ungs.formar.persistencia.entidades;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import com.ungs.formar.persistencia.definidos.TipoNotificacion;

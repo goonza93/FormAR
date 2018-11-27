@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
+@SuppressWarnings("serial")
 public class ColorChooserButton extends JButton {
 
     private Color current;

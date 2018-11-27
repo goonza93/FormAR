@@ -3,10 +3,10 @@ package com.ungs.formar.vista.gestion.cursos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+
 import com.ungs.formar.negocios.Almanaque;
 import com.ungs.formar.negocios.CursoManager;
 import com.ungs.formar.negocios.EmpleadoManager;

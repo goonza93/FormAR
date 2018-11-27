@@ -1,14 +1,5 @@
 package com.ungs.formar.vista.recados.leer;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
