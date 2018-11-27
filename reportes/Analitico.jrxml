@@ -91,10 +91,6 @@
 		<band height="47" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<textField>
-				<reportElement x="470" y="0" width="70" height="40" uuid="bf751461-a6c5-45c8-afcb-9509ef29850b"/>
-				<textFieldExpression><![CDATA[$P{nota}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="2" y="0" width="78" height="40" uuid="c731b59a-9b1c-4e52-8a5d-059e0a6f6282"/>
 				<textFieldExpression><![CDATA[$P{codigoCurso}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
 			</textField>
@@ -109,6 +105,10 @@
 			<textField>
 				<reportElement x="372" y="0" width="98" height="40" uuid="8d21db9d-fb00-4c3c-a097-836a0c6fb982"/>
 				<textFieldExpression><![CDATA[$P{fechaFin}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="70" height="30" uuid="bf751461-a6c5-45c8-afcb-9509ef29850b"/>
+				<textFieldExpression><![CDATA[$P{nota}.get($V{REPORT_COUNT}-1)]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="2" y="0" width="541" height="40" backcolor="rgba(109, 242, 209, 0.3019608)" uuid="16497a7d-eb1c-4d94-8a8e-f2e53ea3aff4"/>

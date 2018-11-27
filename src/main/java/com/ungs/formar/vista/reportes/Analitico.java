@@ -63,7 +63,7 @@ public class Analitico {
 		try {
 				this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes\\Analitico.jasper");
 				this.reporteLleno = JasperFillManager.fillReport(this.reporte, totalCursos,
-						new JRBeanCollectionDataSource(cursos));
+						new JRBeanCollectionDataSource(curso));
 				System.out.println("Se cargo correctamente el analitico.");
 		} catch (JRException ex) {
 			System.out.println("Ocurrio un error mientras se cargaba el archivo analitico.Jasper \n " + ex);
