@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 import com.jtattoo.plaf.acryl.AcrylLookAndFeel;
 import com.ungs.formar.vista.login.ControladorLogin;
 import com.ungs.formar.vista.login.VentanaIniciarSesion;
+import com.ungs.formar.vista.util.Popup;
 
 public class Main {
 	static TrayIcon trayIcon;
@@ -49,7 +50,7 @@ public class Main {
 			}
 			trayIcon.displayMessage("Hola", "Bienvenido al sistema FormAR.", MessageType.NONE);
 		} else
-			System.out.println("El sistema no soporta mensaje por notificacion...");
+			Popup.mostrar("Su sistema no soporta notificaciones.");
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();
 		ControladorLogin c = new ControladorLogin(v,trayIcon);
