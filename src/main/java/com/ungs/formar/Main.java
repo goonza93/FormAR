@@ -52,8 +52,6 @@ public class Main {
 			System.out.println("El sistema no soporta mensaje por notificacion...");
 		
 		VentanaIniciarSesion v = new VentanaIniciarSesion();
-		v.getUsuario().setText("user8"); // sacar antes de entregar
-		v.getPassword().setText("123"); // sacar antes de entregar
 		ControladorLogin c = new ControladorLogin(v,trayIcon);
 		c.inicializar();
 	}
