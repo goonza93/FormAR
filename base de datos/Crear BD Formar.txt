@@ -6,9 +6,6 @@ DROP DATABASE IF EXISTS formar_grupo4;
 CREATE DATABASE formar_grupo4;
 USE formar_grupo4;
 
-ALTER DATABASE formar_grupo4 CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-
-
 -- ESQUEMA SALAS
 CREATE TABLE formar_salas (
 	ID INT(4) AUTO_INCREMENT,
