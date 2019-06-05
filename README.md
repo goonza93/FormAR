@@ -1,6 +1,6 @@
 # FormAR
 
-##**_English_**
+## **_English_**
 
 **Instructions**
 1. To make it work, run script.sql to setup database.
@@ -12,7 +12,7 @@ This program helps administrate courses and has some other utilities the client 
 This is a final project made for a college class, by 4 members. 
 
 
-##**_Español_**
+## **_Español_**
 
 **Instrucciones** 
 1. Para que funcione, ejecutar script.sql para generar la base de datos.
